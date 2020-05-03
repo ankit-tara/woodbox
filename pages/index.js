@@ -1,203 +1,128 @@
-import Head from 'next/head'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Layout from "../src/Layout";
+import { Box, Container, Typography } from '@material-ui/core';
+import IconCard from '../src/components/IconCard';
+import EventIconCard from '../src/components/EventIconCard';
+import ProductCard from '../src/components/ProductCard';
+import EventCard from '../src/components/EventCard';
+import Banner from '../src/components/Banner';
+import CardHorizontal from '../src/components/CardHorizontal';
+import Testimonial from '../src/components/Testimonial';
+import { IconCardsData, EventIconCardsData, ProductCardsData, EventCardsData, OurConceptData, TestimonialData } from '../src/utils';
+import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles';
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const useStyles = makeStyles(theme => ({
+  ...commonStyles,
+  [theme.breakpoints.up('sm')]: desktopStyles,
+  [theme.breakpoints.between('xs', 'sm')]: TabStyles,
+  [theme.breakpoints.down('xs')]: mobileStyles
+}))
 
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+export default function Index() {
 
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
+  const classes = useStyles()
 
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+  return (
+    <Layout>
+      {/* Banner Section */}
+      <Banner />
 
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
+      {/* Buy/Rent Products in your College  Section */}
+      <section className={classes.section}>
+        <Container maxWidth="xl">
+          <Box className={classes.sectionHeader}>
+            <Typography variant="h3"> Buy / Rent Products in your College</Typography>
+            <Typography>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent  consectetuer adipiscing elit</Typography>
+          </Box>
+          <Box className={classes.IconCardWrapper}>
+            {IconCardsData.map((data, index) =>
+              <IconCard key={index} data={data} />
+            )}
+          </Box>
+        </Container>
+      </section>
 
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
+      {/* Events Section */}
+      <section className={classes.section} style={{ background: '#F3F3F3' }}>
+        <Container maxWidth="lg">
+          <Box className={classes.sectionHeader}>
+            <Typography variant="h2">Events</Typography>
+            <Typography>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent  consectetuer adipiscing elit</Typography>
+          </Box>
+          <Box className={classes.EventIconCardWrapper}>
+            {EventIconCardsData.map((data) =>
+              <EventIconCard key={data.id} data={data} />
+            )}
+          </Box>
+        </Container>
+      </section>
 
-        <a
-          href="https://zeit.co/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with ZEIT Now.
-          </p>
-        </a>
-      </div>
-    </main>
+      {/* Products Section */}
+      <section className={classes.section}>
+        <Container maxWidth="xl">
+          <Box className={classes.productsHeader}>
+            <Typography variant="h5">Newly Added Products</Typography>
+            <Typography variant="h3">Buy</Typography>
+          </Box>
+          <Box className={classes.EventIconCardWrapper}>
+            {ProductCardsData.map((data) =>
+              <ProductCard key={data.id} data={data} />
+            )}
+          </Box>
+        </Container>
 
-    <footer>
-      <a
-        href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
-      </a>
-    </footer>
+        <Container maxWidth="xl">
+          <Box className={classes.productsHeader}>
+            <Typography variant="h3">Rent</Typography>
+          </Box>
+          <Box className={classes.EventIconCardWrapper}>
+            {ProductCardsData.map((data) =>
+              <ProductCard key={data.id} data={data} />
+            )}
+          </Box>
+        </Container>
+      </section>
 
-    <style jsx>{`
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+      {/* Events Section */}
+      <section className={`${classes.section} ${classes.ptZero}`}>
+        <Container maxWidth="xl">
+          <Box className={classes.productsHeader}>
+            <Typography variant="h5">Newly Added Events</Typography>
+          </Box>
+          <Box className={classes.EventIconCardWrapper}>
+            {EventCardsData.map((data) =>
+              <EventCard key={data.id} data={data} />
+            )}
+          </Box>
+        </Container>
+      </section>
 
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+      <section className={classes.section} style={{ background: '#F3F3F3' }}>
+        <Container maxWidth="lg">
+          <Box className={classes.sectionHeader}>
+            <Typography variant="h2"> OUR CONCEPT</Typography>
+            <Typography>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent  consectetuer adipiscing elit</Typography>
+          </Box>
+          <Box className={classes.EventIconCardWrapper}>
+            {OurConceptData.map((data) =>
+              <CardHorizontal key={data.id} data={data} />
+            )}
+          </Box>
+        </Container>
+      </section>
 
-      footer {
-        width: 100%;
-        height: 100px;
-        border-top: 1px solid #eaeaea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+      <section className={classes.section} style={{ background: '#FFF6EF' }}>
+        <Container maxWidth="xl">
+          <Box className={classes.sectionHeader}>
+            <Typography variant="h2">REVIEW</Typography>
+            <Typography>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent  consectetuer adipiscing elit</Typography>
+          </Box>
+          <Testimonial data={TestimonialData} />
+        </Container>
+      </section>
 
-      footer img {
-        margin-left: 0.5rem;
-      }
+    </Layout>
+  );
+}
 
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .title a {
-        color: #0070f3;
-        text-decoration: none;
-      }
-
-      .title a:hover,
-      .title a:focus,
-      .title a:active {
-        text-decoration: underline;
-      }
-
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-      }
-
-      .title,
-      .description {
-        text-align: center;
-      }
-
-      .description {
-        line-height: 1.5;
-        font-size: 1.5rem;
-      }
-
-      code {
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-      }
-
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-
-      .card {
-        margin: 1rem;
-        flex-basis: 45%;
-        padding: 1.5rem;
-        text-align: left;
-        color: inherit;
-        text-decoration: none;
-        border: 1px solid #eaeaea;
-        border-radius: 10px;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-
-      .card:hover,
-      .card:focus,
-      .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
-      }
-
-      .card h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-
-      .card p {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-      }
-
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
-          flex-direction: column;
-        }
-      }
-    `}</style>
-
-    <style jsx global>{`
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-    `}</style>
-  </div>
-)
-
-export default Home
