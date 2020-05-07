@@ -45,7 +45,23 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  card:{
+    width: '31%',
+    height: '7.5rem',
+    margin: '1%'
+  },
+  image:{
+    width: '50px',
+    height: '50px',
+    marginBottom: '5px'
+  },
+  title:{
+    fontSize: '0.75rem',
+    lineHeight: '1rem'
+  },
+  cardBody:{
+    padding: '1rem !important'
+  }
 }
 
 export const TabStyles = {

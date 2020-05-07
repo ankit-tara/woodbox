@@ -5,8 +5,8 @@ import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
-  [theme.breakpoints.up('sm')]: desktopStyles,
-  [theme.breakpoints.between('xs', 'sm')]: TabStyles,
+  [theme.breakpoints.up('xl')]: desktopStyles,
+  [theme.breakpoints.between('xs', 'lg')]: TabStyles,
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 

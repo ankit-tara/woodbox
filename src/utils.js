@@ -147,6 +147,32 @@ export const ProductCardsData = [
     date: 'April 14',
     categories: [],
     saved:false
+  },
+  {
+    id: 'product5',
+    title: 'Immortal Reign',
+    image:{
+      url: '/static/images/product.png'
+    },
+    collegeName:'Gulzar College of Arts',
+    excerpt: 'Lorem ipsum dolor sit consectetuer..................',
+    price:'$15',
+    date: 'April 14',
+    categories: [],
+    saved:false
+  },
+  {
+    id: 'product6',
+    title: 'Immortal Reign',
+    image:{
+      url: '/static/images/product.png'
+    },
+    collegeName:'Gulzar College of Arts',
+    excerpt: 'Lorem ipsum dolor sit consectetuer..................',
+    price:'$15',
+    date: 'April 14',
+    categories: [],
+    saved:false
   }
 ]
 
@@ -192,6 +218,32 @@ export const EventCardsData = [
   },
   {
     id: 'event4',
+    title: 'Immortal Reign',
+    image:{
+      url: '/static/images/event.png'
+    },
+    collegeName:'Gulzar College of Arts',
+    excerpt: 'Lorem ipsum dolor sit consectetuer..................',
+    price:'$15',
+    date: '2020-01-06 17:06:41',
+    categories: [],
+    saved:false
+  },
+  {
+    id: 'event5',
+    title: 'Immortal Reign',
+    image:{
+      url: '/static/images/event.png'
+    },
+    collegeName:'Gulzar College of Arts',
+    excerpt: 'Lorem ipsum dolor sit consectetuer..................',
+    price:'$15',
+    date: '2020-01-06 17:06:41',
+    categories: [],
+    saved:false
+  },
+  {
+    id: 'event6',
     title: 'Immortal Reign',
     image:{
       url: '/static/images/event.png'

@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
             changeRating={changeRating}
             starDimension='24px'
             numberOfStars={1}
-            name={data.id}
+            id={data.id}
           />
         </div>
         <div className={classes.cardBody}>

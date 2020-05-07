@@ -33,7 +33,7 @@ export const commonStyles = {
   },
   card:{
     width: '100%',
-    height: '500px',
+    minHeight: '500px',
     boxShadow: '0 14px 18px rgba(0,0,0,0.05)',
   },
   cardBody:{
@@ -51,7 +51,22 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  carousel:{
+    marginTop: '2rem',
+    '& .swiper-button-prev': {
+      transform: 'scale(0.6)'
+    },
+    '& .swiper-button-next': {
+      transform: 'scale(0.6)'
+    }
+  },
+  review:{
+    fontSize: '14px',
+    marginTop: '1rem'
+  },
+  cardBody:{
+    padding: '2rem'
+  }
 }
 
 export const TabStyles = {

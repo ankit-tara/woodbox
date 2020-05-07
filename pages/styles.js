@@ -76,7 +76,38 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  section:{
+    padding: '2.5rem 0'
+  },
+  sectionHeader: {
+    '& h3': {
+      marginBottom: '1rem',
+      lineHeight: '2rem'
+    },
+    '& h2': {
+      marginBottom: '1rem',
+    },
+    '& p': {
+      fontSize: '14px',
+    }
+  },
+  IconCardWrapper:{
+    '&::after': {
+      display: 'none'
+    },
+    '&::before': {
+      width: '20rem',
+      height: '20rem'
+    }
+  },
+  EventIconCardWrapper:{
+    '& .swiper-button-prev': {
+      display: 'none',
+    },
+    '& .swiper-button-next': {
+      display: 'none',
+    }
+  }
 }
 
 export const TabStyles = {

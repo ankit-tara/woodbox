@@ -9,6 +9,7 @@ import EventCard from '../src/components/EventCard';
 import Banner from '../src/components/Banner';
 import CardHorizontal from '../src/components/CardHorizontal';
 import Testimonial from '../src/components/Testimonial';
+import Swiper from 'react-id-swiper';
 import { IconCardsData, EventIconCardsData, ProductCardsData, EventCardsData, OurConceptData, TestimonialData } from '../src/utils';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles';
 
@@ -22,6 +23,36 @@ const useStyles = makeStyles(theme => ({
 export default function Index() {
 
   const classes = useStyles()
+
+  const params = {
+    loop: false,
+    slidesPerView: '4',
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+    scrollbar: {
+      el: '.swiper-scrollbar',
+      hide: false
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: '1.2',
+      },
+      480:{
+        slidesPerView: '2',
+      },
+      768:{
+        slidesPerView: '2',
+      },
+      1100:{
+        slidesPerView: '3',
+      },
+      1400:{
+        slidesPerView: '4',
+      }
+    }
+  }
 
   return (
     <Layout>
@@ -37,7 +68,7 @@ export default function Index() {
           </Box>
           <Box className={classes.IconCardWrapper}>
             {IconCardsData.map((data, index) =>
-              <IconCard key={index} data={data} />
+              <IconCard key={data.id} data={data} />
             )}
           </Box>
         </Container>
@@ -66,9 +97,13 @@ export default function Index() {
             <Typography variant="h3">Buy</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {ProductCardsData.map((data) =>
-              <ProductCard key={data.id} data={data} />
-            )}
+            <Swiper {...params}>
+              {ProductCardsData.map((data) =>
+                <div key={data.id}>
+                  <ProductCard data={data} />
+                </div>
+              )}
+            </Swiper>
           </Box>
         </Container>
 
@@ -77,9 +112,13 @@ export default function Index() {
             <Typography variant="h3">Rent</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {ProductCardsData.map((data) =>
-              <ProductCard key={data.id} data={data} />
-            )}
+            <Swiper {...params}>
+              {ProductCardsData.map((data) =>
+                <div key={data.id}>
+                  <ProductCard data={data} />
+                </div>
+              )}
+            </Swiper>
           </Box>
         </Container>
       </section>
@@ -91,9 +130,13 @@ export default function Index() {
             <Typography variant="h5">Newly Added Events</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {EventCardsData.map((data) =>
-              <EventCard key={data.id} data={data} />
-            )}
+            <Swiper {...params}>
+              {EventCardsData.map((data) =>
+                <div>
+                  <EventCard key={data.id} data={data} />
+                </div>
+              )}
+              </Swiper>
           </Box>
         </Container>
       </section>

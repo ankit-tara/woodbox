@@ -21,17 +21,21 @@ const Testimonial = ({ data }) => {
     effect: 'coverflow',
     grabCursor: true,
     centeredSlides: true,
-    slidesPerView: '2',
+    slidesPerView: '1',
     coverflowEffect: {
       rotate: 0,
       stretch: 0,
       depth: 600,
       modifier: 1,
-      // slideShadows: true
     },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev'
+    },
+    breakpoints: {
+      600: {
+        slidesPerView: '2',
+      }
     }
   }
 

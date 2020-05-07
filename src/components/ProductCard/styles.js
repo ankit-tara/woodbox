@@ -6,9 +6,9 @@ export const commonStyles = {
   card: {
     border: '#D6D6D6 solid 4px',
     boxShadow: 'none',
-    width: '330px',
-    height: '330px',
-    margin: '1rem 0.5rem'
+    width: 'auto',
+    maxWidth: '100%',
+    margin: '1rem 1rem 1rem 0'
   },
   Orangecard:{
     border: 'solid 4px #FC821A'
@@ -75,7 +75,19 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  title:{
+    fontSize: '1rem'
+  },
+  image:{
+    width: '100px',
+    height: '90px'
+  },
+  excerpt:{
+    fontSize: '14px'
+  },
+  cardFooter:{
+    marginTop: '1rem'
+  }
 }
 
 export const TabStyles = {

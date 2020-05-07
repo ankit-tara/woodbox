@@ -6,12 +6,12 @@ export const commonStyles = {
   card: {
     border: 'none',
     boxShadow: '0 14px 18px rgba(0,0,0,0.09)',
-    width: '330px',
-    margin: '1rem 0.5rem',
+    width: '90%',
+    margin: '1rem 1rem 1rem 0',
     display: 'grid'
   },
   cardInner: {
-    height: '100%',
+    // height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -73,7 +73,21 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  title: {
+    fontSize: '1rem'
+  },
+  image: {
+    height: '220px'
+  },
+  excerpt: {
+    fontSize: '14px'
+  },
+  cardFooter: {
+    marginTop: '1rem'
+  },
+  college:{
+    fontSize: '0.8rem'
+  }
 }
 
 export const TabStyles = {

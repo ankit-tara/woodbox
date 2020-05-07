@@ -55,7 +55,29 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  card: {
+    '& .cardBody': {
+      flexDirection: 'column'
+    },
+    '&:nth-child(even) .cardBody': {
+      flexDirection: 'column'
+    },
+    '& .image': {
+      width: '100%',
+      marginRight: '0',
+      objectFit: 'contain',
+      marginBottom: '1rem'
+    },
+    '&:nth-child(even) .image': {
+      marginLeft: '0',
+    },
+    '&:nth-child(even) .content': {
+      textAlign: 'left',
+    },
+  },
+  excerpt:{
+    fontSize: '14px'
+  }
 }
 
 export const TabStyles = {

@@ -7,9 +7,9 @@ export const commonStyles = {
     border: 'none',
     background: 'none',
     boxShadow: 'none',
-    width: '324px',
-    height: '310px',
-    margin: '1rem 0.5rem',
+    width: '284px',
+    height: '284px',
+    margin: '1rem',
     '&:hover': {
       background: '#fff',
       boxShadow: '0 14px 18px rgba(0,0,0,0.09)'
@@ -20,11 +20,12 @@ export const commonStyles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%'
+    height: '100%',
+    textAlign: 'center'
   },
   image: {
-    width: '150px',
-    height: '167px',
+    width: '100px',
+    height: '127px',
     objectFit: 'contain'
   },
   eventName: {
@@ -33,7 +34,26 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-
+  card: {
+    width: '31%',
+    height: '7.5rem',
+    margin: '1%'
+  },
+  image: {
+    width: '50px',
+    height: '50px',
+    marginBottom: '5px'
+  },
+  eventName: {
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    wordBreak: 'break-all',
+    marginTop:0
+  },
+  cardBody: {
+    padding: '1rem !important',
+    display: 'block'
+  }
 }
 
 export const TabStyles = {
@@ -41,5 +61,13 @@ export const TabStyles = {
 }
 
 export const desktopStyles = {
-
+  card: {
+    width: '324px',
+    height: '310px',
+  },
+  image: {
+    width: '150px',
+    height: '167px',
+    objectFit: 'contain'
+  },
 }
