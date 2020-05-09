@@ -57,7 +57,26 @@ export const mobileStyles = {
 }
 
 export const TabStyles = {
-
+  card: {
+    width: '200px',
+    height: '8.5rem',
+    margin: '1%'
+  },
+  image: {
+    width: '80px',
+    height: '80px',
+    marginBottom: '5px'
+  },
+  eventName: {
+    fontSize: '1rem',
+    lineHeight: '1.2rem',
+    wordBreak: 'break-all',
+    marginTop: 0
+  },
+  cardBody: {
+    padding: '1rem !important',
+    display: 'block'
+  }
 }
 
 export const desktopStyles = {

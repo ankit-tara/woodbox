@@ -15,9 +15,9 @@ import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles';
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
-  [theme.breakpoints.up('sm')]: desktopStyles,
-  [theme.breakpoints.between('xs', 'sm')]: TabStyles,
-  [theme.breakpoints.down('xs')]: mobileStyles
+  [theme.breakpoints.up('md')]: desktopStyles,
+  [theme.breakpoints.between('sm', 'md')]: TabStyles,
+  [theme.breakpoints.down('sm')]: mobileStyles
 }))
 
 export default function Index() {
@@ -107,6 +107,8 @@ export default function Index() {
           </Box>
         </Container>
 
+        <Box style={{margin:'3rem 0'}}/>
+
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
             <Typography variant="h3">Rent</Typography>
@@ -132,8 +134,8 @@ export default function Index() {
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
               {EventCardsData.map((data) =>
-                <div>
-                  <EventCard key={data.id} data={data} />
+                <div key={data.id}>
+                  <EventCard data={data} />
                 </div>
               )}
               </Swiper>

@@ -81,7 +81,17 @@ export const mobileStyles = {
 }
 
 export const TabStyles = {
-
+  card: {
+    '& .image': {
+      marginRight: '2rem',
+    },
+    '&:nth-child(even) .image': {
+      marginLeft: '2rem',
+    },
+  },
+  Button:{
+    marginTop: '1.5rem'
+  }
 }
 
 export const desktopStyles = {

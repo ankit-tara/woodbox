@@ -7,13 +7,12 @@ import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import useNavbar from '../utils/useNavbar'
-import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../styles'
+import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
-  [theme.breakpoints.up('sm')]: desktopStyles,
-  [theme.breakpoints.between('xs', 'sm')]: TabStyles,
-  [theme.breakpoints.down('xs')]: mobileStyles
+  [theme.breakpoints.up('md')]: desktopStyles,
+  [theme.breakpoints.down('md')]: TabStyles,
 }))
 
 function Header({ data }) {

@@ -111,7 +111,11 @@ export const mobileStyles = {
 }
 
 export const TabStyles = {
-
+  IconCardWrapper: {
+    '&::after': {
+      display: 'none'
+    }
+  }
 }
 
 export const desktopStyles = {

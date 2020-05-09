@@ -47,6 +47,11 @@ export const commonStyles = {
   review:{
     marginTop: '1.5rem',
     fontSize: '1.2rem'
+  },
+  image:{
+    width: '160px',
+    height: '160px',
+    borderRadius: '50%'
   }
 }
 

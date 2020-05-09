@@ -5,7 +5,7 @@
 export const commonStyles = {
   card: {
     border: 'none',
-    boxShadow: '0 14px 18px rgba(0,0,0,0.09)',
+    boxShadow: 'none',
     width: '90%',
     margin: '1rem 1rem 1rem 0',
     display: 'grid'

@@ -12,6 +12,7 @@ export const commonStyles = {
 
 export const mobileStyles = {
   Main: {
+    paddingTop: '56px',
     '& .swiper-container-horizontal > .swiper-scrollbar': {
       display: 'block',
       bottom: '0'
