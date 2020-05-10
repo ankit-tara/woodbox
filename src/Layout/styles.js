@@ -3,6 +3,11 @@
 // } from 'src/_styles/colors'
 
 export const commonStyles = {
+  Wrapper:{
+    '& a': {
+      cursor: 'pointer !important'
+    }
+  },
   Main:{
     '& .swiper-container-horizontal > .swiper-scrollbar': {
       display: 'none'
