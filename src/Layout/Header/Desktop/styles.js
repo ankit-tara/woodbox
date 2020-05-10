@@ -8,7 +8,7 @@ export const commonStyles = {
     position: 'fixed',
     top: '0',
     left: '0',
-    width: '100%',
+    width: '100vw',
     zIndex: '99',
     backgroundColor: '#fff',
     transition: 'all ease-in 350ms'
@@ -17,7 +17,7 @@ export const commonStyles = {
     position: 'fixed',
     top: '0',
     left: '0',
-    width: '100%',
+    width: '100vw',
     zIndex: '99',
     backgroundColor: '#fff',
     boxShadow: '0px 14px 18px rgba(0,0,0,0.1)'

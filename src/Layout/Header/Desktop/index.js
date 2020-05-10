@@ -7,6 +7,8 @@ import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import useNavbar from '../utils/useNavbar'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 
 const useStyles = makeStyles(theme => ({
@@ -15,9 +17,19 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('md')]: TabStyles,
 }))
 
-function Header({ data }) {
+function Header({ modalOpen }) {
 
   const { isScrolled, navBarRef } = useNavbar()
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const classes = useStyles()
 
@@ -50,7 +62,20 @@ function Header({ data }) {
               <li><SearchIcon /></li>
               <li><ChatIcon /></li>
               <li><NotificationsNoneIcon /></li>
-              <li><AccountCircleIcon /></li>
+              <li>
+                <AccountCircleIcon onClick={handleClick}/>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>Login</MenuItem>
+                  <MenuItem onClick={modalOpen}>Sign Up</MenuItem>
+                  <MenuItem>Logout</MenuItem>
+                </Menu>
+              </li>
             </ul>
           </Grid>
         </Grid>

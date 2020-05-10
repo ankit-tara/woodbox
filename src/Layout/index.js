@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Header from "./Header";
 import Footer from "./Footer";
 import BottomNavigation from "./Footer/BottomNavigation";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
@@ -17,6 +18,8 @@ export default function Layout (props) {
   
   const classes = useStyles()
 
+  const [isLoaded, setisLoaded] = React.useState(0);
+
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
   const BottomNav = matches ? <BottomNavigation /> : null
 
@@ -28,6 +31,10 @@ export default function Layout (props) {
       </div>
       <Footer />
       {BottomNav}
+      {isLoaded &&
+        <div className={classes.loader}>
+          <CircularProgress />
+        </div>}
     </div>
   )
 };

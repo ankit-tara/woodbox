@@ -12,6 +12,18 @@ export const commonStyles = {
     '& .swiper-container-horizontal > .swiper-scrollbar': {
       display: 'none'
     }
+  },
+  loader:{
+    position: 'fixed',
+    width: '100vW',
+    height: '100vh',
+    display: 'flex',
+    top:0,
+    left:0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex:9999,
+    background: 'rgba(0,0,0,0.7)'
   }
 }
 
