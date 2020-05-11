@@ -15,9 +15,15 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import EventNoteRoundedIcon from '@material-ui/icons/EventNoteRounded';
+import LocalMallRoundedIcon from '@material-ui/icons/LocalMallRounded';
+import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded';
+import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { commonStyles} from './styles'
@@ -63,21 +69,30 @@ export default function SearchAppBar() {
             </div>
             <Divider />
             <List>
-              {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-            <Divider />
-            <List>
-              {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
+              <ListItem button>
+                <ListItemIcon><HomeRoundedIcon /></ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
+                <ListItemText primary="Buy" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
+                <ListItemText primary="Rent" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><EventNoteRoundedIcon /></ListItemIcon>
+                <ListItemText primary="Event" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><LiveTvRoundedIcon /></ListItemIcon>
+                <ListItemText primary="My Ads" />
+              </ListItem>
             </List>
           </Drawer>
           <Link to="/">
