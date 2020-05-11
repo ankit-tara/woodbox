@@ -11,7 +11,7 @@ import CardHorizontal from '../src/components/CardHorizontal';
 import Testimonial from '../src/components/Testimonial';
 import Swiper from 'react-id-swiper';
 import { IconCardsData, EventIconCardsData, ProductCardsData, EventCardsData, OurConceptData, TestimonialData } from '../src/utils';
-import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles';
+import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,

@@ -7,7 +7,7 @@ export const commonStyles = {
     padding: '5rem 0',
     position: 'relative'
   },
-  ptZero:{
+  ptZero: {
     paddingTop: '0'
   },
   sectionHeader: {
@@ -76,7 +76,7 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
-  section:{
+  section: {
     padding: '2.5rem 0'
   },
   sectionHeader: {
@@ -91,7 +91,7 @@ export const mobileStyles = {
       fontSize: '14px',
     }
   },
-  IconCardWrapper:{
+  IconCardWrapper: {
     '&::after': {
       display: 'none'
     },
@@ -100,7 +100,7 @@ export const mobileStyles = {
       height: '20rem'
     }
   },
-  EventIconCardWrapper:{
+  EventIconCardWrapper: {
     '& .swiper-button-prev': {
       display: 'none',
     },
