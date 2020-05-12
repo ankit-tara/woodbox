@@ -6,6 +6,7 @@ import IconCard from '../src/components/IconCard';
 import EventIconCard from '../src/components/EventIconCard';
 import ProductCard from '../src/components/ProductCard';
 import EventCard from '../src/components/EventCard';
+// import Advertisement from '../src/components/Advertisement';
 import Banner from '../src/components/Banner';
 import CardHorizontal from '../src/components/CardHorizontal';
 import Testimonial from '../src/components/Testimonial';
@@ -56,6 +57,7 @@ export default function Index() {
 
   return (
     <Layout>
+      {/* <Advertisement/> */}
       {/* Banner Section */}
       <Banner />
 

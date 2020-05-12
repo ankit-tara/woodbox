@@ -56,12 +56,24 @@ export const commonStyles = {
       width: '1.3em',
       height: '1.3em'
     }
+  },
+  Copyright:{
+    backgroundColor: '#C2C2C2',
+    padding: '1rem',
+    textAlign: 'center',
+    '& p':{
+      color: '#000',
+      fontWeight: '500'
+    }
   }
 }
 
 export const mobileStyles = {
-  Footer:{
-    marginBottom: '3.5rem'
+  Copyright:{
+    marginBottom: '3.5rem',
+    '& p': {
+      fontSize: '14px'
+    }
   },
   FooterMenu: {
     '& ul': {
@@ -77,7 +89,7 @@ export const mobileStyles = {
 }
 
 export const TabStyles = {
-  Footer: {
+  Copyright: {
     marginBottom: '3.5rem'
   },
 }
