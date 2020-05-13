@@ -4,6 +4,7 @@ import { Box, Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     Ad:{
+      margin:'1rem 0',
       '& img':{
         width: '100%',
         height: 'auto'

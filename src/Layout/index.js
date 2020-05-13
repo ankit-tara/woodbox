@@ -18,7 +18,7 @@ export default function Layout (props) {
   
   const classes = useStyles()
 
-  const [isLoaded, setisLoaded] = React.useState(0);
+  const [isLoaded, setisLoaded] = React.useState(false);
 
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
   const BottomNav = matches ? <BottomNavigation /> : null
