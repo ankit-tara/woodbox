@@ -120,6 +120,27 @@ export const commonStyles = {
     display: 'grid',
     gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
     padding: '2rem 0'
+  },
+  productContentSection:{
+    margin: '3rem 0',
+    padding: '2rem',
+    backgroundSize: '120%',
+    textAlign: 'center',
+    backgroundPosition: 'center', 
+    '& h4':{
+      fontWeight: '600',
+    },
+    '& button':{
+      marginTop: '6rem',
+      marginBottom: '2rem',
+      width: '290px',
+      height: '51px',
+      border: '2px solid #000',
+      background: 'none',
+      borderRadius: '5px',
+      fontSize: '1rem',
+      fontWeight: '600'
+    }
   }
 }
 

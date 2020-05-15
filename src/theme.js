@@ -72,7 +72,7 @@ theme.typography.h5 = {
 
 theme.typography.h6 = {
   fontSize: '1.4rem',
-  fontWeight: 'bold',
+  fontWeight: '600',
   [theme.breakpoints.down('md')]: {
     fontSize: '1rem',
   },

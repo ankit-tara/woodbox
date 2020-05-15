@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../src/Layout";
 import { Box, Container, Grid, Typography } from '@material-ui/core';
 import ProductCard from '../src/components/ProductCard';
+import Sidebar from '../src/components/Sidebar';
 import Advertisement from '../src/components/Advertisement';
 import CardHorizontal from '../src/components/CardHorizontal';
 import Testimonial from '../src/components/Testimonial';
@@ -33,10 +34,10 @@ export default function Products() {
         </Container>
         <Container maxWidth="xl">
           <Grid container>
-            <Grid item lg={3} md={3} sm={3} xs={12}>
-                Sidebar
+            <Grid item lg={3} md={3} sm={12} xs={12}>
+              <Sidebar/>
             </Grid>
-            <Grid item lg={9} md={9} sm={9} xs={12}>
+            <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>
                 {ProductCardsData.map((data) =>
                   <div key={data.id}>
@@ -44,8 +45,8 @@ export default function Products() {
                   </div>
                 )}
               </Box>
-              <Box style={{ margin: '3rem 0' }}>
-                <Typography>Want to see Your Stuffs Here ?</Typography>
+              <Box style={{ backgroundImage:'url(/static/images/boxbg.png)' }} className={classes.productContentSection}>
+                <Typography variant="h4" >Want to see Your Stuffs Here ?</Typography>
                 <Typography>Make Some extra caMake Some extra cash by selling things sh by selling things</Typography>
                 <button>Selling Product</button>
               </Box>

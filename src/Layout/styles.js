@@ -3,26 +3,34 @@
 // } from 'src/_styles/colors'
 
 export const commonStyles = {
-  Wrapper:{
+  Wrapper: {
+    '& ::-webkit-scrollbar': {
+      width: '10px',
+      backgroundColor: '#F5F5F5',
+    },
+    '& ::-webkit-scrollbar-thumb': {
+      backgroundColor: '#F90',
+      backgroundImage: '-webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,	  transparent 75%, transparent)'
+    },
     '& a': {
       cursor: 'pointer !important'
     }
   },
-  Main:{
+  Main: {
     '& .swiper-container-horizontal > .swiper-scrollbar': {
       display: 'none'
     }
   },
-  loader:{
+  loader: {
     position: 'fixed',
     width: '100vW',
     height: '100vh',
     display: 'flex',
-    top:0,
-    left:0,
+    top: 0,
+    left: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex:9999,
+    zIndex: 9999,
     background: 'rgba(0,0,0,0.7)'
   }
 }
