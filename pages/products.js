@@ -1,12 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../src/Layout";
-import { Box, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Container, Grid, Typography } from '@material-ui/core';
 import ProductCard from '../src/components/ProductCard';
 import Sidebar from '../src/components/Sidebar';
 import Advertisement from '../src/components/Advertisement';
 import CardHorizontal from '../src/components/CardHorizontal';
 import Testimonial from '../src/components/Testimonial';
+import TuneIcon from '@material-ui/icons/Tune';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { ProductCardsData, OurConceptData, TestimonialData } from '../src/utils';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
 
@@ -20,6 +22,12 @@ const useStyles = makeStyles(theme => ({
 export default function Products() {
 
   const classes = useStyles()
+
+  const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
+
+  const intialState = matches ? false : true
+
+  const [showsidebar, setshowsidebar] = React.useState(intialState);
 
   return (
     <Layout>
@@ -35,7 +43,8 @@ export default function Products() {
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={3} md={3} sm={12} xs={12}>
-              <Sidebar/>
+              {/* {matches && (<Button className={classes.fliterBtn} onClick={setshowsidebar(!showsidebar)}><TuneIcon />Filter</Button>)} */}
+              {showsidebar && <Sidebar/>}
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>

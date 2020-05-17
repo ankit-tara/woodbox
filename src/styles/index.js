@@ -141,6 +141,17 @@ export const commonStyles = {
       fontSize: '1rem',
       fontWeight: '600'
     }
+  },
+  fliterBtn:{
+    background: '#FD8118',
+    color: '#fff',
+    width: '1rem',
+    marginLeft: 'auto',
+    marginTop: '1rem',
+    marginRight: '5px',
+    width: '8rem',
+    height: '2.5rem',
+    display: 'flex'
   }
 }
 
