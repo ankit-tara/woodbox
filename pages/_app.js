@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import 'swiper/css/swiper.css'
+import 'react-image-gallery/styles/css/image-gallery.css'
 
 
 export default function MyApp(props) {

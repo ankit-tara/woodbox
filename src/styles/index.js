@@ -152,6 +152,14 @@ export const commonStyles = {
     width: '8rem',
     height: '2.5rem',
     display: 'flex'
+  },
+  Breadcrumbs:{
+    '& a':{
+      fontWeight: '500'
+    },
+    '& p':{
+      fontWeight: '500'
+    }
   }
 }
 
