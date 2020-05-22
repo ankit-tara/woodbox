@@ -18,6 +18,7 @@ export const commonStyles = {
     borderRadius: '50%',
     marginTop: '2rem',
     width: '200px',
+    height: '200px',
     border: 'solid 2px #fd8118',
     position: 'relative',
     overflow:'hidden',
@@ -50,19 +51,74 @@ export const commonStyles = {
     backgroundColor: '#FD8118',
     color: '#fff',
     fontSize: '1rem',
-    boxShadow: 'none'
+    boxShadow: 'none',
+    maxWidth: '200px'
     },
   vHide:{
     visibility: 'hidden'
-  }
+  },
+  form:{
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& .MuiTextField-root':{
+      // marginBottom: '1rem'
+    }
+  },
+  card:{
+    boxShadow: 'none',
+    border: '#ccc solid 1px',
+    height: '100%'
+    // width: 'max-content'
+  },
+  cardBody:{
+    padding: '2rem !important' 
+  },
+  formInput:{
+    marginBottom: '1rem',
+    marginTop: '1rem',
+    width: '50%'
+  },
+  formInputFullWidth:{
+    marginBottom: '1rem',
+    marginTop: '1rem',
+    width: '100%'
+  },
+  formInputField:{
+    width: '80%',
+     '& .MuiTextField-root':{
+       width: '100%'
+     }
+  },
+  formInputFieldFull:{
+    width: '90%',
+    '& .MuiTextField-root': {
+      width: '100%'
+    }
+  },
+  // formInputIcon:{
+  //   background: '#FD8118',
+  //   color: '#fff',
+  //   padding: '0.5rem'
+  // }
 }
 
 export const mobileStyles = {
-
+  ProfileContainer: {
+    marginRight: '0',
+    marginBottom: '2rem'
+  },
+  formInput:{
+    width: '100%'
+  },
+  formInputFieldFull: {
+    width: '80%',
+  }
 }
 
 export const TabStyles = {
-
+  ProfileContainer:{
+    marginRight: '1.5rem'
+  }
 }
 
 export const desktopStyles = {
