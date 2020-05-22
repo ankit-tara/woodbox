@@ -10,7 +10,7 @@ import useNavbar from '../utils/useNavbar'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
-
+import AuthIcon from '../../../components/Login_Register'
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
   [theme.breakpoints.up('md')]: desktopStyles,
@@ -63,7 +63,8 @@ function Header({ modalOpen }) {
               <li><ChatIcon /></li>
               <li><NotificationsNoneIcon /></li>
               <li>
-                <AccountCircleIcon onClick={handleClick}/>
+                <AuthIcon/>
+                {/* <AccountCircleIcon onClick={handleClick}/>
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
@@ -74,7 +75,7 @@ function Header({ modalOpen }) {
                   <MenuItem>Login</MenuItem>
                   <MenuItem onClick={modalOpen}>Sign Up</MenuItem>
                   <MenuItem>Logout</MenuItem>
-                </Menu>
+                </Menu> */}
               </li>
             </ul>
           </Grid>
