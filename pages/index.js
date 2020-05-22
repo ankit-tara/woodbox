@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../src/Layout";
-import { Box, Container, Typography } from '@material-ui/core';
+import { Box, Container, Grid, Typography } from '@material-ui/core';
 import IconCard from '../src/components/IconCard';
 import EventIconCard from '../src/components/EventIconCard';
 import ProductCard from '../src/components/ProductCard';
@@ -143,6 +143,7 @@ export default function Index() {
         </Container>
       </section>
 
+      {/* Our concept Section */}
       <section className={classes.section} style={{ background: '#F3F3F3' }}>
         <Container maxWidth="lg">
           <Box className={classes.sectionHeader}>
@@ -157,6 +158,7 @@ export default function Index() {
         </Container>
       </section>
 
+      {/* Review Section */}
       <section className={classes.section} style={{ background: '#FFF6EF' }}>
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
@@ -164,6 +166,33 @@ export default function Index() {
             <Typography>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent  consectetuer adipiscing elit</Typography>
           </Box>
           <Testimonial data={TestimonialData} />
+        </Container>
+      </section>
+
+      {/* Download App Section */}
+
+      <section className={`${classes.section} ${classes.downloadApp}`} style={{ backgroundImage: 'url(/static/images/download.jpg)' }}>
+        <Container maxWidth="xl">
+          <Grid container>
+            <Grid item lg={8} md={8} sm={6} xs={12}>
+              <Box className={classes.downloadTitle}>
+                <Typography variant="h3">TRY OUR APP ON YOUR MOBILE PHONE</Typography>
+              </Box>
+            </Grid>
+            <Grid item lg={4} md={4} sm={6} xs={12}>
+              <Box className={classes.downloadContent}>
+                <Typography variant="h5">GET YOUR APP TODAY</Typography>
+                <div className={classes.downloadLinks}>
+                  <a href="#">
+                    <img src="/static/images/googleplay.png" />
+                  </a>
+                  <a href="#">
+                    <img src="/static/images/appstore.png" />
+                  </a>
+                </div>
+              </Box>     
+            </Grid>
+          </Grid>
         </Container>
       </section>
 

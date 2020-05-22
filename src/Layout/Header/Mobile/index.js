@@ -23,7 +23,11 @@ import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import EventNoteRoundedIcon from '@material-ui/icons/EventNoteRounded';
 import LocalMallRoundedIcon from '@material-ui/icons/LocalMallRounded';
 import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
+import FeedbackIcon from '@material-ui/icons/Feedback';
+import MoreIcon from '@material-ui/icons/More';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { commonStyles} from './styles'
@@ -90,8 +94,23 @@ export default function SearchAppBar() {
               </ListItem>
               <Divider />
               <ListItem button>
-                <ListItemIcon><LiveTvRoundedIcon /></ListItemIcon>
-                <ListItemText primary="My Ads" />
+                <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
+                <ListItemText primary="List Products" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><FeedbackIcon /></ListItemIcon>
+                <ListItemText primary="Feedback" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><MoreIcon /></ListItemIcon>
+                <ListItemText primary="More" />
+              </ListItem>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                <ListItemText primary="Logout" />
               </ListItem>
             </List>
           </Drawer>
