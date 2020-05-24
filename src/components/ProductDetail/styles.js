@@ -2,6 +2,7 @@ export const commonStyles = {
   section:{
     padding: '2rem 0 5rem',
     position: 'relative',
+    overflow: 'hidden',
     '&::before': {
       content: '""',
       background: 'url(/static/images/circleCenter.svg)',
