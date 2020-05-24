@@ -25,9 +25,20 @@ export default function Products() {
 
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
-  const intialState = matches ? false : true
+  const MobileSidebar = () => {
 
-  const [showsidebar, setshowsidebar] = React.useState(intialState);
+    const toggle = () =>{
+      setshowsidebar(!showsidebar)
+    }
+    
+    const [showsidebar, setshowsidebar] = React.useState(false);
+      return (
+        <>
+          <Button className={classes.fliterBtn} onClick={toggle}><TuneIcon />Filter</Button>
+          {showsidebar && <Sidebar/>}
+        </>
+      )
+  }
 
   return (
     <Layout>
@@ -43,8 +54,7 @@ export default function Products() {
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={3} md={3} sm={12} xs={12}>
-              {/* {matches && (<Button className={classes.fliterBtn} onClick={setshowsidebar(!showsidebar)}><TuneIcon />Filter</Button>)} */}
-              {showsidebar && <Sidebar/>}
+              {matches ? <MobileSidebar/> : <Sidebar/>}
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>
