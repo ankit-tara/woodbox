@@ -12,6 +12,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { ProductCardsData, OurConceptData, TestimonialData } from '../src/utils';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
 
+const fetch = require("node-fetch");
+
+
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
   [theme.breakpoints.up('md')]: desktopStyles,
@@ -19,7 +22,10 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('sm')]: mobileStyles
 }))
 
-export default function Products() {
+
+function Products({ products }) {
+
+  // console.log(products)
 
   const classes = useStyles()
 
@@ -58,7 +64,7 @@ export default function Products() {
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>
-                {ProductCardsData.map((data) =>
+                {products.data.map((data) =>
                   <div key={data.id}>
                     <ProductCard data={data} />
                   </div>
@@ -70,7 +76,7 @@ export default function Products() {
                 <button>Selling Product</button>
               </Box>
               <Box className={classes.ProductsGridWrapper}>
-                {ProductCardsData.map((data) =>
+                {products.data.map((data) =>
                   <div key={data.id}>
                     <ProductCard data={data} />
                   </div>
@@ -137,3 +143,17 @@ export default function Products() {
   );
 }
 
+
+export async function getStaticProps() {
+
+  const res = await fetch('http://arbites.in/api/products')
+  const products = await res.json()
+
+  return {
+    props: {
+      products,
+    },
+  }
+}
+
+export default Products

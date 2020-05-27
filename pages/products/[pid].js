@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Layout from "../src/Layout";
+import Layout from "../../src/Layout";
 import { Box, Button, Container, Grid, Card, CardContent, Typography } from '@material-ui/core';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import Advertisement from '../src/components/Advertisement';
-import ProductDetail from '../src/components/ProductDetail'
-import Testimonial from '../src/components/Testimonial';
-import { ProductCardsData, OurConceptData, TestimonialData } from '../src/utils';
-import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
+import Advertisement from '../../src/components/Advertisement';
+import ProductDetail from '../../src/components/ProductDetail'
+import Testimonial from '../../src/components/Testimonial';
+import { ProductCardsData, OurConceptData, TestimonialData } from '../../src/utils';
+import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../../src/styles';
+import { useRouter } from 'next/router'
+
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
@@ -19,7 +21,6 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('sm')]: mobileStyles
 }))
 
-
 function handleClick(event) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
@@ -27,7 +28,24 @@ function handleClick(event) {
 
 export default function singlePage() {
 
+  const router = useRouter()
+  const { pid } = router.query
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`http://arbites.in/api/product/${pid}`)
+      const product = await res.json()
+      setData(product);
+    };
+
+    fetchData();
+  }, []);
+
+
   const classes = useStyles()
+  console.log(data)
+
 
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
@@ -48,8 +66,8 @@ export default function singlePage() {
         </Breadcrumbs>
       </Container>
 
-      
-      <ProductDetail/>
+
+      <ProductDetail data={data} />
 
 
       {/* Review Section */}
@@ -93,4 +111,3 @@ export default function singlePage() {
     </Layout>
   );
 }
-

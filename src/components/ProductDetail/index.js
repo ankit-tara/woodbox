@@ -33,7 +33,7 @@ const images = [
 ];
 
 
-const ProductDetail = () => {
+const ProductDetail = ({ data }) => {
 
 
   function renderLeftNav(onClick, disabled) {
@@ -66,6 +66,8 @@ const ProductDetail = () => {
 
   const classes = useStyles()
 
+  console.log('data', data)
+
   return (
     <section className={classes.section}>
       <Container maxWidth="xl">
@@ -85,7 +87,7 @@ const ProductDetail = () => {
                 <div className={classes.Left}>
                   <Box className={classes.box}>
                     <Typography className={classes.heading}>Title</Typography>
-                    <Typography variant="h6">Fat Immortal cycle</Typography>
+                    <Typography variant="h6">{data.title}</Typography>
                   </Box>
                   <Box className={classes.box}>
                     <Typography className={classes.heading}>College Name</Typography>

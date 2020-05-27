@@ -32,7 +32,7 @@ export const commonStyles = {
     fontWeight: '500'
   },
   image: {
-    width: '150px',
+    width: 'auto',
     height: '140px',
     objectFit: 'contain'
   },

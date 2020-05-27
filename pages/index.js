@@ -13,6 +13,8 @@ import Swiper from 'react-id-swiper';
 import { IconCardsData, EventIconCardsData, ProductCardsData, EventCardsData, OurConceptData, TestimonialData } from '../src/utils';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
 
+const fetch = require("node-fetch");
+
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
   [theme.breakpoints.up('md')]: desktopStyles,
@@ -20,7 +22,21 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('sm')]: mobileStyles
 }))
 
-export default function Index() {
+
+
+export async function getStaticProps() {
+
+  const res = await fetch('http://arbites.in/api/products')
+  const products = await res.json()
+
+  return {
+    props: {
+      products,
+    },
+  }
+}
+
+export default function Index({ products }) {
 
   const classes = useStyles()
 
@@ -98,7 +114,7 @@ export default function Index() {
           </Box>
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
-              {ProductCardsData.map((data) =>
+              {products.data.map((data) =>
                 <div key={data.id}>
                   <ProductCard data={data} />
                 </div>
@@ -115,7 +131,7 @@ export default function Index() {
           </Box>
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
-              {ProductCardsData.map((data) =>
+              {products.data.map((data) =>
                 <div key={data.id}>
                   <ProductCard data={data} />
                 </div>

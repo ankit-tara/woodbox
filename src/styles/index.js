@@ -163,6 +163,11 @@ export const commonStyles = {
     '& p':{
       fontWeight: '500'
     }
+  },
+  csoonImg:{
+    maxWidth: '500px',
+    width: '80%',
+    marginBottom: '1rem'
   }
 }
 

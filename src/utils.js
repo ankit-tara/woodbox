@@ -10,7 +10,7 @@ export const IconCardsData = [
     id: 2,
     title: 'Books',
     image:{
-      url: '/static/images/bike.png'
+      url: '/static/images/book.png'
     }
   },
   {
