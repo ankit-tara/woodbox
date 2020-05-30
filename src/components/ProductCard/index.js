@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     <Card className={isSaved ? `${classes.card} ${classes.Orangecard} `: `${classes.card}`}>
       <CardContent className={classes.cardInner}>
         <div className={classes.cardHead}>
-          <Typography variant="h6" className={classes.title}><Link href={`/products/${data.id}`}>{data.title}</Link></Typography>
+          <Typography variant="h6" className={classes.title}><Link href={`/products/item/${data.id}`}>{data.title}</Link></Typography>
           <StarRatings
             rating={productStar}
             starRatedColor='#FC821A'

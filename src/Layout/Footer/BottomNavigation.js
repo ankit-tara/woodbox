@@ -7,7 +7,7 @@ import EventNoteRoundedIcon from '@material-ui/icons/EventNoteRounded';
 import LocalMallRoundedIcon from '@material-ui/icons/LocalMallRounded';
 import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import AuthIcon from "../../components/Login_Register";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -42,7 +42,7 @@ export default function SimpleBottomNavigation() {
       <BottomNavigationAction label="Buy" icon={<LocalMallRoundedIcon />} />
       <BottomNavigationAction label="Events" icon={<EventNoteRoundedIcon />} />
       <BottomNavigationAction label="My ads" icon={<LiveTvRoundedIcon />} />
-      <BottomNavigationAction label="Account" icon={<AccountCircle />} />
+      <BottomNavigationAction label="Account" icon={<AuthIcon />} />
     </BottomNavigation>
   );
 }
