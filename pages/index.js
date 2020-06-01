@@ -41,7 +41,7 @@ export async function getStaticProps() {
   let res = await fetch(API_URL + "/products?type=buy&paginate=10");
   const bproducts = await res.json();
 
-   res = await fetch(API_URL + "/products?type=sell&paginate=10");
+  res = await fetch(API_URL + "/products?type=rental&paginate=10");
   const sproducts = await res.json();
 
   return {
@@ -52,7 +52,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Index({ bproducts,sproducts }) {
+export default function Index({ bproducts, sproducts }) {
   const classes = useStyles();
 
   const params = {
@@ -248,3 +248,8 @@ export default function Index({ bproducts,sproducts }) {
     </Layout>
   );
 }
+
+// Index.getInitialProps = ({ query: { id } }) => {
+//   console.log("Response is ");
+//   return { postId: id };
+// };

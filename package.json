@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "heroku-postbuild": "npm run build",
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "heroku-postbuild": "npm run build",
+    "start": "next start -p $PORT"
   },
   "engines": {
     "node": "13.11.0"
@@ -28,6 +28,7 @@
     "swiper": "^5.3.8"
   },
   "devDependencies": {
-    "dotenv-webpack": "^1.8.0"
+    "dotenv-webpack": "^1.8.0",
+    "nodemon": "^2.0.4"
   }
 }

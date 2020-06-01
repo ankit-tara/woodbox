@@ -9,7 +9,14 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  server.get("/products/type/buy", (req, res) => {
+  server.get("/products/type/:type", (req, res) => {
+    let query = req.query ? req.query : {};
+    query.type = req.params.type;
+    // console.log(query, req.params);
+
+    return app.render(req, res, "/products", query);
+  });
+  server.get("/products/category/:slug", (req, res) => {
     return app.render(req, res, "/products", req.query);
   });
 
