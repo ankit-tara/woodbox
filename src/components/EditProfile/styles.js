@@ -1,11 +1,11 @@
-// import {
-//   secondaryDark, backgroundColor, blueText, mainText
-// } from 'src/_styles/colors'
-// import {
-//   HeadFont
-// } from 'src/_styles/global'
-
 export const commonStyles = {
+  section:{
+    padding: '2.5rem 0 5rem'
+  },
+  editTitle:{
+    marginBottom: '2rem',
+    textAlign: 'center'
+  },
   ProfileContainer:{
     display: 'flex',
     flexDirection: 'column',
@@ -74,8 +74,8 @@ export const commonStyles = {
     padding: '2rem !important' 
   },
   formInput:{
-    marginBottom: '1rem',
-    marginTop: '1rem',
+    marginBottom: '2rem',
+    // marginTop: '1rem',
     width: '50%'
   },
   formInputFullWidth:{

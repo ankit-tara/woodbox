@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../src/Layout";
 import { Box, Button, Container, Grid, Card, CardContent, Typography } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import Profile from '../src/components/Profile'
+import EditProfile from '../src/components/EditProfile'
+import SellerProfile from '../src/components/SellerProfile'
+import Modal from '../src/components/Modal'
 import { ProductCardsData, OurConceptData, TestimonialData } from '../src/utils';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
 
@@ -23,9 +25,9 @@ export default function ProfilePage() {
   return (
     <Layout>
 
-    <section className={classes.section}>
-      <Profile/>
-    </section>
+      {/* <EditProfile/> */}
+      <Modal/>
+      <SellerProfile/>
 
 
       {/* Download App Section */}

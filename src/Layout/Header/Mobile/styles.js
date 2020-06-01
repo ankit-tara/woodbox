@@ -11,17 +11,8 @@ export const commonStyles = {
   },
   search: {
     position: 'relative',
-    // borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.15),
-    // '&:hover': {
-    //   backgroundColor: fade(theme.palette.common.white, 0.25),
-    // },
     marginLeft: 0,
     width: '100%',
-    // [theme.breakpoints.up('sm')]: {
-    //   marginLeft: theme.spacing(1),
-    //   width: 'auto',
-    // },
   },
   searchIcon: {
     height: '100%',
@@ -35,17 +26,7 @@ export const commonStyles = {
     color: 'inherit',
   },
   inputInput: {
-    // padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    // paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    // transition: theme.transitions.create('width'),
     width: '100%',
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '12ch',
-    //   '&:focus': {
-    //     width: '20ch',
-    //   },
-    // },
   },
   fullList: {
     width: 'auto',
@@ -59,8 +40,22 @@ export const commonStyles = {
     marginLeft: 'auto'
   },
   sideBar:{
+    width: '280px',
     '& .MuiDrawer-paper':{
       width: '280px'
+    },
+    '& .MuiBackdrop-root':{
+      pointerEvents: 'none'
     }
+  },
+  searchBar:{
+    position: 'fixed',
+    width: '100%',
+    background: '#fff',
+    left: '0',
+    zIndex: '100',
+    display: 'flex',
+    top: '0',
+    height: '57px'
   }
 }

@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
           />
         </div>
         <div className={classes.cardBody}>
-          {data.images && <img src={data.images[0].link} alt="" className={classes.image} /> }
+          {data.images.length>0 && <img src={data.images[0].link} alt="" className={classes.image} /> }
         </div>
         <div className={classes.cardFooter}>
           <div className={classes.left}>
