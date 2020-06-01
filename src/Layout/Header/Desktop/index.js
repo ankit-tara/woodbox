@@ -102,7 +102,7 @@ function Header({ modalOpen }) {
                 <Link href="/products/type/buy">Buy</Link>
               </li>
               <li>
-                <Link href="/products/type/rent">Rent</Link>
+                <Link href="/products/type/rental">Rent</Link>
               </li>
               <li>
                 <Link href="/">Events</Link>
