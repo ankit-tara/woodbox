@@ -51,10 +51,10 @@ const useStyles = makeStyles(theme => ({
         <div className={classes.cardFooter}>
           <div className={classes.left}>
             <Typography className={classes.excerpt}>{data.description.substring(0, 35) + '...'} </Typography>
-            <Typography className={classes.college}>Gulzar College of Arts</Typography>
+            <Typography className={classes.college}>{data.university.name}</Typography>
           </div>
           <div className={classes.right}>
-            <Typography className={isSaved ? `${classes.price} ${classes.Orangeprice} ` : `${classes.price}`}>$212</Typography>
+            <Typography className={isSaved ? `${classes.price} ${classes.Orangeprice} ` : `${classes.price}`}>${data.price}</Typography>
             <Typography className={classes.date}>April 14</Typography>
           </div>
         </div>

@@ -1,40 +1,63 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Box, Button, Card, Container, Grid, CardContent, Typography } from '@material-ui/core'
-import ImageGallery from 'react-image-gallery'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined'
-import { commonStyles, desktopStyles, mobileStyles } from './styles'
+import React ,{useState,useEffect}from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Grid,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
+import ImageGallery from "react-image-gallery";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
+import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up('sm')]: desktopStyles,
-  [theme.breakpoints.down('sm')]: mobileStyles
-}))
+  [theme.breakpoints.up("sm")]: desktopStyles,
+  [theme.breakpoints.down("sm")]: mobileStyles,
+}));
 
-
-const images = [
-  {
-    original: '/static/images/bike1.jpg',
-    thumbnail: '/static/images/bike1.jpg',
-  },
-  {
-    original: '/static/images/bike2.jpg',
-    thumbnail: '/static/images/bike2.jpg',
-  },
-  {
-    original: '/static/images/bike3.jpg',
-    thumbnail: '/static/images/bike3.jpg',
-  },
-  {
-    original: '/static/images/bike4.jpg',
-    thumbnail: '/static/images/bike4.jpg',
-  },
-];
-
+// const images = [
+//   {
+//     original: "/static/images/bike1.jpg",
+//     thumbnail: "/static/images/bike1.jpg",
+//   },
+//   {
+//     original: "/static/images/bike2.jpg",
+//     thumbnail: "/static/images/bike2.jpg",
+//   },
+//   {
+//     original: "/static/images/bike3.jpg",
+//     thumbnail: "/static/images/bike3.jpg",
+//   },
+//   {
+//     original: "/static/images/bike4.jpg",
+//     thumbnail: "/static/images/bike4.jpg",
+//   },
+// ];
 
 const ProductDetail = ({ data }) => {
+  const [product, setproduct] = useState({});
+  const [images, setimages] = useState([]);
 
+  useEffect(() => {
+    setproduct(data);
+    if (data.images) {
+      let imgArr = [];
+      data.images.map((item) =>
+        imgArr.push({
+          original: item.link,
+          thumbnail: item.link,
+        })
+      );
+
+      setimages(imgArr);
+    }
+    // setproducts(data);
+  }, [data]);
 
   function renderLeftNav(onClick, disabled) {
     return (
@@ -64,9 +87,10 @@ const ProductDetail = ({ data }) => {
     );
   }
 
-  const classes = useStyles()
+  const classes = useStyles();
 
-  console.log('data', data)
+  console.log("data", data);
+  if(!data) return null
 
   return (
     <section className={classes.section}>
@@ -90,17 +114,23 @@ const ProductDetail = ({ data }) => {
                     <Typography variant="h6">{data.title}</Typography>
                   </Box>
                   <Box className={classes.box}>
-                    <Typography className={classes.heading}>College Name</Typography>
-                    <Typography variant="h6">Gulzar Group of Institute</Typography>
+                    <Typography className={classes.heading}>
+                      College Name
+                    </Typography>
+                    <Typography variant="h6">
+                      {data.university ? data.university.name : ""}
+                    </Typography>
                   </Box>
                   <Box className={classes.Pricebox}>
                     <Typography className={classes.heading}>Price</Typography>
-                    <Typography variant="h4" color="primary" >$2500</Typography>
+                    <Typography variant="h4" color="primary">
+                      ${data.price}
+                    </Typography>
                   </Box>
                 </div>
                 <div className={classes.Right}>
-                  <FavoriteBorderIcon/>
-                  <ShareOutlinedIcon/>
+                  <FavoriteBorderIcon />
+                  <ShareOutlinedIcon />
                 </div>
               </CardContent>
             </Card>
@@ -112,19 +142,26 @@ const ProductDetail = ({ data }) => {
                   </div>
                   <div className={classes.sellerDetails}>
                     <Box className={classes.box}>
-                      <Typography className={classes.heading}>Seller Name</Typography>
-                      <Typography variant="h6">Sidharth  Woodbox</Typography>
+                      <Typography className={classes.heading}>
+                        Seller Name
+                      </Typography>
+                      <Typography variant="h6">{data.seller ?`${data.seller.first_name} ${data.seller.last_name}`:''}</Typography>
                     </Box>
                     <Box className={classes.box}>
-                      <Typography className={classes.heading}>Seller Location</Typography>
+                      <Typography className={classes.heading}>
+                        Seller Location
+                      </Typography>
                       <Typography variant="h6">RIMT College</Typography>
                     </Box>
                   </div>
-
                 </div>
                 <div className={classes.cardAction}>
-                  <Button className={classes.primaryBtn}>Chat With Seller</Button>
-                  <Button className={classes.secondaryBtn}>Check Seller Profile</Button>
+                  <Button className={classes.primaryBtn}>
+                    Chat With Seller
+                  </Button>
+                  <Button className={classes.secondaryBtn}>
+                    Check Seller Profile
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -133,14 +170,16 @@ const ProductDetail = ({ data }) => {
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
                 <Typography className={classes.heading}>Discription</Typography>
-                <Typography className={classes.paragraph}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet  dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet</Typography>
+                <Typography className={classes.paragraph}>
+                  {data.description}
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       </Container>
     </section>
-  )
-}
+  );
+};
 
-export default ProductDetail
+export default ProductDetail;

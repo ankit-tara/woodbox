@@ -16,6 +16,7 @@ import {
   mobileStyles,
   TabStyles,
 } from "../styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const fetch = require("node-fetch");
 
@@ -26,13 +27,45 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 import { useRouter } from "next/router";
+import { getProducts } from "../apis/global-api";
 
-function Products({ data }) {
+function Products({ data, url }) {
   const [products, setproducts] = useState([]);
+  const [loadMore, setloadMore] = useState(false);
+  const [lastPage, setlastPage] = useState(false);
+  const [page, setpage] = useState(0);
   useEffect(() => {
-    console.log("data", data);
-    setproducts(data);
+    console.log("url", url);
+    if (url) fetchTypeProducts(url);
+    // setproducts(data);
   }, [data]);
+
+  const handleButtonClick = () => {
+    if (!loadMore) {
+      setloadMore(true);
+      fetchTypeProducts(url, page, products);
+      // timer.current = setTimeout(() => {
+      //   setLoading(false);
+      // }, 2000);
+    }
+  };
+
+  const fetchTypeProducts = async (url, page, products) => {
+    page = !page ? 1 : page + 1;
+    setpage(page);
+    url = `${url}&page=${page}`;
+    await getProducts(url).then((data) => {
+      if (products && products.data) {
+        data.data = products.data.concat(data.data);
+      }
+      if (data.current_page == data.last_page) {
+        setlastPage(true);
+      }
+      // console.log(page, url, data);
+      setproducts(data);
+      setloadMore(false);
+    });
+  };
   // console.log(products)
   const router = useRouter();
 
@@ -77,8 +110,9 @@ function Products({ data }) {
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>
-                {products.data && products.data.length > 0 &&
-                  products.data.map((data) => (
+                {products.data &&
+                  products.data.length > 0 &&
+                  products.data.slice(0, 6).map((data) => (
                     <div key={data.id}>
                       <ProductCard data={data} />
                     </div>
@@ -98,13 +132,34 @@ function Products({ data }) {
                 <button>Selling Product</button>
               </Box>
               <Box className={classes.ProductsGridWrapper}>
-                {products.data && products.data.length > 0 &&
-                  products.data.map((data) => (
+                {products.data &&
+                  products.data.length > 0 &&
+                  products.data.slice(6, products.data.length).map((data) => (
                     <div key={data.id}>
                       <ProductCard data={data} />
                     </div>
                   ))}
               </Box>
+
+              {!lastPage && (
+                <div className={classes.wrapper}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    // className={buttonClassname}
+                    disabled={loadMore}
+                    onClick={handleButtonClick}
+                  >
+                    Load More
+                  </Button>
+                  {loadMore && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                </div>
+              )}
             </Grid>
           </Grid>
         </Container>

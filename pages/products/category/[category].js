@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Products from "../../../src/containers/products";
 import { getProducts } from "../../../src/apis/global-api";
 
-const ItemProductsPage = ({ query }) => {
+const CategoryProductsPage = ({ query }) => {
   const [loading, setloading] = useState(false);
   const [products, setproducts] = useState([]);
   const [url, seturl] = useState("");
 
-  const { type } = query;
+  const { category } = query;
 
   // useEffect(() => {
   //   fetchTypeProducts();
@@ -20,9 +20,11 @@ const ItemProductsPage = ({ query }) => {
   //   });
   // };
 
-  return <Products loading={loading} url={`?type=${type}&paginate=18`} />;
+  return (
+    <Products loading={loading} url={`?category=${category}&paginate=18`} />
+  );
 };
-ItemProductsPage.getInitialProps = ({ query }) => {
+CategoryProductsPage.getInitialProps = ({ query }) => {
   return { query };
 };
-export default ItemProductsPage;
+export default CategoryProductsPage;
