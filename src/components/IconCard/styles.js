@@ -1,10 +1,3 @@
-// import {
-//   secondaryDark, backgroundColor, blueText, mainText
-// } from 'src/_styles/colors'
-// import {
-//   HeadFont
-// } from 'src/_styles/global'
-
 export const commonStyles = {
   card: {
     border: '#D6D6D6 solid 3px',

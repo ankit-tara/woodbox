@@ -29,6 +29,8 @@ import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import MoreIcon from '@material-ui/icons/More';
 import MailIcon from '@material-ui/icons/Mail';
+import CloseIcon from '@material-ui/icons/Close';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { commonStyles} from './styles'
 
@@ -51,105 +53,128 @@ export default function SearchAppBar() {
     setOpen(false);
   };
 
+  const [opensearch, setopensearch] = React.useState(false);
+
+  const handleSearchOpen = () => {
+    setopensearch(true);
+  };
+
+  const handleSearchClose = () => {
+    setopensearch(false);
+  };
+
+  const handleClickAway = () => {
+    setOpen(false);
+  };
+
+  const SearchAppBar = () => {
+    return (
+      <div className={classes.searchBar}>
+        <IconButton type="submit" className={classes.iconButton} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+        <InputBase
+          className={classes.input}
+          placeholder="Search"
+        />
+        <IconButton className={classes.closeButton} onClick={handleSearchClose}>
+          <CloseIcon />
+        </IconButton>
+      </div>
+    )
+  }
+
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer open={open} className={classes.sideBar}>
-            <div className={classes.drawerHeader}>
-              <IconButton onClick={handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
-            <Divider />
-            <List>
-              <ListItem button>
-                <ListItemIcon><HomeRoundedIcon /></ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
-                <ListItemText primary="Buy" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
-                <ListItemText primary="Rent" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><EventNoteRoundedIcon /></ListItemIcon>
-                <ListItemText primary="Event" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
-                <ListItemText primary="List Products" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><FeedbackIcon /></ListItemIcon>
-                <ListItemText primary="Feedback" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><MoreIcon /></ListItemIcon>
-                <ListItemText primary="More" />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                <ListItemText primary="Logout" />
-              </ListItem>
-            </List>
-          </Drawer>
-          <Link to="/">
-            <img className={classes.logo} src="/static/images/logo.png" />
-          </Link>
-          <div className={classes.menuIcons}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <AppBar position="fixed">
+          <Toolbar>
             <IconButton
-              aria-label="search"
+              edge="start"
+              className={classes.menuButton}
               color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
             >
-              <SearchIcon />
+              <MenuIcon />
             </IconButton>
-          </div>
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-             
+            <Drawer open={open} className={classes.sideBar}>
+              <div className={classes.drawerHeader}>
+                <IconButton onClick={handleDrawerClose}>
+                  <ChevronLeftIcon />
+                </IconButton>
+              </div>
+              <Divider />
+              <List>
+                <ListItem button>
+                  <ListItemIcon><HomeRoundedIcon /></ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
+                  <ListItemText primary="Buy" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
+                  <ListItemText primary="Rent" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><EventNoteRoundedIcon /></ListItemIcon>
+                  <ListItemText primary="Event" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
+                  <ListItemText primary="List Products" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><FeedbackIcon /></ListItemIcon>
+                  <ListItemText primary="Feedback" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><MoreIcon /></ListItemIcon>
+                  <ListItemText primary="More" />
+                </ListItem>
+                <Divider />
+                <ListItem button>
+                  <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItem>
+              </List>
+            </Drawer>
+            <Link to="/">
+              <img className={classes.logo} src="/static/images/logo.png" />
+            </Link>
+            <div className={classes.menuIcons}>
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={17} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                aria-label="search"
+                color="inherit"
+                onClick={handleSearchOpen}
+              >
+                <SearchIcon />
+              </IconButton>
+
+              {opensearch && <SearchAppBar/>}
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            /> 
-          </div>*/}
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
+      </ClickAwayListener>
     </div>
   );
 }
