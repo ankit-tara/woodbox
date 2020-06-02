@@ -124,7 +124,7 @@ const ProductDetail = ({ data }) => {
                   <Box className={classes.Pricebox}>
                     <Typography className={classes.heading}>Price</Typography>
                     <Typography variant="h4" color="primary">
-                      ${data.price}
+                      &#8377;{data.price}
                     </Typography>
                   </Box>
                 </div>
@@ -145,7 +145,11 @@ const ProductDetail = ({ data }) => {
                       <Typography className={classes.heading}>
                         Seller Name
                       </Typography>
-                      <Typography variant="h6">{data.seller ?`${data.seller.first_name} ${data.seller.last_name}`:''}</Typography>
+                      <Typography variant="h6">
+                        {data.seller
+                          ? `${data.seller.first_name} ${data.seller.last_name}`
+                          : ""}
+                      </Typography>
                     </Box>
                     <Box className={classes.box}>
                       <Typography className={classes.heading}>

@@ -30,7 +30,8 @@ import {
 } from "../../../src/styles";
 import { useRouter } from "next/router";
 import { getProduct } from "../../../src/apis/global-api";
-
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("md")]: desktopStyles,
@@ -43,17 +44,29 @@ function handleClick(event) {
   console.info("You clicked a breadcrumb.");
 }
 
-export default function singlePage({query}) {
+export default function singlePage({ query }) {
   const router = useRouter();
   const { pid } = query;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const [loading, setloading] = useState(true);
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    getProduct(pid).then((product) => setData(product));
+    getProduct(pid).then((product) => {setData(product)
+    setloading(false)
+    });
   };
 
   const classes = useStyles();
@@ -84,8 +97,17 @@ export default function singlePage({query}) {
           <Typography color="primary">Product</Typography>
         </Breadcrumbs>
       </Container>
+      {loading && (
+        <Backdrop
+          className={classes.backdrop}
+          open={loading}
+          // onClick={handleClose}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
 
-      <ProductDetail data={data} />
+      {!loading && <ProductDetail data={data} />}
 
       {/* Review Section */}
       <section className={classes.section} style={{ background: "#FFF6EF" }}>
