@@ -173,6 +173,20 @@ export const commonStyles = {
     width: "80%",
     marginBottom: "1rem",
   },
+  loadMore:{
+    fontSize: '1rem',
+    padding: '0.6rem 2rem'
+  },
+  loadMorewrapper:{
+    textAlign: 'center',
+    position: 'relative'
+  },
+  buttonProgress:{
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  }
 };
 
 export const mobileStyles = {

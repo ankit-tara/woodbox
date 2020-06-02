@@ -8,17 +8,44 @@ import Tab from "@material-ui/core/Tab";
 import { AuthForm } from "./AuthForm";
 
 const useStyles = makeStyles((theme) => ({
-  // form: {
-  //   // display: "grid",
-  //   // gridTemplateColumns: "1fr 1fr",
-  //   // gridGap: "1rem",
-  //   [theme.breakpoints.down("sm")]: {
-  //     gridTemplateColumns: "1fr",
-  //   },
-  // },
-  // modal: {
-  //   padding: "0.5rem",
-  // },
+
+  root:{
+    '& .MuiTab-textColorPrimary.Mui-selected':{
+      color: '#ffffff',
+      background: '#f5811a'
+    },
+    '& .MuiTabs-indicator':{
+      display: 'none'
+    },
+    '& .MuiTab-textColorPrimary':{
+      background: '#dfdfdf'
+    },
+    '& .MuiButton-containedPrimary':{
+      marginTop: '1rem'
+    }
+  },
+  Login:{
+    position: 'relative',
+    marginTop: '5rem',
+    '&::before':{
+      top: '0',
+      left: '0',
+      width: '440px',
+      height: '440px',
+      content: '""',
+      zIndex: '-1',
+      position: 'absolute',
+      transform: 'translate(-50%, -50%)',
+      background: 'url(/static/images/circleCenter.svg)',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+    }
+  },
+  Img: {
+    textAlign: 'center'
+  }
+
+
 }));
 
 const Login_Register = () => {
@@ -62,7 +89,10 @@ const Login_Register = () => {
             <Tab label="SignUp" />
           </Tabs>
           <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
-            <div>
+            <div className={classes.Login}>
+              <div className={classes.Img}>
+                <img src="/static/images/logo.png" />
+              </div>
               <AuthForm type="login" />
             </div>
             <div>

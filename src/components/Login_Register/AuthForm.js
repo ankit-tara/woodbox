@@ -12,12 +12,9 @@ import { signup, login } from "../../apis/auth-api";
 const useStyles = makeStyles((theme) => ({
   form: {
     padding: "2.0rem",
-    // display: "grid",
-    // gridTemplateColumns: "1fr 1fr",
-    // gridGap: "1rem",
-    // [theme.breakpoints.down("sm")]: {
-    //   gridTemplateColumns: "1fr",
-    // },
+    [theme.breakpoints.up('sm')]:{
+      margin: '2.5rem',
+    }
   },
   modal: {
     padding: "0.5rem",
