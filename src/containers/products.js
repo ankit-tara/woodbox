@@ -142,11 +142,11 @@ function Products({ data, url }) {
               </Box>
 
               {!lastPage && (
-                <div className={classes.wrapper}>
+                <div className={classes.loadMorewrapper}>
                   <Button
                     variant="contained"
                     color="primary"
-                    // className={buttonClassname}
+                    className={classes.loadMore}
                     disabled={loadMore}
                     onClick={handleButtonClick}
                   >
