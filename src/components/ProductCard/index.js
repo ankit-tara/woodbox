@@ -50,7 +50,7 @@ function ProductCard({ data }) {
           />
         </div>
         <div className={classes.cardBody}>
-          {data.images && (
+          {data.images.length >0 && (
             <img src={data.images[0].link} alt="" className={classes.image} />
           )}
         </div>
