@@ -30,11 +30,12 @@ export const commonStyles = {
     }
   },
   card: {
-    margin: '0 2rem 2rem 0',
+    // margin: '0 2rem 2rem 0',
     border: '#D6D6D6 solid 2px',
     boxShadow: 'none',
     padding: '1.5rem 2rem',
-    borderRadius: '6px'
+    borderRadius: '6px',
+    position: 'relative'
   },
   Gallery:{
     '& .image-gallery-thumbnail':{
@@ -63,6 +64,34 @@ export const commonStyles = {
     '& .image-gallery-right-nav':{
       right: '-3.5rem',
       outline: 'none'
+    },
+    '& .video-wrapper iframe':{
+      width: '100%',
+      height: '500px'
+    },
+    '& .play-button': {
+      cursor: 'pointer',
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      bottom: '0',
+      right: '0',
+      margin: 'auto',
+      height: '60px',
+      width: '100px',
+      backgroundColor: 'rgba(0,0,0,.7)',
+      borderRadius: '5px',
+    },
+    '& .play-button::after': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      top: '16.5px',
+      left: '40px',
+      margin: '0 auto',
+      borderStyle: 'solid',
+      borderWidth: '12.5px 0 12.5px 20px',
+      borderColor: 'transparent transparent transparent rgba(255,255,255,1)',
     }
   },
   heading:{
@@ -89,15 +118,24 @@ export const commonStyles = {
     paddingBottom: '0 !important'
   },
   Left: {
-    width: '80%'
+    width: '100%'
   },
   Right:{
-    width: '20%',
+    width: '80px',
+    position: 'absolute',
+    right: '1rem',
+    top: '1rem',
     display: 'flex',
     justifyContent: 'space-around'
   },
   SellerCard:{
-    padding:0
+    padding:0,
+    '& .MuiCardContent-root':{
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'
+    }
   },
   cardInner:{
     padding:'0 !important'
@@ -141,7 +179,11 @@ export const commonStyles = {
     '&:hover': {
       background: '#EBEEEF',
     }
-  }
+  },
+  grid: {
+    display: 'grid',
+    gridGap: '2rem'
+  },
 }
 
 export const mobileStyles = {
@@ -152,10 +194,15 @@ export const mobileStyles = {
   Gallery: {
     '& .image-gallery-thumbnail': {
       width: '33%'
+    },
+    '& .video-wrapper iframe': {
+      width: '100%',
+      height: '220px'
     }
   },
   SellerCard:{
-    padding: '0'
+    padding: '0',
+    order: '1'
   },
   cardHead:{
     padding: '1.5rem 1rem'
@@ -166,5 +213,21 @@ export const mobileStyles = {
 }
 
 export const desktopStyles = {
-
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(6,1fr)',
+    gridGap: '2.5rem'
+  },
+  spanRow2: {
+    gridRow: 'span 2 / auto'
+  },
+  spanCol2: {
+    gridColumn: 'span 2 / auto'
+  },
+  spanCol4: {
+    gridColumn: 'span 4 / auto'
+  },
+  spanCol6: {
+    gridColumn: 'span 6 / auto'
+  }
 }

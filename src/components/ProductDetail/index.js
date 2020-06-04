@@ -16,32 +16,91 @@ import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up("sm")]: desktopStyles,
+  [theme.breakpoints.up("md")]: desktopStyles,
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
-
-// const images = [
-//   {
-//     original: "/static/images/bike1.jpg",
-//     thumbnail: "/static/images/bike1.jpg",
-//   },
-//   {
-//     original: "/static/images/bike2.jpg",
-//     thumbnail: "/static/images/bike2.jpg",
-//   },
-//   {
-//     original: "/static/images/bike3.jpg",
-//     thumbnail: "/static/images/bike3.jpg",
-//   },
-//   {
-//     original: "/static/images/bike4.jpg",
-//     thumbnail: "/static/images/bike4.jpg",
-//   },
-// ];
 
 const ProductDetail = ({ data }) => {
   const [product, setproduct] = useState({});
   const [images, setimages] = useState([]);
+  const [showVideo, setshowVideo] = useState(false);
+
+  const staticImages = [
+    {
+      original: "/static/images/bike1.jpg",
+      thumbnail: "/static/images/bike1.jpg",
+      embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
+      description: 'Render custom slides within the gallery',
+      renderItem: _renderVideo.bind(this)
+    },
+    {
+      original: "/static/images/bike2.jpg",
+      thumbnail: "/static/images/bike2.jpg",
+    },
+    {
+      original: "/static/images/bike3.jpg",
+      thumbnail: "/static/images/bike3.jpg",
+    },
+    {
+      original: "/static/images/bike4.jpg",
+      thumbnail: "/static/images/bike4.jpg",
+    },
+  ];
+
+  function _renderVideo(item) {
+    return (
+      <div>
+        {
+          showVideo ?
+            <div className='video-wrapper'>
+              <a
+                className='close-video'
+                onClick={_toggleShowVideo.bind(this, item.embedUrl)}
+              >
+              </a>
+              <iframe
+                width='560'
+                height='315'
+                src={item.embedUrl}
+                frameBorder='0'
+                allowFullScreen
+              >
+              </iframe>
+            </div>
+            :
+            <a onClick={_toggleShowVideo.bind(this, item.embedUrl)}>
+              <div className='play-button'></div>
+              <img className='image-gallery-image' src={item.original} />
+              {
+                item.description &&
+                <span
+                  className='image-gallery-description'
+                  style={{ right: '0', left: 'initial' }}
+                >
+                  {item.description}
+                </span>
+              }
+            </a>
+        }
+      </div>
+    );
+  }
+
+
+  function _toggleShowVideo(url) {
+    setshowVideo(!showVideo);
+  }
+
+  // function _resetVideo(index) {
+  //   setshowVideo(false)
+  //   console.debug('slid to index', index);
+  // }
+
+  // function _onSlide() {
+  //   _resetVideo();
+  // }
+
+
 
   useEffect(() => {
     setproduct(data);
@@ -96,17 +155,19 @@ const ProductDetail = ({ data }) => {
     <section className={classes.section}>
       <Container maxWidth="xl">
         <Grid container>
-          <Grid item lg={7} md={7} sm={12} xs={12}>
-            <Card className={classes.card}>
+          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.grid}>
+            <Card className={`${classes.card} ${classes.spanCol4} ${classes.spanRow2}`} >
               <CardContent className={classes.cardBody}>
                 <div className={classes.Gallery}>
-                  <ImageGallery items={images} />
+                  <ImageGallery items={staticImages} 
+                  // onSlide={_onSlide.bind(this)}
+                  showPlayButton={false}
+                  showFullscreenButton={false}
+                  showGalleryPlayButton={true}/>
                 </div>
               </CardContent>
             </Card>
-          </Grid>
-          <Grid item lg={5} md={5} sm={12} xs={12}>
-            <Card className={classes.card}>
+            <Card className={`${classes.card} ${classes.spanCol2}`}>
               <CardContent className={classes.cardInnerBody}>
                 <div className={classes.Left}>
                   <Box className={classes.box}>
@@ -134,7 +195,7 @@ const ProductDetail = ({ data }) => {
                 </div>
               </CardContent>
             </Card>
-            <Card className={`${classes.card} ${classes.SellerCard}`}>
+            <Card className={`${classes.card} ${classes.SellerCard} ${classes.spanCol2}`}>
               <CardContent className={classes.cardInner}>
                 <div className={classes.cardHead}>
                   <div className={classes.sellerImg}>
@@ -169,9 +230,7 @@ const ProductDetail = ({ data }) => {
                 </div>
               </CardContent>
             </Card>
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Card className={classes.card}>
+            <Card className={`${classes.card} ${classes.spanCol6}`}>
               <CardContent className={classes.cardBody}>
                 <Typography className={classes.heading}>Discription</Typography>
                 <Typography className={classes.paragraph}>
