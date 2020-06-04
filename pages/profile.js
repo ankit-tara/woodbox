@@ -40,19 +40,18 @@ export default function ProfilePage() {
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user);
+  const auth_user = useSelector((state) => state.auth_user);
   const classes = useStyles();
 
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
+console.log(auth_user);
   return (
     <Layout>
       {/* <EditProfile/> */}
-      {accessToken && user && (
-        <>
-          <Modal />
-          <SellerProfile user={user} />
-        </>
-      )}
+
+     
+        <Modal />
+        <SellerProfile user={user} />
 
       {/* Download App Section */}
 

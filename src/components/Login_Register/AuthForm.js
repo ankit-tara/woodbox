@@ -10,6 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import { signup, login } from "../../apis/auth-api";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../redux/actions/auth";
+import { useRouter } from "next/router";
+
+
+
 const useStyles = makeStyles((theme) => ({
   form: {
     padding: "2.0rem",
@@ -38,6 +42,7 @@ export const AuthForm = ({ type }) => {
   const [formerrs, setformerrs] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     setformerrs([]);
@@ -57,7 +62,7 @@ export const AuthForm = ({ type }) => {
       } else {
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
-        dispatch(authenticated(user, accessToken));
+        setLogin(user, accessToken);
       }
     });
   };
@@ -79,12 +84,18 @@ export const AuthForm = ({ type }) => {
       if (response.error) {
         setformerrs(response.msg);
       } else {
-         let user = response.body.user;
-         let accessToken = response.body.user.api_token;
-         dispatch(authenticated(user, accessToken));
+        let user = response.body.user;
+        let accessToken = response.body.user.api_token;
+        setLogin(user, accessToken);
         console.log(response);
       }
     });
+  };
+
+  const setLogin = (user, accessToken) => {
+    console.log(user, accessToken);
+    dispatch(authenticated(user, accessToken));
+    router.push("/profile");
   };
 
   const backdropClose = () => {

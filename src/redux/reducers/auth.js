@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
 
       return {
         ...state,
-        user: { ...state.user, user },
+        user: user,
         accessToken: accessToken,
       };
 

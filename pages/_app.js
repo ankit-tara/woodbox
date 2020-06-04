@@ -7,7 +7,16 @@ import theme from "../src/theme";
 import "swiper/css/swiper.css";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { Provider } from "react-redux";
-import store from '../src/redux/store'
+import store from "../src/redux/store";
+import NProgress from "nprogress"; //nprogress module
+import "nprogress/nprogress.css"; 
+import "../src/styles/global.css";
+
+import Router from "next/router";
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 

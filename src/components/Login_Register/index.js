@@ -8,7 +8,10 @@ import Tab from "@material-ui/core/Tab";
 import { AuthForm } from "./AuthForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { unauthenticated } from "../../redux/actions/auth";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTab-textColorPrimary.Mui-selected": {
@@ -51,8 +54,8 @@ const Login_Register = () => {
   const [open, setopen] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
-
-  
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   console.log(accessToken);
@@ -64,22 +67,53 @@ const Login_Register = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  const openModal = () => {
+  const openModal = (event) => {
     if (!accessToken) {
       setopen(true);
     } else {
-      router.push("/profile");
+      setAnchorEl(event.currentTarget);
     }
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const closeModal = () => {
     setopen(false);
   };
+
+  const gotoProfile = () => {
+    router.push("/profile");
+  };
+
+  const logout = () => {
+    setAnchorEl(null);
+    router.push("/");
+    dispatch(unauthenticated());
+  };
+
   const classes = useStyles();
 
   return (
     <div>
-      <AccountCircleIcon onClick={openModal} />
+      <AccountCircleIcon
+        onClick={openModal}
+        aria-controls="auth-menu"
+        aria-haspopup="true"
+      />
+
+      <Menu
+        id="auth-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={gotoProfile}>Profile</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
+      </Menu>
+
       <Dialog
         open={open}
         onClose={closeModal}
