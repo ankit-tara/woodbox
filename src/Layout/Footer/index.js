@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Grid, Link, Typography } from '@material-ui/core'
+import { Box, Container, Grid, Link, Typography } from '@material-ui/core'
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -18,6 +18,38 @@ function Footer() {
   const classes = useStyles()
   return (
     <>
+
+      {/* Download App Section */}
+
+      <section
+        className={`${classes.section} ${classes.downloadApp}`}
+        style={{ backgroundImage: "url(/static/images/download.jpg)" }}
+      >
+        <Container maxWidth="xl">
+          <Grid container>
+            <Grid item lg={8} md={8} sm={6} xs={12}>
+              <Box className={classes.downloadTitle}>
+                <Typography variant="h3">
+                  TRY OUR APP ON YOUR MOBILE PHONE
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item lg={4} md={4} sm={6} xs={12}>
+              <Box className={classes.downloadContent}>
+                <Typography variant="h5">GET YOUR APP TODAY</Typography>
+                <div className={classes.downloadLinks}>
+                  <a href="#">
+                    <img src="/static/images/googleplay.png" />
+                  </a>
+                  <a href="#">
+                    <img src="/static/images/appstore.png" />
+                  </a>
+                </div>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </section>
       <footer className={classes.Footer}>
         <Container maxWidth="xl">
           <Grid container>

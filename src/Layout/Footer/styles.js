@@ -65,6 +65,49 @@ export const commonStyles = {
       color: '#000',
       fontWeight: '500'
     }
+  },
+  downloadApp: {
+    padding: "3rem 0",
+    position: "relative",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      background: "rgba(235, 238, 239, 0.6)",
+      zIndex: "1",
+    },
+  },
+  downloadTitle: {
+    position: "relative",
+    zIndex: "2",
+    marginLeft: "auto",
+    "& h3": {
+      color: "#2A66EA",
+    },
+  },
+  downloadContent: {
+    margin: "0 auto",
+    position: "relative",
+    zIndex: "2",
+    width: "max-content",
+    "& h5": {
+      marginBottom: "1rem",
+      textAlign: "center",
+    },
+  },
+  downloadLinks: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    "& a": {
+      width: "48%",
+    },
+    "& img": {
+      width: "100%",
+    },
   }
 }
 
@@ -85,6 +128,17 @@ export const mobileStyles = {
     '& ul': {
       paddingLeft: '1rem'
     }
+  },
+  downloadTitle: {
+    "& h3": {
+      marginBottom: "2rem",
+      textAlign: "center",
+    },
+  },
+  downloadLinks: {
+    "& img": {
+      width: "100px",
+    },
   }
 }
 
@@ -99,5 +153,8 @@ export const desktopStyles = {
     '& ul': {
       paddingLeft: 0
     },
-  }
+  },
+  downloadTitle: {
+    width: "50%",
+  },
 }
