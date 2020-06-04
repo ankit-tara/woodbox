@@ -8,13 +8,14 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import Typography from "@material-ui/core/Typography";
 import { signup, login } from "../../apis/auth-api";
-
+import { useDispatch } from "react-redux";
+import { authenticated } from "../../redux/actions/auth";
 const useStyles = makeStyles((theme) => ({
   form: {
     padding: "2.0rem",
-    [theme.breakpoints.up('sm')]:{
-      margin: '2.5rem',
-    }
+    [theme.breakpoints.up("sm")]: {
+      margin: "2.5rem",
+    },
   },
   modal: {
     padding: "0.5rem",
@@ -36,6 +37,8 @@ export const AuthForm = ({ type }) => {
   const [backdrop, setbackdrop] = useState(true);
   const [formerrs, setformerrs] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     setformerrs([]);
     setbackdrop(true);
@@ -52,7 +55,9 @@ export const AuthForm = ({ type }) => {
       if (response.error) {
         setformerrs(response.msg);
       } else {
-        console.log(response);
+        let user = response.body.user;
+        let accessToken = response.body.user.api_token;
+        dispatch(authenticated(user, accessToken));
       }
     });
   };
@@ -74,6 +79,9 @@ export const AuthForm = ({ type }) => {
       if (response.error) {
         setformerrs(response.msg);
       } else {
+         let user = response.body.user;
+         let accessToken = response.body.user.api_token;
+         dispatch(authenticated(user, accessToken));
         console.log(response);
       }
     });

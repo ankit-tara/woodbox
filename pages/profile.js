@@ -1,45 +1,74 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../src/Layout";
-import { Box, Button, Container, Grid, Card, CardContent, Typography } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import EditProfile from '../src/components/EditProfile'
-import SellerProfile from '../src/components/SellerProfile'
-import Modal from '../src/components/Modal'
-import { ProductCardsData, OurConceptData, TestimonialData } from '../src/utils';
-import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../src/styles';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import EditProfile from "../src/components/EditProfile";
+import SellerProfile from "../src/components/SellerProfile";
+import Modal from "../src/components/Modal";
+import {
+  ProductCardsData,
+  OurConceptData,
+  TestimonialData,
+} from "../src/utils";
+import {
+  commonStyles,
+  desktopStyles,
+  mobileStyles,
+  TabStyles,
+} from "../src/styles";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up('md')]: desktopStyles,
-  [theme.breakpoints.between('sm', 'md')]: TabStyles,
-  [theme.breakpoints.down('sm')]: mobileStyles
-}))
+  [theme.breakpoints.up("md")]: desktopStyles,
+  [theme.breakpoints.between("sm", "md")]: TabStyles,
+  [theme.breakpoints.down("sm")]: mobileStyles,
+}));
 
 export default function ProfilePage() {
+  const router = useRouter();
 
-  const classes = useStyles()
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const user = useSelector((state) => state.auth_user.user);
+  const classes = useStyles();
 
-  const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <Layout>
-
       {/* <EditProfile/> */}
-      <Modal/>
-      <SellerProfile/>
-
+      {accessToken && user && (
+        <>
+          <Modal />
+          <SellerProfile user={user} />
+        </>
+      )}
 
       {/* Download App Section */}
 
-      <section className={`${classes.section} ${classes.downloadApp}`} style={{ backgroundImage: 'url(/static/images/download.jpg)' }}>
+      <section
+        className={`${classes.section} ${classes.downloadApp}`}
+        style={{ backgroundImage: "url(/static/images/download.jpg)" }}
+      >
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={8} md={8} sm={6} xs={12}>
               <Box className={classes.downloadTitle}>
-                <Typography variant="h3">TRY OUR APP ON YOUR MOBILE PHONE</Typography>
+                <Typography variant="h3">
+                  TRY OUR APP ON YOUR MOBILE PHONE
+                </Typography>
               </Box>
-            </Grid> 
+            </Grid>
             <Grid item lg={4} md={4} sm={6} xs={12}>
               <Box className={classes.downloadContent}>
                 <Typography variant="h5">GET YOUR APP TODAY</Typography>
@@ -56,8 +85,6 @@ export default function ProfilePage() {
           </Grid>
         </Container>
       </section>
-
     </Layout>
   );
 }
-

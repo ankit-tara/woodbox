@@ -16,12 +16,12 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-const sellerProfile = () => {
+const sellerProfile = ({user}) => {
 
   const [data, setdata] = useState();
   useEffect(() => {
     const fetchData = () => {
-      getProducts().then(data => setdata(data));
+      getProducts(`?seller_id=${user.id}`).then(data => setdata(data));
       }
     fetchData();
   },[]);
