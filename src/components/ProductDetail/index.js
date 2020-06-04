@@ -30,7 +30,6 @@ const ProductDetail = ({ data }) => {
       original: "/static/images/bike1.jpg",
       thumbnail: "/static/images/bike1.jpg",
       embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
-      description: 'Render custom slides within the gallery',
       renderItem: _renderVideo.bind(this)
     },
     {
@@ -71,15 +70,6 @@ const ProductDetail = ({ data }) => {
             <a onClick={_toggleShowVideo.bind(this, item.embedUrl)}>
               <div className='play-button'></div>
               <img className='image-gallery-image' src={item.original} />
-              {
-                item.description &&
-                <span
-                  className='image-gallery-description'
-                  style={{ right: '0', left: 'initial' }}
-                >
-                  {item.description}
-                </span>
-              }
             </a>
         }
       </div>
