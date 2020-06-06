@@ -19,6 +19,8 @@ export default function (state = initialState, action) {
       };
 
     case UNAUTHENTICATED:
+      localStorage.setItem("user", "");
+      localStorage.setItem("accessToken", "");
       return initialState;
 
     default:

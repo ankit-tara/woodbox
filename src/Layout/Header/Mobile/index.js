@@ -1,49 +1,49 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import { Link } from '@material-ui/core'
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import Drawer from '@material-ui/core/Drawer';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import LabelImportantIcon from '@material-ui/icons/LabelImportant';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
-import EventNoteRoundedIcon from '@material-ui/icons/EventNoteRounded';
-import LocalMallRoundedIcon from '@material-ui/icons/LocalMallRounded';
-import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
-import FeedbackIcon from '@material-ui/icons/Feedback';
-import MoreIcon from '@material-ui/icons/More';
-import MailIcon from '@material-ui/icons/Mail';
-import CloseIcon from '@material-ui/icons/Close';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { commonStyles} from './styles'
-
-
-const useStyles = makeStyles(theme => ({
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import InputBase from "@material-ui/core/InputBase";
+import Badge from "@material-ui/core/Badge";
+import { Link } from "@material-ui/core";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+import Drawer from "@material-ui/core/Drawer";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import LabelImportantIcon from "@material-ui/icons/LabelImportant";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
+import EventNoteRoundedIcon from "@material-ui/icons/EventNoteRounded";
+import LocalMallRoundedIcon from "@material-ui/icons/LocalMallRounded";
+import LiveTvRoundedIcon from "@material-ui/icons/LiveTvRounded";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import NavigateNextRoundedIcon from "@material-ui/icons/NavigateNextRounded";
+import FeedbackIcon from "@material-ui/icons/Feedback";
+import MoreIcon from "@material-ui/icons/More";
+import MailIcon from "@material-ui/icons/Mail";
+import CloseIcon from "@material-ui/icons/Close";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import { commonStyles } from "./styles";
+import { useSelector } from "react-redux";
+import CreateIcon from "@material-ui/icons/Create";
+const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-}))
-
+}));
 
 export default function SearchAppBar() {
   const classes = useStyles();
-
   const [open, setOpen] = React.useState(false);
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const user = useSelector((state) => state.auth_user.user);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -70,20 +70,20 @@ export default function SearchAppBar() {
   const SearchAppBar = () => {
     return (
       <div className={classes.searchBar}>
-        <IconButton type="submit" className={classes.iconButton} aria-label="search">
+        <IconButton
+          type="submit"
+          className={classes.iconButton}
+          aria-label="search"
+        >
           <SearchIcon />
         </IconButton>
-        <InputBase
-          className={classes.input}
-          placeholder="Search"
-        />
+        <InputBase className={classes.input} placeholder="Search" />
         <IconButton className={classes.closeButton} onClick={handleSearchClose}>
           <CloseIcon />
         </IconButton>
       </div>
-    )
-  }
-
+    );
+  };
 
   return (
     <div className={classes.root}>
@@ -108,44 +108,78 @@ export default function SearchAppBar() {
               <Divider />
               <List>
                 <ListItem button>
-                  <ListItemIcon><HomeRoundedIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <HomeRoundedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItem>
                 <Divider />
                 <ListItem button>
-                  <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <LocalMallRoundedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Buy" />
                 </ListItem>
                 <Divider />
                 <ListItem button>
-                  <ListItemIcon><LocalMallRoundedIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <LocalMallRoundedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Rent" />
                 </ListItem>
                 <Divider />
                 <ListItem button>
-                  <ListItemIcon><EventNoteRoundedIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <EventNoteRoundedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Event" />
                 </ListItem>
                 <Divider />
                 <ListItem button>
-                  <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <FormatListBulletedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="List Products" />
                 </ListItem>
                 <Divider />
                 <ListItem button>
-                  <ListItemIcon><FeedbackIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <FeedbackIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Feedback" />
                 </ListItem>
                 <Divider />
                 <ListItem button>
-                  <ListItemIcon><MoreIcon /></ListItemIcon>
+                  <ListItemIcon>
+                    <MoreIcon />
+                  </ListItemIcon>
                   <ListItemText primary="More" />
                 </ListItem>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                  <ListItemText primary="Logout" />
-                </ListItem>
+                {accessToken && (
+                  <>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <AccountCircle />
+                      </ListItemIcon>
+                      <ListItemText primary="View Profile" />
+                    </ListItem>
+                    <Divider />
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CreateIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Edit Profile" />
+                    </ListItem>
+                    <Divider />
+                    <ListItem button>
+                      <ListItemIcon>
+                        <ExitToAppIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Logout" />
+                    </ListItem>
+                  </>
+                )}
               </List>
             </Drawer>
             <Link to="/">
@@ -157,7 +191,10 @@ export default function SearchAppBar() {
                   <MailIcon />
                 </Badge>
               </IconButton>
-              <IconButton aria-label="show 17 new notifications" color="inherit">
+              <IconButton
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />
                 </Badge>
@@ -170,7 +207,7 @@ export default function SearchAppBar() {
                 <SearchIcon />
               </IconButton>
 
-              {opensearch && <SearchAppBar/>}
+              {opensearch && <SearchAppBar />}
             </div>
           </Toolbar>
         </AppBar>

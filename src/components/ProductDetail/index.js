@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -13,47 +13,104 @@ import ImageGallery from "react-image-gallery";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up("sm")]: desktopStyles,
+  [theme.breakpoints.up("md")]: desktopStyles,
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
-
-// const images = [
-//   {
-//     original: "/static/images/bike1.jpg",
-//     thumbnail: "/static/images/bike1.jpg",
-//   },
-//   {
-//     original: "/static/images/bike2.jpg",
-//     thumbnail: "/static/images/bike2.jpg",
-//   },
-//   {
-//     original: "/static/images/bike3.jpg",
-//     thumbnail: "/static/images/bike3.jpg",
-//   },
-//   {
-//     original: "/static/images/bike4.jpg",
-//     thumbnail: "/static/images/bike4.jpg",
-//   },
-// ];
 
 const ProductDetail = ({ data }) => {
   const [product, setproduct] = useState({});
   const [images, setimages] = useState([]);
+  const [showVideo, setshowVideo] = useState(false);
+
+  const staticImages = [
+    {
+      original: "/static/images/bike1.jpg",
+      thumbnail: "/static/images/bike1.jpg",
+      embedUrl:
+        "https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0",
+      renderItem: _renderVideo.bind(this),
+    },
+    {
+      original: "/static/images/bike2.jpg",
+      thumbnail: "/static/images/bike2.jpg",
+    },
+    {
+      original: "/static/images/bike3.jpg",
+      thumbnail: "/static/images/bike3.jpg",
+    },
+    {
+      original: "/static/images/bike4.jpg",
+      thumbnail: "/static/images/bike4.jpg",
+    },
+  ];
+
+  function _renderVideo(item) {
+    return (
+      <div>
+        {showVideo ? (
+          <div className="video-wrapper">
+            <a
+              className="close-video"
+              onClick={_toggleShowVideo.bind(this, item.embedUrl)}
+            ></a>
+            <iframe
+              width="560"
+              height="315"
+              src={item.embedUrl}
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+          </div>
+        ) : (
+          <a onClick={_toggleShowVideo.bind(this, item.embedUrl)}>
+            <div className="play-button"></div>
+            <img className="image-gallery-image" src={item.original} />
+          </a>
+        )}
+      </div>
+    );
+  }
+
+  const _toggleShowVideo=(url)=> {
+    console.log('called')
+    console.log(showVideo);
+    setshowVideo(!showVideo);
+  }
+
+  // function _resetVideo(index) {
+  //   setshowVideo(false)
+  //   console.debug('slid to index', index);
+  // }
+
+  // function _onSlide() {
+  //   _resetVideo();
+  // }
 
   useEffect(() => {
     setproduct(data);
     if (data.images) {
       let imgArr = [];
-      data.images.map((item) =>
-        imgArr.push({
-          original: item.link,
-          thumbnail: item.link,
-        })
-      );
-
+      let self = this
+      data.images.map((item) => {
+        if (item.type == "video") {
+          imgArr.push({
+            original: item.thumbnail_link,
+            thumbnail: item.thumbnail_link,
+            embedUrl: item.link,
+            renderItem: _renderVideo.bind(self),
+          });
+        } else {
+          imgArr.push({
+            original: item.link,
+            thumbnail: item.thumbnail_link,
+          });
+        }
+      });
+console.log(imgArr);
       setimages(imgArr);
     }
     // setproducts(data);
@@ -90,23 +147,29 @@ const ProductDetail = ({ data }) => {
   const classes = useStyles();
 
   console.log("data", data);
-  if(!data) return null
+  if (!data) return null;
 
   return (
     <section className={classes.section}>
       <Container maxWidth="xl">
         <Grid container>
-          <Grid item lg={7} md={7} sm={12} xs={12}>
-            <Card className={classes.card}>
+          <Grid item lg={12} md={12} sm={12} xs={12} className={classes.grid}>
+            <Card
+              className={`${classes.card} ${classes.spanCol4} ${classes.spanRow2}`}
+            >
               <CardContent className={classes.cardBody}>
                 <div className={classes.Gallery}>
-                  <ImageGallery items={images} />
+                  <ImageGallery
+                    items={images}
+                    // onSlide={_onSlide.bind(this)}
+                    showPlayButton={false}
+                    showFullscreenButton={false}
+                    showGalleryPlayButton={true}
+                  />
                 </div>
               </CardContent>
             </Card>
-          </Grid>
-          <Grid item lg={5} md={5} sm={12} xs={12}>
-            <Card className={classes.card}>
+            <Card className={`${classes.card} ${classes.spanCol2}`}>
               <CardContent className={classes.cardInnerBody}>
                 <div className={classes.Left}>
                   <Box className={classes.box}>
@@ -134,7 +197,9 @@ const ProductDetail = ({ data }) => {
                 </div>
               </CardContent>
             </Card>
-            <Card className={`${classes.card} ${classes.SellerCard}`}>
+            <Card
+              className={`${classes.card} ${classes.SellerCard} ${classes.spanCol2}`}
+            >
               <CardContent className={classes.cardInner}>
                 <div className={classes.cardHead}>
                   <div className={classes.sellerImg}>
@@ -163,15 +228,18 @@ const ProductDetail = ({ data }) => {
                   <Button className={classes.primaryBtn}>
                     Chat With Seller
                   </Button>
-                  <Button className={classes.secondaryBtn}>
-                    Check Seller Profile
-                  </Button>
+                  <Link
+                    href={`/profile/${data.seller.id}`}
+                    // as={`/profile/${data.seller.id}`}
+                  >
+                    <Button className={classes.secondaryBtn}>
+                      Check Seller Profile
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Card className={classes.card}>
+            <Card className={`${classes.card} ${classes.spanCol6}`}>
               <CardContent className={classes.cardBody}>
                 <Typography className={classes.heading}>Discription</Typography>
                 <Typography className={classes.paragraph}>

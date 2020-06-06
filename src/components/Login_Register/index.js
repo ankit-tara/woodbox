@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login_Register = () => {
+const Login_Register = ({ isMobile = false }) => {
   const [open, setopen] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
@@ -71,7 +71,11 @@ const Login_Register = () => {
     if (!accessToken) {
       setopen(true);
     } else {
-      setAnchorEl(event.currentTarget);
+      if (isMobile) {
+        gotoProfile();
+      } else {
+        setAnchorEl(event.currentTarget);
+      }
     }
   };
 
@@ -85,6 +89,9 @@ const Login_Register = () => {
 
   const gotoProfile = () => {
     router.push("/profile");
+  };
+  const gotoProfileEdit = () => {
+    router.push("/profile/edit");
   };
 
   const logout = () => {
@@ -110,7 +117,8 @@ const Login_Register = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={gotoProfile}>Profile</MenuItem>
+        <MenuItem onClick={gotoProfile}>View Profile</MenuItem>
+        <MenuItem onClick={gotoProfileEdit}>Edit Profile</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
 

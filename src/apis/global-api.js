@@ -42,3 +42,17 @@ export async function getProduct(id) {
     })
     .catch((error) => console.warn(error));
 }
+
+export async function getSeller(id) {
+  let url = API_URL + "/user/" + id;
+
+  console.log(url);
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}

@@ -19,6 +19,11 @@ export const commonStyles = {
   Main: {
     '& .swiper-container-horizontal > .swiper-scrollbar': {
       display: 'none'
+    },
+    '& .image-gallery-content .image-gallery-slide .image-gallery-image':{
+      maxHeight: 'calc(100vh - 80px)',
+      height: '500px',
+      objectFit: 'cover'
     }
   },
   loader: {
@@ -44,6 +49,9 @@ export const mobileStyles = {
     },
     '& .swiperScrollbarDrag': {
       backgroundColor: 'rgb(252, 130, 26)'
+    },
+    '& .image-gallery-content .image-gallery-slide .image-gallery-image': {
+      height: '220px',
     }
   }
 }
