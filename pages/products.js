@@ -3,7 +3,7 @@ import Products from "../src/containers/products";
 import fetch from "node-fetch";
 
 function ProductsPage({ products }) {
-  return <Products data={products} />;
+  return <Products data={products} url={"?paginate=18"} />;
 }
 
 export async function getStaticProps(context) {

@@ -141,7 +141,7 @@ function Products({ data, url }) {
                   ))}
               </Box>
 
-              {!lastPage && (
+              {products.data && products.data.length > 0 && !lastPage && (
                 <div className={classes.loadMorewrapper}>
                   <Button
                     variant="contained"

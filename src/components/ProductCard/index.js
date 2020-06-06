@@ -37,12 +37,14 @@ function ProductCard({ data }) {
       <CardContent className={classes.cardInner}>
         <div className={classes.cardHead}>
           <Typography variant="h6" className={classes.title}>
-            {data.title.length >= 25 && 
-            <Link href={`/products/item/${data.id}`}>{data.title.substring(0, 25) + "..."}{" "}</Link>
-            }
-            {data.title.length <25 && 
-            <Link href={`/products/item/${data.id}`}>{data.title}</Link>
-            }
+            {data.title.length >= 25 && (
+              <Link href={`/products/item/${data.id}`}>
+                {data.title.substring(0, 25) + "..."}{" "}
+              </Link>
+            )}
+            {data.title.length < 25 && (
+              <Link href={`/products/item/${data.id}`}>{data.title}</Link>
+            )}
           </Typography>
           <StarRatings
             rating={productStar}
@@ -55,8 +57,12 @@ function ProductCard({ data }) {
           />
         </div>
         <div className={classes.cardBody}>
-          {data.images && (
-            <img src={data.images[0].link} alt="" className={classes.image} />
+          {data.images.length > 0 && (
+            <img
+              src={data.images[0].thumbnail_link}
+              alt=""
+              className={classes.image}
+            />
           )}
         </div>
         <div className={classes.cardFooter}>
@@ -64,16 +70,16 @@ function ProductCard({ data }) {
             <Typography className={classes.excerpt}>
               {data.description.substring(0, 35) + "..."}{" "}
             </Typography>
-            {data.university.name.length >= 25 &&
-            <Typography className={classes.college}>
-              {data.university.name.substring(0, 25) + "..."}{" "}
-            </Typography>
-            }
-            {data.university.name.length < 25 &&
-            <Typography className={classes.college}>
-              {data.university.name}
-            </Typography>
-            }
+            {data.university.name.length >= 25 && (
+              <Typography className={classes.college}>
+                {data.university.name.substring(0, 25) + "..."}{" "}
+              </Typography>
+            )}
+            {data.university.name.length < 25 && (
+              <Typography className={classes.college}>
+                {data.university.name}
+              </Typography>
+            )}
           </div>
           <div className={classes.right}>
             <Typography

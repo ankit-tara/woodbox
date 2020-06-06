@@ -42,7 +42,7 @@ export default function SimpleBottomNavigation() {
       <BottomNavigationAction label="Buy" icon={<LocalMallRoundedIcon />} />
       <BottomNavigationAction label="Events" icon={<EventNoteRoundedIcon />} />
       <BottomNavigationAction label="My ads" icon={<LiveTvRoundedIcon />} />
-      <BottomNavigationAction label="Account" icon={<AuthIcon />} />
+      <BottomNavigationAction label="Account" icon={<AuthIcon isMobile={true} />} />
     </BottomNavigation>
   );
 }
