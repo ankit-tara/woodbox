@@ -46,6 +46,9 @@ export const commonStyles = {
     },
     '& .MuiBackdrop-root':{
       pointerEvents: 'none'
+    },
+    '& a':{
+      color: '#333'
     }
   },
   searchBar:{

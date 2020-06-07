@@ -8,6 +8,10 @@ import LocalMallRoundedIcon from '@material-ui/icons/LocalMallRounded';
 import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AuthIcon from "../../components/Login_Register";
+import { Link } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -28,6 +32,7 @@ const useStyles = makeStyles({
 export default function SimpleBottomNavigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
 
   return (
     <BottomNavigation
@@ -38,11 +43,13 @@ export default function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} />
-      <BottomNavigationAction label="Buy" icon={<LocalMallRoundedIcon />} />
-      <BottomNavigationAction label="Events" icon={<EventNoteRoundedIcon />} />
-      <BottomNavigationAction label="My ads" icon={<LiveTvRoundedIcon />} />
-      <BottomNavigationAction label="Account" icon={<AuthIcon isMobile={true} />} />
+      <BottomNavigationAction component={Link} href="/" label="Home" icon={<HomeRoundedIcon />}/>
+      <BottomNavigationAction component={Link} href="/products/type/buy" label="Buy" icon={<LocalMallRoundedIcon />} />
+      <BottomNavigationAction component={Link} href="/comming-soon" label="Events" icon={<EventNoteRoundedIcon />} />
+      <BottomNavigationAction component={Link} href="/profile" label="My ads" icon={<LiveTvRoundedIcon />} />
+      {! accessToken && (
+      <BottomNavigationAction label="Login" icon={<AuthIcon isMobile={true} />} />
+      )}
     </BottomNavigation>
   );
 }

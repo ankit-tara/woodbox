@@ -105,16 +105,16 @@ function Header({ modalOpen }) {
                 <Link href="/products/type/rental">Rent</Link>
               </li>
               <li>
-                <Link href="/">Events</Link>
+                <Link href="/comming-soon">Events</Link>
               </li>
               <li>
-                <Link href="/products">List Product</Link>
+                <Link href="/post">List Product</Link>
               </li>
               <li>
-                <Link href="/">Feedback</Link>
+                <Link href="/comming-soon">Feedback</Link>
               </li>
               <li>
-                <Link href="/">More</Link>
+                <Link href="/comming-soon">More</Link>
               </li>
             </ul>
           </Grid>
