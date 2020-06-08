@@ -69,6 +69,10 @@ export const commonStyles = {
       width: '100%',
       height: '500px'
     },
+    '& .video-wrapper video':{
+      width: '100%',
+      height: '500px'
+    },
     '& .play-button': {
       cursor: 'pointer',
       position: 'absolute',
@@ -198,7 +202,11 @@ export const mobileStyles = {
     '& .video-wrapper iframe': {
       width: '100%',
       height: '220px'
-    }
+    },
+    '& .video-wrapper video': {
+      width: '100%',
+      height: '220px'
+    },
   },
   SellerCard:{
     padding: '0',

@@ -68,7 +68,8 @@ export const commonStyles = {
       marginRight: '1rem',
     },
     '& a':{
-      color: '#2A66EA'
+      color: '#2A66EA',
+      wordBreak: 'break-all'
     }
   },
   productsHeader: {

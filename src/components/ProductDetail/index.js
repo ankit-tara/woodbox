@@ -50,8 +50,11 @@ const ProductDetail = ({ data }) => {
 
   function _renderVideo(item) {
     return (
-      <div>
-        {showVideo ? (
+      <div className="video-wrapper">
+        <video width="560" height="315" controls>
+          <source src={item.embedUrl} type="video/mp4" />
+        </video>
+        {/* {showVideo ? (
           <div className="video-wrapper">
             <a
               className="close-video"
@@ -70,7 +73,7 @@ const ProductDetail = ({ data }) => {
             <div className="play-button"></div>
             <img className="image-gallery-image" src={item.original} />
           </a>
-        )}
+        )} */}
       </div>
     );
   }

@@ -33,8 +33,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { commonStyles } from "./styles";
-import { useSelector } from "react-redux";
 import CreateIcon from "@material-ui/icons/Create";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { unauthenticated } from "../../../redux/actions/auth";
+
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
 }));
@@ -44,6 +47,10 @@ export default function SearchAppBar() {
   const [open, setOpen] = React.useState(false);
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user);
+  const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -65,6 +72,12 @@ export default function SearchAppBar() {
 
   const handleClickAway = () => {
     setOpen(false);
+  };
+
+  const logout = () => {
+    setAnchorEl(null);
+    router.push("/");
+    dispatch(unauthenticated());
   };
 
   const SearchAppBar = () => {
@@ -107,72 +120,90 @@ export default function SearchAppBar() {
               </div>
               <Divider />
               <List>
-                <ListItem button>
-                  <ListItemIcon>
-                    <HomeRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Home" />
-                </ListItem>
+                <Link href="/">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <HomeRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </ListItem>
+                </Link>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <LocalMallRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Buy" />
-                </ListItem>
+                <Link href="/products/type/buy">
+                  <ListItem button>
+                      <ListItemIcon>
+                        <LocalMallRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Buy" />
+                  </ListItem>
+                </Link>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <LocalMallRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Rent" />
-                </ListItem>
+                <Link href="/products/type/rent">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <LocalMallRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Rent" />
+                  </ListItem>
+                </Link>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <EventNoteRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Event" />
-                </ListItem>
+                <Link href="/comming-soon">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <EventNoteRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Event" />
+                  </ListItem>
+                </Link>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <FormatListBulletedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="List Products" />
-                </ListItem>
+                <Link href="/post">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <FormatListBulletedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="List Products" />
+                  </ListItem>
+                </Link>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <FeedbackIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Feedback" />
-                </ListItem>
+                <Link href="/comming-soon">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <FeedbackIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Feedback" />
+                  </ListItem>
+                </Link>
                 <Divider />
-                <ListItem button>
-                  <ListItemIcon>
-                    <MoreIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="More" />
-                </ListItem>
+                <Link href="/comming-soon">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <MoreIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="More" />
+                  </ListItem>
+                </Link>
                 <Divider />
                 {accessToken && (
                   <>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <AccountCircle />
-                      </ListItemIcon>
-                      <ListItemText primary="View Profile" />
-                    </ListItem>
+                    <Link href="/profile">
+                      <ListItem button>
+                        <ListItemIcon>
+                          <AccountCircle />
+                        </ListItemIcon>
+                        <ListItemText primary="View Profile" />
+                      </ListItem>
+                    </Link>
                     <Divider />
-                    <ListItem button>
-                      <ListItemIcon>
-                        <CreateIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Edit Profile" />
-                    </ListItem>
+                    <Link href="/profile/edit">
+                      <ListItem button>
+                        <ListItemIcon>
+                          <CreateIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Edit Profile" />
+                      </ListItem>
+                    </Link>
                     <Divider />
-                    <ListItem button>
+                    <ListItem button onClick={logout}>
                       <ListItemIcon>
                         <ExitToAppIcon />
                       </ListItemIcon>
@@ -182,7 +213,7 @@ export default function SearchAppBar() {
                 )}
               </List>
             </Drawer>
-            <Link to="/">
+            <Link href="/">
               <img className={classes.logo} src="/static/images/logo.png" />
             </Link>
             <div className={classes.menuIcons}>
