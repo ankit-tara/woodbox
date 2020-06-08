@@ -15,8 +15,7 @@ const ProfilePage = () => {
       router.push("/");
     }
   }, []);
-
-  if (!user) return null;
+  if (!user || !accessToken) return null;
 
   return <Profile user={user} edit={true} />;
 };

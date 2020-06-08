@@ -220,7 +220,7 @@ console.log(imgArr);
                       <Typography className={classes.heading}>
                         Seller Location
                       </Typography>
-                      <Typography variant="h6">RIMT College</Typography>
+                      <Typography variant="h6">{data.seller.university ? data.seller.university.name:''}</Typography>
                     </Box>
                   </div>
                 </div>

@@ -30,6 +30,10 @@ export default function (state = initialState, action) {
         let userData = window.localStorage.getItem("user");
         userData = userData ? JSON.parse(userData) : "";
         let accessTokenData = window.localStorage.getItem("accessToken");
+        accessTokenData =
+          accessTokenData && accessTokenData != "undefined"
+            ? accessTokenData
+            : "";
         if (userData && accessTokenData) {
           data = {
             user: userData,
