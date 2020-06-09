@@ -30,6 +30,9 @@ import FeedbackIcon from "@material-ui/icons/Feedback";
 import MoreIcon from "@material-ui/icons/More";
 import MailIcon from "@material-ui/icons/Mail";
 import CloseIcon from "@material-ui/icons/Close";
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { commonStyles } from "./styles";
@@ -50,6 +53,12 @@ export default function SearchAppBar() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+
+  const [openMenu, setOpenMenu] = React.useState(true);
+
+  const toggleSubmenu = () => {
+    setOpenMenu(!openMenu);
+  };
 
 
   const handleDrawerOpen = () => {
@@ -174,14 +183,41 @@ export default function SearchAppBar() {
                   </ListItem>
                 </Link>
                 <Divider />
-                <Link href="/comming-soon">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <MoreIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="More" />
-                  </ListItem>
-                </Link>
+                <ListItem button onClick={toggleSubmenu}>
+                  <ListItemIcon>
+                    <MoreIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="More" />
+                  {openMenu ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={openMenu} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <Link href="/comming-soon">
+                      <ListItem button>
+                        <ListItemIcon>
+                          <FeedbackIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="About" />
+                      </ListItem>
+                    </Link>
+                    <Link href="/comming-soon">
+                      <ListItem button>
+                        <ListItemIcon>
+                          <FeedbackIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Privacy Policy" />
+                      </ListItem>
+                    </Link>
+                    <Link href="/comming-soon">
+                      <ListItem button>
+                        <ListItemIcon>
+                          <FeedbackIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Terms &amp; Conditions" />
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Collapse>
                 <Divider />
                 {accessToken && (
                   <>

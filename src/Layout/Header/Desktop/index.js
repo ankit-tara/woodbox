@@ -9,9 +9,17 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import useNavbar from "../utils/useNavbar";
 import InputBase from '@material-ui/core/InputBase';
 import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import AuthIcon from "../../../components/Login_Register";
+import { useRouter } from "next/router";
+
 const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
@@ -64,6 +72,15 @@ function Header({ modalOpen }) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const router = useRouter();
+
+  const goto_commingSoon = () =>{
+    router.push("/comming-soon");
+  }
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,6 +88,35 @@ function Header({ modalOpen }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleToggleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   const classes = useStyles();
 
@@ -114,7 +160,32 @@ function Header({ modalOpen }) {
                 <Link href="/comming-soon">Feedback</Link>
               </li>
               <li>
-                <Link href="/comming-soon">More</Link>
+              <Button
+                ref={anchorRef}
+                aria-controls={open ? 'More' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+              >
+                More
+              </Button>
+              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleToggleClose}>
+                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                          <MenuItem onClick={goto_commingSoon} >About</MenuItem>
+                          <MenuItem onClick={goto_commingSoon} >Privacy Policy</MenuItem>
+                          <MenuItem onClick={goto_commingSoon}>Terms &amp; Conditions</MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
               </li>
             </ul>
           </Grid>

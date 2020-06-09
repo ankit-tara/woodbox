@@ -33,10 +33,23 @@ export const commonStyles = {
     '& li': {
       marginRight: '1.5rem'
     },
+    '& li ul li': {
+      marginRight: '0'
+    },
     '& a': {
       color: '#000',
       fontSize: '1.1rem',
-      fontWeight: '500'
+      fontWeight: '500',
+      textDecoration: 'none'
+    },
+    '& button': {
+      color: '#000',
+      fontSize: '1.1rem',
+      fontWeight: '500',
+      textTransform: 'capitalize'
+    },
+    '& button:hover': {
+      background: 'none',
     }
   },
   MenuRight: {
