@@ -1,32 +1,175 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Box, Button, Container, Grid, Card, CardContent, Typography } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import PersonIcon from '@material-ui/icons/Person';
-import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
-import DetailsIcon from '@material-ui/icons/Details';
-import SchoolIcon from '@material-ui/icons/School';
-import LockIcon from '@material-ui/icons/Lock';
-import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
-import Link from 'next/link';
-
-const useStyles = makeStyles(theme => ({
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import PersonIcon from "@material-ui/icons/Person";
+import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
+import DetailsIcon from "@material-ui/icons/Details";
+import SchoolIcon from "@material-ui/icons/School";
+import LockIcon from "@material-ui/icons/Lock";
+import AttachmentOutlinedIcon from "@material-ui/icons/AttachmentOutlined";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
+import Link from "next/link";
+import PageLoader from "../PageLoader";
+import { editProfile, updateProfileImg } from "../../apis/auth-api";
+const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up('sm')]: desktopStyles,
-  [theme.breakpoints.between('xs', 'sm')]: TabStyles,
-  [theme.breakpoints.down('xs')]: mobileStyles
-}))
+  [theme.breakpoints.up("sm")]: desktopStyles,
+  [theme.breakpoints.between("xs", "sm")]: TabStyles,
+  [theme.breakpoints.down("xs")]: mobileStyles,
+}));
+import { useDispatch } from "react-redux";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { searchUniversities } from "../../apis/global-api";
+import { authenticated } from "../../redux/actions/auth";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import ImageCropper from "../ImageCropper";
 
-const EditProfile = ({user}) => {
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
-  const classes = useStyles()
+const EditProfile = ({ user }) => {
+  const [loading, setloading] = useState(false);
+  const [searchloading, setsearchloading] = useState(false);
+  const [error, seterror] = useState([]);
+  const [firstname, setfirstname] = useState(user.first_name);
+  const [lastname, setlastname] = useState(user.last_name);
+  const [university, setuniversity] = useState({
+    name: user.university ? user.university.name : "",
+  });
+  const [phone_no, setphone_no] = useState(user.phone_number);
+  const [universities, setuniversities] = useState([
+    {
+      name: user.university ? user.university.name : "",
+      id: user.university ? user.university.id : "",
+    },
+  ]);
+  const [branch, setbranch] = useState(user.branch);
+  const [snackbar, setsnackbar] = useState(false);
+  const [snackbarMsg, setsnackbarMsg] = useState("");
+  const [snackbarType, setsnackbarType] = useState("success");
+  const [imageCrop, setimageCrop] = useState(true);
+  const [imgFile, setimgFile] = useState(
+    "https://images.unsplash.com/photo-1590438510531-6ca7da8c14b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+  );
+  const [imagePreviewUrl, setimagePreviewUrl] = useState("");
+
+  const dispatch = useDispatch();
+  const classes = useStyles();
+
+  const updateProfile = () => {
+    let university_id = universities.find(
+      (item) => item.name == university.name
+    );
+    let data = {
+      first_name: firstname,
+      last_name: lastname,
+      university_id: university_id.id,
+      phone_number: phone_no,
+      branch: branch,
+      email: user.email,
+    };
+    console.log(data);
+    setloading(true);
+    editProfile(data, user.id).then((data) => {
+      setloading(false);
+      if (data && data.error) {
+        seterror(data.msg);
+      } else if (data && data.body && data.body.user) {
+        dispatch(authenticated(data.body.user, data.body.user.api_token));
+        setsnackbar(true);
+        setsnackbarMsg("Updated successfully.");
+        setsnackbarType("success");
+      } else {
+        setsnackbar(true);
+        setsnackbarMsg("There is some error.Please try again later");
+        setsnackbarType("error");
+      }
+    });
+  };
+
+  const updateformData = (e, type) => {
+    e.preventDefault();
+    eval("set" + type + "('" + e.target.value + "')");
+  };
+
+  const handleUniSearch = (e) => {
+    let value = e.target.value;
+    if (!value) return;
+    setsearchloading(true);
+    searchUniversities(value).then((response) => {
+      setsearchloading(false);
+      setuniversities(response);
+    });
+  };
+
+  const handlesnackbar = () => {
+    setsnackbar(!snackbar);
+  };
+
+  const handleProfileChange = (e) => {
+    let files = e.target.files;
+    if (files.length) {
+      let reader = new FileReader();
+      let file = e.target.files[0];
+
+      reader.onloadend = () => {
+        //  this.setState({
+        //    imgFile: file,
+        //    imagePreviewUrl: reader.result,
+        //  });
+        setimgFile(file);
+        setimagePreviewUrl(reader.result);
+      };
+
+      imgFile && reader.readAsDataURL(imgFile);
+      console.log(imgFile);
+      console.log(imagePreviewUrl);
+    }
+    console.log(e.target.files);
+  };
+
+  const saveProfileImage = (data) => {
+    let formData = {
+      img: data,
+      api_token: user.api_token,
+    };
+    updateProfileImg(formData).then((resp) => console.log(resp));
+  };
 
   return (
     <section className={classes.section}>
       <Container maxWidth="xl">
+        <PageLoader loading={loading} />
+        <ImageCropper
+          open={imageCrop}
+          handleSave={saveProfileImage}
+          handleClose={() => setimageCrop(!imageCrop)}
+          image={imgFile}
+        />
+        <Snackbar
+          open={snackbar}
+          autoHideDuration={6000}
+          onClose={handlesnackbar}
+        >
+          <Alert onClose={handlesnackbar} severity={snackbarType}>
+            {snackbarMsg}
+          </Alert>
+        </Snackbar>
+
         <Grid container>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Typography className={classes.editTitle} variant="h3">
@@ -37,12 +180,19 @@ const EditProfile = ({user}) => {
             <Box className={classes.ProfileContainer}>
               <Typography variant="h5">Add image</Typography>
               <div className={classes.ProfileImage}>
-                <img src="/static/images/placeholder.jpg" />
+                <img
+                  src={
+                    user.profile_img
+                      ? user.profile_img
+                      : "/static/images/placeholder.jpg"
+                  }
+                />
                 <input
                   type="file"
                   name="file"
                   id="file"
                   className={classes.vHide}
+                  onChange={handleProfileChange}
                 />
                 <label htmlFor="file">
                   <AttachmentOutlinedIcon className={classes.uploadIcon} />
@@ -69,7 +219,8 @@ const EditProfile = ({user}) => {
                         <TextField
                           id="fname"
                           label="First Name"
-                          value={user.first_name}
+                          value={firstname}
+                          onChange={(e) => updateformData(e, "firstname")}
                         />
                       </Grid>
                     </Grid>
@@ -83,7 +234,8 @@ const EditProfile = ({user}) => {
                         <TextField
                           id="lname"
                           label="Last Name"
-                          value={user.last_name}
+                          value={lastname}
+                          onChange={(e) => updateformData(e, "lastname")}
                         />
                       </Grid>
                     </Grid>
@@ -112,7 +264,8 @@ const EditProfile = ({user}) => {
                         <TextField
                           id="number"
                           label="Phone Number"
-                          value={user.phone_number}
+                          value={phone_no}
+                          onChange={(e) => updateformData(e, "phone_no")}
                         />
                       </Grid>
                     </Grid>
@@ -123,7 +276,44 @@ const EditProfile = ({user}) => {
                         <SchoolIcon />
                       </Grid>
                       <Grid item className={classes.formInputField}>
-                        <TextField id="college" label="College" />
+                        <Autocomplete
+                          required
+                          options={universities}
+                          getOptionLabel={(option) => {
+                            return option.name;
+                          }}
+                          getOptionSelected={(option, value) =>
+                            option.name === value.name
+                          }
+                          loading={searchloading}
+                          value={university}
+                          onInputChange={(e) => e && handleUniSearch(e)}
+                          // onChange={(e) => updateformData(e, "university")}
+                          onSelect={(e) =>
+                            setuniversity({ name: e.target.value })
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Search University"
+                              InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                  <React.Fragment>
+                                    {searchloading ? (
+                                      <CircularProgress
+                                        color="primary"
+                                        size={20}
+                                      />
+                                    ) : null}
+                                    {params.InputProps.endAdornment}
+                                  </React.Fragment>
+                                ),
+                              }}
+                            />
+                          )}
+                        />
+                        {/* <TextField id="college" label="College" /> */}
                       </Grid>
                     </Grid>
                   </div>
@@ -136,7 +326,8 @@ const EditProfile = ({user}) => {
                         <TextField
                           id="branch"
                           label="Branch"
-                          value={user.branch}
+                          value={branch}
+                          onChange={(e) => updateformData(e, "branch")}
                         />
                       </Grid>
                     </Grid>
@@ -179,10 +370,23 @@ const EditProfile = ({user}) => {
                     </Grid>
                     </Grid>
                   </div> */}
-                  <Button variant="contained" className={classes.Button}>
+
+                  <Button
+                    variant="contained"
+                    className={classes.Button}
+                    onClick={updateProfile}
+                  >
                     Update
                   </Button>
                 </form>
+                <div>
+                  {error.length > 0 &&
+                    error.map((text, index) => (
+                      <Typography color="error" key={`err-${index}`}>
+                        {text}
+                      </Typography>
+                    ))}
+                </div>
               </CardContent>
             </Card>
           </Grid>
@@ -190,6 +394,6 @@ const EditProfile = ({user}) => {
       </Container>
     </section>
   );
-}
+};
 
-export default EditProfile
+export default EditProfile;

@@ -151,13 +151,13 @@ function Header({ modalOpen }) {
                 <Link href="/products/type/rental">Rent</Link>
               </li>
               <li>
-                <Link href="/comming-soon">Events</Link>
+                <Link href="/coming-soon">Events</Link>
               </li>
               <li>
                 <Link href="/post">List Product</Link>
               </li>
               <li>
-                <Link href="/comming-soon">Feedback</Link>
+                <Link href="/coming-soon">Feedback</Link>
               </li>
               <li>
               <Button

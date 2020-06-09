@@ -13,6 +13,18 @@ export function login(data) {
   return generalPostRequest(url, data);
 }
 
+export function editProfile(data, id) {
+  let url = API_URL + "/user/update/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
+export function updateProfileImg(data) {
+  let url = API_URL + "/profile-img/update";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
 function generalPostRequest(url, data) {
   return fetch(url, {
     headers: {

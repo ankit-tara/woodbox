@@ -47,7 +47,7 @@ export default function SimpleBottomNavigation() {
     >
       <BottomNavigationAction component={Link} href="/" label="Home" icon={<HomeRoundedIcon />}/>
       <BottomNavigationAction component={Link} href="/products/type/buy" label="Buy" icon={<LocalMallRoundedIcon />} />
-      <BottomNavigationAction component={Link} href="/comming-soon" label="Events" icon={<EventNoteRoundedIcon />} />
+      <BottomNavigationAction component={Link} href="/coming-soon" label="Events" icon={<EventNoteRoundedIcon />} />
       <BottomNavigationAction component={Link} href="/profile" label="My ads" icon={<LiveTvRoundedIcon />} />
       {! accessToken && (
       <BottomNavigationAction label="Login" icon={<AuthIcon isMobile={true} />} />
