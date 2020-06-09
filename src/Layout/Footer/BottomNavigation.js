@@ -24,8 +24,10 @@ const useStyles = makeStyles({
     '& button': {
       minWidth: '60px',
       padding: '6px 10px 8px'
+    },
+    '& a': {
+      color: '#908e8e'
     }
-
   },
 });
 
