@@ -147,7 +147,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </Link>
                 <Divider />
-                <Link href="/comming-soon">
+                <Link href="/coming-soon">
                   <ListItem button>
                     <ListItemIcon>
                       <EventNoteRoundedIcon />
@@ -165,7 +165,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </Link>
                 <Divider />
-                <Link href="/comming-soon">
+                <Link href="/coming-soon">
                   <ListItem button>
                     <ListItemIcon>
                       <FeedbackIcon />
@@ -174,7 +174,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </Link>
                 <Divider />
-                <Link href="/comming-soon">
+                <Link href="/coming-soon">
                   <ListItem button>
                     <ListItemIcon>
                       <MoreIcon />

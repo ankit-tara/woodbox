@@ -47,7 +47,13 @@ const sellerProfile = ({ user }) => {
           <Grid item lg={3} md={3} sm={12} xs={12}>
             <Box className={classes.ProfileContainer}>
               <div className={classes.ProfileImage}>
-                <img src="/static/images/placeholder.jpg" />
+                <img
+                  src={
+                    user.profile_img
+                      ? user.profile_img
+                      : "/static/images/placeholder.jpg"
+                  }
+                />
               </div>
               <div className={classes.ProfileDetails}>
                 <Typography variant="h6">

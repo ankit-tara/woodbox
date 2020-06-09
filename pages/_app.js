@@ -11,6 +11,7 @@ import store from "../src/redux/store";
 import NProgress from "nprogress"; //nprogress module
 import "nprogress/nprogress.css"; 
 import "../src/styles/global.css";
+import "cropperjs/dist/cropper.css";
 
 import Router from "next/router";
 Router.events.on("routeChangeStart", () => NProgress.start());

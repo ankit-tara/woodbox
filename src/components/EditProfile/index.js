@@ -21,7 +21,7 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import Link from "next/link";
 import PageLoader from "../PageLoader";
-import { editProfile } from "../../apis/auth-api";
+import { editProfile, updateProfileImg } from "../../apis/auth-api";
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("sm")]: desktopStyles,
@@ -35,6 +35,8 @@ import { searchUniversities } from "../../apis/global-api";
 import { authenticated } from "../../redux/actions/auth";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import ImageCropper from "../ImageCropper";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -59,6 +61,11 @@ const EditProfile = ({ user }) => {
   const [snackbar, setsnackbar] = useState(false);
   const [snackbarMsg, setsnackbarMsg] = useState("");
   const [snackbarType, setsnackbarType] = useState("success");
+  const [imageCrop, setimageCrop] = useState(true);
+  const [imgFile, setimgFile] = useState(
+    "https://images.unsplash.com/photo-1590438510531-6ca7da8c14b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+  );
+  const [imagePreviewUrl, setimagePreviewUrl] = useState("");
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -113,10 +120,46 @@ const EditProfile = ({ user }) => {
     setsnackbar(!snackbar);
   };
 
+  const handleProfileChange = (e) => {
+    let files = e.target.files;
+    if (files.length) {
+      let reader = new FileReader();
+      let file = e.target.files[0];
+
+      reader.onloadend = () => {
+        //  this.setState({
+        //    imgFile: file,
+        //    imagePreviewUrl: reader.result,
+        //  });
+        setimgFile(file);
+        setimagePreviewUrl(reader.result);
+      };
+
+      imgFile && reader.readAsDataURL(imgFile);
+      console.log(imgFile);
+      console.log(imagePreviewUrl);
+    }
+    console.log(e.target.files);
+  };
+
+  const saveProfileImage = (data) => {
+    let formData = {
+      img: data,
+      api_token: user.api_token,
+    };
+    updateProfileImg(formData).then((resp) => console.log(resp));
+  };
+
   return (
     <section className={classes.section}>
       <Container maxWidth="xl">
         <PageLoader loading={loading} />
+        <ImageCropper
+          open={imageCrop}
+          handleSave={saveProfileImage}
+          handleClose={() => setimageCrop(!imageCrop)}
+          image={imgFile}
+        />
         <Snackbar
           open={snackbar}
           autoHideDuration={6000}
@@ -137,12 +180,19 @@ const EditProfile = ({ user }) => {
             <Box className={classes.ProfileContainer}>
               <Typography variant="h5">Add image</Typography>
               <div className={classes.ProfileImage}>
-                <img src="/static/images/placeholder.jpg" />
+                <img
+                  src={
+                    user.profile_img
+                      ? user.profile_img
+                      : "/static/images/placeholder.jpg"
+                  }
+                />
                 <input
                   type="file"
                   name="file"
                   id="file"
                   className={classes.vHide}
+                  onChange={handleProfileChange}
                 />
                 <label htmlFor="file">
                   <AttachmentOutlinedIcon className={classes.uploadIcon} />
