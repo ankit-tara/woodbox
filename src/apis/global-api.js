@@ -13,6 +13,19 @@ export function searchUniversities(q) {
     .catch((error) => console.warn(error));
 }
 
+export function searchCategories(q) {
+  let url = API_URL + `/product-categories-search/${q}`;
+  console.log(url);
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
+
 export async function getProducts(q) {
   let url = API_URL + "/products";
   if (q) {
@@ -56,3 +69,5 @@ export async function getSeller(id) {
     })
     .catch((error) => console.warn(error));
 }
+
+

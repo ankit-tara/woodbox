@@ -24,6 +24,11 @@ export function updateProfileImg(data) {
   console.log(url);
   return generalPostRequest(url, data);
 }
+export function AddProduct(data) {
+  let url = API_URL + "/product";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
 
 function generalPostRequest(url, data) {
   return fetch(url, {
