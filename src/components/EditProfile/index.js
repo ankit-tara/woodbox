@@ -61,11 +61,8 @@ const EditProfile = ({ user }) => {
   const [snackbar, setsnackbar] = useState(false);
   const [snackbarMsg, setsnackbarMsg] = useState("");
   const [snackbarType, setsnackbarType] = useState("success");
-  const [imageCrop, setimageCrop] = useState(true);
-  const [imgFile, setimgFile] = useState(
-    "https://images.unsplash.com/photo-1590438510531-6ca7da8c14b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-  );
-  const [imagePreviewUrl, setimagePreviewUrl] = useState("");
+  const [imageCrop, setimageCrop] = useState(false);
+  const [imgFile, setimgFile] = useState("");
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -123,21 +120,9 @@ const EditProfile = ({ user }) => {
   const handleProfileChange = (e) => {
     let files = e.target.files;
     if (files.length) {
-      let reader = new FileReader();
-      let file = e.target.files[0];
-
-      reader.onloadend = () => {
-        //  this.setState({
-        //    imgFile: file,
-        //    imagePreviewUrl: reader.result,
-        //  });
-        setimgFile(file);
-        setimagePreviewUrl(reader.result);
-      };
-
-      imgFile && reader.readAsDataURL(imgFile);
-      console.log(imgFile);
-      console.log(imagePreviewUrl);
+      var tmppath = URL.createObjectURL(event.target.files[0]);
+      setimgFile(tmppath);
+      setimageCrop(true);
     }
     console.log(e.target.files);
   };
@@ -147,7 +132,22 @@ const EditProfile = ({ user }) => {
       img: data,
       api_token: user.api_token,
     };
-    updateProfileImg(formData).then((resp) => console.log(resp));
+    updateProfileImg(formData).then((data) => {
+      setimageCrop(false);
+      setimgFile("");
+      if (data && data.error) {
+        seterror(data.msg);
+      } else if (data && data.body && data.body.user) {
+        dispatch(authenticated(data.body.user, data.body.user.api_token));
+        setsnackbar(true);
+        setsnackbarMsg("Updated successfully.");
+        setsnackbarType("success");
+      } else {
+        setsnackbar(true);
+        setsnackbarMsg("There is some error.Please try again later");
+        setsnackbarType("error");
+      }
+    });
   };
 
   return (
@@ -193,6 +193,7 @@ const EditProfile = ({ user }) => {
                   id="file"
                   className={classes.vHide}
                   onChange={handleProfileChange}
+                  accept="image/*"
                 />
                 <label htmlFor="file">
                   <AttachmentOutlinedIcon className={classes.uploadIcon} />

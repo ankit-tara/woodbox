@@ -50,15 +50,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login_Register = ({ isMobile = false }) => {
+const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   const [open, setopen] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (modalOpen != open) {
+      setopen(modalOpen);
+    }
+  }, [modalOpen]);
+
   const accessToken = useSelector((state) => state.auth_user.accessToken);
-  console.log(accessToken);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
