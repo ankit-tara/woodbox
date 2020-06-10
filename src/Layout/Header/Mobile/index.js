@@ -192,7 +192,7 @@ export default function SearchAppBar() {
                 </ListItem>
                 <Collapse in={openMenu} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <Link href="/comming-soon">
+                    <Link href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
@@ -200,7 +200,7 @@ export default function SearchAppBar() {
                         <ListItemText primary="About" />
                       </ListItem>
                     </Link>
-                    <Link href="/comming-soon">
+                    <Link href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
@@ -208,7 +208,7 @@ export default function SearchAppBar() {
                         <ListItemText primary="Privacy Policy" />
                       </ListItem>
                     </Link>
-                    <Link href="/comming-soon">
+                    <Link href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />

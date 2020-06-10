@@ -78,7 +78,7 @@ function Header({ modalOpen }) {
   const router = useRouter();
 
   const goto_commingSoon = () =>{
-    router.push("/comming-soon");
+    router.push("/coming-soon");
   }
 
   const handleClick = (event) => {
