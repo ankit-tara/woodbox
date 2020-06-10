@@ -36,9 +36,9 @@ function Products({ data, url }) {
   const [page, setpage] = useState(0);
   useEffect(() => {
     console.log("url", url);
-    if (url) fetchTypeProducts(url);
+    if (url) fetchTypeProducts(url, 0, []);
     // setproducts(data);
-  }, [data]);
+  }, [data, url]);
 
   const handleButtonClick = () => {
     if (!loadMore) {
@@ -118,6 +118,13 @@ function Products({ data, url }) {
                     </div>
                   ))}
               </Box>
+
+              {products.data && products.data.length <= 0 && (
+                <Typography variant="h4">
+                 Oops!! we we could not find related to your search.Please search something else
+                </Typography>
+              )}
+
               <Box
                 style={{ backgroundImage: "url(/static/images/boxbg.png)" }}
                 className={classes.productContentSection}
@@ -194,7 +201,6 @@ function Products({ data, url }) {
           <Testimonial data={TestimonialData} />
         </Container>
       </section>
-
     </Layout>
   );
 }

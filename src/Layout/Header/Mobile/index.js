@@ -107,6 +107,16 @@ export default function SearchAppBar() {
     );
   };
 
+  const handleListProduct = (e) => {
+    e.preventDefault();
+    if (accessToken) {
+      router.push("/post");
+    } else {
+      // setauthModal(true);
+    }
+  };
+
+
   return (
     <div className={classes.root}>
       <ClickAwayListener onClickAway={handleClickAway}>
@@ -140,10 +150,10 @@ export default function SearchAppBar() {
                 <Divider />
                 <Link href="/products/type/buy">
                   <ListItem button>
-                      <ListItemIcon>
-                        <LocalMallRoundedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Buy" />
+                    <ListItemIcon>
+                      <LocalMallRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Buy" />
                   </ListItem>
                 </Link>
                 <Divider />
@@ -165,7 +175,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </Link>
                 <Divider />
-                <Link href="/post">
+                <Link href="/post" onClick={handleListProduct}>
                   <ListItem button>
                     <ListItemIcon>
                       <FormatListBulletedIcon />

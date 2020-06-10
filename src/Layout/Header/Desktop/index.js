@@ -7,57 +7,58 @@ import ChatIcon from "@material-ui/icons/Chat";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import useNavbar from "../utils/useNavbar";
-import InputBase from '@material-ui/core/InputBase';
+import InputBase from "@material-ui/core/InputBase";
 import Menu from "@material-ui/core/Menu";
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import AuthIcon from "../../../components/Login_Register";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   search: {
-    position: 'relative',
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
+    "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    border:'solid 1px #ccc',
+    border: "solid 1px #ccc",
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: 'auto',
+      width: "auto",
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   inputRoot: {
-    color: 'inherit',
+    color: "inherit",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
   },
@@ -73,13 +74,16 @@ function Header({ modalOpen }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [open, setOpen] = React.useState(false);
+  const [authModal, setauthModal] = React.useState(false);
+  const [timeout, settimeout] = React.useState("");
   const anchorRef = React.useRef(null);
 
   const router = useRouter();
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
 
-  const goto_commingSoon = () =>{
+  const goto_commingSoon = () => {
     router.push("/comming-soon");
-  }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -102,7 +106,7 @@ function Header({ modalOpen }) {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -119,6 +123,26 @@ function Header({ modalOpen }) {
   }, [open]);
 
   const classes = useStyles();
+
+  const handleListProduct = (e) => {
+    e.preventDefault();
+    console.log("clicked", authModal);
+    if (accessToken) {
+      router.push("/post");
+    } else {
+      setauthModal(true);
+    }
+  };
+
+  const handleSearch = (e) => {
+    let value = e.target.value;
+    if (timeout) clearTimeout(timeout);
+    settimeout(
+      setTimeout(() => {
+        router.push("/products?s=" + value);
+      }, 600)
+    );
+  };
 
   return (
     <nav
@@ -154,38 +178,59 @@ function Header({ modalOpen }) {
                 <Link href="/coming-soon">Events</Link>
               </li>
               <li>
-                <Link href="/post">List Product</Link>
+                <a onClick={handleListProduct}>List Product</a>
               </li>
               <li>
                 <Link href="/coming-soon">Feedback</Link>
               </li>
               <li>
-              <Button
-                ref={anchorRef}
-                aria-controls={open ? 'More' : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle}
-              >
-                More
-              </Button>
-              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleToggleClose}>
-                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                          <MenuItem onClick={goto_commingSoon} >About</MenuItem>
-                          <MenuItem onClick={goto_commingSoon} >Privacy Policy</MenuItem>
-                          <MenuItem onClick={goto_commingSoon}>Terms &amp; Conditions</MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
+                <Button
+                  ref={anchorRef}
+                  aria-controls={open ? "More" : undefined}
+                  aria-haspopup="true"
+                  onClick={handleToggle}
+                >
+                  More
+                </Button>
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === "bottom"
+                            ? "center top"
+                            : "center bottom",
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={handleToggleClose}>
+                          <MenuList
+                            autoFocusItem={open}
+                            id="menu-list-grow"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            <MenuItem onClick={goto_commingSoon}>
+                              About
+                            </MenuItem>
+                            <MenuItem onClick={goto_commingSoon}>
+                              Privacy Policy
+                            </MenuItem>
+                            <MenuItem onClick={goto_commingSoon}>
+                              Terms &amp; Conditions
+                            </MenuItem>
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
               </li>
             </ul>
           </Grid>
@@ -202,7 +247,8 @@ function Header({ modalOpen }) {
                       root: classes.inputRoot,
                       input: classes.inputInput,
                     }}
-                    inputProps={{ 'aria-label': 'search' }}
+                    inputProps={{ "aria-label": "search" }}
+                    onChange={handleSearch}
                   />
                 </div>
               </li>
@@ -213,7 +259,7 @@ function Header({ modalOpen }) {
                 <NotificationsNoneIcon />
               </li>
               <li>
-                <AuthIcon />
+                <AuthIcon modalOpen={authModal} />
               </li>
             </ul>
           </Grid>
