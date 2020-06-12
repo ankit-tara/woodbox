@@ -53,7 +53,7 @@ export default function SearchAppBar() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
-
+  const [timeout, settimeout] = React.useState("");
   const [openMenu, setOpenMenu] = React.useState(true);
 
   const toggleSubmenu = () => {
@@ -89,6 +89,25 @@ export default function SearchAppBar() {
     dispatch(unauthenticated());
   };
 
+  // const handleSearch = (e) => {
+  //   let value = e.target.value;
+  //   settimeout(value);
+  // };
+  
+  const handleSearch = (e) => {
+    let value = e.target.value;
+    if (timeout) clearTimeout(timeout);
+    settimeout(
+      setTimeout(() => {
+        router.push("/products?s=" + value);
+      }, 6000)
+    );
+  };
+
+  const handleSeachClick = () => {
+    router.push("/products?s=" + timeout)
+  }
+
   const SearchAppBar = () => {
     return (
       <div className={classes.searchBar}>
@@ -96,10 +115,11 @@ export default function SearchAppBar() {
           type="submit"
           className={classes.iconButton}
           aria-label="search"
+          onClick={handleSeachClick}
         >
           <SearchIcon />
         </IconButton>
-        <InputBase className={classes.input} placeholder="Search" />
+        <InputBase className={classes.input} placeholder="Search" onChange={handleSearch} />
         <IconButton className={classes.closeButton} onClick={handleSearchClose}>
           <CloseIcon />
         </IconButton>

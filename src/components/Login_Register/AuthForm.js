@@ -24,6 +24,15 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     padding: "0.5rem",
   },
+  button:{
+    '&:focus':{
+      background: 'rgb(177, 90, 16)'
+    },
+    '& .MuiCircularProgress-colorPrimary':{
+      marginLeft: '10px',
+      color: '#fff'
+    }
+  }
 }));
 
 export const AuthForm = ({ type }) => {
@@ -38,6 +47,7 @@ export const AuthForm = ({ type }) => {
   const [universities, setuniversities] = useState([]);
   const [branch, setbranch] = useState("");
   const [loading, setloading] = useState(false);
+  const [btnloading, setbtnloading] = useState(false);
   const [backdrop, setbackdrop] = useState(true);
   const [formerrs, setformerrs] = useState([]);
   const classes = useStyles();
@@ -46,12 +56,12 @@ export const AuthForm = ({ type }) => {
 
   const handleSubmit = (e) => {
     setformerrs([]);
-    setbackdrop(true);
     submitSignUp();
   };
 
   const submitLogin = () => {
     setformerrs([]);
+    setbtnloading(true);
     let data = {
       email: email,
       password: password,
@@ -60,6 +70,7 @@ export const AuthForm = ({ type }) => {
       if (response.error) {
         setformerrs(response.msg);
       } else {
+        setbtnloading(false);
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setLogin(user, accessToken);
@@ -68,6 +79,7 @@ export const AuthForm = ({ type }) => {
   };
 
   const submitSignUp = () => {
+    setbtnloading(true);
     let university_id = universities.find(
       (item) => item.name == university.name
     );
@@ -86,6 +98,7 @@ export const AuthForm = ({ type }) => {
       } else {
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
+        setbtnloading(false);
         setLogin(user, accessToken);
         console.log(response);
       }
@@ -280,6 +293,9 @@ export const AuthForm = ({ type }) => {
           color="primary"
         >
           {type == "login" ? "Login" : "SignUp"}
+          {btnloading ? (
+            <CircularProgress color="primary" size={20} />
+          ) : null}
         </Button>
       </form>
     </div>

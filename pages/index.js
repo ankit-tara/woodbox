@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../src/Layout";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+import { Box, Container,  Grid, Typography } from "@material-ui/core";
 import IconCard from "../src/components/IconCard";
 import EventIconCard from "../src/components/EventIconCard";
 import ProductCard from "../src/components/ProductCard";
@@ -9,7 +9,15 @@ import EventCard from "../src/components/EventCard";
 import Banner from "../src/components/Banner";
 import CardHorizontal from "../src/components/CardHorizontal";
 import Testimonial from "../src/components/Testimonial";
+import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 import Swiper from "react-id-swiper";
+import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import {
   IconCardsData,
   EventIconCardsData,
@@ -54,6 +62,37 @@ export async function getStaticProps() {
 
 export default function Index({ bproducts, sproducts }) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   const params = {
     loop: false,
@@ -132,8 +171,40 @@ export default function Index({ bproducts, sproducts }) {
       <section className={classes.section}>
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
-            <Typography variant="h5">Newly Added Products</Typography>
-            <Typography variant="h3">Buy</Typography>
+            <div>
+              <Typography variant="h5">Newly Added Products</Typography>
+              <Typography variant="h3">Buy</Typography>
+            </div>
+            <div>
+              <Button
+                ref={anchorRef}
+                aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+                className={classes.catBtn}
+              >
+                Category <ExpandMoreRoundedIcon/>
+             </Button>
+              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                          <MenuItem onClick={handleClose}>Category 1</MenuItem>
+                          <MenuItem onClick={handleClose}>Category 2</MenuItem>
+                          <MenuItem onClick={handleClose}>Category 3</MenuItem>
+                          <MenuItem onClick={handleClose}>Category 4</MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>

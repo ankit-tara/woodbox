@@ -78,7 +78,7 @@ export const commonStyles = {
   },
   ProductsGridWrapper: {
     display: 'grid',
-    gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
+    gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 350px) )',
     padding: '2rem 0'
   }
 }
