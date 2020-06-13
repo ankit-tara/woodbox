@@ -31,7 +31,7 @@ export const commonStyles = {
     padding: '0',
     listStyleType: 'none',
     '& li': {
-      marginRight: '1.5rem'
+      marginRight: '1.3rem'
     },
     '& li ul li': {
       marginRight: '0'
