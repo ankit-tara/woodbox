@@ -23,7 +23,7 @@ const CardHorizontal = ({ data}) => {
         <div className="content" >
           <Typography variant="h4" className={classes.title}>{data.title}</Typography>
           <Typography className={classes.excerpt}>{data.excerpt}</Typography>
-          <Button variant="contained" component={Link} to="data.link.url" className={classes.Button}>
+          <Button variant="contained" component={Link} target="_blank" href={data.link.url} className={classes.Button}>
             {data.link.name}
           </Button>
         </div>
