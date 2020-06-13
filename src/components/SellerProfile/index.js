@@ -16,6 +16,7 @@ import SchoolIcon from "@material-ui/icons/School";
 import ProductCard from "../ProductCard";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import { getProducts } from "../../apis/global-api";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 const sellerProfile = ({ user }) => {
   const [data, setdata] = useState();
-  console.log(user)
+  const auth_user = useSelector((state) => state.auth_user.user);
+
   useEffect(() => {
     const fetchData = () => {
       getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
@@ -35,6 +37,8 @@ const sellerProfile = ({ user }) => {
   }, [user]);
 
   const classes = useStyles();
+
+  const isAuthUser = auth_user.id && user.id == auth_user.id;
   return (
     <section className={classes.section}>
       <Container maxWidth="xl">
@@ -85,7 +89,7 @@ const sellerProfile = ({ user }) => {
                   {data &&
                     data.data.map((data) => (
                       <div key={data.id}>
-                        <ProductCard data={data} />
+                        <ProductCard data={data} isAuthUser={isAuthUser} />
                       </div>
                     ))}
                 </Box>
