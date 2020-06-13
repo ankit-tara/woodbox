@@ -32,7 +32,7 @@ const sellerProfile = ({ user }) => {
       getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   const classes = useStyles();
   return (
