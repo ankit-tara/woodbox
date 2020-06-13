@@ -73,6 +73,9 @@ export const commonStyles = {
   productsHeader: {
     paddingBottom: "1rem",
     borderBottom: "solid 1px #BDBDBD",
+    display:'flex',
+    justifyContent:'space-between',
+    alignItems: 'center',
     "& h5": {
       marginBottom: "1rem",
     },
@@ -186,6 +189,19 @@ export const commonStyles = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)'
+  },
+  catBtn:{
+    fontSize: '1.5rem',
+    textTransform: 'capitalize',
+    '& + div':{
+      zIndex: '99'
+    },
+    '&:hover':{
+      background: 'none'
+    },
+    '& .MuiTouchRipple-root':{
+      display: 'none'
+    },
   }
 };
 

@@ -135,13 +135,15 @@ const useStyles = makeStyles((theme) => ({
     height: "80px",
     display: "grid",
   },
-  dialoge: {
-    "& .MuiGrid-spacing-xs-8": {
-      width: "100%",
-      margin: "0",
-    },
-  },
-}));
+  dialogeCustom: {
+    '& .MuiGrid-spacing-xs-8': {
+      width: '100%',
+      margin: '0'
+    }
+  }
+}))
+
+export default function Post({user}) {
 
 export default function Post({ user }) {
   const classes = useStyles();
@@ -505,7 +507,7 @@ export default function Post({ user }) {
                         showPreviews={true}
                         maxFileSize={500000}
                         onClose={handleClose.bind(this)}
-                        className={classes.dialoge}
+                        className="dialogeCustom"
                       />
                     </div>
 

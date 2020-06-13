@@ -14,6 +14,10 @@ export const commonStyles = {
     },
     '& a': {
       cursor: 'pointer !important'
+    },
+    '& .dialogeCustom .MuiGrid-spacing-xs-8':{
+      width: '100%',
+      margin: '0'
     }
   },
   Main: {
@@ -37,7 +41,7 @@ export const commonStyles = {
     alignItems: 'center',
     zIndex: 9999,
     background: 'rgba(0,0,0,0.7)'
-  }
+  },
 }
 
 export const mobileStyles = {

@@ -2,3 +2,15 @@
   background: #ff5722 !important;
 }
 
+.MuiDialog-container .MuiGrid-spacing-xs-8{
+  width: 100%;
+  margin:0;
+}
+
+@media(max-width:767px){
+  .MuiDropzonePreviewList-imageContainer{
+    width: 100%;
+    max-width: 100% !important;
+    flex:1;
+  }
+}
