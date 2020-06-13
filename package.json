@@ -15,6 +15,8 @@
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.52",
+    "@sentry/browser": "^5.17.0",
+    "dotenv-webpack": "^1.8.0",
     "express": "^4.17.1",
     "material-ui": "^1.0.0-beta.47",
     "material-ui-dropzone": "^3.1.0",
@@ -32,11 +34,9 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "styled-components": "^5.1.1",
-    "swiper": "^5.3.8",
-    "dotenv-webpack": "^1.8.0"
+    "swiper": "^5.3.8"
   },
   "devDependencies": {
-    
     "nodemon": "^2.0.4"
   }
 }

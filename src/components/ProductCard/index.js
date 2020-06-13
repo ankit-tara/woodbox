@@ -9,6 +9,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { DeleteProduct} from "../../apis/auth-api"
+import { useRouter } from "next/router";
+
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -22,6 +25,8 @@ function ProductCard({ data, isAuthUser = false }) {
   const [productStar, setproductStar] = React.useState(isSaved ? 1 : 0);
 
   const classes = useStyles();
+  const router = useRouter();
+
 
   const changeRating = () => {
     if (!isSaved && productStar == 0) {
@@ -43,7 +48,16 @@ function ProductCard({ data, isAuthUser = false }) {
     setAnchorEl(null);
   };
   const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    DeleteProduct(data, data.id).then((response) => {
+      console.log(response);
+      if (response.error) {
+        console.log(response.error)
+      } else {
+        location.reload();
+      }
+    });
+  };
 
   return (
     <Card

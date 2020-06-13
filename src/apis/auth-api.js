@@ -30,6 +30,12 @@ export function AddProduct(data) {
   return generalPostRequest(url, data);
 }
 
+export function DeleteProduct(data, id) {
+  let url = API_URL + "/product/delete/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
 function generalPostRequest(url, data) {
   return fetch(url, {
     headers: {
