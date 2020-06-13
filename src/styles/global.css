@@ -5,6 +5,7 @@
 .MuiDialog-container .MuiGrid-spacing-xs-8{
   width: 100%;
   margin:0;
+  
 }
 
 @media(max-width:767px){
