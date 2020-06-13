@@ -274,7 +274,7 @@ export const OurConceptData = [
     excerpt:
       "Provocative content for an accounting firm may include six reasons you’re paying too much in tax; why the top line is more important than the bottom line; and how to get your clients to offer to pay you more than you ask.",
     link: {
-      url: "#",
+      url: "/coming-soon",
       name: "Learn More",
     },
   },
@@ -288,7 +288,7 @@ export const OurConceptData = [
       "Provocative content for an accounting firm may include six reasons you’re paying too much in tax; why the top line is more important than the bottom line; and how to get your clients to offer to pay you more than you ask.",
     collegeName: "Gulzar College of Arts",
     link: {
-      url: "#",
+      url: "/static/pdf.pdf",
       name: "Download Pdf",
     },
   },
