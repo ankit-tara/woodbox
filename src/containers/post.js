@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
     height: "80px",
     display: "grid",
   },
-  dialoge: {
+  dialogeCustom: {
     "& .MuiGrid-spacing-xs-8": {
       width: "100%",
       margin: "0",
@@ -158,8 +158,8 @@ export default function Post({ user }) {
   const [categories, setcategories] = useState([]);
   const [loading, setloading] = useState(false);
   const [loadingUni, setloadingUni] = useState(false);
-  const [backdrop, setbackdrop] = useState(true);
-  const [formerrs, setformerrs] = useState(false);
+  const [backdrop, setbackdrop] = useState(false);
+  const [formerrs, setformerrs] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -174,12 +174,13 @@ export default function Post({ user }) {
       const reader = new FileReader();
       reader.onload = (event) => {
         //store result into your state array.
-        const updatedImages = [...files, event.target.result];
+        const updatedImages = files.concat(event.target.result);
+        // const updatedImages = [...files, event.target.result];
         setfiles(updatedImages);
         if (count == filesArr.length) {
           console.log(updatedImages);
           setOpen(false);
-          handleSubmit("", updatedImages);
+          // handleSubmit("", updatedImages);
         }
       };
       reader.readAsDataURL(file);
@@ -244,27 +245,27 @@ export default function Post({ user }) {
       !category.name ||
       !type
     ) {
-      setformerrs("All fields are required");
+      setformerrs(["All fields are required"]);
       return false;
     }
     if (!files.length) {
-      setformerrs("Images are required");
+      setformerrs(["Images are required"]);
       return false;
     }
     return true;
   };
 
   const handleSubmit = (e, uploaded_files) => {
-    console.log(uploaded_files);
-    uploaded_files && setfiles(uploaded_files);
+    // console.log(uploaded_files);
+    // uploaded_files && setfiles(uploaded_files);
 
     e && e.preventDefault();
-    let is_valid = checkValidation;
+    let is_valid = checkValidation();
 
     if (!is_valid) {
       return;
     }
-
+    setbackdrop(true);
     let university_id = universities.find(
       (item) => item.name == university.name
     );
@@ -277,15 +278,18 @@ export default function Post({ user }) {
       category_id: category_id.id,
       seller_id: user.id,
       type: type,
-      files: uploaded_files,
-      active:true
+      files: files,
+      active: true,
     };
-    console.log(data)
+
     AddProduct(data).then((response) => {
+      console.log(response);
       if (response.error) {
-        alert("error");
+        setbackdrop(false);
+        setformerrs(response.msg);
+        // setformerrs();
       } else {
-        alert("added");
+        router.push("/profile");
       }
     });
   };
@@ -293,6 +297,15 @@ export default function Post({ user }) {
   return (
     <Layout>
       <section className={classes.section}>
+        {backdrop && (
+          <Backdrop
+            className={classes.backdrop}
+            open={backdrop}
+            // onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        )}
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={9} md={9} sm={8} xs={12} style={{ margin: "auto" }}>
@@ -489,7 +502,9 @@ export default function Post({ user }) {
                         <img src="/static/images/technical.png" />
                         <img src="/static/images/library.png" /> */}
                         {files.length > 0 &&
-                          files.map((file , index) => <img src={file} key={`img${index}`}/>)}
+                          files.map((file, index) => (
+                            <img src={file} key={`img${index}`} />
+                          ))}
                         <Button
                           onClick={handleOpen.bind(this)}
                           className={classes.AddBtn}
@@ -517,7 +532,12 @@ export default function Post({ user }) {
                       Add Product
                     </Button>
                   </form>
-                  <Typography color="error">{formerrs}</Typography>
+                  {formerrs.length > 0 &&
+                    formerrs.map((msg, index) => (
+                      <Typography color="error" key={`error${index}`}>
+                        {msg}
+                      </Typography>
+                    ))}
                 </CardContent>
               </Card>
             </Grid>
