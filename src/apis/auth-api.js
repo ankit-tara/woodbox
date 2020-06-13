@@ -29,6 +29,11 @@ export function AddProduct(data) {
   console.log(url);
   return generalPostRequest(url, data);
 }
+export function UpdateProduct(data, id) {
+  let url = API_URL + "/product/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
 
 export function DeleteProduct(data, id) {
   let url = API_URL + "/product/delete/" + id;

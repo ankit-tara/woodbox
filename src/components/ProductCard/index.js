@@ -47,7 +47,10 @@ function ProductCard({ data, isAuthUser = false }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleEdit = () => {};
+  const handleEdit = () => {
+     router.push("/post/edit/"+data.id);
+
+  };
   const handleDelete = () => {
     DeleteProduct(data, data.id).then((response) => {
       console.log(response);

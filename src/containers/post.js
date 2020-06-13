@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../Layout";
 import {
@@ -20,7 +20,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { searchUniversities, searchCategories } from "../apis/global-api";
-import { AddProduct } from "../apis/auth-api";
+import { AddProduct, UpdateProduct } from "../apis/auth-api";
 import CategoryIcon from "@material-ui/icons/Category";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -143,25 +143,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Post({ user }) {
+export default function Post({ user, formtype = "add", product = {} }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [files, setfiles] = React.useState([]);
-  const [title, settitle] = useState("");
-  const [type, settype] = useState("");
-  const [description, setdescription] = useState("");
-  const [price, setprice] = useState("");
-  const [university, setuniversity] = useState({ name: "" });
-  const [category, setcategory] = useState({ name: "" });
+  const [title, settitle] = useState(product.title);
+  const [type, settype] = useState(product.type);
+  const [description, setdescription] = useState(product.description);
+  const [price, setprice] = useState(product.price);
+  const [university, setuniversity] = useState({
+    name: product.university ? product.university.name : "",
+    id: product.university ? product.university.id : "",
+  });
+  const [category, setcategory] = useState({
+    name: product.category ? product.category.name : "",
+    id: product.category ? product.category.id : "",
+  });
   const [errs, seterrs] = useState({});
-  const [universities, setuniversities] = useState([]);
-  const [categories, setcategories] = useState([]);
+  const [universities, setuniversities] = useState(
+    product.university
+      ? [{ name: product.university.name, id: product.university.id }]
+      : []
+  );
+  const [categories, setcategories] = useState(
+    product.category
+      ? [{ name: product.category.name, id: product.category.id }]
+      : []
+  );
   const [loading, setloading] = useState(false);
   const [loadingUni, setloadingUni] = useState(false);
   const [backdrop, setbackdrop] = useState(false);
   const [formerrs, setformerrs] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    if (product.images) {
+      product.images.map((fileData) => {
+        const updatedImages = files.concat(fileData.base64_data);
+        setfiles(updatedImages);
+      });
+    }
+  }, [product]);
 
   const handleClose = () => {
     setOpen(false);
@@ -185,25 +208,6 @@ export default function Post({ user }) {
       };
       reader.readAsDataURL(file);
     });
-    // let converted_files = [];
-    // let promises = [];
-
-    // files.map((file) => {
-    //   fileToBase64(file).then((data) => {
-    //     console.log(data);
-    //     converted_files.push(data);
-    //     promises.push(data);
-    //   });
-    // });
-    // Promise.all(promises).then(() => {
-    //   console.log(promises);
-    //   //All the save queries will be executed when .then is executed
-    //   //You can do further operations here after as all update operations are completed now
-    // });
-    // setfiles(converted_files);
-    // setOpen(false);
-
-    // handleSubmit();
   };
 
   const handleOpen = () => {
@@ -216,7 +220,7 @@ export default function Post({ user }) {
   };
 
   const handleUniSearch = (e) => {
-    let value = e.target.value;
+    let value = e ? e.target.value : "";
     if (!value) return;
     setloadingUni(true);
     searchUniversities(value).then((response) => {
@@ -226,7 +230,7 @@ export default function Post({ user }) {
   };
 
   const handleCatSearch = (e) => {
-    let value = e.target.value;
+    let value = e ? e.target.value : "";
     if (!value) return;
     setloading(true);
     searchCategories(value).then((response) => {
@@ -281,17 +285,25 @@ export default function Post({ user }) {
       files: files,
       active: true,
     };
-
-    AddProduct(data).then((response) => {
-      console.log(response);
-      if (response.error) {
-        setbackdrop(false);
-        setformerrs(response.msg);
-        // setformerrs();
-      } else {
-        router.push("/profile");
-      }
-    });
+    if (formtype == "edit" && product.id) {
+      UpdateProduct(data, product.id).then((response) => {
+        if (response.error) {
+          setbackdrop(false);
+          setformerrs(response.msg);
+        } else {
+          router.push("/profile");
+        }
+      });
+    } else {
+      AddProduct(data).then((response) => {
+        if (response.error) {
+          setbackdrop(false);
+          setformerrs(response.msg);
+        } else {
+          router.push("/profile");
+        }
+      });
+    }
   };
 
   return (
@@ -312,7 +324,7 @@ export default function Post({ user }) {
               <Card className={classes.card}>
                 <CardContent className={classes.cardBody}>
                   <Typography variant="h4" style={{ marginBottom: "1rem" }}>
-                    Add Product Details
+                    {formtype == "add" ? "Add" : "Edit"} Product Details
                   </Typography>
                   <form
                     className={classes.form}
@@ -495,7 +507,7 @@ export default function Post({ user }) {
                       className={`${classes.formInput} ${classes.formInputFullWidth} `}
                     >
                       <Typography variant="h6" style={{ marginBottom: "1rem" }}>
-                        Add images
+                        {formtype == "add" ? "Add" : "Edit"} images
                       </Typography>
                       <div className={classes.Images}>
                         {/* <img src="/static/images/culture.png" />
@@ -529,7 +541,7 @@ export default function Post({ user }) {
                       variant="contained"
                       className={classes.Button}
                     >
-                      Add Product
+                      {formtype == "add" ? "Add" : "Edit"} Product
                     </Button>
                   </form>
                   {formerrs.length > 0 &&
