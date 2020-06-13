@@ -427,7 +427,7 @@ export default function Post({ user }) {
                             renderInput={(params) => (
                               <TextField
                                 {...params}
-                                label="Search University"
+                                label="Search College"
                                 InputProps={{
                                   ...params.InputProps,
                                   endAdornment: (

@@ -106,7 +106,7 @@ function Header() {
               id="university"
               options={CollegeNames}
               getOptionLabel={(option) => option.title}
-              renderInput={(params) => <TextField {...params} label="University" fullWidth />}
+              renderInput={(params) => <TextField {...params} label="College" fullWidth />}
             />
           </div>
         </DialogContent>

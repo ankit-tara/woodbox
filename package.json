@@ -32,10 +32,11 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "styled-components": "^5.1.1",
-    "swiper": "^5.3.8"
+    "swiper": "^5.3.8",
+    "dotenv-webpack": "^1.8.0"
   },
   "devDependencies": {
-    "dotenv-webpack": "^1.8.0",
+    
     "nodemon": "^2.0.4"
   }
 }

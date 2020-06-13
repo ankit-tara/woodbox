@@ -217,7 +217,7 @@ export const AuthForm = ({ type }) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Search University"
+                  label="Search college"
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: (
