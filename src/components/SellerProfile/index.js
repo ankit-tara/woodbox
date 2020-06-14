@@ -66,14 +66,14 @@ const sellerProfile = ({ user }) => {
                   <PersonIcon />
                   {user.first_name} {user.last_name}
                 </Typography>
-                <Typography variant="h6">
+                {/* <Typography variant="h6">
                   <MailOutlineIcon />
                   <a href="mailto:ankittara15@gmail.com">{user.email}</a>
                 </Typography>
                 <Typography variant="h6">
                   <PhoneIphoneIcon />
                   <a href="tell:9803254362">{user.phone_number}</a>
-                </Typography>
+                </Typography> */}
                 <Typography variant="h6">
                   <SchoolIcon />
                   {user.university ? user.university.name : ""}
