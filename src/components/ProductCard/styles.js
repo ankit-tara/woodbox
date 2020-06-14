@@ -40,8 +40,7 @@ export const commonStyles = {
     textAlign: 'center'
   },
   cardFooter: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    display: 'flex'
   },
   left: {
     flex: '0 0 70%'
@@ -51,11 +50,14 @@ export const commonStyles = {
     textAlign: 'right',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent:'space-around'
+    justifyContent:'space-around',
+    overflow: 'hidden'
   },
   price:{
     fontSize: '1.5rem',
-    fontWeight: '600'
+    fontWeight: '600',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   Orangeprice:{
     color: '#FC821A'

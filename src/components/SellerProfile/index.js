@@ -17,6 +17,8 @@ import ProductCard from "../ProductCard";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import { getProducts } from "../../apis/global-api";
 import { useSelector } from "react-redux";
+import Link from "next/link";
+
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -84,6 +86,9 @@ const sellerProfile = ({ user }) => {
               <CardContent className={classes.cardBody}>
                 <Box className={classes.productsHeader}>
                   <Typography variant="h5">Published Ads</Typography>
+                  <div className={classes.addmoreGrid}>
+                    <a className={classes.addmorebtn} href="/post">Add More ads</a>
+                  </div>
                 </Box>
                 <Box className={classes.ProductsGridWrapper}>
                   {data && data.data.length > 0 &&

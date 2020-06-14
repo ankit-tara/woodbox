@@ -231,14 +231,14 @@ console.log(imgArr);
                   <Button className={classes.primaryBtn}>
                     Chat With Seller
                   </Button>
-                  <a
+                  <Link
                     href={`/profile/${data.seller.id}`}
                     // as={`/profile/${data.seller.id}`}
                   >
                     <Button className={classes.secondaryBtn}>
                       Check Seller Profile
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

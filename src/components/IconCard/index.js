@@ -16,7 +16,7 @@ const IconCard = ({data}) => {
   const classes = useStyles()
 
   return (
-    <a href={data.slug}>
+    <Link href={data.slug}>
       <Card className={classes.card}>
         <CardContent className={classes.cardBody}>
           <img src={data.image.url} alt="" className={classes.image} />
@@ -25,7 +25,7 @@ const IconCard = ({data}) => {
           </Typography>
         </CardContent>
       </Card>
-    </a>
+    </Link>
   );
 }
 

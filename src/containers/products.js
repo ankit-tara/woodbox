@@ -121,7 +121,7 @@ function Products({ data, url }) {
 
               {products.data && products.data.length <= 0 && (
                 <Typography variant="h4">
-                 Oops!! we we could not find related to your search.Please search something else
+                 Oops!! we we could not find related to your search. Please search something else
                 </Typography>
               )}
 
