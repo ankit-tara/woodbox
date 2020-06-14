@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -30,9 +30,9 @@ import FeedbackIcon from "@material-ui/icons/Feedback";
 import MoreIcon from "@material-ui/icons/More";
 import MailIcon from "@material-ui/icons/Mail";
 import CloseIcon from "@material-ui/icons/Close";
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { commonStyles } from "./styles";
@@ -47,19 +47,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchAppBar() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user);
   const router = useRouter();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const [timeout, settimeout] = React.useState("");
-  const [openMenu, setOpenMenu] = React.useState(true);
+  const [timeout, settimeout] = useState("");
+  const [searchValue, setsearchValue] = useState("");
+  const [openMenu, setOpenMenu] = useState(true);
 
   const toggleSubmenu = () => {
     setOpenMenu(!openMenu);
   };
-
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -93,22 +93,24 @@ export default function SearchAppBar() {
   //   let value = e.target.value;
   //   settimeout(value);
   // };
-  
+
   const handleSearch = (e) => {
     let value = e.target.value;
+    console.log(value, timeout);
+    setsearchValue(value);
     if (timeout) clearTimeout(timeout);
     settimeout(
       setTimeout(() => {
         router.push("/products?s=" + value);
-      }, 6000)
+      }, 600)
     );
   };
 
   const handleSeachClick = () => {
-    router.push("/products?s=" + timeout)
-  }
+    router.push("/products?s=" + searchValue);
+  };
 
-  const SearchAppBar = () => {
+  const SearchAppBarIcon = () => {
     return (
       <div className={classes.searchBar}>
         <IconButton
@@ -119,7 +121,13 @@ export default function SearchAppBar() {
         >
           <SearchIcon />
         </IconButton>
-        <InputBase className={classes.input} placeholder="Search" onChange={handleSearch} />
+        <InputBase
+          className={classes.input}
+          placeholder="Search"
+          onChange={handleSearch}
+          inputProps={{ "aria-label": "search" }}
+          value={searchValue}
+        />
         <IconButton className={classes.closeButton} onClick={handleSearchClose}>
           <CloseIcon />
         </IconButton>
@@ -135,7 +143,6 @@ export default function SearchAppBar() {
       // setauthModal(true);
     }
   };
-
 
   return (
     <div className={classes.root}>
@@ -304,7 +311,32 @@ export default function SearchAppBar() {
                 <SearchIcon />
               </IconButton>
 
-              {opensearch && <SearchAppBar />}
+              {opensearch && (
+                <div className={classes.searchBar}>
+                  <IconButton
+                    type="submit"
+                    className={classes.iconButton}
+                    aria-label="search"
+                    onClick={handleSeachClick}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                  <InputBase
+                    className={classes.input}
+                    placeholder="Search"
+                    onChange={handleSearch}
+                    inputProps={{ "aria-label": "search" }}
+                    value={searchValue}
+                  />
+                  <IconButton
+                    className={classes.closeButton}
+                    onClick={handleSearchClose}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </div>
+              )}
+              {/* {opensearch && <SearchAppBarIcon />} */}
             </div>
           </Toolbar>
         </AppBar>
