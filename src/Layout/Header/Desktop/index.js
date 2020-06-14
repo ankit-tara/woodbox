@@ -19,7 +19,7 @@ import MenuList from "@material-ui/core/MenuList";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import AuthIcon from "../../../components/Login_Register";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("md")]: TabStyles,
 }));
 import Link from "next/link";
+import { showModal } from "../../../redux/actions/authModal";
 
 function Header({ modalOpen }) {
   const { isScrolled, navBarRef } = useNavbar();
@@ -77,13 +78,13 @@ function Header({ modalOpen }) {
   const [authModal, setauthModal] = React.useState(false);
   const [timeout, settimeout] = React.useState("");
   const anchorRef = React.useRef(null);
-
+  const dispatch = useDispatch();
   const router = useRouter();
   const accessToken = useSelector((state) => state.auth_user.accessToken);
 
-  const goto_commingSoon = () =>{
+  const goto_commingSoon = () => {
     router.push("/coming-soon");
-  }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -125,12 +126,15 @@ function Header({ modalOpen }) {
   const classes = useStyles();
 
   const handleListProduct = (e) => {
+    setauthModal(false);
     e.preventDefault();
-    console.log("clicked", authModal);
+
     if (accessToken) {
       router.push("/post");
     } else {
-      setauthModal(true);
+      location.reload("/?signup=open");
+    
+      
     }
   };
 
