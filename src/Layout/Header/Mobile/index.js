@@ -328,6 +328,7 @@ export default function SearchAppBar() {
                     inputProps={{ "aria-label": "search" }}
                     value={searchValue}
                   />
+                  <button className={classes.searchbtn} onClick={handleSeachClick}>Search</button>
                   <IconButton
                     className={classes.closeButton}
                     onClick={handleSearchClose}
