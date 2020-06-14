@@ -198,7 +198,6 @@ export default function Post({ user, formtype = "add", product = {} }) {
         });
       
         if (index + 1 == product.images.length) {
-            console.log(updatedImages);
           setfiles(updatedImages);
           setfilesInfo(updatedImagesInfo);
         }
@@ -213,25 +212,20 @@ export default function Post({ user, formtype = "add", product = {} }) {
   const handleSave = (filesArr) => {
     let count = 0;
     filesArr.map((file) => {
-      console.log(file);
-      console.log(filesInfo);
       count++;
       const reader = new FileReader();
       reader.onload = (event) => {
+        console.log(event.target.result);
         //store result into your state array.
         let updatedImages = files.concat(event.target.result);
         let updatedImagesInfo = filesInfo.concat({
           type: file["type"].split("/")[0],
           data: event.target.result,
         });
-        // const updatedImages = [...files, event.target.result];
         setfiles(updatedImages);
         setfilesInfo(updatedImagesInfo);
         if (count == filesArr.length) {
-          console.log(updatedImages);
-          console.log(updatedImagesInfo);
           setOpen(false);
-          // handleSubmit("", updatedImages);
         }
       };
       reader.readAsDataURL(file);
@@ -288,8 +282,6 @@ export default function Post({ user, formtype = "add", product = {} }) {
   };
 
   const handleSubmit = (e, uploaded_files) => {
-    // console.log(uploaded_files);
-    // uploaded_files && setfiles(uploaded_files);
 
     e && e.preventDefault();
     let is_valid = checkValidation();
@@ -335,11 +327,6 @@ export default function Post({ user, formtype = "add", product = {} }) {
   };
 
   const removeImage = (index) => {
-    // console.log(files);
-    // console.log(filesInfo.splice(index, 1));
-    // console.log(files.splice(index, 1));
-    // let files = files.splice(index, 1);
-    // let filesInfo = filesInfo.splice(index, 1);
     let filterFiles = files.filter(function (file,i) {
       return i !== index;
     });
@@ -352,23 +339,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
     
   };
 
-  // const ProductMedia = ( file, index, removeFile }) => {
-  //   return (
-  //     <div>
-  //       {file.type == "image" && <img src={file.data} />}
-  //       {file.type == "video" && <video src={file.data} controls />}
-  //       <DeleteIcon onClick={() => removeFile(index)} />
-  //     </div>
-  //   );
-  //   // console.log(file);
-  //   // if (file.type == "image") {
-  //   //   return <img src={file.data} />;
-  //   // } else if (file.type == "video") {
-  //   //   return <video src={file.data} controls />;
-  //   // }
-
-  //   // return null;
-  // };
+  
 
   return (
     <Layout>
