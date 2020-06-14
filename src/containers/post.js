@@ -121,16 +121,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     "& img": {
-      width: "200px",
-      height: "200px",
+      width: "125px",
+      height: "125px",
       objectFit: "contain",
       marginRight: "10px",
       marginBottom: "10px",
       border: "solid 1px #333 ",
     },
     "& video": {
-      width: "200px",
-      height: "200px",
+      width: "125px",
+      height: "125px",
       objectFit: "contain",
       marginRight: "10px",
       marginBottom: "10px",
@@ -139,8 +139,8 @@ const useStyles = makeStyles((theme) => ({
   },
   AddBtn: {
     border: "solid 1px #333",
-    width: "200px",
-    height: "200px",
+    width: "125px",
+    height: "125px",
     display: "grid",
   },
   dialogeCustom: {
