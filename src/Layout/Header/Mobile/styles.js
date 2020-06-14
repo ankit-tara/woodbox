@@ -60,5 +60,14 @@ export const commonStyles = {
     display: 'flex',
     top: '0',
     height: '57px'
+  },
+  searchbtn:{
+    height: '35px',
+    background: '#f5811a',
+    color: '#fff',
+    alignSelf: 'center',
+    borderRadius: '4px',
+    padding: '5px 10px',
+    border: 'none'
   }
 }
