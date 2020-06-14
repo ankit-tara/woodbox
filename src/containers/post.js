@@ -530,7 +530,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
                         onSave={handleSave.bind(this)}
                         acceptedFiles={["image/*", "video/*"]}
                         showPreviews={true}
-                        maxFileSize={500000}
+                        maxFileSize={50000000}
                         onClose={handleClose.bind(this)}
                         className="dialogeCustom"
                       />

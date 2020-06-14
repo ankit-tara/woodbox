@@ -80,6 +80,17 @@ export const commonStyles = {
     display: 'grid',
     gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 350px) )',
     padding: '2rem 0'
+  },
+  Noads:{
+    display: 'grid',
+    textAlign: 'center',
+    placeContent: 'center',
+    '& h5':{
+      marginBottom: '1rem'
+    },
+    '& img':{
+      width: '150px'
+    }
   }
 }
 

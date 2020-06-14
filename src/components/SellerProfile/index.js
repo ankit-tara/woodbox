@@ -86,13 +86,19 @@ const sellerProfile = ({ user }) => {
                   <Typography variant="h5">Published Ads</Typography>
                 </Box>
                 <Box className={classes.ProductsGridWrapper}>
-                  {data &&
+                  {data && data.data.length > 0 &&
                     data.data.map((data) => (
                       <div key={data.id}>
                         <ProductCard data={data} isAuthUser={isAuthUser} />
                       </div>
                     ))}
                 </Box>
+                {data && data.data.length == 0 && <div className={classes.Noads}>
+                  <Typography variant="h5">There are No ads to show</Typography>
+                  <a href="/post" title="Add Product">
+                    <img src="/static/images/addfile.svg" />
+                  </a>
+                </div>}
               </CardContent>
             </Card>
           </Grid>

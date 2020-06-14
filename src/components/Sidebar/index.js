@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     mobile: true,
     sports: false,
     cars: false,
+    // chandigarh: false,
+    // ludhiana: true,
+    // patiala: false,
   });
 
   const handleChange = (event) => {
@@ -70,55 +73,55 @@ const useStyles = makeStyles(theme => ({
           </FormControl>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <ExpansionPanel expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
+      <ExpansionPanel expanded={expanded === 'panel2'} onChange={handlePanelChange('panel2')}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h6" className={classes.title}>Category</Typography>
+          <Typography variant="h6" className={classes.title}>City</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <FormControl component="fieldset" className={classes.formControl}>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox checked={mobile} onChange={handleChange} color="primary" name="mobile" />}
-                label="Mobile"
+                control={<Checkbox onChange={handleChange} color="primary" name="ludhiana" />}
+                label="Ludhiana"
               />
               <FormControlLabel
-                control={<Checkbox checked={sports} onChange={handleChange} color="primary" name="sports" />}
-                label="Sports &amp; Gym"
+                control={<Checkbox onChange={handleChange} color="primary" name="patiala" />}
+                label="Patiala"
               />
               <FormControlLabel
-                control={<Checkbox checked={cars} onChange={handleChange} color="primary" name="cars" />}
-                label="Cars"
+                control={<Checkbox onChange={handleChange} color="primary" name="chandigarh" />}
+                label="Chandigarh"
               />
             </FormGroup>
           </FormControl>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <ExpansionPanel expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
+      <ExpansionPanel expanded={expanded === 'panel3'} onChange={handlePanelChange('panel3')}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h6" className={classes.title}>Category</Typography>
+          <Typography variant="h6" className={classes.title}>College</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <FormControl component="fieldset" className={classes.formControl}>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox checked={mobile} onChange={handleChange} color="primary" name="mobile" />}
-                label="Mobile"
+                control={<Checkbox onChange={handleChange} color="primary" name="ptu" />}
+                label="Punjab Technical University"
               />
               <FormControlLabel
-                control={<Checkbox checked={sports} onChange={handleChange} color="primary" name="sports" />}
-                label="Sports &amp; Gym"
+                control={<Checkbox onChange={handleChange} color="primary" name="nit" />}
+                label="NIT Jalandhar"
               />
               <FormControlLabel
-                control={<Checkbox checked={cars} onChange={handleChange} color="primary" name="cars" />}
-                label="Cars"
+                control={<Checkbox onChange={handleChange} color="primary" name="iit" />}
+                label="IIT Delhi"
               />
             </FormGroup>
           </FormControl>

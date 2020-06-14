@@ -51,6 +51,21 @@ export const commonStyles = {
       backgroundColor: '#000',
       textDecoration: 'none'
     }
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    background: '#fff',
+    border: 'solid #fff 5px',
+    boxShadow: 'none',
+    padding: 0,
+    width: '80%',
+    '& iframe': {
+      width: '100%'
+    }
   }
 }
 
@@ -74,6 +89,11 @@ export const mobileStyles = {
     '&:nth-child(even) .content': {
       textAlign: 'left',
     },
+    paper:{
+      '& iframe':{
+        height: '400px'
+      }
+    }
   },
   excerpt:{
     fontSize: '14px'

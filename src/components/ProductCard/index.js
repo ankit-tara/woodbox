@@ -9,9 +9,14 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { DeleteProduct} from "../../apis/auth-api"
 import { useRouter } from "next/router";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -23,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
 function ProductCard({ data, isAuthUser = false }) {
   const [isSaved, setisSaved] = React.useState(data.saved);
   const [productStar, setproductStar] = React.useState(isSaved ? 1 : 0);
+  const [snackbar, setsnackbar] = React.useState(false);
+  const [snackbarMsg, setsnackbarMsg] = React.useState("");
+  const [snackbarType, setsnackbarType] = React.useState("success");
 
   const classes = useStyles();
   const router = useRouter();
@@ -55,11 +63,21 @@ function ProductCard({ data, isAuthUser = false }) {
     DeleteProduct(data, data.id).then((response) => {
       console.log(response);
       if (response.error) {
+        setsnackbar(true);
+        setsnackbarMsg("There is some error.Please try again later");
+        setsnackbarType("error");
         console.log(response.error)
       } else {
+        setsnackbar(true);
+        setsnackbarMsg("Deleted");
+        setsnackbarType("success");
         location.reload();
       }
     });
+  };
+
+  const handlesnackbar = () => {
+    setsnackbar(!snackbar);
   };
 
   return (
@@ -70,6 +88,15 @@ function ProductCard({ data, isAuthUser = false }) {
     >
       <CardContent className={classes.cardInner}>
         <div className={classes.cardHead}>
+          <Snackbar
+            open={snackbar}
+            autoHideDuration={6000}
+            onClose={handlesnackbar}
+          >
+            <Alert onClose={handlesnackbar} severity={snackbarType}>
+              {snackbarMsg}
+            </Alert>
+          </Snackbar>
           <Typography variant="h6" className={classes.title}>
             {data.title.length >= 25 && (
               <Link href={`/products/item/${data.id}`}>

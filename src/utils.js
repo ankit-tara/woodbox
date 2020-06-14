@@ -271,6 +271,9 @@ export const OurConceptData = [
     image: {
       url: "/static/images/video1.png",
     },
+    video:{
+      url: "https://www.youtube.com/embed/rUWxSEwctFU"
+    },
     excerpt:
       "Provocative content for an accounting firm may include six reasons you’re paying too much in tax; why the top line is more important than the bottom line; and how to get your clients to offer to pay you more than you ask.",
     link: {
