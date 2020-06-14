@@ -8,6 +8,11 @@
   
 }
 
+.image-gallery-thumbnail .image-gallery-thumbnail-image{
+    height: 100px;
+    object-fit: cover;
+}
+
 @media(max-width:767px){
   .MuiDropzonePreviewList-imageContainer{
     width: 100%;
