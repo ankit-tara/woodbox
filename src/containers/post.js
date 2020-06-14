@@ -153,9 +153,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Post({ user, formtype = "add", product = {} }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [files, setfiles] = React.useState([]);
-  const [filesInfo, setfilesInfo] = React.useState([]);
+  const [open, setOpen] = useState(false);
+  const [files, setfiles] = useState([]);
+  const [filesInfo, setfilesInfo] = useState([]);
   const [title, settitle] = useState(product.title);
   const [type, settype] = useState(product.type);
   const [description, setdescription] = useState(product.description);
@@ -196,8 +196,9 @@ export default function Post({ user, formtype = "add", product = {} }) {
           type: fileData.type,
           data: fileData.link,
         });
-        console.log(fileData);
+      
         if (index + 1 == product.images.length) {
+            console.log(updatedImages);
           setfiles(updatedImages);
           setfilesInfo(updatedImagesInfo);
         }
@@ -213,12 +214,13 @@ export default function Post({ user, formtype = "add", product = {} }) {
     let count = 0;
     filesArr.map((file) => {
       console.log(file);
+      console.log(filesInfo);
       count++;
       const reader = new FileReader();
       reader.onload = (event) => {
         //store result into your state array.
-        const updatedImages = files.concat(event.target.result);
-        const updatedImagesInfo = filesInfo.concat({
+        let updatedImages = files.concat(event.target.result);
+        let updatedImagesInfo = filesInfo.concat({
           type: file["type"].split("/")[0],
           data: event.target.result,
         });
@@ -334,11 +336,19 @@ export default function Post({ user, formtype = "add", product = {} }) {
 
   const removeImage = (index) => {
     // console.log(files);
-    // console.log(filesInfo);
+    // console.log(filesInfo.splice(index, 1));
+    // console.log(files.splice(index, 1));
     // let files = files.splice(index, 1);
     // let filesInfo = filesInfo.splice(index, 1);
-    // setfilesInfo(filesInfo)
-    // setfiles(files)
+    let filterFiles = files.filter(function (file,i) {
+      return i !== index;
+    });
+    let filterFilesInfo = filesInfo.filter(function (file, i) {
+      return i !== index;
+    });
+
+    setfilesInfo(filterFilesInfo);
+    setfiles(filterFiles);
     
   };
 
