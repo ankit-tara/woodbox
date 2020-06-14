@@ -181,9 +181,9 @@ function Header({ modalOpen }) {
               <li>
                 <a href="/coming-soon">Events</a>
               </li>
-              {accessToken && <li>
+              <li>
                 <a onClick={handleListProduct}>List Product</a>
-              </li>}
+              </li>
               <li>
                 <a href="/coming-soon">Feedback</a>
               </li>

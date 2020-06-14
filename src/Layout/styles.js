@@ -13,7 +13,8 @@ export const commonStyles = {
       backgroundImage: '-webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,	  transparent 75%, transparent)'
     },
     '& a': {
-      cursor: 'pointer !important'
+      cursor: 'pointer !important',
+      textDecoration: 'none'
     },
     '& .dialogeCustom .MuiGrid-spacing-xs-8':{
       width: '100%',
