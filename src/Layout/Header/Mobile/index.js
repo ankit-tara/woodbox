@@ -140,6 +140,8 @@ export default function SearchAppBar() {
     if (accessToken) {
       router.push("/post");
     } else {
+            location.reload("/?signup=open");
+
       // setauthModal(true);
     }
   };

@@ -58,7 +58,9 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (modalOpen != open) {
+    if (location.search.indexOf("signup=open") != -1) {
+      setopen(true);
+    } else if (modalOpen != open) {
       setopen(modalOpen);
     }
   }, [modalOpen]);
