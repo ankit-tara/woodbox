@@ -14,13 +14,13 @@ const ItemProductsPage = ({ query }) => {
   // }, []);
 
   // const fetchTypeProducts = async () => {
-  //   await getProducts(`?type=${type}&paginate=18`).then((data) => {
+  //   await getProducts(`?type=${type}&paginate=12`).then((data) => {
   //     console.log(type, data);
   //     setproducts(data);
   //   });
   // };
 
-  return <Products loading={loading} url={`?type=${type}&paginate=18`} />;
+  return <Products loading={loading} url={`?type=${type}&paginate=12`} />;
 };
 ItemProductsPage.getInitialProps = ({ query }) => {
   return { query };

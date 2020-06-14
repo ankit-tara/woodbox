@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 
 function ProductsPage({ query }) {
   const { s } = query;
-  const url = s ? `?s=${s}&paginate=18` : "?paginate=18";
+  const url = s ? `?s=${s}&paginate=12` : "?paginate=12";
   console.log(url)
   return <Products url={url} />;
 }

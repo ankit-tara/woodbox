@@ -14,14 +14,14 @@ const CategoryProductsPage = ({ query }) => {
   // }, []);
 
   // const fetchTypeProducts = async () => {
-  //   await getProducts(`?type=${type}&paginate=18`).then((data) => {
+  //   await getProducts(`?type=${type}&paginate=12`).then((data) => {
   //     console.log(type, data);
   //     setproducts(data);
   //   });
   // };
 
   return (
-    <Products loading={loading} url={`?category=${category}&paginate=18`} />
+    <Products loading={loading} url={`?category=${category}&paginate=12`} />
   );
 };
 CategoryProductsPage.getInitialProps = ({ query }) => {
