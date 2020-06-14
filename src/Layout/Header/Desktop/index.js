@@ -157,7 +157,7 @@ function Header({ modalOpen }) {
       <Container maxWidth="xl">
         <Grid container>
           <Grid item xs={2}>
-            <Link href="/">
+            <a href="/">
               <img
                 className={classNames(
                   classes.logo,
@@ -165,27 +165,27 @@ function Header({ modalOpen }) {
                 )}
                 src="/static/images/logo.png"
               />
-            </Link>
+            </a>
           </Grid>
           <Grid item xs={6}>
             <ul className={classes.Menu}>
               <li>
-                <Link href="/">Home</Link>
+                <a href="/">Home</a>
               </li>
               <li>
-                <Link href="/products/type/buy">Buy</Link>
+                <a href="/products/type/buy">Buy</a>
               </li>
               <li>
-                <Link href="/products/type/rental">Rent</Link>
+                <a href="/products/type/rental">Rent</a>
               </li>
               <li>
-                <Link href="/coming-soon">Events</Link>
+                <a href="/coming-soon">Events</a>
               </li>
-              <li>
+              {accessToken && <li>
                 <a onClick={handleListProduct}>List Product</a>
-              </li>
+              </li>}
               <li>
-                <Link href="/coming-soon">Feedback</Link>
+                <a href="/coming-soon">Feedback</a>
               </li>
               <li>
                 <Button
