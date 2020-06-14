@@ -182,7 +182,7 @@ function Header({ modalOpen }) {
                 <a href="/coming-soon">Events</a>
               </li>
               <li>
-                <a onClick={handleListProduct}>List Product</a>
+                <Link onClick={handleListProduct}>List Product</Link>
               </li>
               <li>
                 <a href="/coming-soon">Feedback</a>
