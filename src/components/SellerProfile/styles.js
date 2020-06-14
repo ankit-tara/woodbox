@@ -75,6 +75,8 @@ export const commonStyles = {
   productsHeader: {
     paddingBottom: '1rem',
     borderBottom: 'solid 1px #BDBDBD',
+    display: 'flex',
+    justifyContent:'space-between'
   },
   ProductsGridWrapper: {
     display: 'grid',
@@ -91,6 +93,22 @@ export const commonStyles = {
     '& img':{
       width: '150px'
     }
+  },
+  addmorebtn:{
+    background: '#f47104',
+    padding: '6px 15px',
+    color: '#fff',
+    borderRadius: '5px',
+    height: '50px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '1rem',
+  },
+  addmoreGrid:{
+    display: 'grid',
+    textAlign: 'center',
+    placeContent: 'center',
   }
 }
 

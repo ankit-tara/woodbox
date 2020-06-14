@@ -102,6 +102,16 @@ const useStyles = makeStyles((theme) => ({
       "& .MuiTextField-root": {
         width: "100%",
       },
+      '& textarea':{
+        width: '100%',
+        border: 'none',
+        borderBottom: 'solid 1px #ccc',
+        height: '50px'
+      },
+      '& textarea:focus':{
+        outline: 'none',
+        borderBottom: 'solid 1px #FD8118'
+      }
     },
   },
   formControl: {
@@ -523,16 +533,17 @@ export default function Post({ user, formtype = "add", product = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    <div className={`${classes.formInput}`}>
+                    <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
                           <DetailsIcon />
                         </Grid>
-                        <Grid item className={`${classes.formInputField} `}>
-                          <TextField
+                        <Grid item className={`${classes.formInputField} ${classes.formInputFieldFull}`}>
+                          <textarea
                             id="about"
                             label="Description"
                             value={description}
+                            placeholder="Description"
                             onChange={(e) => updateformData(e, "description")}
                           />
                         </Grid>
@@ -542,7 +553,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
                       className={`${classes.formInput} ${classes.formInputFullWidth} `}
                     >
                       <Typography variant="h6" style={{ marginBottom: "1rem" }}>
-                        {formtype == "add" ? "Add" : "Edit"} images
+                        {formtype == "add" ? "Add" : "Edit"} Media
                       </Typography>
                       <div className={classes.Images}>
                         {/* <img src="/static/images/culture.png" />
