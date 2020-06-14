@@ -50,6 +50,7 @@ export const AuthForm = ({ type }) => {
   const [btnloading, setbtnloading] = useState(false);
   const [backdrop, setbackdrop] = useState(true);
   const [formerrs, setformerrs] = useState([]);
+  const [showRedirect, setshowRedirect] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -60,6 +61,7 @@ export const AuthForm = ({ type }) => {
   };
 
   const submitLogin = () => {
+    setshowRedirect(false);
     setformerrs([]);
     setbtnloading(true);
     let data = {
@@ -68,17 +70,20 @@ export const AuthForm = ({ type }) => {
     };
     login(data).then((response) => {
       if (response.error) {
+         setbtnloading(true);
         setformerrs(response.msg);
       } else {
         setbtnloading(false);
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setLogin(user, accessToken);
+         setshowRedirect(true);
       }
     });
   };
 
   const submitSignUp = () => {
+    setshowRedirect(false);
     setbtnloading(true);
     let university_id = universities.find(
       (item) => item.name == university.name
@@ -94,12 +99,14 @@ export const AuthForm = ({ type }) => {
     };
     signup(data).then((response) => {
       if (response.error) {
+        setbtnloading(false);
         setformerrs(response.msg);
       } else {
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setbtnloading(false);
         setLogin(user, accessToken);
+        setshowRedirect(true);
         console.log(response);
       }
     });
@@ -293,11 +300,16 @@ export const AuthForm = ({ type }) => {
           color="primary"
         >
           {type == "login" ? "Login" : "SignUp"}
-          {btnloading ? (
-            <CircularProgress color="primary" size={20} />
-          ) : null}
+
+          {btnloading ? <CircularProgress color="primary" size={20} /> : null}
         </Button>
       </form>
+      { showRedirect && (
+        <Typography color="primary">
+          Redirecting to profile page!!{" "}
+          <CircularProgress color="primary" size={20} />
+        </Typography>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React ,{useState}from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -140,7 +140,7 @@ export default function SearchAppBar() {
     if (accessToken) {
       router.push("/post");
     } else {
-            location.reload("/?signup=open");
+      location.reload("/?signup=open");
 
       // setauthModal(true);
     }
@@ -330,7 +330,12 @@ export default function SearchAppBar() {
                     inputProps={{ "aria-label": "search" }}
                     value={searchValue}
                   />
-                  <button className={classes.searchbtn} onClick={handleSeachClick}>Search</button>
+                  <button
+                    className={classes.searchbtn}
+                    onClick={handleSeachClick}
+                  >
+                    Search
+                  </button>
                   <IconButton
                     className={classes.closeButton}
                     onClick={handleSearchClose}
