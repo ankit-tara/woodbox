@@ -168,59 +168,59 @@ export default function SearchAppBar() {
               </div>
               <Divider />
               <List>
-                <Link href="/">
+                <a href="/">
                   <ListItem button>
                     <ListItemIcon>
                       <HomeRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                   </ListItem>
-                </Link>
+                </a>
                 <Divider />
-                <Link href="/products/type/buy">
+                <a href="/products/type/buy">
                   <ListItem button>
                     <ListItemIcon>
                       <LocalMallRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Buy" />
                   </ListItem>
-                </Link>
+                </a>
                 <Divider />
-                <Link href="/products/type/rent">
+                <a href="/products/type/rent">
                   <ListItem button>
                     <ListItemIcon>
                       <LocalMallRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Rent" />
                   </ListItem>
-                </Link>
+                </a>
                 <Divider />
-                <Link href="/coming-soon">
+                <a href="/coming-soon">
                   <ListItem button>
                     <ListItemIcon>
                       <EventNoteRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Event" />
                   </ListItem>
-                </Link>
+                </a>
                 <Divider />
-                <Link href="/post" onClick={handleListProduct}>
+                <a href="/post" onClick={handleListProduct}>
                   <ListItem button>
                     <ListItemIcon>
                       <FormatListBulletedIcon />
                     </ListItemIcon>
                     <ListItemText primary="List Products" />
                   </ListItem>
-                </Link>
+                </a>
                 <Divider />
-                <Link href="/coming-soon">
+                <a href="/coming-soon">
                   <ListItem button>
                     <ListItemIcon>
                       <FeedbackIcon />
                     </ListItemIcon>
                     <ListItemText primary="Feedback" />
                   </ListItem>
-                </Link>
+                </a>
                 <Divider />
                 <ListItem button onClick={toggleSubmenu}>
                   <ListItemIcon>
@@ -231,52 +231,52 @@ export default function SearchAppBar() {
                 </ListItem>
                 <Collapse in={openMenu} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <Link href="/coming-soon">
+                    <a href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
                         </ListItemIcon>
                         <ListItemText primary="About" />
                       </ListItem>
-                    </Link>
-                    <Link href="/coming-soon">
+                    </a>
+                    <a href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
                         </ListItemIcon>
                         <ListItemText primary="Privacy Policy" />
                       </ListItem>
-                    </Link>
-                    <Link href="/coming-soon">
+                    </a>
+                    <a href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
                         </ListItemIcon>
                         <ListItemText primary="Terms &amp; Conditions" />
                       </ListItem>
-                    </Link>
+                    </a>
                   </List>
                 </Collapse>
                 <Divider />
                 {accessToken && (
                   <>
-                    <Link href="/profile">
+                    <a href="/profile">
                       <ListItem button>
                         <ListItemIcon>
                           <AccountCircle />
                         </ListItemIcon>
                         <ListItemText primary="View Profile" />
                       </ListItem>
-                    </Link>
+                    </a>
                     <Divider />
-                    <Link href="/profile/edit">
+                    <a href="/profile/edit">
                       <ListItem button>
                         <ListItemIcon>
                           <CreateIcon />
                         </ListItemIcon>
                         <ListItemText primary="Edit Profile" />
                       </ListItem>
-                    </Link>
+                    </a>
                     <Divider />
                     <ListItem button onClick={logout}>
                       <ListItemIcon>
@@ -288,9 +288,9 @@ export default function SearchAppBar() {
                 )}
               </List>
             </Drawer>
-            <Link href="/">
+            <a href="/">
               <img className={classes.logo} src="/static/images/logo.png" />
-            </Link>
+            </a>
             <div className={classes.menuIcons}>
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">

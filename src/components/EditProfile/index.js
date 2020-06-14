@@ -199,11 +199,11 @@ const EditProfile = ({ user }) => {
                   <AttachmentOutlinedIcon className={classes.uploadIcon} />
                 </label>
               </div>
-              <Link href="/profile">
+              <a href="/profile">
                 <Button variant="contained" className={classes.Button}>
                   View Profile
                 </Button>
-              </Link>
+              </a>
             </Box>
           </Grid>
           <Grid item lg={9} md={9} sm={8} xs={12}>
