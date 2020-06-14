@@ -1,10 +1,11 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Box, Container, Grid, Link, Typography } from '@material-ui/core'
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
@@ -57,28 +58,28 @@ function Footer() {
               <div className={classes.FooterMenu}>
                 <ul>
                   <li><p>POPULAR COLLEGES</p></li>
-                  <li><Link to="/">NIT Jalandhar</Link></li>
-                  <li><Link to="/">NIT Delhi</Link></li>
-                  <li><Link to="/">NIT Kurukshetra</Link></li>
-                  <li><Link to="/">IIT Delhi</Link></li>
+                  <li><Link href="/products?s=nit-jalandhar">NIT Jalandhar</Link></li>
+                  <li><Link href="/products?s=nit-delhi">NIT Delhi</Link></li>
+                  <li><Link href="/products?s=nit-kurukshetra">NIT Kurukshetra</Link></li>
+                  <li><Link href="/products?s=nit-delhi">IIT Delhi</Link></li>
                 </ul>
                 <ul>
                   <li><p>EVENTS</p></li>
-                  <li><Link to="/">Events in NIT Jalandhar</Link></li>
-                  <li><Link to="/">Events in NIT Delhi</Link></li>
-                  <li><Link to="/">Events in NIT Kurukshetra</Link></li>
-                  <li><Link to="/">Events in IIT Delhi</Link></li>
+                  <li><Link href="/">Events in NIT Jalandhar</Link></li>
+                  <li><Link href="/">Events in NIT Delhi</Link></li>
+                  <li><Link href="/">Events in NIT Kurukshetra</Link></li>
+                  <li><Link href="/">Events in IIT Delhi</Link></li>
                 </ul>
                 <ul>
                   <li><p>About Us</p></li>
-                  <li><Link to="/">Our Story</Link></li>
-                  <li><Link to="/">Careers</Link></li>
-                  <li><Link to="/">Contact Us</Link></li>
+                  <li><Link href="/">Our Story</Link></li>
+                  <li><Link href="/">Careers</Link></li>
+                  <li><Link href="/">Contact Us</Link></li>
                 </ul>
                 <ul>
                   <li><p>Legal</p></li>
-                  <li><Link to="/">Privacy Policy</Link></li>
-                  <li><Link to="/">Terms and Conditions</Link></li>
+                  <li><Link href="/">Privacy Policy</Link></li>
+                  <li><Link href="/">Terms and Conditions</Link></li>
                 </ul>
               </div>
             </Grid>
@@ -86,9 +87,9 @@ function Footer() {
               <div className={classes.SocialMenu}>
                 <ul>
                   <li><p>FOLLOW US </p></li>
-                  <li><Link to="/"><FacebookIcon /></Link></li>
-                  <li><Link to="/"><InstagramIcon /></Link></li>
-                  <li><Link to="/"><TwitterIcon /></Link></li>
+                  <li><Link href="/"><FacebookIcon /></Link></li>
+                  <li><Link href="/"><InstagramIcon /></Link></li>
+                  <li><Link href="/"><TwitterIcon /></Link></li>
                 </ul>
               </div>
             </Grid>

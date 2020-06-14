@@ -32,7 +32,7 @@ import { useDispatch } from "react-redux";
 import { authenticated } from "../redux/actions/auth";
 import { useRouter } from "next/router";
 import { fileToBase64 } from "../Utils/helpers";
-
+import DeleteIcon from "@material-ui/icons/Delete";
 const useStyles = makeStyles((theme) => ({
   section: {
     padding: "5rem 0",
@@ -121,8 +121,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     "& img": {
-      width: "80px",
-      height: "80px",
+      width: "200px",
+      height: "200px",
+      objectFit: "contain",
+      marginRight: "10px",
+      marginBottom: "10px",
+      border: "solid 1px #333 ",
+    },
+    "& video": {
+      width: "200px",
+      height: "200px",
       objectFit: "contain",
       marginRight: "10px",
       marginBottom: "10px",
@@ -131,8 +139,8 @@ const useStyles = makeStyles((theme) => ({
   },
   AddBtn: {
     border: "solid 1px #333",
-    width: "80px",
-    height: "80px",
+    width: "200px",
+    height: "200px",
     display: "grid",
   },
   dialogeCustom: {
@@ -147,6 +155,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [files, setfiles] = React.useState([]);
+  const [filesInfo, setfilesInfo] = React.useState([]);
   const [title, settitle] = useState(product.title);
   const [type, settype] = useState(product.type);
   const [description, setdescription] = useState(product.description);
@@ -179,9 +188,19 @@ export default function Post({ user, formtype = "add", product = {} }) {
 
   useEffect(() => {
     if (product.images) {
-      product.images.map((fileData) => {
-        const updatedImages = files.concat(fileData.base64_data);
-        setfiles(updatedImages);
+      let updatedImages = [];
+      let updatedImagesInfo = [];
+      product.images.map((fileData, index) => {
+         updatedImages = updatedImages.concat(fileData.base64_data);
+         updatedImagesInfo = updatedImagesInfo.concat({
+          type: fileData.type,
+          data: fileData.link,
+        });
+        console.log(fileData);
+        if (index + 1 == product.images.length) {
+          setfiles(updatedImages);
+          setfilesInfo(updatedImagesInfo);
+        }
       });
     }
   }, [product]);
@@ -193,15 +212,22 @@ export default function Post({ user, formtype = "add", product = {} }) {
   const handleSave = (filesArr) => {
     let count = 0;
     filesArr.map((file) => {
+      console.log(file);
       count++;
       const reader = new FileReader();
       reader.onload = (event) => {
         //store result into your state array.
         const updatedImages = files.concat(event.target.result);
+        const updatedImagesInfo = filesInfo.concat({
+          type: file["type"].split("/")[0],
+          data: event.target.result,
+        });
         // const updatedImages = [...files, event.target.result];
         setfiles(updatedImages);
+        setfilesInfo(updatedImagesInfo);
         if (count == filesArr.length) {
           console.log(updatedImages);
+          console.log(updatedImagesInfo);
           setOpen(false);
           // handleSubmit("", updatedImages);
         }
@@ -305,6 +331,34 @@ export default function Post({ user, formtype = "add", product = {} }) {
       });
     }
   };
+
+  const removeImage = (index) => {
+    // console.log(files);
+    // console.log(filesInfo);
+    // let files = files.splice(index, 1);
+    // let filesInfo = filesInfo.splice(index, 1);
+    // setfilesInfo(filesInfo)
+    // setfiles(files)
+    
+  };
+
+  // const ProductMedia = ( file, index, removeFile }) => {
+  //   return (
+  //     <div>
+  //       {file.type == "image" && <img src={file.data} />}
+  //       {file.type == "video" && <video src={file.data} controls />}
+  //       <DeleteIcon onClick={() => removeFile(index)} />
+  //     </div>
+  //   );
+  //   // console.log(file);
+  //   // if (file.type == "image") {
+  //   //   return <img src={file.data} />;
+  //   // } else if (file.type == "video") {
+  //   //   return <video src={file.data} controls />;
+  //   // }
+
+  //   // return null;
+  // };
 
   return (
     <Layout>
@@ -513,10 +567,29 @@ export default function Post({ user, formtype = "add", product = {} }) {
                         {/* <img src="/static/images/culture.png" />
                         <img src="/static/images/technical.png" />
                         <img src="/static/images/library.png" /> */}
-                        {files.length > 0 &&
-                          files.map((file, index) => (
-                            <img src={file} key={`img${index}`} />
-                          ))}
+                        {filesInfo.length > 0 &&
+                          filesInfo.map(
+                            (file, index) => (
+                              <div>
+                                {file.type == "image" && (
+                                  <img src={file.data} />
+                                )}
+                                {file.type == "video" && (
+                                  <video src={file.data} controls />
+                                )}
+                                <DeleteIcon
+                                  onClick={() => removeImage(index)}
+                                />
+                              </div>
+                            )
+                            // <ProductMedia
+                            //   file={file}
+                            //   key={`img${index}`}
+                            //   index={index}
+                            //   removeFile={() => removeImage(index)}
+                            // />
+                            // <img src={file.data} key={`img${index}`} />
+                          )}
                         <Button
                           onClick={handleOpen.bind(this)}
                           className={classes.AddBtn}
