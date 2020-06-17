@@ -14,7 +14,7 @@ export const commonStyles = {
     border: 'solid 4px #FC821A'
   },
   cardInner:{
-    height: '100%',
+    height: '340px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -79,10 +79,6 @@ export const commonStyles = {
 export const mobileStyles = {
   title:{
     fontSize: '1rem'
-  },
-  image:{
-    width: '100px',
-    height: '90px'
   },
   excerpt:{
     fontSize: '14px'
