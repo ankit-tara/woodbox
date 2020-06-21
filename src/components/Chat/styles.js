@@ -1,0 +1,317 @@
+export const commonStyles = {
+  wrapper: {
+    position: "relative",
+    left: "50%",
+    width: "var(--wrapper)",
+    height: "650px",
+    WebkitTransform: "translate(-50%, 0)",
+    transform: "translate(-50%, 0)",
+    "& .container": {
+      position: "relative",
+      top: "50%",
+      left: "50%",
+      width: "80%",
+      height: "75%",
+      backgroundColor: "var(--white)",
+      WebkitTransform: "translate(-50%, -50%)",
+      transform: "translate(-50%, -50%)"
+    },
+    "& .container .left": {
+      float: "left",
+      width: "37.6%",
+      height: "100%",
+      border: "1px solid var(--light)",
+      backgroundColor: "var(--white)"
+    },
+    "& .container .left .top": {
+      position: "relative",
+      width: "100%",
+      height: "96px",
+      padding: "29px"
+    },
+    "& .container .left .top:after": {
+      position: "absolute",
+      bottom: "0",
+      left: "50%",
+      display: "block",
+      width: "80%",
+      height: "1px",
+      content: "''",
+      backgroundColor: "var(--light)",
+      WebkitTransform: "translate(-50%, 0)",
+      transform: "translate(-50%, 0)"
+    },
+    "& .container .left input": {
+      float: "left",
+      width: "188px",
+      height: "42px",
+      padding: "0 15px",
+      border: "1px solid var(--light)",
+      backgroundColor: "#eceff1",
+      borderRadius: "21px",
+      fontFamily: "'Source Sans Pro', sans-serif",
+      fontWeight: "400"
+    },
+    "& .container .left input:focus": { outline: "none" },
+    "& .container .left a.search": {
+      display: "block",
+      float: "left",
+      width: "42px",
+      height: "42px",
+      marginLeft: "10px",
+      border: "1px solid var(--light)",
+      backgroundColor: "var(--blue)",
+      backgroundImage:
+        'url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/name-type.png")',
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "top 12px left 14px",
+      borderRadius: "50%"
+    },
+    "& .container .left .people": {
+      marginLeft: "-1px",
+      borderRight: "1px solid var(--light)",
+      borderLeft: "1px solid var(--light)",
+      width: "calc(100% + 2px)",
+      padding: "0",
+      listStyle: 'none',
+      overflowY: 'auto',
+      overflowX: 'hidden'
+    },
+    "& .container .left .people .person": {
+      position: "relative",
+      width: "100%",
+      padding: "12px 10% 16px",
+      cursor: "pointer",
+      backgroundColor: "var(--white)"
+    },
+    "& .container .left .people .person:after": {
+      position: "absolute",
+      bottom: "0",
+      left: "50%",
+      display: "block",
+      width: "80%",
+      height: "1px",
+      content: "''",
+      backgroundColor: "var(--light)",
+      WebkitTransform: "translate(-50%, 0)",
+      transform: "translate(-50%, 0)"
+    },
+    "& .container .left .people .person img": {
+      float: "left",
+      width: "40px",
+      height: "40px",
+      marginRight: "12px",
+      borderRadius: "50%"
+    },
+    "& .container .left .people .person .name": {
+      fontSize: "14px",
+      lineHeight: "22px",
+      color: "var(--dark)",
+      fontFamily: "'Source Sans Pro', sans-serif",
+      fontWeight: "600"
+    },
+    "& .container .left .people .person .time": {
+      fontSize: "14px",
+      position: "absolute",
+      top: "16px",
+      right: "10%",
+      padding: "0 0 5px 5px",
+      color: "var(--grey)",
+      backgroundColor: "var(--white)"
+    },
+    "& .container .left .people .person .preview": {
+      fontSize: "14px",
+      display: "inline-block",
+      overflow: "hidden !important",
+      width: "70%",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      color: "var(--grey)"
+    },
+    "& .container .left .people .person.active, & .container .left .people .person:hover": {
+      marginTop: "-1px",
+      marginLeft: "-1px",
+      paddingTop: "13px",
+      border: "0",
+      backgroundColor: "var(--blue)",
+      width: "calc(100% + 2px)",
+      paddingLeft: "calc(10% + 1px)"
+    },
+    "& .container .left .people .person.active span, & .container .left .people .person:hover span": {
+      color: "var(--white)",
+      background: "transparent"
+    },
+    "& .container .left .people .person.active:after, & .container .left .people .person:hover:after": {
+      display: "none"
+    },
+    "& .container .right": {
+      position: "relative",
+      float: "left",
+      width: "62.4%",
+      height: "100%"
+    },
+    "& .container .right .top": {
+      width: "100%",
+      height: "47px",
+      padding: "15px 29px",
+      backgroundColor: "#eceff1"
+    },
+    "& .container .right .top span": { fontSize: "15px", color: "var(--grey)" },
+    "& .container .right .top span .name": {
+      color: "var(--dark)",
+      fontFamily: "'Source Sans Pro', sans-serif",
+      fontWeight: "600"
+    },
+    "& .container .right .chat": {
+      position: "relative",
+      // display: "none",
+      overflow: "auto",
+      padding: "0 35px 92px",
+      borderWidth: "1px 1px 1px 0",
+      borderStyle: "solid",
+      borderColor: "var(--light)",
+      height: "calc(100% - 48px)",
+      WebkitBoxPack: "end",
+      justifyContent: "flex-end",
+      WebkitBoxOrient: "vertical",
+      WebkitBoxDirection: "normal",
+      flexDirection: "column"
+    },
+    "& .container .right .write": {
+      position: "absolute",
+      bottom: "29px",
+      left: "30px",
+      height: "42px",
+      paddingLeft: "8px",
+      border: "1px solid var(--light)",
+      backgroundColor: "#eceff1",
+      width: "calc(100% - 58px)",
+      borderRadius: "5px"
+    },
+    "& .container .right .write input": {
+      fontSize: "16px",
+      float: "left",
+      width: "347px",
+      height: "40px",
+      padding: "0 10px",
+      color: "var(--dark)",
+      border: "0",
+      outline: "none",
+      backgroundColor: "#eceff1",
+      fontFamily: "'Source Sans Pro', sans-serif",
+      fontWeight: "400"
+    },
+    "& .container .right .write .write-link.attach:before": {
+      display: "inline-block",
+      float: "left",
+      width: "20px",
+      height: "42px",
+      content: "''",
+      backgroundImage:
+        'url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/attachment.png")',
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center"
+    },
+    "& .container .right .write .write-link.smiley:before": {
+      display: "inline-block",
+      float: "left",
+      width: "20px",
+      height: "42px",
+      content: "''",
+      backgroundImage:
+        'url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/smiley.png")',
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center"
+    },
+    "& .container .right .write .write-link.send:before": {
+      display: "inline-block",
+      float: "left",
+      width: "20px",
+      height: "42px",
+      marginLeft: "11px",
+      content: "''",
+      backgroundImage:
+        'url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png")',
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center"
+    },
+    "& .container .right .bubble": {
+      fontSize: "16px",
+      position: "relative",
+      display: "inline-block",
+      clear: "both",
+      marginBottom: "8px",
+      padding: "13px 14px",
+      verticalAlign: "top",
+      borderRadius: "5px"
+    },
+    "& .container .right .bubble:before": {
+      position: "absolute",
+      top: "19px",
+      display: "block",
+      width: "8px",
+      height: "6px",
+      content: "'\\00a0'",
+      WebkitTransform: "rotate(29deg) skew(-35deg)",
+      transform: "rotate(29deg) skew(-35deg)"
+    },
+    "& .container .right .bubble.you": {
+      float: "left",
+      color: "var(--white)",
+      backgroundColor: "var(--blue)",
+      alignSelf: "flex-start",
+      WebkitAnimationName: "slideFromLeft",
+      animationName: "slideFromLeft"
+    },
+    "& .container .right .bubble.you:before": {
+      left: "-3px",
+      backgroundColor: "var(--blue)"
+    },
+    "& .container .right .bubble.me": {
+      float: "right",
+      color: "var(--dark)",
+      backgroundColor: "#eceff1",
+      alignSelf: "flex-end",
+      WebkitAnimationName: "slideFromRight",
+      animationName: "slideFromRight"
+    },
+    "& .container .right .bubble.me:before": {
+      right: "-3px",
+      backgroundColor: "#eceff1"
+    },
+    "& .container .right .conversation-start": {
+      position: "relative",
+      width: "100%",
+      marginBottom: "27px",
+      textAlign: "center"
+    },
+    "& .container .right .conversation-start span": {
+      fontSize: "14px",
+      display: "inline-block",
+      color: "var(--grey)"
+    },
+    "& .container .right .conversation-start span:before, & .container .right .conversation-start span:after": {
+      position: "absolute",
+      top: "10px",
+      display: "inline-block",
+      width: "30%",
+      height: "1px",
+      content: "''",
+      backgroundColor: "var(--light)"
+    },
+    "& .container .right .conversation-start span:before": { left: "0" },
+    "& .container .right .conversation-start span:after": { right: "0" }
+  }
+}
+
+export const desktopStyles = {
+
+}
+
+export const TabStyles = {
+
+}
+
+export const mobileStyles = {
+
+}

@@ -17,7 +17,7 @@ const IconCard = ({data}) => {
 
   return (
     <Link href={data.slug}>
-      <Card className={classes.card}>
+      <Card className={` ${classes.card} ${data.title.substring(0,3)}`}>
         <CardContent className={classes.cardBody}>
           <img src={data.image.url} alt="" className={classes.image} />
           <Typography variant="h6" className={classes.title}>
