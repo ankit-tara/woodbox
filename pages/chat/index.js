@@ -17,7 +17,7 @@ export default function ChatPage() {
   const classes = useStyles()
 
   return (
-    <Layout>
+    <Layout nofooter={true}>
         <Chat/>
     </Layout>
   );

@@ -3,25 +3,24 @@ export const commonStyles = {
     position: "relative",
     left: "50%",
     width: "var(--wrapper)",
-    height: "650px",
+    height: "calc(100vh - 150px)",
+    minHeight: '400px',
     WebkitTransform: "translate(-50%, 0)",
     transform: "translate(-50%, 0)",
+    marginTop: '0.3rem',
     "& .container": {
       position: "relative",
-      top: "50%",
-      left: "50%",
-      width: "80%",
-      height: "75%",
       backgroundColor: "var(--white)",
-      WebkitTransform: "translate(-50%, -50%)",
-      transform: "translate(-50%, -50%)"
+      height: '100%',
+      overflow: 'hidden'
     },
     "& .container .left": {
       float: "left",
       width: "37.6%",
       height: "100%",
       border: "1px solid var(--light)",
-      backgroundColor: "var(--white)"
+      backgroundColor: "var(--white)",
+      overflow: 'hidden',
     },
     "& .container .left .top": {
       position: "relative",
@@ -72,6 +71,7 @@ export const commonStyles = {
       borderRight: "1px solid var(--light)",
       borderLeft: "1px solid var(--light)",
       width: "calc(100% + 2px)",
+      height: 'calc(100% - 100px)',
       padding: "0",
       listStyle: 'none',
       overflowY: 'auto',
@@ -164,7 +164,7 @@ export const commonStyles = {
     },
     "& .container .right .chat": {
       position: "relative",
-      // display: "none",
+      // display: "flex",
       overflow: "auto",
       padding: "0 35px 92px",
       borderWidth: "1px 1px 1px 0",
@@ -177,9 +177,20 @@ export const commonStyles = {
       WebkitBoxDirection: "normal",
       flexDirection: "column"
     },
+    // "& .container .right .chat::before": {
+    //   content: '""',
+    //   height: '92px',
+    //   width: '100%',
+    //   background: '#fff',
+    //   bottom: 0,
+    //   left: 0,
+    //   position: 'absolute',
+    //   zIndex: '1',
+    // },
     "& .container .right .write": {
       position: "absolute",
       bottom: "29px",
+      zIndex: '2',
       left: "30px",
       height: "42px",
       paddingLeft: "8px",
@@ -191,7 +202,7 @@ export const commonStyles = {
     "& .container .right .write input": {
       fontSize: "16px",
       float: "left",
-      width: "347px",
+      width: "80%",
       height: "40px",
       padding: "0 10px",
       color: "var(--dark)",

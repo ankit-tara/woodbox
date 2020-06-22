@@ -25,7 +25,7 @@ export default function Layout(props) {
     <div className={classes.Wrapper}>
       <Header />
       <div className={classes.Main}>{props.children}</div>
-      <Footer />
+      {props.nofooter == true ? "" : <Footer />}
       {BottomNav}
       {isLoaded && (
         <div className={classes.loader}>
