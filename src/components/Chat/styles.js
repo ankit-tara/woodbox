@@ -177,16 +177,16 @@ export const commonStyles = {
       WebkitBoxDirection: "normal",
       flexDirection: "column"
     },
-    // "& .container .right .chat::before": {
-    //   content: '""',
-    //   height: '92px',
-    //   width: '100%',
-    //   background: '#fff',
-    //   bottom: 0,
-    //   left: 0,
-    //   position: 'absolute',
-    //   zIndex: '1',
-    // },
+    "& .container .right::before": {
+      content: '""',
+      height: '92px',
+      width: '97%',
+      background: '#fff',
+      bottom: '1px',
+      left: 0,
+      position: 'absolute',
+      zIndex: '1',
+    },
     "& .container .right .write": {
       position: "absolute",
       bottom: "29px",
@@ -316,13 +316,38 @@ export const commonStyles = {
 }
 
 export const desktopStyles = {
-
-}
-
-export const TabStyles = {
-
+  backBtn:{
+    display:'none'
+  }
 }
 
 export const mobileStyles = {
-
+  wrapper: {
+    marginTop: '0',
+    width:'100%',
+    height:'calc(100vh - 117px)',
+    "& .container .right": {
+      width:'100%'
+    },
+    "& .container .left": {
+      width:'100%',
+      position:'absolute',
+      zIndex:9,
+      transform: 'translateX(0)',
+      transition: 'transform ease-in-out 450ms',
+    },
+    "& .container .left.active": {
+      transform: 'translateX(-100%)',
+      transition: 'transform ease-in-out 450ms',
+    },
+    "& .container .right .write": {
+      display: 'flex'
+    },
+    "& .container .right .top": {
+      display: 'flex'
+    }
+  },
+  backBtn:{
+    marginRight: '1rem'
+  }
 }
