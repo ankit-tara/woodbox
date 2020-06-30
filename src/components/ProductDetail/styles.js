@@ -227,13 +227,13 @@ export const desktopStyles = {
     gridGap: '2.5rem'
   },
   spanRow2: {
-    gridRow: 'span 2 / auto'
+    gridRow: 'span 3 / auto'
   },
   spanCol2: {
-    gridColumn: 'span 2 / auto'
+    gridColumn: 'span 3 / auto'
   },
   spanCol4: {
-    gridColumn: 'span 4 / auto'
+    gridColumn: 'span 3 / auto'
   },
   spanCol6: {
     gridColumn: 'span 6 / auto'

@@ -26,6 +26,10 @@
   --blue: #2c3539;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 body::-webkit-scrollbar{
   width: 1rem;
   background-color: #f5f5f5;

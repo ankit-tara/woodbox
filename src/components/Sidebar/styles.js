@@ -1,10 +1,3 @@
-// import {
-//   secondaryDark, backgroundColor, blueText, mainText
-// } from 'src/_styles/colors'
-// import {
-//   HeadFont
-// } from 'src/_styles/global'
-
 export const commonStyles = {
   root:{
     marginTop: '3rem',
@@ -42,6 +35,21 @@ export const commonStyles = {
     fontSize: '20px',
     marginBottom:'1rem'
   },
+  searchField:{
+    width: '100%',
+    margin: '1rem 0',
+    border: 'solid 2px #ff9a39',
+    padding: '0.7rem 1rem'
+  },
+  filterBtn:{
+    marginTop:'1rem',
+    background:'#fc8234',
+    color: '#fff',
+    fontSize: '1rem',
+    '&:hover':{
+      background: '#fc8234'
+    }
+  }
 }
 
 export const mobileStyles = {
