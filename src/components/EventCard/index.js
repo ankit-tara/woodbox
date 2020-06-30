@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Card, CardContent, Typography } from '@material-ui/core'
+import { Card, CardContent, Typography, Link } from '@material-ui/core'
 import StarRatings from 'react-star-ratings'
 
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
@@ -12,48 +12,77 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-function EventCard({ data }) {
+function EventCard({ data, isAuthUser = false }) {
 
   const [isSaved, setisSaved] = React.useState(data.saved)
-  const [productStar, setproductStar] = React.useState(isSaved ? 1 : 0)
+  const [eventStar, seteventStar] = React.useState(isSaved ? 1 : 0)
 
 
   const classes = useStyles()
 
   const changeRating = () => {
-    if (!isSaved && productStar == 0) {
-      setproductStar(1)
+    if (!isSaved && eventStar == 0) {
+      seteventStar(1)
       setisSaved(!isSaved)
     }
     else {
-      setproductStar(0)
+      seteventStar(0)
       setisSaved(!isSaved)
     }
   }
 
   return (
     <Card className={classes.card}>
-      <img src={data.image.url} alt="" className={classes.image} />
+      {/* <img src={data.image.url} alt="" className={classes.image} /> */}
+      {data.images.length > 0 && (
+        <img
+          src={data.images[0].thumbnail_link}
+          alt=""
+          className={classes.image}
+        />
+      )}
       <CardContent className={isSaved ? `${classes.cardInner} ${classes.Orangecard} ` : `${classes.cardInner}`}>
         <div className={classes.flex}>
-            <Typography variant="h6" className={classes.title}>{data.title}</Typography>
+          <Typography variant="h6" className={classes.title}>
+            {data.title.length >= 25 && (
+              <Link href={`/events/item/${data.id}`}>
+                {data.title.substring(0, 25) + "..."}{" "}
+              </Link>
+            )}
+            {data.title.length < 25 && (
+              <Link href={`/events/item/${data.id}`}>{data.title}</Link>
+            )}
+          </Typography>
+          {!isAuthUser && (
             <StarRatings
-              rating={productStar}
-              starRatedColor='#FC821A'
-              starHoverColor='#FC821A'
+              rating={eventStar}
+              starRatedColor="#FC821A"
+              starHoverColor="#FC821A"
               changeRating={changeRating}
-              starDimension='24px'
+              starDimension="24px"
               numberOfStars={1}
-              name={data.id}
+              id={data.id}
             />
+          )}
         </div>
         <div className={classes.flex}>
-          <Typography className={classes.date}>{data.date}</Typography>
-          <Typography className={isSaved ? `${classes.price} ${classes.Orangeprice} ` : `${classes.price}`}>{data.price}</Typography>
+          <Typography className={classes.date}>{data.event_date}</Typography>
+          <Typography className={isSaved ? `${classes.price} ${classes.Orangeprice} ` : `${classes.price}`}>
+            &#8377;{data.price}
+          </Typography>
         </div>
         <div className={classes.cardBody}>
-          <Typography className={classes.excerpt}>{data.excerpt}</Typography>
-          <Typography className={classes.college}>{data.collegeName}</Typography>
+          <Typography className={classes.excerpt}>{data.description.substring(0, 35) + "..."}{" "}</Typography>
+          {data.university.name.length >= 25 && (
+              <Typography className={classes.college}>
+                {data.university.name.substring(0, 25) + "..."}{" "}
+              </Typography>
+            )}
+            {data.university.name.length < 25 && (
+              <Typography className={classes.college}>
+                {data.university.name}
+              </Typography>
+            )}
         </div>
       </CardContent>
     </Card>

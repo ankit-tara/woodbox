@@ -52,15 +52,19 @@ export async function getStaticProps() {
   res = await fetch(API_URL + "/products?type=rental&paginate=10");
   const sproducts = await res.json();
 
+  res = await fetch(API_URL + "/events?paginate=10");
+  const events = await res.json();
+
   return {
     props: {
       bproducts,
       sproducts,
+      events,
     },
   };
 }
 
-export default function Index({ bproducts, sproducts }) {
+export default function Index({ bproducts, sproducts, events }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -243,7 +247,7 @@ export default function Index({ bproducts, sproducts }) {
           </Box>
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
-              {EventCardsData.map((data) => (
+              {events.data.map((data) => (
                 <div key={data.id}>
                   <EventCard data={data} />
                 </div>
