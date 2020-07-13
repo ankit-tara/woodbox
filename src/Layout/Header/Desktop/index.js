@@ -179,7 +179,7 @@ function Header({ modalOpen }) {
                 <a href="/products/type/rental">Rent</a>
               </li>
               <li>
-                <a href="/coming-soon">Events</a>
+                <a href="/events">Events</a>
               </li>
               <li>
                 <a>

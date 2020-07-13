@@ -11,7 +11,13 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import { searchCategories, searchUniversities, searchCities, getCities, getCategories } from "../../apis/global-api";
+import { 
+  searchCategories, 
+  searchUniversities, 
+  searchCities, 
+  searchEventCategories,
+  getCities, 
+  getCategories } from "../../apis/global-api";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-  function Sidebar(){
+  function Sidebar({type=''}){
 
   const [categories, setcategories] = useState([]);
   const [universities, setuniversities] = useState([]);
@@ -50,11 +56,18 @@ const useStyles = makeStyles(theme => ({
   // };
 
   const handleCatSearch = (e) => {
+    console.log(type)
     let value = e ? e.target.value : "";
     if (!value) return;
-    searchCategories(value).then((response) => {
-      setcategories(response.data);
-    });
+    if(type == "events") {
+      searchEventCategories(value).then((response) => {
+        setcategories(response.data);
+      });
+    } else {
+      searchCategories(value).then((response) => {
+        setcategories(response.data);
+      });
+    }
   };
 
   const handleUniSearch = (e) => {

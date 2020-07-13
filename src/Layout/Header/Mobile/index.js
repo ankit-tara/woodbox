@@ -195,7 +195,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </a>
                 <Divider />
-                <a href="/coming-soon">
+                <a href="/events">
                   <ListItem button>
                     <ListItemIcon>
                       <EventNoteRoundedIcon />
