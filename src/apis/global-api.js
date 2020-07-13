@@ -111,6 +111,21 @@ export async function getCities() {
     .catch((error) => console.warn(error));
 }
 
+
+export async function getCities() {
+  let url = API_URL + "/cities";
+
+  console.log(url);
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log('responseData', responseData);
+      return responseData;
+  })
+    .catch((error) => console.warn(error));
+}
+
 export async function getEvents(q) {
   let url = API_URL + "/events";
   if (q) {
