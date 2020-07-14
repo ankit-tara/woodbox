@@ -100,6 +100,7 @@ export default function Index({ bproducts, sproducts, events }) {
 
   const params = {
     loop: false,
+    watchOverflow: false,
     slidesPerView: "4",
     navigation: {
       nextEl: ".swiper-button-next",
@@ -246,13 +247,18 @@ export default function Index({ bproducts, sproducts, events }) {
             <Typography variant="h5">Newly Added Events</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            <Swiper {...params}>
+            {events.data.length>4 && <Swiper {...params}>
               {events.data.map((data) => (
                 <div key={data.id}>
                   <EventCard data={data} />
                 </div>
               ))}
-            </Swiper>
+            </Swiper>}
+            {events.data.length<=4 && events.data.map((data) => (
+                <div key={data.id}>
+                  <EventCard data={data} />
+                </div>
+              ))}
           </Box>
         </Container>
       </section>

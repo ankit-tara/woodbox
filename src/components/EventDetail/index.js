@@ -13,6 +13,9 @@ import ImageGallery from "react-image-gallery";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -188,6 +191,13 @@ console.log(imgArr);
                     </Typography>
                     <Typography variant="h6">
                       {data.university ? data.university.name : ""}
+                    </Typography>
+                  </Box>
+                  <Box className={classes.box}>
+                    <Typography className={classes.heading}>
+                    { data.social_profiles.map((sp) => ([
+                      sp.text == 'Facebook' ? <a href={`${sp.link}`}> <FacebookIcon /></a> : [ sp.text == 'Twitter' ? <a href={`${sp.link}`}> <TwitterIcon /> </a> : [ sp.text  == 'Instagram' ? <a href={`${sp.link}`}> <InstagramIcon /> </a> : '' ]]]
+                    ))}
                     </Typography>
                   </Box>
                   <Box className={classes.Pricebox}>
