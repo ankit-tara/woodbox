@@ -16,6 +16,11 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import SubtitlesIcon from "@material-ui/icons/Subtitles";
 import DetailsIcon from "@material-ui/icons/Details";
 import SchoolIcon from "@material-ui/icons/School";
+import EventIcon from '@material-ui/icons/Event';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import LinkIcon from '@material-ui/icons/Link';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -203,7 +208,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(event)
+    addFields();
     if (event.images) {
       let updatedImages = [];
       let updatedImagesInfo = [];
@@ -242,20 +247,13 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   };
  
   const addFields = ()=>{
-    let checkEmptyLines = socialLinks.filter(line => line.text === null)
-    if(socialLinks.length > 4) {return}
-    if (checkEmptyLines.length >= 1 && socialLinks.length > 0) {
-      return
+    if(socialLinks.length < 5) {
+      for (var i = 0; i < 5; i++) {
+      setsociallinks([...socialLinks, { text : "", link : ""}]);
+      }
     }
-    setsociallinks([...socialLinks, { text : "", link : ""}]);
   }
  
- const removeFields = (index) => {
-  const list = [...socialLinks];
-  list.splice(index, 1);
-  setsociallinks(list);
-  
-};
   const handleClose = () => {
     setOpen(false);
   };
@@ -399,8 +397,6 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     
   };
 
-  
-
   return (
     <Layout>
       <section className={classes.section}>
@@ -461,7 +457,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                     <div className={classes.formInput}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <LocalOfferIcon />
+                          <EventIcon />
                         </Grid>
                         <Grid item className={classes.formInputField}>
                           <TextField
@@ -477,7 +473,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                     <div className={classes.formInput}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <LocalOfferIcon />
+                          <ScheduleIcon />
                         </Grid>
                         <Grid item className={classes.formInputField}>
                           <TextField
@@ -541,7 +537,56 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                         </Grid>
                       </Grid>
                     </div>
+                    
                     <div className={classes.formInput}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <ContactPhoneIcon />
+                        </Grid>
+                        <Grid item className={classes.formInputField}>
+                          <TextField
+                            id="contact"
+                            label="Contact Number"
+                            value={contact}
+                            type="number"
+                            onChange={(e) => updateformData(e, "contact")}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                    <div className={classes.formInput}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <LinkIcon />
+                        </Grid>
+                        <Grid item className={classes.formInputField}>
+                          <TextField
+                            id="bookLink"
+                            label="Book Event Link"
+                            value={bookLink}
+                            type="text"
+                            onChange={(e) => updateformData(e, "booklink")}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                    <div className={classes.formInput}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <LinkIcon />
+                        </Grid>
+                        <Grid item className={classes.formInputField}>
+                          <TextField
+                            id="visitLink"
+                            label="Visit Website Link"
+                            value={visitLink}
+                            type="text"
+                            onChange={(e) => updateformData(e, "visitlink")}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                    <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
                           <SchoolIcon />
@@ -592,83 +637,34 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    <div className={classes.formInput}>
-                      <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item>
-                          <LocalOfferIcon />
-                        </Grid>
-                        <Grid item className={classes.formInputField}>
-                          <TextField
-                            id="contact"
-                            label="Contact Number"
-                            value={contact}
-                            type="number"
-                            onChange={(e) => updateformData(e, "contact")}
-                          />
-                        </Grid>
-                      </Grid>
-                    </div>
-                    <div className={classes.formInput}>
-                      <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item>
-                          <LocalOfferIcon />
-                        </Grid>
-                        <Grid item className={classes.formInputField}>
-                          <TextField
-                            id="bookLink"
-                            label="Book Event Link"
-                            value={bookLink}
-                            type="text"
-                            onChange={(e) => updateformData(e, "booklink")}
-                          />
-                        </Grid>
-                      </Grid>
-                    </div>
-                    <div className={classes.formInput}>
-                      <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item>
-                          <LocalOfferIcon />
-                        </Grid>
-                        <Grid item className={classes.formInputField}>
-                          <TextField
-                            id="visitLink"
-                            label="Visit Website Link"
-                            value={visitLink}
-                            type="text"
-                            onChange={(e) => updateformData(e, "visitlink")}
-                          />
-                        </Grid>
-                      </Grid>
-                    </div>
-                    <div className={classes.formInput}>
-                      {socialLinks.length > 0 &&
-                        socialLinks.map(
-                          (item, index) => (
-                            <div key={index}>
-                              <TextField
-                                label="Social text"
-                                name = "text"
-                                value={item.text}
-                                type="text"
-                                onChange={(e) => handleInputChange(e, index)}
-                              />
-                              <TextField
-                                label="Social Link"
-                                name="link"
-                                value={item.link}
-                                type="text"
-                                onChange={(e) => handleInputChange(e, index)}
-                              />
-                              <div className="btn-box">
-                                {socialLinks.length !== 1 && <DeleteIcon
-                                  className="mr10"
-                                  onClick={() => removeFields(index)} />}
-                                {socialLinks.length - 1 === index && <AddIcon onClick={addFields} />}
-                              </div>
-                            </div>
-                          )
-                        )}
-                    </div>
+                    <p>Write one of these social text available : Facebook, Twitter, Linkedin, Instagram, Youtube</p>
+                    {socialLinks.length > 0 &&
+                      socialLinks.map(
+                        (item, index) => (
+                        <div className={classes.formInput} key={index}>
+                          <div>
+                            <TextFieldsIcon />
+                            <TextField
+                              label="Social text"
+                              name = "text"
+                              value={item.text}
+                              type="text"
+                              onChange={(e) => handleInputChange(e, index)}
+                            />
+                          </div>
+                          <div>
+                            <LinkIcon />
+                            <TextField
+                              label="Social Link"
+                              name="link"
+                              value={item.link}
+                              type="text"
+                              onChange={(e) => handleInputChange(e, index)}
+                            />
+                          </div>
+                        </div>
+                      )
+                    )}
                     <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
@@ -698,7 +694,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                         {filesInfo.length > 0 &&
                           filesInfo.map(
                             (file, index) => (
-                              <div>
+                              <div key={index}>
                                 {file.type == "image" && (
                                   <img src={file.data} />
                                 )}
