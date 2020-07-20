@@ -41,6 +41,23 @@ export function DeleteProduct(data, id) {
   return generalPostRequest(url, data);
 }
 
+export function AddEvent(data) {
+  let url = API_URL + "/event";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+export function UpdateEvent(data, id) {
+  let url = API_URL + "/event/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
+export function DeleteEvent(data, id) {
+  let url = API_URL + "/event/delete/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
 function generalPostRequest(url, data) {
   return fetch(url, {
     headers: {

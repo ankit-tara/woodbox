@@ -16,6 +16,8 @@ import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import YouTubeIcon from '@material-ui/icons/YouTube';
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -205,9 +207,14 @@ console.log(imgArr);
                         Social Links
                     </Typography>
                       <Typography className={classes.heading}>
-                        {data.social_profiles.map((sp) => ([
-                          sp.text == 'Facebook' ? <a href={`${sp.link}`}> <FacebookIcon /></a> : [sp.text == 'Twitter' ? <a href={`${sp.link}`}> <TwitterIcon /> </a> : [sp.text == 'Instagram' ? <a href={`${sp.link}`}> <InstagramIcon /> </a> : '']]]
-                        ))}
+                        { data.social_profiles.map((sp) => ([
+                      sp.text == 'Facebook' ? <a href={`${sp.link}`}> <FacebookIcon /></a> 
+                      : [ sp.text == 'Twitter' ? <a href={`${sp.link}`}> <TwitterIcon /> </a> 
+                      : [ sp.text  == 'Instagram' ? <a href={`${sp.link}`}> <InstagramIcon /> </a> 
+                      : [ sp.text  == 'Youtube' ? <a href={`${sp.link}`}> <YouTubeIcon /> </a> 
+                      : [ sp.text  == 'Linkedin' ? <a href={`${sp.link}`}><LinkedInIcon /></a> 
+                      : '' ] ] ]]]
+                    ))}
                       </Typography>
                     </Box>
                   </div>
