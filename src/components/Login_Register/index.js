@@ -6,12 +6,14 @@ import SwipeableViews from "react-swipeable-views";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { AuthForm } from "./AuthForm";
+import Avatar from "@material-ui/core/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { unauthenticated } from "../../redux/actions/auth";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTab-textColorPrimary.Mui-selected": {
@@ -48,6 +50,19 @@ const useStyles = makeStyles((theme) => ({
   Img: {
     textAlign: "center",
   },
+  orange: {
+    color: "#fff",
+    backgroundColor: "#f5811a",
+    width: "30px",
+    height: "30px",
+    fontSize: "1rem",
+  },
+  transparent: {
+    color: "#000",
+    width: "30px",
+    height: "30px",
+    backgroundColor: "transparent",
+  },
 }));
 
 const Login_Register = ({ isMobile = false, modalOpen = false }) => {
@@ -66,6 +81,8 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   }, [modalOpen]);
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const user = useSelector((state) => state.auth_user.user);
+  console.log("User", user);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -111,12 +128,14 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
 
   return (
     <div>
-      <AccountCircleIcon
+      <Avatar
         onClick={openModal}
         aria-controls="auth-menu"
         aria-haspopup="true"
-      />
-
+        className={user.first_name ? classes.orange : classes.transparent}
+      >
+        {user.first_name ? user.first_name.charAt(0) : <AccountCircleIcon />}
+      </Avatar>
       <Menu
         id="auth-menu"
         anchorEl={anchorEl}

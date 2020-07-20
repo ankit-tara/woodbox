@@ -7,7 +7,8 @@ const useStyles = makeStyles(theme => ({
       margin:'1rem 0',
       '& img':{
         width: '100%',
-        height: 'auto'
+        height: 'auto',
+        maxHeight: '325px'
       }
     }
 }))

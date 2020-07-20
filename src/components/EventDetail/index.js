@@ -182,7 +182,7 @@ console.log(imgArr);
               </CardContent>
             </Card>
             
-            <Card className={`${classes.card} ${classes.spanCol2}`}>
+            <Card className={`${classes.card} ${classes.SellerCard} ${classes.spanCol2}`}>
               <CardContent className={classes.cardInner}>
                 <div className={classes.cardHead}> 
                   <Box className={classes.box}>
@@ -193,19 +193,24 @@ console.log(imgArr);
                       {data.university ? data.university.name : ""}
                     </Typography>
                   </Box>
-                  <Box className={classes.box}>
-                    <Typography className={classes.heading}>
-                    { data.social_profiles.map((sp) => ([
-                      sp.text == 'Facebook' ? <a href={`${sp.link}`}> <FacebookIcon /></a> : [ sp.text == 'Twitter' ? <a href={`${sp.link}`}> <TwitterIcon /> </a> : [ sp.text  == 'Instagram' ? <a href={`${sp.link}`}> <InstagramIcon /> </a> : '' ]]]
-                    ))}
+                  <div className="d-flex">
+                    <Box className={classes.Pricebox}>
+                      <Typography className={classes.heading}>Price</Typography>
+                      <Typography variant="h4" color="primary">
+                        &#8377;{data.price}
+                      </Typography>
+                    </Box>
+                    <Box className={`${classes.box} social-links`}>
+                      <Typography className={classes.heading}>
+                        Social Links
                     </Typography>
-                  </Box>
-                  <Box className={classes.Pricebox}>
-                    <Typography className={classes.heading}>Price</Typography>
-                    <Typography variant="h4" color="primary">
-                      &#8377;{data.price}
-                    </Typography>
-                  </Box>
+                      <Typography className={classes.heading}>
+                        {data.social_profiles.map((sp) => ([
+                          sp.text == 'Facebook' ? <a href={`${sp.link}`}> <FacebookIcon /></a> : [sp.text == 'Twitter' ? <a href={`${sp.link}`}> <TwitterIcon /> </a> : [sp.text == 'Instagram' ? <a href={`${sp.link}`}> <InstagramIcon /> </a> : '']]]
+                        ))}
+                      </Typography>
+                    </Box>
+                  </div>
                 </div>
                 <div className={classes.cardAction}>
                   <Link

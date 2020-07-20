@@ -139,6 +139,27 @@ export const commonStyles = {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between'
+    },
+    '& .d-flex':{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: '2rem'
+    },
+    '& .d-flex .MuiBox-root':{
+      width: '50%'
+    },
+    '& .d-flex .MuiBox-root:first-child':{
+      borderTop: 'none',
+    },
+    '& .social-links':{
+      marginBottom: '0',
+      textAlign: 'right'
+    },
+    '& .social-links a':{
+        color: '#f58117',
+        display: 'inline-block',
+        margin: '5px'
     }
   },
   cardInner:{
@@ -147,7 +168,8 @@ export const commonStyles = {
   cardHead:{
     padding: '2.5rem 2rem 0 2rem',
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexDirection: 'column'
   },
   sellerImg:{
     '& img':{
