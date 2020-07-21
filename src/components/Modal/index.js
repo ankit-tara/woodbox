@@ -23,9 +23,9 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-const Modal = () => {
+const Modal = (props) => {
 
-  const [open, setopen] = useState(false);
+  const [open, setopen] = useState(props.open);
 
   const openModal = () => {
     setopen(true);
@@ -62,7 +62,7 @@ const Modal = () => {
 
   return (
     <>
-      <button onClick={openModal} style={{ margin: '1rem auto' }}>Open Modal</button>
+      {/* <button onClick={openModal} style={{ margin: '1rem auto' }}>Open Modal</button> */}
       <StyledDialog
         open={open}
         onClose={closeModal}

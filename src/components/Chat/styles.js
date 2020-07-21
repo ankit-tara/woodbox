@@ -182,7 +182,7 @@ export const commonStyles = {
       height: '92px',
       width: '97%',
       background: '#fff',
-      bottom: '1px',
+      bottom: '2px',
       left: 0,
       position: 'absolute',
       zIndex: '1',

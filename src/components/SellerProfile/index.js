@@ -86,9 +86,9 @@ const sellerProfile = ({ user }) => {
               <CardContent className={classes.cardBody}>
                 <Box className={classes.productsHeader}>
                   <Typography variant="h5">Published Ads</Typography>
-                  <div className={classes.addmoreGrid}>
+                  {/* <div className={classes.addmoreGrid}>
                     <a className={classes.addmorebtn} href="/post">Add More ads</a>
-                  </div>
+                  </div> */}
                 </Box>
                 <Box className={classes.ProductsGridWrapper}>
                   {data && data.data.length > 0 &&

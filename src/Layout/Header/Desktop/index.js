@@ -132,9 +132,7 @@ function Header({ modalOpen }) {
     if (accessToken) {
       router.push("/post");
     } else {
-      location.reload("/?signup=open");
-    
-      
+      window.location.replace("/?signup=open");
     }
   };
 
