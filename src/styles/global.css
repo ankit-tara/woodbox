@@ -22,7 +22,7 @@
   --grey: #999;
   --dark: #1a1a1a;
   --light: #e6e6e6;
-  --wrapper: 1000px;
+  --wrapper: 850px;
   --blue: #2c3539;
 }
 
@@ -47,6 +47,14 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: #F90;
   outline: 1px solid #F90;
+}
+
+.swiper-button-next, .swiper-button-prev{
+  color: #000;
+}
+
+.swiper-button-next{
+  right: 23px;
 }
 
 @keyframes slideFromLeft {
