@@ -140,11 +140,13 @@ function ProductCard({ data, isAuthUser = false }) {
         </div>
         <div className={classes.cardBody}>
           {data.images.length > 0 && (
-            <img
-              src={data.images[0].thumbnail_link}
-              alt=""
-              className={classes.image}
-            />
+            <Link href={`/products/item/${data.id}`}>
+              <img
+                src={data.images[0].thumbnail_link}
+                alt=""
+                className={classes.image}
+                />
+            </Link>
           )}
         </div>
         <div className={classes.cardFooter}>

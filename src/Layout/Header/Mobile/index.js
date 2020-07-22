@@ -158,7 +158,7 @@ export default function SearchAppBar() {
     if (accessToken) {
       router.push("/post/event");
     } else {
-      location.reload("/?signup=open");
+      window.location.replace("/?signup=open");
     }
   };
 

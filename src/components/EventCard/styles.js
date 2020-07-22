@@ -8,7 +8,9 @@ export const commonStyles = {
     boxShadow: 'none',
     width: '90%',
     margin: '1rem 1rem 1rem 0',
-    display: 'grid'
+    display: 'grid',
+    minHeight: '510px',
+    gridTemplateRows: 'auto 1fr'
   },
   cardInner: {
     // height: '100%',
@@ -36,7 +38,7 @@ export const commonStyles = {
   },
   image: {
     width: '100%',
-    height: '330px',
+    height: '220px',
     objectFit: 'cover'
   },
   cardBody: {

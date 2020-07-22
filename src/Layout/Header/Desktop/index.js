@@ -143,20 +143,7 @@ function Header({ modalOpen }) {
     if (accessToken) {
       router.push("/post/event");
     } else {
-      window.location.replace("/?signup=open");
-    }
-  };
-
-  const handleListEvent = (e) => {
-    setauthModal(false);
-    e.preventDefault();
-
-    if (accessToken) {
-      router.push("/post/event");
-    } else {
-      location.reload("/?signup=open");
-    
-      
+      window.location.replace("/?signup=open");   
     }
   };
 
@@ -211,11 +198,6 @@ function Header({ modalOpen }) {
               <li>
                 <a>
                   <span onClick={handleListEvent}>Add Event</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span onClick={handleListEvent}>List Event</span>
                 </a>
               </li>
               <li>
