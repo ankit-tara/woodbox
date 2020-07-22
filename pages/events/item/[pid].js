@@ -62,8 +62,9 @@ export default function singlePage({ query }) {
   }, []);
 
   const fetchData = async () => {
-    getEvent(pid).then((event) => {setData(event)
-    setloading(false)
+    getEvent(pid).then((event) => {
+      setData(event)
+      setloading(false)
     });
   };
 
@@ -92,13 +93,17 @@ export default function singlePage({ query }) {
         <Backdrop
           className={classes.backdrop}
           open={loading}
-          // onClick={handleClose}
+        // onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
       )}
 
       {!loading && <EventDetail data={data} />}
+      {/* {!loading && (!data || !data.length) && <Container maxWidth="xl">
+        <Box className={classes.sectionHeader}>
+          <Typography variant="h4">Event not found!!</Typography>
+        </Box> </Container>} */}
 
       {/* Review Section */}
       <section className={classes.section} style={{ background: "#FFF6EF" }}>

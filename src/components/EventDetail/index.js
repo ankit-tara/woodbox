@@ -13,11 +13,11 @@ import ImageGallery from "react-image-gallery";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import YouTubeIcon from '@material-ui/icons/YouTube';
+import FacebookIcon from "@material-ui/icons/Facebook";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import YouTubeIcon from "@material-ui/icons/YouTube";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,11 +61,11 @@ const EventDetail = ({ data }) => {
     );
   }
 
-  const _toggleShowVideo=(url)=> {
-    console.log('called')
+  const _toggleShowVideo = (url) => {
+    console.log("called");
     console.log(showVideo);
     setshowVideo(!showVideo);
-  }
+  };
 
   // function _resetVideo(index) {
   //   setshowVideo(false)
@@ -80,7 +80,7 @@ const EventDetail = ({ data }) => {
     setevent(data);
     if (data.images) {
       let imgArr = [];
-      let self = this
+      let self = this;
       data.images.map((item) => {
         if (item.type == "video") {
           imgArr.push({
@@ -96,7 +96,7 @@ const EventDetail = ({ data }) => {
           });
         }
       });
-console.log(imgArr);
+      console.log(imgArr);
       setimages(imgArr);
     }
     // setevents(data);
@@ -133,7 +133,14 @@ console.log(imgArr);
   const classes = useStyles();
 
   console.log("data", data);
-  if (!data) return null;
+  if (!data )
+    return (
+      <Container maxWidth="xl">
+        <Box className={classes.sectionHeader}>
+          <Typography variant="h4">Event not found!!</Typography>
+        </Box>{" "}
+      </Container>
+    );
 
   return (
     <section className={classes.section}>
@@ -171,7 +178,9 @@ console.log(imgArr);
                     </Typography>
                   </Box>
                   <Box className={classes.box}>
-                    <Typography className={classes.heading}>Contact Number</Typography>
+                    <Typography className={classes.heading}>
+                      Contact Number
+                    </Typography>
                     <Typography variant="h4" color="primary">
                       {data.contact_number}
                     </Typography>
@@ -183,10 +192,12 @@ console.log(imgArr);
                 </div>
               </CardContent>
             </Card>
-            
-            <Card className={`${classes.card} ${classes.SellerCard} ${classes.spanCol2}`}>
+
+            <Card
+              className={`${classes.card} ${classes.SellerCard} ${classes.spanCol2}`}
+            >
               <CardContent className={classes.cardInner}>
-                <div className={classes.cardHead}> 
+                <div className={classes.cardHead}>
                   <Box className={classes.box}>
                     <Typography className={classes.heading}>
                       Event Organiser
@@ -205,27 +216,60 @@ console.log(imgArr);
                     <Box className={`${classes.box} social-links`}>
                       <Typography className={classes.heading}>
                         Social Links
-                    </Typography>
+                      </Typography>
                       <Typography className={classes.heading}>
-                        { data.social_profiles.map((sp) => ([
-                      sp.text == 'Facebook' ? <a href={`${sp.link}`}> <FacebookIcon /></a> 
-                      : [ sp.text == 'Twitter' ? <a href={`${sp.link}`}> <TwitterIcon /> </a> 
-                      : [ sp.text  == 'Instagram' ? <a href={`${sp.link}`}> <InstagramIcon /> </a> 
-                      : [ sp.text  == 'Youtube' ? <a href={`${sp.link}`}> <YouTubeIcon /> </a> 
-                      : [ sp.text  == 'Linkedin' ? <a href={`${sp.link}`}><LinkedInIcon /></a> 
-                      : '' ] ] ]]]
-                    ))}
+                        {data.social_profiles.map((sp) => [
+                          sp.text == "Facebook" ? (
+                            <a href={`${sp.link}`}>
+                              {" "}
+                              <FacebookIcon />
+                            </a>
+                          ) : (
+                            [
+                              sp.text == "Twitter" ? (
+                                <a href={`${sp.link}`}>
+                                  {" "}
+                                  <TwitterIcon />{" "}
+                                </a>
+                              ) : (
+                                [
+                                  sp.text == "Instagram" ? (
+                                    <a href={`${sp.link}`}>
+                                      {" "}
+                                      <InstagramIcon />{" "}
+                                    </a>
+                                  ) : (
+                                    [
+                                      sp.text == "Youtube" ? (
+                                        <a href={`${sp.link}`}>
+                                          {" "}
+                                          <YouTubeIcon />{" "}
+                                        </a>
+                                      ) : (
+                                        [
+                                          sp.text == "Linkedin" ? (
+                                            <a href={`${sp.link}`}>
+                                              <LinkedInIcon />
+                                            </a>
+                                          ) : (
+                                            ""
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                            ]
+                          ),
+                        ])}
                       </Typography>
                     </Box>
                   </div>
                 </div>
                 <div className={classes.cardAction}>
-                  <Link
-                      href={`${data.book_event_link}`}
-                    >
-                    <Button className={classes.primaryBtn}>
-                      Book Event
-                    </Button>
+                  <Link href={`${data.book_event_link}`}>
+                    <Button className={classes.primaryBtn}>Book Event</Button>
                   </Link>
                   <Link
                     href={`${data.visit_website_link}`}
@@ -238,7 +282,7 @@ console.log(imgArr);
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className={`${classes.card} ${classes.spanCol6}`}>
               <CardContent className={classes.cardBody}>
                 <Typography className={classes.heading}>Discription</Typography>

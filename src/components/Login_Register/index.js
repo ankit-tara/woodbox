@@ -117,6 +117,9 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   const gotoProfileEdit = () => {
     router.push("/profile/edit");
   };
+  const gotoEvents = () => {
+    router.push("/profile/events");
+  };
 
   const logout = () => {
     setAnchorEl(null);
@@ -145,6 +148,8 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
       >
         <MenuItem onClick={gotoProfile}>View Profile</MenuItem>
         <MenuItem onClick={gotoProfileEdit}>Edit Profile</MenuItem>
+        <MenuItem onClick={gotoProfile}>Published Ads</MenuItem>
+        <MenuItem onClick={gotoEvents}>Published Events</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
 

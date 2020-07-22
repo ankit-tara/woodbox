@@ -1,25 +1,22 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from "react";
 import Layout from "../../src/Layout";
 import Chat from "../../src/components/Chat";
-import { Box, Button, Container, Grid, Typography } from '@material-ui/core';
-import { commonStyles, desktopStyles, mobileStyles, TabStyles } from '../../src/styles';
-
-const useStyles = makeStyles(theme => ({
-  ...commonStyles,
-  [theme.breakpoints.up('md')]: desktopStyles,
-  [theme.breakpoints.between('sm', 'md')]: TabStyles,
-  [theme.breakpoints.down('sm')]: mobileStyles
-}))
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function ChatPage() {
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const router = useRouter();
 
-  const classes = useStyles()
+  useEffect(() => {
+    if (!accessToken) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <Layout nofooter={true}>
-        <Chat/>
+      <Chat />
     </Layout>
   );
 }
-
