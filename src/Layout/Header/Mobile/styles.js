@@ -48,7 +48,8 @@ export const commonStyles = {
       pointerEvents: 'none'
     },
     '& a':{
-      color: '#333'
+      color: '#333',
+      textDecoration: 'none'
     }
   },
   searchBar:{

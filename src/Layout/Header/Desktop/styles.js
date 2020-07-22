@@ -25,7 +25,7 @@ export const commonStyles = {
   Menu: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     height: '100%',
     margin: '0',
     padding: '0',

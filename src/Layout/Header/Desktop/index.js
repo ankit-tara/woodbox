@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: '#fff',
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: '#fff',
     },
     border: "solid 1px #ccc",
     marginLeft: 0,
@@ -136,6 +136,17 @@ function Header({ modalOpen }) {
     }
   };
 
+  const handleListEvent = (e) => {
+    setauthModal(false);
+    e.preventDefault();
+
+    if (accessToken) {
+      router.push("/post/event");
+    } else {
+      window.location.replace("/?signup=open");
+    }
+  };
+
   const handleSearch = (e) => {
     let value = e.target.value;
     if (timeout) clearTimeout(timeout);
@@ -154,7 +165,7 @@ function Header({ modalOpen }) {
     >
       <Container maxWidth="xl">
         <Grid container>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             <a href="/">
               <img
                 className={classNames(
@@ -165,7 +176,7 @@ function Header({ modalOpen }) {
               />
             </a>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <ul className={classes.Menu}>
               <li>
                 <a href="/">Home</a>
@@ -182,6 +193,11 @@ function Header({ modalOpen }) {
               <li>
                 <a>
                   <span onClick={handleListProduct}>List Product</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span onClick={handleListEvent}>List Event</span>
                 </a>
               </li>
               <li>
@@ -238,7 +254,7 @@ function Header({ modalOpen }) {
               </li>
             </ul>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <ul className={classes.MenuRight}>
               <li>
                 <div className={classes.search}>
