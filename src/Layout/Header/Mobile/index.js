@@ -153,11 +153,12 @@ export default function SearchAppBar() {
   };
 
   const handleListEvent = (e) => {
+    setauthModal(false);
     e.preventDefault();
     if (accessToken) {
       router.push("/post/event");
     } else {
-      window.location.replace("/?signup=open");
+      location.reload("/?signup=open");
     }
   };
 
@@ -224,7 +225,7 @@ export default function SearchAppBar() {
                     <ListItemIcon>
                       <FormatListBulletedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="List Products" />
+                    <ListItemText primary="Sell" />
                   </ListItem>
                 </a>
                 <a href="/post" onClick={handleListEvent}>
@@ -232,7 +233,7 @@ export default function SearchAppBar() {
                     <ListItemIcon>
                       <FormatListBulletedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="List Events" />
+                    <ListItemText primary="Add Events" />
                   </ListItem>
                 </a>
                 <Divider />
@@ -310,6 +311,23 @@ export default function SearchAppBar() {
                           </ListItem>
                         </a>
                         <Divider />
+                        <a href="/profile">
+                          <ListItem button>
+                            <ListItemIcon>
+                              <CreateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Published Adds" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/profile/events">
+                          <ListItem button>
+                            <ListItemIcon>
+                              <CreateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Published Events" />
+                          </ListItem>
+                        </a>
                         <ListItem button onClick={logout}>
                           <ListItemIcon>
                             <ExitToAppIcon />

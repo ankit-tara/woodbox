@@ -147,6 +147,19 @@ function Header({ modalOpen }) {
     }
   };
 
+  const handleListEvent = (e) => {
+    setauthModal(false);
+    e.preventDefault();
+
+    if (accessToken) {
+      router.push("/post/event");
+    } else {
+      location.reload("/?signup=open");
+    
+      
+    }
+  };
+
   const handleSearch = (e) => {
     let value = e.target.value;
     if (timeout) clearTimeout(timeout);
@@ -192,7 +205,12 @@ function Header({ modalOpen }) {
               </li>
               <li>
                 <a>
-                  <span onClick={handleListProduct}>List Product</span>
+                  <span onClick={handleListProduct}>Sell</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span onClick={handleListEvent}>Add Event</span>
                 </a>
               </li>
               <li>

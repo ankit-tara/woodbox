@@ -12,6 +12,7 @@ import NProgress from "nprogress"; //nprogress module
 import "nprogress/nprogress.css"; 
 import "../src/styles/global.css";
 import "cropperjs/dist/cropper.css";
+// import "~/node_modules/connectycube/dist/connectycube.min.js";
 
 import Router from "next/router";
 Router.events.on("routeChangeStart", () => NProgress.start());
