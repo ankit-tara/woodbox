@@ -11,6 +11,12 @@ import { signup, login } from "../../apis/auth-api";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
+import { GoogleLogin } from "react-google-login";
+
+const responseGoogle = (response) => {
+  console.log(response);
+};
+ 
 
 
 
@@ -162,6 +168,22 @@ export const AuthForm = ({ type }) => {
 
   return (
     <div className={classes.form}>
+      <div style={{textAlign: "center"}} className="googleBtn">
+        <GoogleLogin
+          clientId="1050695064142-hjhgbqb3om447jvgb53dgjdla4dr0omn.apps.googleusercontent.com"
+          buttonText={
+            type == "login" ? "Login with Google" : "SignUp with Google"
+          }
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
+      </div>
+      <br />
+      <br />
+      <div style={{textAlign: "center"}} >or</div>
+      <br />
+      <br />
       <form className={classes.container} onSubmit={validateform}>
         {type == "signup" && (
           <>
@@ -304,7 +326,7 @@ export const AuthForm = ({ type }) => {
           {btnloading ? <CircularProgress color="primary" size={20} /> : null}
         </Button>
       </form>
-      { showRedirect && (
+      {showRedirect && (
         <Typography color="primary">
           Redirecting to profile page!!{" "}
           <CircularProgress color="primary" size={20} />

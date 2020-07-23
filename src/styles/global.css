@@ -57,6 +57,11 @@ body::-webkit-scrollbar-thumb {
   right: 23px;
 }
 
+.googleBtn button{
+  justify-content: center;
+  min-width: 60%;
+}
+
 @keyframes slideFromLeft {
   0% {
     margin-left: -200px;
