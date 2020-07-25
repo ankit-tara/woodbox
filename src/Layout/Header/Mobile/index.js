@@ -19,6 +19,7 @@ import LabelImportantIcon from "@material-ui/icons/LabelImportant";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import AccountBox from "@material-ui/icons/AccountBox";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import EventNoteRoundedIcon from "@material-ui/icons/EventNoteRounded";
 import LocalMallRoundedIcon from "@material-ui/icons/LocalMallRounded";
@@ -55,10 +56,15 @@ export default function SearchAppBar() {
   const dispatch = useDispatch();
   const [timeout, settimeout] = useState("");
   const [searchValue, setsearchValue] = useState("");
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openAMenu, setOpenAMenu] = useState(false);
 
   const toggleSubmenu = () => {
     setOpenMenu(!openMenu);
+  };
+
+  const toggleASubmenu = () => {
+    setOpenAMenu(!openAMenu);
   };
 
   const handleDrawerOpen = () => {
@@ -140,7 +146,7 @@ export default function SearchAppBar() {
     if (accessToken) {
       router.push("/post");
     } else {
-      location.reload("/?signup=open");
+      window.location.replace("/?signup=open");
 
       // setauthModal(true);
     }
@@ -149,13 +155,10 @@ export default function SearchAppBar() {
   const handleListEvent = (e) => {
     setauthModal(false);
     e.preventDefault();
-
     if (accessToken) {
       router.push("/post/event");
     } else {
-      location.reload("/?signup=open");
-
-
+      window.location.replace("/?signup=open");
     }
   };
 
@@ -281,48 +284,58 @@ export default function SearchAppBar() {
                 <Divider />
                 {accessToken && (
                   <>
-                    <a href="/profile">
-                      <ListItem button>
-                        <ListItemIcon>
-                          <AccountCircle />
-                        </ListItemIcon>
-                        <ListItemText primary="View Profile" />
-                      </ListItem>
-                    </a>
-                    <Divider />
-                    <a href="/profile/edit">
-                      <ListItem button>
-                        <ListItemIcon>
-                          <CreateIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Edit Profile" />
-                      </ListItem>
-                    </a>
-                    <Divider />
-                    <a href="/profile">
-                      <ListItem button>
-                        <ListItemIcon>
-                          <CreateIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Published Adds" />
-                      </ListItem>
-                    </a>
-                    <Divider />
-                    <a href="/profile/events">
-                      <ListItem button>
-                        <ListItemIcon>
-                          <CreateIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Published Events" />
-                      </ListItem>
-                    </a>
-                    <Divider />
-                    <ListItem button onClick={logout}>
+                    <ListItem button onClick={toggleASubmenu}>
                       <ListItemIcon>
-                        <ExitToAppIcon />
+                        <AccountBox />
                       </ListItemIcon>
-                      <ListItemText primary="Logout" />
+                      <ListItemText primary="Account" />
+                      {openAMenu ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
+                    <Collapse in={openAMenu} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        <a href="/profile">
+                          <ListItem button>
+                            <ListItemIcon>
+                              <AccountCircle />
+                            </ListItemIcon>
+                            <ListItemText primary="View Profile" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/profile/edit">
+                          <ListItem button>
+                            <ListItemIcon>
+                              <CreateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Edit Profile" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/profile">
+                          <ListItem button>
+                            <ListItemIcon>
+                              <CreateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Published Adds" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/profile/events">
+                          <ListItem button>
+                            <ListItemIcon>
+                              <CreateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Published Events" />
+                          </ListItem>
+                        </a>
+                        <ListItem button onClick={logout}>
+                          <ListItemIcon>
+                            <ExitToAppIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Logout" />
+                        </ListItem>
+                      </List>
+                    </Collapse>
                   </>
                 )}
               </List>

@@ -14,8 +14,9 @@ import PersonIcon from "@material-ui/icons/Person";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import SchoolIcon from "@material-ui/icons/School";
 import ProductCard from "../ProductCard";
+import EventCard from "../EventCard";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
-import { getProducts } from "../../apis/global-api";
+import { getProducts, getEvents } from "../../apis/global-api";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
@@ -27,16 +28,21 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("xs")]: mobileStyles,
 }));
 
-const sellerProfile = ({ user }) => {
+const sellerProfile = ({ user, events }) => {
   const [data, setdata] = useState();
+  const [eventsdata, seteventsdata] = useState();
   const auth_user = useSelector((state) => state.auth_user.user);
 
   useEffect(() => {
     const fetchData = () => {
       getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
+      getEvents(`?seller_id=${user.id}`).then((data) => seteventsdata(data));
     };
     fetchData();
   }, [user]);
+
+
+  console.log("datadata", eventsdata);
 
   const classes = useStyles();
 
@@ -81,7 +87,40 @@ const sellerProfile = ({ user }) => {
               </div>
             </Box>
           </Grid>
-          <Grid item lg={9} md={9} sm={12} xs={12}>
+          {events && (<Grid item lg={9} md={9} sm={12} xs={12}>
+            <Card className={classes.card}>
+              <CardContent className={classes.cardBody}>
+                <Box className={classes.productsHeader}>
+                  <Typography variant="h5">Published Events</Typography>
+                  {/* <div className={classes.addmoreGrid}>
+                    <a className={classes.addmorebtn} href="/post">Add More ads</a>
+                  </div> */}
+                </Box>
+                <Box className={classes.ProductsGridWrapper}>
+                  {eventsdata &&
+                    eventsdata.data.length > 0 &&
+                    eventsdata.data.map((data) => (
+                      <div key={data.id}>
+                        <EventCard data={data} isAuthUser={isAuthUser} />
+                      </div>
+                    ))}
+                </Box>
+                {data && data.data.length == 0 && (
+                  <div className={classes.Noads}>
+                    <Typography variant="h5">
+                      There are No Events to show
+                    </Typography>
+                    <a href="/post" title="Add Product">
+                      <img src="/static/images/addfile.svg" />
+                    </a>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+          )}
+          {!events && (
+            <Grid item lg={9} md={9} sm={12} xs={12}>
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
                 <Box className={classes.productsHeader}>
@@ -91,23 +130,30 @@ const sellerProfile = ({ user }) => {
                   </div> */}
                 </Box>
                 <Box className={classes.ProductsGridWrapper}>
-                  {data && data.data.length > 0 &&
+                  {data &&
+                    data.data.length > 0 &&
                     data.data.map((data) => (
                       <div key={data.id}>
                         <ProductCard data={data} isAuthUser={isAuthUser} />
                       </div>
                     ))}
                 </Box>
-                {data && data.data.length == 0 && <div className={classes.Noads}>
-                  <Typography variant="h5">There are No ads to show</Typography>
-                  <a href="/post" title="Add Product">
-                    <img src="/static/images/addfile.svg" />
-                  </a>
-                </div>}
+                {data && data.data.length == 0 && (
+                  <div className={classes.Noads}>
+                    <Typography variant="h5">
+                      There are No ads to show
+                    </Typography>
+                    <a href="/post" title="Add Product">
+                      <img src="/static/images/addfile.svg" />
+                    </a>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </Grid>
-        </Grid>
+          )}
+          </Grid>
+          
       </Container>
     </section>
   );

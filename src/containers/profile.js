@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 
-export default function ProfilePage({ user, loading = false, edit = false }) {
+export default function ProfilePage({ user, loading = false, edit = false, events }) {
   //   const router = useRouter();
 
   //   const accessToken = useSelector((state) => state.auth_user.accessToken);
@@ -48,7 +48,7 @@ export default function ProfilePage({ user, loading = false, edit = false }) {
       {!loading && edit && <EditProfile user={user} />}
 
       {/* <Modal /> */}
-      {!loading && !edit && <SellerProfile user={user} />}
+      {!loading && !edit && <SellerProfile user={user} events={events}/>}
     </Layout>
   );
 }

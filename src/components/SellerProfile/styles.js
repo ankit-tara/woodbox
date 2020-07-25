@@ -80,7 +80,7 @@ export const commonStyles = {
   },
   ProductsGridWrapper: {
     display: 'grid',
-    gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 350px) )',
+    gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
     padding: '2rem 0'
   },
   Noads:{
