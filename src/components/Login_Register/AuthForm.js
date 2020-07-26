@@ -168,9 +168,9 @@ export const AuthForm = ({ type }) => {
 
   return (
     <div className={classes.form}>
-      <div style={{textAlign: "center"}} className="googleBtn">
+      <div style={{ textAlign: "center" }} className="googleBtn">
         <GoogleLogin
-          clientId="1050695064142-hjhgbqb3om447jvgb53dgjdla4dr0omn.apps.googleusercontent.com"
+          clientId={process.env.Google_Login_Client_Id}
           buttonText={
             type == "login" ? "Login with Google" : "SignUp with Google"
           }
@@ -181,7 +181,7 @@ export const AuthForm = ({ type }) => {
       </div>
       <br />
       <br />
-      <div style={{textAlign: "center"}} >or</div>
+      <div style={{ textAlign: "center" }}>or</div>
       <br />
       <br />
       <form className={classes.container} onSubmit={validateform}>
