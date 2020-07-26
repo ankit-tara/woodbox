@@ -9,26 +9,49 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import { Provider } from "react-redux";
 import store from "../src/redux/store";
 import NProgress from "nprogress"; //nprogress module
-import "nprogress/nprogress.css"; 
+import "nprogress/nprogress.css";
 import "../src/styles/global.css";
 import "cropperjs/dist/cropper.css";
 // import "~/node_modules/connectycube/dist/connectycube.min.js";
 
 import Router from "next/router";
-Router.events.on("routeChangeStart", () => NProgress.start());
-Router.events.on("routeChangeComplete", () => NProgress.done());
+import { useRouter } from "next/router";
+
+Router.events.on("routeChangeStart", () => {
+
+  NProgress.start()
+});
+Router.events.on("routeChangeComplete", () => { isuserProfileComplete(); NProgress.done() });
 Router.events.on("routeChangeError", () => NProgress.done());
+
+const isuserProfileComplete = () => {
+  console.log('test')
+  console.log(Router.router.asPath != '/profile/edit')
+  let userData = window.localStorage.getItem("user");
+  userData = userData ? JSON.parse(userData) : "";
+  let accessTokenData = window.localStorage.getItem("accessToken");
+  if (accessTokenData && accessTokenData != "undefined" && userData && !userData.is_complete) {
+    if (Router.router.asPath != '/profile/edit') {
+      Router.push("/profile/edit");
+    }
+  }
+
+}
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
+  const router = useRouter();
 
   React.useEffect(() => {
+    isuserProfileComplete()
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+
 
   return (
     <Provider store={store}>

@@ -7,7 +7,7 @@ import { searchUniversities } from "../../apis/global-api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import Typography from "@material-ui/core/Typography";
-import { signup, login } from "../../apis/auth-api";
+import { simpleSignup, login } from "../../apis/auth-api";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ import { GoogleLogin } from "react-google-login";
 const responseGoogle = (response) => {
   console.log(response);
 };
- 
+
 
 
 
@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     padding: "0.5rem",
   },
-  button:{
-    '&:focus':{
+  button: {
+    '&:focus': {
       background: 'rgb(177, 90, 16)'
     },
-    '& .MuiCircularProgress-colorPrimary':{
+    '& .MuiCircularProgress-colorPrimary': {
       marginLeft: '10px',
       color: '#fff'
     }
@@ -76,14 +76,14 @@ export const AuthForm = ({ type }) => {
     };
     login(data).then((response) => {
       if (response.error) {
-         setbtnloading(true);
+        setbtnloading(true);
         setformerrs(response.msg);
       } else {
         setbtnloading(false);
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setLogin(user, accessToken);
-         setshowRedirect(true);
+        setshowRedirect(true);
       }
     });
   };
@@ -91,19 +91,19 @@ export const AuthForm = ({ type }) => {
   const submitSignUp = () => {
     setshowRedirect(false);
     setbtnloading(true);
-    let university_id = universities.find(
-      (item) => item.name == university.name
-    );
+    // let university_id = universities.find(
+    //   (item) => item.name == university.name
+    // );
     let data = {
-      first_name: firstname,
-      last_name: lastname,
+      // first_name: firstname,
+      // last_name: lastname,
       email: email,
-      university_id: university_id.id,
+      // university_id: university_id.id,
       password: password,
-      phone_number: phone_no,
-      branch: branch,
+      // phone_number: phone_no,
+      // branch: branch,
     };
-    signup(data).then((response) => {
+    simpleSignup(data).then((response) => {
       if (response.error) {
         setbtnloading(false);
         setformerrs(response.msg);
@@ -121,7 +121,7 @@ export const AuthForm = ({ type }) => {
   const setLogin = (user, accessToken) => {
     console.log(user, accessToken);
     dispatch(authenticated(user, accessToken));
-    router.push("/profile");
+    router.push("/profile/edit");
   };
 
   const backdropClose = () => {
@@ -141,9 +141,9 @@ export const AuthForm = ({ type }) => {
     if (password.length < 8) {
       err.pwd_length = "true";
     }
-    if (!university.name) {
-      err.university = "true";
-    }
+    // if (!university.name) {
+    //   err.university = "true";
+    // }
     seterrs(err);
     let has_error = Object.keys(err).length;
     if (!parseInt(has_error)) {
@@ -168,9 +168,9 @@ export const AuthForm = ({ type }) => {
 
   return (
     <div className={classes.form}>
-      <div style={{textAlign: "center"}} className="googleBtn">
+      <div style={{ textAlign: "center" }} className="googleBtn">
         <GoogleLogin
-          clientId="1050695064142-hjhgbqb3om447jvgb53dgjdla4dr0omn.apps.googleusercontent.com"
+          clientId={process.env.GOOGLE_CLIENT_ID}
           buttonText={
             type == "login" ? "Login with Google" : "SignUp with Google"
           }
@@ -181,13 +181,13 @@ export const AuthForm = ({ type }) => {
       </div>
       <br />
       <br />
-      <div style={{textAlign: "center"}} >or</div>
+      <div style={{ textAlign: "center" }} >or</div>
       <br />
       <br />
       <form className={classes.container} onSubmit={validateform}>
         {type == "signup" && (
           <>
-            <TextField
+            {/* <TextField
               required
               margin="dense"
               label="First Name"
@@ -206,7 +206,7 @@ export const AuthForm = ({ type }) => {
               value={lastname}
               onChange={(e) => updateformData(e, "lastname")}
               name="last_name"
-            />
+            /> */}
           </>
         )}
         <TextField
@@ -221,7 +221,7 @@ export const AuthForm = ({ type }) => {
         />
         {type == "signup" && (
           <>
-            <TextField
+            {/* <TextField
               required
               margin="dense"
               label="Phone No"
@@ -260,11 +260,11 @@ export const AuthForm = ({ type }) => {
                   }}
                 />
               )}
-            />
+            /> */}
             {errs["university"] && (
               <Typography color="error">Please select a university.</Typography>
             )}
-            <TextField
+            {/* <TextField
               required
               margin="dense"
               label="Branch"
@@ -273,7 +273,7 @@ export const AuthForm = ({ type }) => {
               value={branch}
               onChange={(e) => updateformData(e, "branch")}
               name="branch"
-            />
+            /> */}
           </>
         )}
 
