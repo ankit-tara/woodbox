@@ -31,65 +31,23 @@ const Chat = () => {
       <div className="container">
         <div className={open == true ? 'left' : 'active left'}>
           <div className="top">
-                <Typography variant="h4">Messages (2  )</Typography>
-                {/* <input type="text" placeholder="Search" />
+            <Typography variant="h4">Messages (2  )</Typography>
+            {/* <input type="text" placeholder="Search" />
                 <a href="javascript:;" className="search"></a> */}
-            </div>
+          </div>
           <ul className="people">
-            <li onClick={gotoChat} className="person">
+            {/* <li onClick={gotoChat} className="person">
               <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/thomas.jpg" alt="" />
               <span className="name">Thomas Bangalter</span>
               <span className="time">2:09 PM</span>
               <span className="preview">I was wondering...</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/dog.png" alt="" />
-              <span className="name">Dog Woofson</span>
-              <span className="time">1:44 PM</span>
-              <span className="preview">I've forgotten how it felt before</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/louis-ck.jpeg" alt="" />
-              <span className="name">Louis CK</span>
-              <span className="time">2:09 PM</span>
-              <span className="preview">But we’re probably gonna need a new carpet.</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/dog.png" alt="" />
-              <span className="name">Dog Woofson</span>
-              <span className="time">1:44 PM</span>
-              <span className="preview">I've forgotten how it felt before</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/louis-ck.jpeg" alt="" />
-              <span className="name">Louis CK</span>
-              <span className="time">2:09 PM</span>
-              <span className="preview">But we’re probably gonna need a new carpet.</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/bo-jackson.jpg" alt="" />
-              <span className="name">Bo Jackson</span>
-              <span className="time">2:09 PM</span>
-              <span className="preview">It’s not that bad...</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/michael-jordan.jpg" alt="" />
-              <span className="name">Michael Jordan</span>
-              <span className="time">2:09 PM</span>
-              <span className="preview">Wasup for the third time like is
-                        you blind bitch</span>
-            </li>
-            <li onClick={gotoChat} className="person">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/drake.jpg" alt="" />
-              <span className="name">Drake</span>
-              <span className="time">2:09 PM</span>
-              <span className="preview">howdoyoudoaspace</span>
-            </li>
+            </li> */}
+
           </ul>
         </div>
         <div className="right">
-          <div className="top">
-            <KeyboardBackspaceIcon className={classes.backBtn} onClick={goBack}/>
+          {/* <div className="top">
+            <KeyboardBackspaceIcon className={classes.backBtn} onClick={goBack} />
             <span>To: <span className="name">Dog Woofson</span></span></div>
           <div className="chat">
             <div className="conversation-start">
@@ -128,7 +86,7 @@ const Chat = () => {
             <input type="text" />
             <a href="javascript:;" className="write-link smiley"></a>
             <a href="javascript:;" className="write-link send"></a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

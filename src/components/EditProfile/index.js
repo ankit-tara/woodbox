@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -66,6 +66,15 @@ const EditProfile = ({ user }) => {
 
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  useEffect(() => {
+   console.log(user.is_complete)
+   if(!user.is_complete){
+     setsnackbar(true);
+     setsnackbarMsg("Please complete your profile before proceeding");
+     setsnackbarType("error");
+   }
+  }, [])
 
   const updateProfile = () => {
     let university_id = universities.find(
