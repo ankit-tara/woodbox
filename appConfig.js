@@ -1,4 +1,4 @@
-return {
+const data = {
 
   "senderID": "",
   "connectyCubeConfig": [
@@ -19,3 +19,6 @@ return {
     }
   ]
 }
+export default data
+
+

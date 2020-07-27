@@ -41,6 +41,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { unauthenticated } from "../../../redux/actions/auth";
+import ChatMessageIcon from "../../../chat/components/ChatIcon";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -344,11 +345,12 @@ export default function SearchAppBar() {
               <img className={classes.logo} src="/static/images/logo.png" />
             </a>
             <div className={classes.menuIcons}>
-              <IconButton aria-label="show 4 new mails" color="inherit">
+              {/* <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <MailIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
+              <ChatMessageIcon/>
               <IconButton
                 aria-label="show 17 new notifications"
                 color="inherit"

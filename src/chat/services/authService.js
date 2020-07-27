@@ -1,10 +1,10 @@
 import ConnectyCube from 'connectycube'
-import appConfig from '../appConfig.json'
-import User from '../models/user'
-import store from '../store'
-import { setCurrentUser } from '../actions/currentUser'
-import { getImageLinkFromUID } from '../helpers/file'
-import { LogOut } from '../reducers/index'
+import appConfig from '../../../appConfig'
+// import User from '../models/user'
+// import store from '../store'
+// import { setCurrentUser } from '../actions/currentUser'
+// import { getImageLinkFromUID } from '../helpers/file'
+// import { LogOut } from '../reducers/index'
 
 class AuthService {
     static CURRENT_USER_SESSION_KEY = 'CURRENT_USER_SESSION_KEY'
@@ -12,17 +12,21 @@ class AuthService {
 
     async init() {
         await ConnectyCube.init(...appConfig.connectyCubeConfig)
+        // await ConnectyCube.createSession({
+        //     email:'test@test.com',
+        //     password:'test'
+        // })
         return this.autologin()
     }
 
-    async autologin() {
-        const checkUserSessionFromStore = await this.getUserSession()
-        if (checkUserSessionFromStore) {
-            const data = JSON.parse(checkUserSessionFromStore)
-            await this.signIn({ login: data.login, password: data.password })
-            return 'home'
-        } else { return 'auth' }
-    }
+    // async autologin() {
+    //     const checkUserSessionFromStore = await this.getUserSession()
+    //     if (checkUserSessionFromStore) {
+    //         const data = JSON.parse(checkUserSessionFromStore)
+    //         await this.signIn({ login: data.login, password: data.password })
+    //         return 'home'
+    //     } else { return 'auth' }
+    // }
 
     async signIn(params) {
         const session = await ConnectyCube.createSession(params)
@@ -36,29 +40,29 @@ class AuthService {
         this.connect(customSession.id, customSession.password)
     }
 
-    async signUp(params) {
-        await ConnectyCube.createSession()
-        await ConnectyCube.users.signup(params)
-        return this.signIn(params)
-    }
+    // async signUp(params) {
+    //     await ConnectyCube.createSession()
+    //     await ConnectyCube.users.signup(params)
+    //     return this.signIn(params)
+    // }
 
-    async connect(userId, password) {
-        await ConnectyCube.chat.connect({ userId, password })
-    }
+    // async connect(userId, password) {
+    //     await ConnectyCube.chat.connect({ userId, password })
+    // }
 
-    setUserSession(userSession) {
-        return localStorage.setItem(AuthService.CURRENT_USER_SESSION_KEY, JSON.stringify(userSession))
-    }
+    // setUserSession(userSession) {
+    //     return localStorage.setItem(AuthService.CURRENT_USER_SESSION_KEY, JSON.stringify(userSession))
+    // }
 
     getUserSession() {
         return localStorage.getItem(AuthService.CURRENT_USER_SESSION_KEY)
     }
 
-    async logout() {
-        localStorage.clear()
-        await ConnectyCube.logout()
-        store.dispatch(LogOut())
-    }
+    // async logout() {
+    //     localStorage.clear()
+    //     await ConnectyCube.logout()
+    //     store.dispatch(LogOut())
+    // }
 
 
 }

@@ -3,7 +3,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import { Container, Grid } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import ChatIcon from "@material-ui/icons/Chat";
+import ChatIcon from "../../../chat/components/ChatIcon";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import useNavbar from "../utils/useNavbar";

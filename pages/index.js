@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../src/Layout";
-import { Box, Container,  Grid, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import IconCard from "../src/components/IconCard";
 import EventIconCard from "../src/components/EventIconCard";
 import ProductCard from "../src/components/ProductCard";
@@ -67,18 +67,51 @@ export async function getStaticProps() {
 export default function Index({ bproducts, sproducts, events }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [opensell, setOpensell] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const anchorRefSell = React.useRef(null);
+  const [buyType, setbuyType] = useState('')
+  const [sellType, setsellType] = useState('')
+  const [list_bproducts, setlist_bproducts] = useState(bproducts)
+  const [list_sproducts, setlist_sproducts] = useState(sproducts)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+  const handleToggleSell = () => {
+    setOpensell((prevOpenSell) => !prevOpenSell);
+  };
 
-  const handleClose = (event) => {
+  const handleClose = async(event, data) => {
+    console.log(event.target, data)
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
 
     setOpen(false);
+
+    if (data && data.title) {
+      const API_URL = process.env.api_url;
+      let res = await fetch(API_URL + "/products?type=buy&paginate=10&cat_title=" + data.title);
+      let result = await res.json();
+      setlist_bproducts(result)
+      setbuyType(data.title)
+    }
+  };
+  const handleCloseSell = async(event, data) => {
+    if (anchorRefSell.current && anchorRefSell.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+
+    if (data && data.title) {
+      const API_URL = process.env.api_url;
+      let res = await fetch(API_URL + "/products?type=rental&paginate=10&cat_title=" + data.title);
+      let result = await res.json();
+      setlist_sproducts(result)
+      setsellType(data.title)
+    }
   };
 
   function handleListKeyDown(event) {
@@ -90,12 +123,18 @@ export default function Index({ bproducts, sproducts, events }) {
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
+  const prevOpenSell = React.useRef(opensell);
+
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
+    if (prevOpenSell.current === true && open === false) {
+      anchorRefSell.current.focus();
+    }
 
     prevOpen.current = open;
+    prevOpenSell.current = opensell;
   }, [open]);
 
   const params = {
@@ -188,8 +227,8 @@ export default function Index({ bproducts, sproducts, events }) {
                 onClick={handleToggle}
                 className={classes.catBtn}
               >
-                Category <ExpandMoreRoundedIcon/>
-             </Button>
+                {buyType ? buyType : 'Category'} <ExpandMoreRoundedIcon />
+              </Button>
               <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
                   <Grow
@@ -199,10 +238,11 @@ export default function Index({ bproducts, sproducts, events }) {
                     <Paper>
                       <ClickAwayListener onClickAway={handleClose}>
                         <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                          <MenuItem onClick={handleClose}>Category 1</MenuItem>
-                          <MenuItem onClick={handleClose}>Category 2</MenuItem>
-                          <MenuItem onClick={handleClose}>Category 3</MenuItem>
-                          <MenuItem onClick={handleClose}>Category 4</MenuItem>
+
+
+                          {IconCardsData.map((data, index) => (
+                            <MenuItem onClick={(e) => handleClose(e, data)}>{data.title}</MenuItem>
+                          ))}
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
@@ -211,9 +251,10 @@ export default function Index({ bproducts, sproducts, events }) {
               </Popper>
             </div>
           </Box>
+          
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
-              {bproducts.data.map((data) => (
+              {list_bproducts.data.map((data) => (
                 <div key={data.id}>
                   <ProductCard data={data} />
                 </div>
@@ -227,10 +268,43 @@ export default function Index({ bproducts, sproducts, events }) {
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
             <Typography variant="h3">Rent</Typography>
+
+            <div>
+              <Button
+                ref={anchorRefSell}
+                aria-controls={opensell ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggleSell}
+                className={classes.catBtn}
+              >
+                {sellType ? sellType : 'Category'} <ExpandMoreRoundedIcon />
+              </Button>
+              <Popper open={opensell} anchorEl={anchorRefSell.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleCloseSell}>
+                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+
+
+                          {IconCardsData.map((data, index) => (
+                            <MenuItem onClick={(e) => handleCloseSell(e, data)}>{data.title}</MenuItem>
+                          ))}
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
+            
           </Box>
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
-              {sproducts.data.map((data) => (
+              {list_sproducts.data.map((data) => (
                 <div key={data.id}>
                   <ProductCard data={data} />
                 </div>
@@ -247,18 +321,18 @@ export default function Index({ bproducts, sproducts, events }) {
             <Typography variant="h5">Newly Added Events</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {events.data.length>4 && <Swiper {...params}>
+            {events.data.length > 4 && <Swiper {...params}>
               {events.data.map((data) => (
                 <div key={data.id}>
                   <EventCard data={data} />
                 </div>
               ))}
             </Swiper>}
-            {events.data.length<=4 && events.data.map((data) => (
-                <div key={data.id}>
-                  <EventCard data={data} />
-                </div>
-              ))}
+            {events.data.length <= 4 && events.data.map((data) => (
+              <div key={data.id}>
+                <EventCard data={data} />
+              </div>
+            ))}
           </Box>
         </Container>
       </section>
