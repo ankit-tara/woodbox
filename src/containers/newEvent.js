@@ -36,6 +36,8 @@ import { useRouter } from "next/router";
 import { fileToBase64 } from "../Utils/helpers";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from '@material-ui/icons/Add';
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   section: {
     padding: "5rem 0",
@@ -378,7 +380,9 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           setbackdrop(false);
           setformerrs(response.msg);
         } else {
-          router.push("/profile");
+          console.log(response)
+          paymentHandler()
+          // router.push("/profile");
         }
       });
     }
@@ -396,6 +400,37 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     setfiles(filterFiles);
     
   };
+
+  const paymentHandler = async (e) => {
+    const API_URL = 'http://localhost:3000/'
+    // e.preventDefault();
+    const orderUrl = `${API_URL}order`;
+    const response = await axios.get(orderUrl);
+    console.log("response", response);
+    const { data } = response;
+    const options = {
+      key: process.env.RAZOR_PAY_KEY_ID,
+      name: "Your App Name",
+      description: "Some Description",
+      order_id: data.id,
+      handler: async (response) => {
+        try {
+          const paymentId = response.razorpay_payment_id;
+          const url = `${API_URL}capture/${paymentId}`;
+          const captureResponse = await axios.post(url, {});
+          console.log(captureResponse.data);
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      theme: {
+        color: "#686CFD",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
 
   return (
     <Layout>

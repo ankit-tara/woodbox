@@ -16,7 +16,7 @@ class AuthService {
         //     email:'test@test.com',
         //     password:'test'
         // })
-        return this.autologin()
+        // return this.autologin()
     }
 
     // async autologin() {

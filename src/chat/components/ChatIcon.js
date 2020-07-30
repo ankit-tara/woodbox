@@ -7,8 +7,8 @@ import AuthService from "../services/authService"
 
 const ChatMessageIcon = () => {
     useEffect(() => {
-        // let test = AuthService.init()
-        // console.log(test)
+        let test = AuthService.init()
+        console.log(test)
         // test && AuthService.signIn({
         //     email:'test@test.com',
         //     password:'test'

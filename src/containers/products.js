@@ -99,7 +99,7 @@ function Products({ data, url }) {
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
             <Typography variant="h5">
-              Buy Used Products in your College
+              Buy/Rent Used Products in your College
             </Typography>
           </Box>
         </Container>

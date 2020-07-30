@@ -82,7 +82,7 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user);
-  console.log("User", user);
+  // console.log("User", user);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
