@@ -222,26 +222,39 @@ export default function Index({ bproducts, sproducts, events }) {
             <div>
               <Button
                 ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
+                aria-controls={open ? "menu-list-grow" : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.catBtn}
               >
-                {buyType ? buyType : 'Category'} <ExpandMoreRoundedIcon />
+                {buyType ? buyType : "Category"} <ExpandMoreRoundedIcon />
               </Button>
-              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+              <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+              >
                 {({ TransitionProps, placement }) => (
                   <Grow
                     {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    style={{
+                      transformOrigin:
+                        placement === "bottom" ? "center top" : "center bottom",
+                    }}
                   >
                     <Paper>
                       <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-
-
+                        <MenuList
+                          autoFocusItem={open}
+                          id="menu-list-grow"
+                          onKeyDown={handleListKeyDown}
+                        >
                           {IconCardsData.map((data, index) => (
-                            <MenuItem onClick={(e) => handleClose(e, data)}>{data.title}</MenuItem>
+                            <MenuItem onClick={(e) => handleClose(e, data)}>
+                              {data.title}
+                            </MenuItem>
                           ))}
                         </MenuList>
                       </ClickAwayListener>
@@ -251,7 +264,7 @@ export default function Index({ bproducts, sproducts, events }) {
               </Popper>
             </div>
           </Box>
-          
+
           <Box className={classes.EventIconCardWrapper}>
             <Swiper {...params}>
               {list_bproducts.data.map((data) => (
@@ -272,26 +285,39 @@ export default function Index({ bproducts, sproducts, events }) {
             <div>
               <Button
                 ref={anchorRefSell}
-                aria-controls={opensell ? 'menu-list-grow' : undefined}
+                aria-controls={opensell ? "menu-list-grow" : undefined}
                 aria-haspopup="true"
                 onClick={handleToggleSell}
                 className={classes.catBtn}
               >
-                {sellType ? sellType : 'Category'} <ExpandMoreRoundedIcon />
+                {sellType ? sellType : "Category"} <ExpandMoreRoundedIcon />
               </Button>
-              <Popper open={opensell} anchorEl={anchorRefSell.current} role={undefined} transition disablePortal>
+              <Popper
+                open={opensell}
+                anchorEl={anchorRefSell.current}
+                role={undefined}
+                transition
+                disablePortal
+              >
                 {({ TransitionProps, placement }) => (
                   <Grow
                     {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    style={{
+                      transformOrigin:
+                        placement === "bottom" ? "center top" : "center bottom",
+                    }}
                   >
                     <Paper>
                       <ClickAwayListener onClickAway={handleCloseSell}>
-                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-
-
+                        <MenuList
+                          autoFocusItem={open}
+                          id="menu-list-grow"
+                          onKeyDown={handleListKeyDown}
+                        >
                           {IconCardsData.map((data, index) => (
-                            <MenuItem onClick={(e) => handleCloseSell(e, data)}>{data.title}</MenuItem>
+                            <MenuItem onClick={(e) => handleCloseSell(e, data)}>
+                              {data.title}
+                            </MenuItem>
                           ))}
                         </MenuList>
                       </ClickAwayListener>
@@ -300,16 +326,23 @@ export default function Index({ bproducts, sproducts, events }) {
                 )}
               </Popper>
             </div>
-            
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            <Swiper {...params}>
-              {list_sproducts.data.map((data) => (
+            {list_sproducts.data.length > 4 && (
+              <Swiper {...params}>
+                {list_sproducts.data.map((data) => (
+                  <div key={data.id}>
+                    <ProductCard data={data} />
+                  </div>
+                ))}
+              </Swiper>
+            )}
+            {list_sproducts.data.length <= 4 &&
+              list_sproducts.data.map((data) => (
                 <div key={data.id}>
                   <ProductCard data={data} />
                 </div>
               ))}
-            </Swiper>
           </Box>
         </Container>
       </section>
@@ -321,18 +354,21 @@ export default function Index({ bproducts, sproducts, events }) {
             <Typography variant="h5">Newly Added Events</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {events.data.length > 4 && <Swiper {...params}>
-              {events.data.map((data) => (
+            {events.data.length > 4 && (
+              <Swiper {...params}>
+                {events.data.map((data) => (
+                  <div key={data.id}>
+                    <EventCard data={data} />
+                  </div>
+                ))}
+              </Swiper>
+            )}
+            {events.data.length <= 4 &&
+              events.data.map((data) => (
                 <div key={data.id}>
                   <EventCard data={data} />
                 </div>
               ))}
-            </Swiper>}
-            {events.data.length <= 4 && events.data.map((data) => (
-              <div key={data.id}>
-                <EventCard data={data} />
-              </div>
-            ))}
           </Box>
         </Container>
       </section>
