@@ -1,9 +1,10 @@
 import ConnectyCube from 'connectycube'
 import appConfig from '../../../appConfig'
 import User from '../models/user'
-// import store from '../store'
+import store from '../../redux/store'
 // import { setCurrentUser } from '../actions/currentUser'
-// import { getImageLinkFromUID } from '../helpers/file'
+import { getImageLinkFromUID } from '../helpers/file'
+import { chatAuthenticated } from '../../redux/actions/chatUser'
 // import { LogOut } from '../reducers/index'
 
 class AuthService {
@@ -36,7 +37,7 @@ class AuthService {
     session.user.avatar = getImageLinkFromUID(session.user.avatar);
     // work around
     session.user.full_name = session.user.login;
-    store.dispatch(setCurrentUser(session));
+    store.dispatch(chatAuthenticated(session));
     const customSession = Object.assign({}, currentUser, {
       password: params.password,
     });
@@ -50,13 +51,13 @@ class AuthService {
   //     return this.signIn(params)
   // }
 
-  // async connect(userId, password) {
-  //     await ConnectyCube.chat.connect({ userId, password })
-  // }
+  async connect(userId, password) {
+      await ConnectyCube.chat.connect({ userId, password })
+  }
 
-  // setUserSession(userSession) {
-  //     return localStorage.setItem(AuthService.CURRENT_USER_SESSION_KEY, JSON.stringify(userSession))
-  // }
+  setUserSession(userSession) {
+      return localStorage.setItem(AuthService.CURRENT_USER_SESSION_KEY, JSON.stringify(userSession))
+  }
 
   getUserSession() {
     return localStorage.getItem(AuthService.CURRENT_USER_SESSION_KEY);
