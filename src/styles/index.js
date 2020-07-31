@@ -12,7 +12,10 @@ export const commonStyles = {
     position: "relative",
   },
   ptZero: {
-    paddingTop: "0",
+    paddingTop: "0 !important",
+  },
+  spacingBox: {
+    margin: "3rem 0",
   },
   sectionHeader: {
     textAlign: "center",
@@ -73,9 +76,9 @@ export const commonStyles = {
   productsHeader: {
     paddingBottom: "1rem",
     borderBottom: "solid 1px #BDBDBD",
-    display:'flex',
-    justifyContent:'space-between',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     "& h5": {
       marginBottom: "1rem",
     },
@@ -176,38 +179,41 @@ export const commonStyles = {
     width: "80%",
     marginBottom: "1rem",
   },
-  loadMore:{
-    fontSize: '1rem',
-    padding: '0.6rem 2rem'
+  loadMore: {
+    fontSize: "1rem",
+    padding: "0.6rem 2rem",
   },
-  loadMorewrapper:{
-    textAlign: 'center',
-    position: 'relative'
+  loadMorewrapper: {
+    textAlign: "center",
+    position: "relative",
   },
-  buttonProgress:{
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   },
-  catBtn:{
-    fontSize: '1.5rem',
-    textTransform: 'capitalize',
-    '& + div':{
-      zIndex: '99'
+  catBtn: {
+    fontSize: "1.5rem",
+    textTransform: "capitalize",
+    "& + div": {
+      zIndex: "99",
     },
-    '&:hover':{
-      background: 'none'
+    "&:hover": {
+      background: "none",
     },
-    '& .MuiTouchRipple-root':{
-      display: 'none'
+    "& .MuiTouchRipple-root": {
+      display: "none",
     },
-  }
+  },
 };
 
 export const mobileStyles = {
   section: {
     padding: "2.5rem 0",
+  },
+  spacingBox: {
+    margin: "1.5rem 0",
   },
   sectionHeader: {
     "& h3": {
@@ -247,6 +253,11 @@ export const mobileStyles = {
   downloadLinks: {
     "& img": {
       width: "100px",
+    },
+  },
+  ProductsGridWrapper: {
+    "& .event__card": {
+      width: "100% !important",
     },
   },
 };

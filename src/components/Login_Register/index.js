@@ -46,9 +46,17 @@ const useStyles = makeStyles((theme) => ({
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
     },
+    [theme.breakpoints.down("sm")]:{
+      marginTop: '3rem'
+    }
   },
   Img: {
     textAlign: "center",
+    [theme.breakpoints.down("sm")]:{
+      '& img':{
+        height: '65px'
+      }
+    }
   },
   orange: {
     color: "#fff",

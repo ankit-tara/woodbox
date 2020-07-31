@@ -56,7 +56,9 @@ export const mobileStyles = {
       backgroundColor: 'rgb(252, 130, 26)'
     },
     '& .image-gallery-content .image-gallery-slide .image-gallery-image': {
-      height: '220px',
+      height: 'auto',
+      width: '100%',
+      objectFit: 'contain'
     }
   }
 }
