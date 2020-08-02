@@ -6,8 +6,16 @@ export function signup(data) {
 
   return generalPostRequest(url, data);
 }
+
 export function simpleSignup(data) {
   let url = API_URL + "/user/simple-sign-up";
+  console.log(url);
+
+  return generalPostRequest(url, data);
+}
+
+export function googleSignup(data) {
+  let url = API_URL + "/user/google-sign-up";
   console.log(url);
 
   return generalPostRequest(url, data);

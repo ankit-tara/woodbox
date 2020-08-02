@@ -7,15 +7,12 @@ import { searchUniversities } from "../../apis/global-api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import Typography from "@material-ui/core/Typography";
-import { simpleSignup, login } from "../../apis/auth-api";
+import { simpleSignup, login, googleSignup} from "../../apis/auth-api";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
 import { GoogleLogin } from "react-google-login";
 
-const responseGoogle = (response) => {
-  console.log(response);
-};
 
 
 
@@ -123,6 +120,34 @@ export const AuthForm = ({ type }) => {
     dispatch(authenticated(user, accessToken));
     router.push("/profile/edit");
   };
+  const responseGoogleSuccess = (response) => {
+    console.log(response)
+
+    let data = {
+      email: response.profileObj.email,
+      google_id: response.googleId
+    };
+    console.log(data)
+    // return
+
+    googleSignup(data).then((response) => {
+      if (response.error) {
+        setbtnloading(false);
+        setformerrs(response.msg);
+      } else {
+        let user = response.body.user;
+        let accessToken = response.body.user.api_token;
+        setbtnloading(false);
+        setLogin(user, accessToken);
+        setshowRedirect(true);
+        console.log(response);
+      }
+    });
+  };
+  const responseGoogleFailure = (response) => {
+    alert('Oops!! there was some problem while logging in.')
+  };
+
 
   const backdropClose = () => {
     setbackdrop(false);
@@ -174,8 +199,8 @@ export const AuthForm = ({ type }) => {
           buttonText={
             type == "login" ? "Login with Google" : "SignUp with Google"
           }
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          onSuccess={responseGoogleSuccess}
+          onFailure={responseGoogleFailure}
           cookiePolicy={"single_host_origin"}
         />
       </div>
