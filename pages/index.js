@@ -276,7 +276,7 @@ export default function Index({ bproducts, sproducts, events }) {
           </Box>
         </Container>
 
-        <Box style={{ margin: "3rem 0" }} />
+        <Box className={classes.spacingBox} />
 
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>

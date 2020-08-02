@@ -229,6 +229,7 @@ export default function SearchAppBar() {
                     <ListItemText primary="Sell" />
                   </ListItem>
                 </a>
+                <Divider />
                 <a href="/post" onClick={handleListEvent}>
                   <ListItem button>
                     <ListItemIcon>
@@ -350,7 +351,7 @@ export default function SearchAppBar() {
                   <MailIcon />
                 </Badge>
               </IconButton> */}
-              <ChatMessageIcon/>
+              <ChatMessageIcon />
               <IconButton
                 aria-label="show 17 new notifications"
                 color="inherit"

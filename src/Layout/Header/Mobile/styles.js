@@ -37,7 +37,8 @@ export const commonStyles = {
     padding: '5px 0'
   },
   menuIcons: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
+    display: 'flex'
   },
   sideBar:{
     width: '280px',

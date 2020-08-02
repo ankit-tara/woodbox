@@ -74,7 +74,7 @@ function EventCard({ data, isAuthUser = false }) {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={`${classes.card} event__card`}>
       {/* <img src={data.image.url} alt="" className={classes.image} /> */}
       {data.images.length > 0 && (
         <Link href={`/events/item/${data.id}`}>
