@@ -153,3 +153,33 @@ export function searchEventCategories(q) {
     })
     .catch((error) => console.warn(error));
 }
+
+export function CreateOrder(data) {
+  let url = API_URL + "/order/" ;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
+
+function generalPostRequest(url, data) {
+  return fetch(url, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw Error(`Request rejected with status ${response.status}`);
+      }
+    })
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.log(error));
+}

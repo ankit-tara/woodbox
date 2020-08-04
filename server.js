@@ -2,7 +2,7 @@ const express = require("express");
 const next = require("next");
 const cors = require("cors");
 const Razorpay = require ("razorpay")
-
+const request = require('request');
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -29,47 +29,50 @@ app.prepare().then(() => {
   //   return app.render(req, res, "/products", req.query);
   // });
 
-  server.get("/order", (req, res) => {
+  server.get("/order/:price/:reciept_id", (req, res) => {
     try {
       const options = {
-        amount: 10 * 100, // amount == Rs 10
+        amount: req.params.price, // amount == Rs 10
         currency: "INR",
-        receipt: "receipt#1",
+        receipt: req.params.reciept_id ,
         payment_capture: 0,
         // 1 for automatic capture // 0 for manual capture
       };
       instance.orders.create(options, async function (err, order) {
         if (err) {
-          return res.status(500).json({
-            message: "Something Went Wrong",
+          return res.status(200).json({
+            message: "Something Went Wrong 3 here",
+            err: err
           });
         }
         return res.status(200).json(order);
       });
     } catch (err) {
       return res.status(500).json({
-        message: "Something Went Wrong",
+        message: "Something Went Wrong 4",
+        err: err
       });
     }
   });
 
-  server.post("/capture/:paymentId", (req, res) => {
+  server.post("/capture/:paymentId/:price", (req, res) => {
+    
     try {
       return request(
         {
           method: "POST",
           url: `https://${process.env.RAZOR_PAY_KEY_ID}:${process.env.RAZOR_PAY_KEY_SECRET}@api.razorpay.com/v1/payments/${req.params.paymentId}/capture`,
           form: {
-            amount: 10 * 100, // amount == Rs 10 // Same As Order amount
+            amount: req.params.price, // amount == Rs 10 // Same As Order amount
             currency: "INR",
           },
         },
         async function (err, response, body) {
-          if (err) {
-            return res.status(500).json({
-              message: "Something Went Wrong",
-            });
-          }
+          // if (err) {
+          //   return res.status(500).json({
+          //     message: "Something Went Wrong 1",
+          //   });
+          // }
           console.log("Status:", response.statusCode);
           console.log("Headers:", JSON.stringify(response.headers));
           console.log("Response:", body);
@@ -78,7 +81,7 @@ app.prepare().then(() => {
       );
     } catch (err) {
       return res.status(500).json({
-        message: "Something Went Wrong",
+        message: "Something Went Wrong 2" +err,
       });
     }
   });

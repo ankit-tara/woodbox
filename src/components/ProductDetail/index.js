@@ -149,8 +149,8 @@ console.log(imgArr);
 
   const classes = useStyles();
 
+  if (!data || !data.seller) return null;
   console.log("data", data);
-  if (!data) return null;
 
   return (
     <section className={classes.section}>
@@ -223,7 +223,7 @@ console.log(imgArr);
                       <Typography className={classes.heading}>
                         Seller Location
                       </Typography>
-                      <Typography variant="h6">{data.seller.university ? data.seller.university.name:''}</Typography>
+                      <Typography variant="h6">{data.seller && data.seller.university ? data.seller.university.name:''}</Typography>
                     </Box>
                   </div>
                 </div>

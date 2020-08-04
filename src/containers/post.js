@@ -192,6 +192,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
   const [loading, setloading] = useState(false);
   const [loadingUni, setloadingUni] = useState(false);
   const [backdrop, setbackdrop] = useState(false);
+  const [time_period, settime_period] = useState(product.time_period);
   const [formerrs, setformerrs] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -314,6 +315,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
       type: type,
       files: files,
       active: true,
+      time_period: time_period
     };
     if (formtype == "edit" && product.id) {
       UpdateProduct(data, product.id).then((response) => {
@@ -533,7 +535,34 @@ export default function Post({ user, formtype = "add", product = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
+                    {type == 'Rental' && 
+                    <div className={`${classes.formInput}`}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <DetailsIcon />
+                        </Grid>
+                        <Grid item className={`${classes.formInputField} `}>
+                          <FormControl className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-label">
+                              Time Period
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={time_period}
+                              onChange={(e) => updateformData(e, "time_period")}
+                            >
+                              <MenuItem value="day">Day</MenuItem>
+                              <MenuItem value="week">Week</MenuItem>
+                              <MenuItem value="month">Month</MenuItem>
+                              <MenuItem value="year">Year</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+                    </div>
+}
+                  <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
                           <DetailsIcon />

@@ -6,7 +6,7 @@ const paymentHandler = async (e) => {
   e.preventDefault();
   const orderUrl = `${API_URL}order`;
   const response = await axios.get(orderUrl);
-  console.log("response", response);
+  console.log("response zp", response);
   const { data } = response;
   const options = {
     key: process.env.RAZOR_PAY_KEY_ID,
@@ -27,6 +27,7 @@ const paymentHandler = async (e) => {
       color: "#686CFD",
     },
   };
+  console.log(options)
   const rzp1 = new window.Razorpay(options);
   rzp1.open();
 };

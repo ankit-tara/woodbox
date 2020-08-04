@@ -24,7 +24,7 @@ import TextFieldsIcon from '@material-ui/icons/TextFields';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { searchUniversities, searchEventCategories } from "../apis/global-api";
+import { searchUniversities, searchEventCategories, CreateOrder } from "../apis/global-api";
 import { AddEvent, UpdateEvent } from "../apis/auth-api";
 import CategoryIcon from "@material-ui/icons/Category";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
@@ -107,13 +107,13 @@ const useStyles = makeStyles((theme) => ({
       "& .MuiTextField-root": {
         width: "100%",
       },
-      '& textarea':{
+      '& textarea': {
         width: '100%',
         border: 'none',
         borderBottom: 'solid 1px #ccc',
         height: '50px'
       },
-      '& textarea:focus':{
+      '& textarea:focus': {
         outline: 'none',
         borderBottom: 'solid 1px #FD8118'
       }
@@ -180,8 +180,10 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const [bookLink, setbooklink] = useState(event.book_event_link);
   const [visitLink, setvisitlink] = useState(event.visit_website_link);
   const [socialLinks, setsociallinks] = useState([
-    { text : event.social_profiles ? event.social_profiles.text : "",
-    link: event.social_profiles ? event.social_profiles.link : ""}
+    {
+      text: event.social_profiles ? event.social_profiles.text : "",
+      link: event.social_profiles ? event.social_profiles.link : ""
+    }
   ]);
   const [university, setuniversity] = useState({
     name: event.university ? event.university.name : "",
@@ -206,21 +208,29 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const [loadingUni, setloadingUni] = useState(false);
   const [backdrop, setbackdrop] = useState(false);
   const [formerrs, setformerrs] = useState([]);
+  const [eventData, seteventData] = useState();
+
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
+    // let eventd = {
+    //   id: 2,
+    //   event_price: 100
+    // }
+    // paymentHandler(eventd)
+    // return
     addFields();
     if (event.images) {
       let updatedImages = [];
       let updatedImagesInfo = [];
       event.images.map((fileData, index) => {
-         updatedImages = updatedImages.concat(fileData.base64_data);
-         updatedImagesInfo = updatedImagesInfo.concat({
+        updatedImages = updatedImages.concat(fileData.base64_data);
+        updatedImagesInfo = updatedImagesInfo.concat({
           type: fileData.type,
           data: fileData.link,
         });
-      
+
         if (index + 1 == event.images.length) {
           setfiles(updatedImages);
           setfilesInfo(updatedImagesInfo);
@@ -230,10 +240,10 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     if (event.social_profiles) {
       let sp = [];
       event.social_profiles.map((item, index) => {
-         sp = sp.concat({
+        sp = sp.concat({
           text: item.text,
           link: item.link,
-         });
+        });
         if (index + 1 == event.social_profiles.length) {
           setsociallinks(sp);
         }
@@ -247,15 +257,15 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     list[index][name] = value;
     setsociallinks(list);
   };
- 
-  const addFields = ()=>{
-    if(socialLinks.length < 5) {
+
+  const addFields = () => {
+    if (socialLinks.length < 5) {
       for (var i = 0; i < 5; i++) {
-      setsociallinks([...socialLinks, { text : "", link : ""}]);
+        setsociallinks([...socialLinks, { text: "", link: "" }]);
       }
     }
   }
- 
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -363,8 +373,9 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       visit_website_link: visitLink,
       social_profiles: socialLinks,
       files: files,
-      active: true,
+      active: event ? event.active : false,
     };
+    event = event ? event : eventData
     if (formtype == "edit" && event.id) {
       UpdateEvent(data, event.id).then((response) => {
         if (response.error) {
@@ -379,17 +390,26 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
         if (response.error) {
           setbackdrop(false);
           setformerrs(response.msg);
-        } else {
+        } else if (response.body && response.body.event) {
+          seteventData(response.body.event)
+
           console.log(response)
-          paymentHandler()
-          // router.push("/profile");
+          if (response.body.event.price > 0) {
+            paymentHandler(response.body.event)
+          } else {
+
+            router.push("/profile/events");
+
+          }
+        } else {
+          alert('there was some problem while, saving try it later')
         }
       });
     }
   };
 
   const removeImage = (index) => {
-    let filterFiles = files.filter(function (file,i) {
+    let filterFiles = files.filter(function (file, i) {
       return i !== index;
     });
     let filterFilesInfo = filesInfo.filter(function (file, i) {
@@ -398,29 +418,58 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
 
     setfilesInfo(filterFilesInfo);
     setfiles(filterFiles);
-    
+
   };
 
-  const paymentHandler = async (e) => {
-    const API_URL = 'http://localhost:3000/'
+  const paymentHandler = async (event) => {
+    const APP_URL = process.env.APP_URL
+    console.log(APP_URL)
+    let receipt_id = 'receipt_event' + event.id
+    let event_price = event.event_price * 100
     // e.preventDefault();
-    const orderUrl = `${API_URL}order`;
+    const orderUrl = `${APP_URL}order/${event_price}/${receipt_id}`;
+    console.log(orderUrl)
+    // return
     const response = await axios.get(orderUrl);
     console.log("response", response);
+
     const { data } = response;
     const options = {
       key: process.env.RAZOR_PAY_KEY_ID,
-      name: "Your App Name",
-      description: "Some Description",
+      name: "Woodbox",
+      description: "Woodbox description",
       order_id: data.id,
       handler: async (response) => {
         try {
           const paymentId = response.razorpay_payment_id;
-          const url = `${API_URL}capture/${paymentId}`;
+          const url = `${APP_URL}capture/${paymentId}/${event_price}`;
           const captureResponse = await axios.post(url, {});
           console.log(captureResponse.data);
+          let resp = JSON.parse(captureResponse.data)
+          let data = {
+            'reciept_id': receipt_id,
+            'rzp_transaction_id': resp.id,
+            'rzp_order_id': resp.order_id,
+            'status': resp.status,
+            'price': resp.amount / 100,
+            'user_id': user.id,
+            'type': 'event',
+            'event_id':event.id
+          }
+
+          CreateOrder(data).then((response) => {
+            // console.log(response)
+            if (response.error) {
+              setbackdrop(false);
+              setformerrs(response.msg);
+            } else {
+              router.push("/profile/events");
+            }
+          });
+
         } catch (err) {
-          console.log(err);
+          console.log(err)
+          alert('Oops !! There was some error while processing.Dont panic, just contact admin in case in case of emergency ')
         }
       },
       theme: {
@@ -439,7 +488,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           <Backdrop
             className={classes.backdrop}
             open={backdrop}
-            // onClick={handleClose}
+          // onClick={handleClose}
           >
             <CircularProgress color="inherit" />
           </Backdrop>
@@ -572,7 +621,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    
+
                     <div className={classes.formInput}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
@@ -676,30 +725,30 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                     {socialLinks.length > 0 &&
                       socialLinks.map(
                         (item, index) => (
-                        <div className={classes.formInput} key={index}>
-                          <div>
-                            <TextFieldsIcon />
-                            <TextField
-                              label="Social text"
-                              name = "text"
-                              value={item.text}
-                              type="text"
-                              onChange={(e) => handleInputChange(e, index)}
-                            />
+                          <div className={classes.formInput} key={index}>
+                            <div>
+                              <TextFieldsIcon />
+                              <TextField
+                                label="Social text"
+                                name="text"
+                                value={item.text}
+                                type="text"
+                                onChange={(e) => handleInputChange(e, index)}
+                              />
+                            </div>
+                            <div>
+                              <LinkIcon />
+                              <TextField
+                                label="Social Link"
+                                name="link"
+                                value={item.link}
+                                type="text"
+                                onChange={(e) => handleInputChange(e, index)}
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <LinkIcon />
-                            <TextField
-                              label="Social Link"
-                              name="link"
-                              value={item.link}
-                              type="text"
-                              onChange={(e) => handleInputChange(e, index)}
-                            />
-                          </div>
-                        </div>
-                      )
-                    )}
+                        )
+                      )}
                     <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
