@@ -103,8 +103,11 @@ function EventCard({ data, isAuthUser = false }) {
               <Link href={`/events/item/${data.id}`}>{data.title}</Link>
             )}
           </Typography>
+          
           {isAuthUser && (
+
             <div>
+             
               <MoreVertIcon
                 aria-controls="simple-menu"
                 aria-haspopup="true"
@@ -133,7 +136,11 @@ function EventCard({ data, isAuthUser = false }) {
               id={data.id}
             />
           )}
+         
         </div>
+        <Typography variant="h6" className={classes.date}>
+          {data.active ? 'Active' : 'Inactive'}
+        </Typography>
         <div className={classes.flex}>
           <Typography className={classes.date}>{data.event_date}</Typography>
           <Typography

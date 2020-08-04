@@ -219,36 +219,36 @@ const EventDetail = ({ data }) => {
                       </Typography>
                       <Typography className={classes.heading}>
                         {data.social_profiles.map((sp) => [
-                          sp.text == "Facebook" ? (
-                            <a href={`${sp.link}`}>
+                          sp.text && sp.text.toString().toLowerCase() == "facebook" ? (
+                            <a target="_blank" href={`${sp.link}`}>
                               {" "}
                               <FacebookIcon />
                             </a>
                           ) : (
                             [
-                              sp.text == "Twitter" ? (
-                                <a href={`${sp.link}`}>
+                                sp.text && sp.text.toString().toLowerCase() == "twitter" ? (
+                                <a target="_blank" href={`${sp.link}`}>
                                   {" "}
                                   <TwitterIcon />{" "}
                                 </a>
                               ) : (
                                 [
-                                  sp.text == "Instagram" ? (
-                                    <a href={`${sp.link}`}>
+                                    sp.text && sp.text.toString().toLowerCase() == "instagram" ? (
+                                    <a target="_blank" href={`${sp.link}`}>
                                       {" "}
                                       <InstagramIcon />{" "}
                                     </a>
                                   ) : (
                                     [
-                                      sp.text == "Youtube" ? (
-                                        <a href={`${sp.link}`}>
+                                        sp.text && sp.text.toString().toLowerCase() == "youtube" ? (
+                                        <a target="_blank" href={`${sp.link}`}>
                                           {" "}
                                           <YouTubeIcon />{" "}
                                         </a>
                                       ) : (
                                         [
-                                          sp.text == "Linkedin" ? (
-                                            <a href={`${sp.link}`}>
+                                            sp.text && sp.text.toString().toLowerCase() == "linkedin" ? (
+                                            <a target="_blank" href={`${sp.link}`}>
                                               <LinkedInIcon />
                                             </a>
                                           ) : (
@@ -268,17 +268,17 @@ const EventDetail = ({ data }) => {
                   </div>
                 </div>
                 <div className={classes.cardAction}>
-                  <Link href={`${data.book_event_link}`}>
+                  <a target="_blank"  href={`${data.book_event_link}`}>
                     <Button className={classes.primaryBtn}>Book Event</Button>
-                  </Link>
-                  <Link
+                  </a>
+                  <a target="_blank" 
                     href={`${data.visit_website_link}`}
                     // as={`/profile/${data.seller.id}`}
                   >
                     <Button className={classes.secondaryBtn}>
                       Visit Website
                     </Button>
-                  </Link>
+                  </a>
                 </div>
               </CardContent>
             </Card>

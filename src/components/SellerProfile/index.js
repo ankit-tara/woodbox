@@ -101,7 +101,7 @@ const sellerProfile = ({ user, events }) => {
                     eventsdata.data.length > 0 &&
                     eventsdata.data.map((data) => (
                       <div key={data.id}>
-                        <EventCard data={data} isAuthUser={isAuthUser} />
+                        <EventCard data={data} isAuthUser={isAuthUser} showState={true} />
                       </div>
                     ))}
                 </Box>
