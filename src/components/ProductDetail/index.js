@@ -14,6 +14,14 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import store from "../../redux/store";
+import Router from "next/router";
+import { useRouter } from "next/router";
+// import { chatDialog } from "../../redux/actions/dialog";
+import ConnectyCube from "connectycube";
+
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -118,6 +126,7 @@ console.log(imgArr);
     }
     // setproducts(data);
   }, [data]);
+  
 
   function renderLeftNav(onClick, disabled) {
     return (
@@ -146,11 +155,43 @@ console.log(imgArr);
       </button>
     );
   }
+  
+const authUser = useSelector((state) => state.auth_user);
+
+console.log("authUser", authUser);
+
+  function handleChatBtn(){
+    if (!authUser.user.connectycube_user) {
+      alert("please Login First");
+      return;
+    }
+      const params = {
+        type: 3,
+        occupants_ids: [
+          authUser.user.connectycube_user.connectycube_id,
+          data.seller.connectycube_user.connectycube_id,
+        ],
+      };
+
+    // JS SDK v1
+    ConnectyCube.chat.dialog.create(params, (error, dialog) => {});
+
+    // JS SDK v2
+    ConnectyCube.chat.dialog
+      .create(params)
+      .then((dialog) => {
+        console.log("dialog", dialog);
+        // store.dispatch(chatDialog(dialog));
+        Router.push("/chat");
+      })
+      .catch((error) => {});
+  }
 
   const classes = useStyles();
 
   console.log("data", data);
   if (!data) return null;
+
 
   return (
     <section className={classes.section}>
@@ -223,12 +264,19 @@ console.log(imgArr);
                       <Typography className={classes.heading}>
                         Seller Location
                       </Typography>
-                      <Typography variant="h6">{data.seller.university ? data.seller.university.name:''}</Typography>
+                      <Typography variant="h6">
+                        {data.seller.university
+                          ? data.seller.university.name
+                          : ""}
+                      </Typography>
                     </Box>
                   </div>
                 </div>
                 <div className={classes.cardAction}>
-                  <Button className={classes.primaryBtn}>
+                  <Button
+                    className={classes.primaryBtn}
+                    onClick={handleChatBtn}
+                  >
                     Chat With Seller
                   </Button>
                   <Link
