@@ -37,6 +37,11 @@ import { fileToBase64 } from "../Utils/helpers";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from '@material-ui/icons/Add';
 import axios from "axios";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -208,11 +213,13 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const [loadingUni, setloadingUni] = useState(false);
   const [backdrop, setbackdrop] = useState(false);
   const [formerrs, setformerrs] = useState([]);
-  const [eventData, seteventData] = useState();
+  const [eventData, seteventData] = useState({});
 
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const [snackbar, setsnackbar] = useState(false);
+  const [snackbarMsg, setsnackbarMsg] = useState("");
+  const [snackbarType, setsnackbarType] = useState("success");
   useEffect(() => {
     // let eventd = {
     //   id: 2,
@@ -382,7 +389,12 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           setbackdrop(false);
           setformerrs(response.msg);
         } else {
-          router.push("/profile");
+          if (event.price > 0 && !event.order_id) {
+            paymentHandler(response.body.event)
+          } else {
+            router.push("/profile/events");
+
+          }
         }
       });
     } else {
@@ -420,10 +432,17 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     setfiles(filterFiles);
 
   };
+  const handlesnackbar = () => {
+    setsnackbar(!snackbar);
+  };
 
   const paymentHandler = async (event) => {
+    if (!event) {
+      setsnackbar(true);
+      setsnackbarMsg("Event not valid");
+      setsnackbarType("error");
+    }
     const APP_URL = process.env.APP_URL
-    console.log(APP_URL)
     let receipt_id = 'receipt_event' + event.id
     let event_price = event.event_price * 100
     // e.preventDefault();
@@ -436,9 +455,12 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     const { data } = response;
     const options = {
       key: process.env.RAZOR_PAY_KEY_ID,
-      name: "Woodbox",
-      description: "Woodbox description",
+      name: "App",
+      description: "App description",
       order_id: data.id,
+      // modal:{
+      //   escape:false
+      // },
       handler: async (response) => {
         try {
           const paymentId = response.razorpay_payment_id;
@@ -454,7 +476,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
             'price': resp.amount / 100,
             'user_id': user.id,
             'type': 'event',
-            'event_id':event.id
+            'event_id': event.id
           }
 
           CreateOrder(data).then((response) => {
@@ -472,13 +494,40 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           alert('Oops !! There was some error while processing.Dont panic, just contact admin in case in case of emergency ')
         }
       },
-      theme: {
-        color: "#686CFD",
-      },
+      "modal": {
+        "ondismiss": function () {
+          setbackdrop(false);
+          setsnackbar(true);
+          setsnackbarMsg("You have dismissed payment.Event will be in inactive mode until you enable it");
+          setsnackbarType("error");
+          console.log('dismissed')
+        }
+      }
+      // theme: {
+      //   color: "#686CFD",
+      // },
     };
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   };
+
+  const showPayButton = () => {
+    let ev = event ? event : eventData
+    console.log(event)
+    if (ev.id && ev.event_price && ev.event_price > 0 && !ev.order_id)
+     {
+      return (
+        <Button
+          onClick={() => paymentHandler(ev)}
+          variant="secondary"
+          className={classes.Button}
+        >
+          Pay Now
+        </Button>
+      )
+     }
+    return null
+  }
 
 
   return (
@@ -493,6 +542,15 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
             <CircularProgress color="inherit" />
           </Backdrop>
         )}
+        <Snackbar
+          open={snackbar}
+          autoHideDuration={6000}
+          onClose={handlesnackbar}
+        >
+          <Alert onClose={handlesnackbar} severity={snackbarType}>
+            {snackbarMsg}
+          </Alert>
+        </Snackbar>
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={9} md={9} sm={8} xs={12} style={{ margin: "auto" }}>
@@ -824,6 +882,8 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                     >
                       {formtype == "add" ? "Add" : "Edit"} Event
                     </Button>
+
+                    {showPayButton()}
                   </form>
                   {formerrs.length > 0 &&
                     formerrs.map((msg, index) => (

@@ -111,8 +111,11 @@ export async function getCities() {
     .catch((error) => console.warn(error));
 }
 
-export async function getEvents(q) {
-  let url = API_URL + "/events";
+export async function getEvents(q,showall=false) {
+  let url = API_URL + "/events/";
+  if (showall){
+    url = url +  showall
+  }
   if (q) {
     url = url + q;
   }

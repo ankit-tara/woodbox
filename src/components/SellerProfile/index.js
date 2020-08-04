@@ -36,7 +36,7 @@ const sellerProfile = ({ user, events }) => {
   useEffect(() => {
     const fetchData = () => {
       getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
-      getEvents(`?seller_id=${user.id}`).then((data) => seteventsdata(data));
+      getEvents(`?seller_id=${user.id}`,true).then((data) => seteventsdata(data));
     };
     fetchData();
   }, [user]);
@@ -101,7 +101,7 @@ const sellerProfile = ({ user, events }) => {
                     eventsdata.data.length > 0 &&
                     eventsdata.data.map((data) => (
                       <div key={data.id}>
-                        <EventCard data={data} isAuthUser={isAuthUser} showState={true} />
+                        <EventCard data={data} isAuthUser={isAuthUser} showState={false} />
                       </div>
                     ))}
                 </Box>

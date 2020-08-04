@@ -133,7 +133,7 @@ const EventDetail = ({ data }) => {
   const classes = useStyles();
 
   console.log("data", data);
-  if (!data )
+  if (!data || !data.active)
     return (
       <Container maxWidth="xl">
         <Box className={classes.sectionHeader}>
@@ -141,6 +141,8 @@ const EventDetail = ({ data }) => {
         </Box>{" "}
       </Container>
     );
+
+ 
 
   return (
     <section className={classes.section}>
@@ -225,55 +227,55 @@ const EventDetail = ({ data }) => {
                               <FacebookIcon />
                             </a>
                           ) : (
-                            [
+                              [
                                 sp.text && sp.text.toString().toLowerCase() == "twitter" ? (
-                                <a target="_blank" href={`${sp.link}`}>
-                                  {" "}
-                                  <TwitterIcon />{" "}
-                                </a>
-                              ) : (
-                                [
-                                    sp.text && sp.text.toString().toLowerCase() == "instagram" ? (
-                                    <a target="_blank" href={`${sp.link}`}>
-                                      {" "}
-                                      <InstagramIcon />{" "}
-                                    </a>
-                                  ) : (
+                                  <a target="_blank" href={`${sp.link}`}>
+                                    {" "}
+                                    <TwitterIcon />{" "}
+                                  </a>
+                                ) : (
                                     [
-                                        sp.text && sp.text.toString().toLowerCase() == "youtube" ? (
+                                      sp.text && sp.text.toString().toLowerCase() == "instagram" ? (
                                         <a target="_blank" href={`${sp.link}`}>
                                           {" "}
-                                          <YouTubeIcon />{" "}
+                                          <InstagramIcon />{" "}
                                         </a>
                                       ) : (
-                                        [
-                                            sp.text && sp.text.toString().toLowerCase() == "linkedin" ? (
-                                            <a target="_blank" href={`${sp.link}`}>
-                                              <LinkedInIcon />
-                                            </a>
-                                          ) : (
-                                            ""
-                                          ),
-                                        ]
-                                      ),
+                                          [
+                                            sp.text && sp.text.toString().toLowerCase() == "youtube" ? (
+                                              <a target="_blank" href={`${sp.link}`}>
+                                                {" "}
+                                                <YouTubeIcon />{" "}
+                                              </a>
+                                            ) : (
+                                                [
+                                                  sp.text && sp.text.toString().toLowerCase() == "linkedin" ? (
+                                                    <a target="_blank" href={`${sp.link}`}>
+                                                      <LinkedInIcon />
+                                                    </a>
+                                                  ) : (
+                                                      ""
+                                                    ),
+                                                ]
+                                              ),
+                                          ]
+                                        ),
                                     ]
                                   ),
-                                ]
-                              ),
-                            ]
-                          ),
+                              ]
+                            ),
                         ])}
                       </Typography>
                     </Box>
                   </div>
                 </div>
                 <div className={classes.cardAction}>
-                  <a target="_blank"  href={`${data.book_event_link}`}>
+                  <a target="_blank" href={`${data.book_event_link}`}>
                     <Button className={classes.primaryBtn}>Book Event</Button>
                   </a>
-                  <a target="_blank" 
+                  <a target="_blank"
                     href={`${data.visit_website_link}`}
-                    // as={`/profile/${data.seller.id}`}
+                  // as={`/profile/${data.seller.id}`}
                   >
                     <Button className={classes.secondaryBtn}>
                       Visit Website

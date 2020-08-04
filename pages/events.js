@@ -6,7 +6,7 @@ function EventsPage({ query }) {
   const { s } = query;
   const url = s ? `?s=${s}&paginate=12` : "?paginate=12";
   console.log(url)
-  return <Events url={url} />;
+  return <Events url={url}  />;
 }
 
 // export async function getStaticProps(context) {

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 import { useRouter } from "next/router";
 import { getEvents } from "../apis/global-api";
 
-function Events({ data, url }) {
+function Events({ data, url, showState=false }) {
   const [events, setevents] = useState([]);
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
@@ -114,7 +114,7 @@ function Events({ data, url }) {
                   events.data.length > 0 &&
                   events.data.slice(0, 6).map((data) => (
                     <div key={data.id}>
-                      <EventCard data={data} />
+                      <EventCard data={data} showState={showState} />
                     </div>
                   ))}
               </Box>

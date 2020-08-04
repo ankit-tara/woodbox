@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-function EventCard({ data, isAuthUser = false }) {
+function EventCard({ data, isAuthUser = false, showState=false }) {
 
   const [isSaved, setisSaved] = React.useState(data.saved)
   const [eventStar, seteventStar] = React.useState(isSaved ? 1 : 0)
@@ -57,7 +57,7 @@ function EventCard({ data, isAuthUser = false }) {
     router.push("/post/event/edit/" + data.id);
   };
   const handleDelete = () => {
-      DeleteEvent(data, data.id).then((response) => {
+    DeleteEvent(data, data.id).then((response) => {
       console.log(response);
       if (response.error) {
         setsnackbar(true);
@@ -82,8 +82,8 @@ function EventCard({ data, isAuthUser = false }) {
             src={data.images[0].thumbnail_link}
             alt=""
             className={classes.image}
-            />
-          </Link>
+          />
+        </Link>
       )}
       <CardContent
         className={
@@ -103,11 +103,11 @@ function EventCard({ data, isAuthUser = false }) {
               <Link href={`/events/item/${data.id}`}>{data.title}</Link>
             )}
           </Typography>
-          
+
           {isAuthUser && (
 
             <div>
-             
+
               <MoreVertIcon
                 aria-controls="simple-menu"
                 aria-haspopup="true"
@@ -136,11 +136,13 @@ function EventCard({ data, isAuthUser = false }) {
               id={data.id}
             />
           )}
-         
+
         </div>
-        <Typography variant="h6" className={classes.date}>
-          {data.active ? 'Active' : 'Inactive'}
-        </Typography>
+        {isAuthUser ?
+
+          data.active ? <Typography color="success" variant="h6" className={classes.date}>Active</Typography> : <Typography color="error" variant="h6" className={classes.date}>Inactive</Typography> :''}
+
+      
         <div className={classes.flex}>
           <Typography className={classes.date}>{data.event_date}</Typography>
           <Typography
