@@ -214,41 +214,53 @@ const EventDetail = ({ data }) => {
                       </Typography>
                     </Box>
                     <Box className={`${classes.box} social-links`}>
+                      {data.social_profiles.length && 
                       <Typography className={classes.heading}>
                         Social Links
-                      </Typography>
+                      </Typography>}
                       <Typography className={classes.heading}>
                         {data.social_profiles.map((sp) => [
-                          sp.text && sp.text.toString().toLowerCase() == "facebook" ? (
+                          sp.text &&
+                          sp.text.toString().toLowerCase() == "facebook" ? (
                             <a target="_blank" href={`${sp.link}`}>
                               {" "}
                               <FacebookIcon />
                             </a>
                           ) : (
                             [
-                                sp.text && sp.text.toString().toLowerCase() == "twitter" ? (
+                              sp.text &&
+                              sp.text.toString().toLowerCase() == "twitter" ? (
                                 <a target="_blank" href={`${sp.link}`}>
                                   {" "}
                                   <TwitterIcon />{" "}
                                 </a>
                               ) : (
                                 [
-                                    sp.text && sp.text.toString().toLowerCase() == "instagram" ? (
+                                  sp.text &&
+                                  sp.text.toString().toLowerCase() ==
+                                    "instagram" ? (
                                     <a target="_blank" href={`${sp.link}`}>
                                       {" "}
                                       <InstagramIcon />{" "}
                                     </a>
                                   ) : (
                                     [
-                                        sp.text && sp.text.toString().toLowerCase() == "youtube" ? (
+                                      sp.text &&
+                                      sp.text.toString().toLowerCase() ==
+                                        "youtube" ? (
                                         <a target="_blank" href={`${sp.link}`}>
                                           {" "}
                                           <YouTubeIcon />{" "}
                                         </a>
                                       ) : (
                                         [
-                                            sp.text && sp.text.toString().toLowerCase() == "linkedin" ? (
-                                            <a target="_blank" href={`${sp.link}`}>
+                                          sp.text &&
+                                          sp.text.toString().toLowerCase() ==
+                                            "linkedin" ? (
+                                            <a
+                                              target="_blank"
+                                              href={`${sp.link}`}
+                                            >
                                               <LinkedInIcon />
                                             </a>
                                           ) : (
@@ -268,10 +280,11 @@ const EventDetail = ({ data }) => {
                   </div>
                 </div>
                 <div className={classes.cardAction}>
-                  <a target="_blank"  href={`${data.book_event_link}`}>
+                  <a target="_blank" href={`${data.book_event_link}`}>
                     <Button className={classes.primaryBtn}>Book Event</Button>
                   </a>
-                  <a target="_blank" 
+                  <a
+                    target="_blank"
                     href={`${data.visit_website_link}`}
                     // as={`/profile/${data.seller.id}`}
                   >
