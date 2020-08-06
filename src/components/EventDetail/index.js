@@ -216,12 +216,14 @@ const EventDetail = ({ data }) => {
                       </Typography>
                     </Box>
                     <Box className={`${classes.box} social-links`}>
+                      {data.social_profiles.length && 
                       <Typography className={classes.heading}>
                         Social Links
-                      </Typography>
+                      </Typography>}
                       <Typography className={classes.heading}>
                         {data.social_profiles.map((sp) => [
-                          sp.text && sp.text.toString().toLowerCase() == "facebook" ? (
+                          sp.text &&
+                          sp.text.toString().toLowerCase() == "facebook" ? (
                             <a target="_blank" href={`${sp.link}`}>
                               {" "}
                               <FacebookIcon />

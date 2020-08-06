@@ -10,6 +10,7 @@ import Testimonial from "../components/Testimonial";
 import TuneIcon from "@material-ui/icons/Tune";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { ProductCardsData, OurConceptData, TestimonialData } from "../utils";
+import StickyBox from "react-sticky-box";
 import {
   commonStyles,
   desktopStyles,
@@ -106,7 +107,13 @@ function Products({ data, url }) {
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={3} md={3} sm={12} xs={12}>
-              {matches ? <MobileSidebar /> : <Sidebar />}
+              {matches ? (
+                <MobileSidebar />
+              ) : (
+                <StickyBox offsetTop={100} offsetBottom={20}>
+                  <Sidebar />
+                </StickyBox>
+              )}
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>
@@ -121,7 +128,8 @@ function Products({ data, url }) {
 
               {products.data && products.data.length <= 0 && (
                 <Typography variant="h4">
-                 Oops!! we we could not find related to your search. Please search something else
+                  Oops!! we we could not find related to your search. Please
+                  search something else
                 </Typography>
               )}
 

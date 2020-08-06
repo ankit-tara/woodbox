@@ -10,6 +10,7 @@ import Testimonial from "../components/Testimonial";
 import TuneIcon from "@material-ui/icons/Tune";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { OurConceptData, TestimonialData } from "../utils";
+import StickyBox from "react-sticky-box";
 import {
   commonStyles,
   desktopStyles,
@@ -85,7 +86,9 @@ function Events({ data, url, showState=false }) {
           <TuneIcon />
           Filter
         </Button>
-        {showsidebar && <Sidebar type={"events"}/>}
+        {showsidebar && (
+            <Sidebar type={"events"} />
+        )}
       </>
     );
   };
@@ -98,15 +101,27 @@ function Events({ data, url, showState=false }) {
       <section className={classes.section}>
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
-            <Typography variant="h5">
-              Events in your College
-            </Typography>
+            <Typography variant="h5">Events in your College</Typography>
           </Box>
         </Container>
         <Container maxWidth="xl">
           <Grid container>
-            <Grid item lg={3} md={3} sm={12} xs={12}>
-              {matches ? <MobileSidebar /> : <Sidebar type={"events"} />}
+            <Grid
+              item
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
+              className="scrollarea"
+              // style={{ height: "200px", overflow: "scroll" }}
+            >
+              {matches ? (
+                <MobileSidebar />
+              ) : (
+                <StickyBox offsetTop={100} offsetBottom={20}>
+                  <Sidebar type={"events"} />
+                </StickyBox>
+              )}
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>
@@ -121,7 +136,8 @@ function Events({ data, url, showState=false }) {
 
               {events.data && events.data.length <= 0 && (
                 <Typography variant="h4">
-                 Oops!! we we could not find related to your search. Please search something else
+                  Oops!! we we could not find related to your search. Please
+                  search something else
                 </Typography>
               )}
 

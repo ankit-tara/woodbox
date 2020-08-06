@@ -186,8 +186,11 @@ export const commonStyles = {
   cardAction:{
     display: 'flex',
     flexWrap: 'wrap',
+    '& a':{
+      width: '50%'
+    },
     '& button':{
-      width: '50%',
+      width: '100%',
       borderRadius: 0,
       boxShadow: 'none',
       height: '4rem',
