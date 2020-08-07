@@ -6,7 +6,7 @@
     "dev": "node server.js",
     "build": "next build",
     "heroku-postbuild": "npm run build",
-    "start": "next start -p $PORT"
+    "start": "NODE_ENV=production node server.js"
   },
   "engines": {
     "node": "13.11.0"
