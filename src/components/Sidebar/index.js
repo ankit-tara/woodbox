@@ -158,9 +158,9 @@ function Sidebar({ type = '' }) {
             onChange={() => handleTypeChange('buy')}
           /> Buy
           <Checkbox
-            value="rent"
+            value="rental"
             inputProps={{ 'aria-label': 'Checkbox A' }}
-            onChange={() => handleTypeChange('rent')}
+            onChange={() => handleTypeChange('rental')}
           />Rent
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
