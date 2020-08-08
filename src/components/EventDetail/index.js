@@ -289,7 +289,7 @@ const EventDetail = ({ data }) => {
 
             <Card className={`${classes.card} ${classes.spanCol6}`}>
               <CardContent className={classes.cardBody}>
-                <Typography className={classes.heading}>Discription</Typography>
+                <Typography className={classes.heading}>Description</Typography>
                 <Typography className={classes.paragraph}>
                   {data.description}
                 </Typography>

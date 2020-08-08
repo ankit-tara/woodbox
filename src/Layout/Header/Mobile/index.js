@@ -194,7 +194,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </a>
                 <Divider />
-                <a href="/products/type/buy">
+                <a href="/products?type=buy">
                   <ListItem button>
                     <ListItemIcon>
                       <LocalMallRoundedIcon />
@@ -203,7 +203,7 @@ export default function SearchAppBar() {
                   </ListItem>
                 </a>
                 <Divider />
-                <a href="/products/type/rent">
+                <a href="/products?type=rental">
                   <ListItem button>
                     <ListItemIcon>
                       <LocalMallRoundedIcon />

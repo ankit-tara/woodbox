@@ -80,6 +80,7 @@ function Products({ data, url }) {
     };
 
     const [showsidebar, setshowsidebar] = React.useState(false);
+    return <Sidebar />
     return (
       <>
         <Button className={classes.fliterBtn} onClick={toggle}>
@@ -108,7 +109,7 @@ function Products({ data, url }) {
           <Grid container>
             <Grid item lg={3} md={3} sm={12} xs={12}>
               {matches ? (
-                <MobileSidebar />
+                <Sidebar showFilterBtn="true"/>
               ) : (
                 <StickyBox offsetTop={100} offsetBottom={20}>
                   <Sidebar />

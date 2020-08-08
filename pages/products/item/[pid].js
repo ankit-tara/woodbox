@@ -89,10 +89,10 @@ export default function singlePage({ query }) {
           </Link>
           <Link
             color="inherit"
-            href="/getting-started/installation/"
+            // href="/getting-started/installation/"
             onClick={handleClick}
           >
-            Buy
+            {data.type}
           </Link>
           <Typography color="primary">Product</Typography>
         </Breadcrumbs>

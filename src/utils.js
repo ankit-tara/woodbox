@@ -5,7 +5,7 @@ export const IconCardsData = [
     image: {
       url: "/static/images/bike.png",
     },
-    slug: "/products/category/vehicles",
+    slug: "/products?m_cat=vehicles",
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const IconCardsData = [
     image: {
       url: "/static/images/book.png",
     },
-    slug: "/products/category/books",
+    slug: "/products?m_cat=books",
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const IconCardsData = [
     image: {
       url: "/static/images/sports-and-competition.png",
     },
-    slug: "/products/category/gadgets",
+    slug: "/products?m_cat=gadgets",
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const IconCardsData = [
     image: {
       url: "/static/images/shopping.png",
     },
-    slug: "/products/category/hostel-items",
+    slug: "/products?m_cat=hostel-items",
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const IconCardsData = [
     image: {
       url: "/static/images/gym.png",
     },
-    slug: "/products/category/sports-gym",
+    slug: "/products?m_cat=sports-gym",
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const IconCardsData = [
     image: {
       url: "/static/images/stationary.png",
     },
-    slug: "/products/category/stationary",
+    slug: "/products?m_cat=stationary",
   },
   {
     id: 7,
@@ -64,6 +64,7 @@ export const EventIconCardsData = [
     image: {
       url: "/static/images/technical.png",
     },
+    slug: "/events?m_cat=technical",
   },
   {
     id: "EventIcon2",
@@ -71,6 +72,7 @@ export const EventIconCardsData = [
     image: {
       url: "/static/images/enterprenurship.png",
     },
+    slug: "/events?m_cat=entrepreneurship",
   },
   {
     id: "EventIcon3",
@@ -78,6 +80,7 @@ export const EventIconCardsData = [
     image: {
       url: "/static/images/culture.png",
     },
+    slug: "/events?m_cat=culture",
   },
   {
     id: "EventIcon4",
@@ -85,6 +88,7 @@ export const EventIconCardsData = [
     image: {
       url: "/static/images/sports.png",
     },
+    slug: "/events?m_cat=sports",
   },
   {
     id: "EventIcon5",
@@ -92,6 +96,7 @@ export const EventIconCardsData = [
     image: {
       url: "/static/images/books.png",
     },
+    slug: "/events?m_cat=books",
   },
   {
     id: "EventIcon6",
@@ -99,6 +104,7 @@ export const EventIconCardsData = [
     image: {
       url: "/static/images/library.png",
     },
+    slug: "/events?m_cat=library",
   },
 ];
 

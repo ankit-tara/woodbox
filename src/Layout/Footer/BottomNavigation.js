@@ -46,7 +46,7 @@ export default function SimpleBottomNavigation() {
       className={classes.root}
     >
       <BottomNavigationAction component={Link} href="/" label="Home" icon={<HomeRoundedIcon />}/>
-      <BottomNavigationAction component={Link} href="/products/type/buy" label="Buy" icon={<LocalMallRoundedIcon />} />
+      <BottomNavigationAction component={Link} href="/products?type=buy" label="Buy" icon={<LocalMallRoundedIcon />} />
       <BottomNavigationAction component={Link} href="/events" label="Events" icon={<EventNoteRoundedIcon />} />
       <BottomNavigationAction component={Link} href="/profile" label="My ads" icon={<LiveTvRoundedIcon />} />
       {! accessToken && (

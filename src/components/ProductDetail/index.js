@@ -288,7 +288,10 @@ console.log("authUser", authUser);
             </Card>
             <Card className={`${classes.card} ${classes.spanCol6}`}>
               <CardContent className={classes.cardBody}>
-                <Typography className={classes.heading}>Discription</Typography>
+                <Typography className={classes.heading}>Description</Typography>
+                { data.type == 'Rental' &&
+                  <Typography className={classes.heading}>{data.type} - per {data.time_period ? data.time_period : 'month'}</Typography>
+                        }
                 <Typography className={classes.paragraph}>
                   {data.description}
                 </Typography>

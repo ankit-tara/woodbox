@@ -21,6 +21,7 @@ import {
 } from "../../apis/global-api";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import { useRouter } from "next/router";
+import TuneIcon from "@material-ui/icons/Tune";
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-function Sidebar({ type = '' }) {
+function Sidebar({ type = '',showFilterBtn=false }) {
 
   const [categories, setcategories] = useState([]);
   const [selectedCategories, setselectedCategories] = useState([]);
@@ -134,141 +135,163 @@ function Sidebar({ type = '' }) {
     let categories = selectedCategories.map((v) => v.name).join(',')
     let universities = selecteduniversities.map((v) => v.name).join(',')
     console.log(cities, categories, universities)
-    let type = producttype.length == 1 ? producttype[0]:''
-    let query = '?m_city=' + cities + '&m_cat=' + categories + '&m_uni=' + universities + '&type=' + type
+    let p_type = producttype.length == 1 ? producttype[0] : ''
+    let query = '?m_city=' + cities + '&m_cat=' + categories + '&m_uni=' + universities + '&type=' + p_type
     console.log(query)
-    router.push("/products" + query);
+    if (type == 'events') {
+      router.push("/events" + query);
+
+    } else {
+      router.push("/products" + query);
+
+    }
   }
+  const toggle = () => {
+    setshowsidebar(!showsidebar);
+  };
+
+  const [showsidebar, setshowsidebar] = React.useState(!showFilterBtn);
 
   return (
     <>
-      <div className={classes.root}>
-        <Typography variant="h6" className={classes.heading}>Filter</Typography>
-        <ExpansionPanel expanded={expanded === 'panel0'} onChange={handlePanelChange('panel0')}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel0a-content"
-            id="panel0a-header"
-          >
-            <Typography variant="h6" className={classes.title}>Type</Typography>
-          </ExpansionPanelSummary>
+      {showFilterBtn && 
+      <Button className={classes.fliterBtn} onClick={toggle}>
+        <TuneIcon />
+          Filter
+        </Button>}
+      {showsidebar &&
+        <>
+          <div className={classes.root}>
+            <Typography variant="h6" className={classes.heading}>Filter</Typography>
+            {type != 'events' &&
+              <ExpansionPanel expanded={expanded === 'panel0'} onChange={handlePanelChange('panel0')}>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel0a-content"
+                  id="panel0a-header"
+                >
+                  <Typography variant="h6" className={classes.title}>Type</Typography>
+                </ExpansionPanelSummary>
+                <Checkbox
+                  value="buy"
+                  inputProps={{ 'aria-label': 'Checkbox A' }}
+                  onChange={() => handleTypeChange('buy')}
+                /> Buy
           <Checkbox
-            value="buy"
-            inputProps={{ 'aria-label': 'Checkbox A' }}
-            onChange={() => handleTypeChange('buy')}
-          /> Buy
-          <Checkbox
-            value="rental"
-            inputProps={{ 'aria-label': 'Checkbox A' }}
-            onChange={() => handleTypeChange('rental')}
-          />Rent
+                  value="rental"
+                  inputProps={{ 'aria-label': 'Checkbox A' }}
+                  onChange={() => handleTypeChange('rental')}
+                />Rent
         </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography variant="h6" className={classes.title}>Category</Typography>
-          </ExpansionPanelSummary>
-          <input className={classes.searchField} type="text" placeholder="search Categoty" onKeyUp={handleCatSearch} />
-          <ExpansionPanelDetails>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormGroup>
-                {categories && categories.map((cat) => (
-                  <FormControlLabel
-                    control={<Checkbox onChange={(e) => handleChange(e, 'category', cat)} color="primary" />}
-                    label={cat.name}
-                    checked={selectedCategories.filter(item => item.id == cat.id).length > 0}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>
+            }
+            <ExpansionPanel expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography variant="h6" className={classes.title}>Category</Typography>
+              </ExpansionPanelSummary>
+              <input className={classes.searchField} type="text" placeholder="search Categoty" onKeyUp={handleCatSearch} />
+              <ExpansionPanelDetails>
+                <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup>
+                    {categories && categories.map((cat) => (
+                      <FormControlLabel
+                        control={<Checkbox onChange={(e) => handleChange(e, 'category', cat)} color="primary" />}
+                        label={cat.name}
+                        checked={selectedCategories.filter(item => item.id == cat.id).length > 0}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>
 
-            {categories.length < 1 && selectedCategories.length > 0 && <FormControl component="fieldset" className={classes.formControl}>
-              <FormGroup>
-                {selectedCategories && selectedCategories.map((cat) => (
-                  <FormControlLabel
-                    control={<Checkbox onChange={(e) => handleChange(e, 'category', cat)} color="primary" />}
-                    checked={true}
-                    label={cat.name}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>}
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={handlePanelChange('panel2')}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography variant="h6" className={classes.title}>City</Typography>
-          </ExpansionPanelSummary>
-          <input className={classes.searchField} type="text" placeholder="search City" onKeyUp={handleCitySearch} />
-          <ExpansionPanelDetails>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormGroup>
-                {Cities && Cities.map((cat) => (
-                  <FormControlLabel
-                    control={<Checkbox onChange={(e) => handleChange(e, 'cities', cat)} color="primary" name="mobile" />}
-                    label={cat.name}
-                    checked={selectedCities.filter(item => item.id == cat.id).length > 0}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>
-            {Cities.length < 1 && selectedCities.length > 0 && <FormControl component="fieldset" className={classes.formControl}>
-              <FormGroup>
-                {selectedCities && selectedCities.map((cat) => (
-                  <FormControlLabel
-                    control={<Checkbox onChange={(e) => handleChange(e, 'cities', cat)} color="primary" />}
-                    checked={true}
-                    label={cat.name}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>}
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'} onChange={handlePanelChange('panel3')}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography variant="h6" className={classes.title}>College</Typography>
-          </ExpansionPanelSummary>
-          <input className={classes.searchField} type="text" placeholder="search College" onKeyUp={handleUniSearch} />
-          <ExpansionPanelDetails>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormGroup>
-                {universities && universities.map((cat) => (
-                  <FormControlLabel
-                    control={<Checkbox onChange={(e) => handleChange(e, 'university', cat)} color="primary" name="mobile" />}
-                    label={cat.name}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>
+                {categories.length < 1 && selectedCategories.length > 0 && <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup>
+                    {selectedCategories && selectedCategories.map((cat) => (
+                      <FormControlLabel
+                        control={<Checkbox onChange={(e) => handleChange(e, 'category', cat)} color="primary" />}
+                        checked={true}
+                        label={cat.name}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>}
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel expanded={expanded === 'panel2'} onChange={handlePanelChange('panel2')}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography variant="h6" className={classes.title}>City</Typography>
+              </ExpansionPanelSummary>
+              <input className={classes.searchField} type="text" placeholder="search City" onKeyUp={handleCitySearch} />
+              <ExpansionPanelDetails>
+                <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup>
+                    {Cities && Cities.map((cat) => (
+                      <FormControlLabel
+                        control={<Checkbox onChange={(e) => handleChange(e, 'cities', cat)} color="primary" name="mobile" />}
+                        label={cat.name}
+                        checked={selectedCities.filter(item => item.id == cat.id).length > 0}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>
+                {Cities.length < 1 && selectedCities.length > 0 && <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup>
+                    {selectedCities && selectedCities.map((cat) => (
+                      <FormControlLabel
+                        control={<Checkbox onChange={(e) => handleChange(e, 'cities', cat)} color="primary" />}
+                        checked={true}
+                        label={cat.name}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>}
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel expanded={expanded === 'panel3'} onChange={handlePanelChange('panel3')}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography variant="h6" className={classes.title}>College</Typography>
+              </ExpansionPanelSummary>
+              <input className={classes.searchField} type="text" placeholder="search College" onKeyUp={handleUniSearch} />
+              <ExpansionPanelDetails>
+                <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup>
+                    {universities && universities.map((cat) => (
+                      <FormControlLabel
+                        control={<Checkbox onChange={(e) => handleChange(e, 'university', cat)} color="primary" name="mobile" />}
+                        label={cat.name}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>
 
-            {universities.length < 1 && selecteduniversities.length > 0 && <FormControl component="fieldset" className={classes.formControl}>
-              <FormGroup>
-                {selecteduniversities && selecteduniversities.map((cat) => (
-                  <FormControlLabel
-                    control={<Checkbox onChange={(e) => handleChange(e, 'university', cat)} color="primary" />}
-                    checked={true}
-                    label={cat.name}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>}
+                {universities.length < 1 && selecteduniversities.length > 0 && <FormControl component="fieldset" className={classes.formControl}>
+                  <FormGroup>
+                    {selecteduniversities && selecteduniversities.map((cat) => (
+                      <FormControlLabel
+                        control={<Checkbox onChange={(e) => handleChange(e, 'university', cat)} color="primary" />}
+                        checked={true}
+                        label={cat.name}
+                      />
+                    ))}
+                  </FormGroup>
+                </FormControl>}
 
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </div>
-      <Button className={classes.filterBtn} onClick={filterSearch}>Filter</Button>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </div>
+          <Button className={classes.filterBtn} onClick={filterSearch}>Filter</Button>
+        </>
+      }
     </>
   )
 }

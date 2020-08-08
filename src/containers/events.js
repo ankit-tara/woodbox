@@ -87,7 +87,7 @@ function Events({ data, url, showState=false }) {
           Filter
         </Button>
         {showsidebar && (
-            <Sidebar type={"events"} />
+          <Sidebar type="events" />
         )}
       </>
     );
@@ -116,10 +116,10 @@ function Events({ data, url, showState=false }) {
               // style={{ height: "200px", overflow: "scroll" }}
             >
               {matches ? (
-                <MobileSidebar />
+                <Sidebar showFilterBtn="true" />
               ) : (
                 <StickyBox offsetTop={100} offsetBottom={20}>
-                  <Sidebar type={"events"} />
+                    <Sidebar type="events" />
                 </StickyBox>
               )}
             </Grid>

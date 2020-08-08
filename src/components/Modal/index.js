@@ -26,7 +26,13 @@ const useStyles = makeStyles(theme => ({
 const Modal = (props) => {
 
   const [open, setopen] = useState(props.open);
-
+  const [loading, setloading] = useState(false);
+  const [universities, setuniversities] = useState([
+    {
+      name:  "",
+      id: "",
+    },
+  ]);
   const openModal = () => {
     setopen(true);
   };
@@ -56,6 +62,16 @@ const Modal = (props) => {
     options: top100Films.map((option) => option.title),
   };
 
+  const handleUniSearch = (e) => {
+    let value = e.target.value;
+    if (!value) return;
+    setloading(true);
+    searchUniversities(value).then((response) => {
+      setloading(false);
+      setuniversities(response);
+    });
+  };
+
   const [value, setValue] = React.useState(null);
 
   const classes = useStyles()
@@ -83,6 +99,29 @@ const Modal = (props) => {
                 debug
                 renderInput={(params) => <TextField {...params} label="Type Your College Name" margin="normal" />}
               />
+
+              <Autocomplete
+                className={classes.Autocomplete}
+                required
+                options={universities}
+                getOptionLabel={(option) => {
+                  return option.name;
+                }}
+                getOptionSelected={(option, value) =>
+                  option.name === value.name
+                }
+                loading={loading}
+                // value={university}
+                onInputChange={(e) => e && handleUniSearch(e)}
+                // onChange={(e) => updateformData(e, "university")}
+                onSelect={(e) =>
+                  setuniversity({ name: e.target.value })
+                }
+                renderInput={(params) => (
+                  <TextField {...params} label="Type Your College Name" margin="normal" />
+                )}
+              />
+
               <Button variant="contained" className={classes.Button}>
                 Done
               </Button>
