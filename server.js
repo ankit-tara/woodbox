@@ -17,6 +17,13 @@ app.prepare().then(() => {
   const server = express();
 
   server.use(cors());
+  server.all('*', function (req, res, next) {
+    var origin = req.get('origin');
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
 
   // server.get("/products/type/:type", (req, res) => {
   //   let query = req.query ? req.query : {};

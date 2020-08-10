@@ -51,19 +51,23 @@ function Events({ data, url, showState=false }) {
     }
   };
 
-  const fetchTypeEvents = async (url, page, events) => {
+  const fetchTypeEvents =  (url, page, events) => {
     page = !page ? 1 : page + 1;
     setpage(page);
     url = `${url}&page=${page}`;
-    await getEvents(url).then((data) => {
+     getEvents(url).then((data) => {
       if (events && events.data) {
         data.data = events.data.concat(data.data);
+        
       }
-      if (data.current_page == data.last_page) {
+      if(data){
+        setevents(data);
+      }
+      if (data && data.current_page == data.last_page) {
         setlastPage(true);
       }
       // console.log(page, url, data);
-      setevents(data);
+     
       setloadMore(false);
     });
   };

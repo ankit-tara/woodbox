@@ -1,4 +1,5 @@
 const API_URL = process.env.api_url;
+import fetch from "node-fetch";
 
 export function searchUniversities(q) {
   let url = API_URL + "/universities/global/search/" + q;
@@ -92,7 +93,7 @@ export async function getCategories() {
     .then((response) => response.json())
     .then((responseData) => {
       return responseData;
-  })
+    })
     .catch((error) => console.warn(error));
 }
 
@@ -107,14 +108,14 @@ export async function getCities() {
     .then((responseData) => {
       console.log('responseData', responseData);
       return responseData;
-  })
+    })
     .catch((error) => console.warn(error));
 }
 
-export async function getEvents(q,showall=false) {
-  let url = API_URL + "/events/";
-  if (showall){
-    url = url +  showall
+export async function getEvents(q, showall = false) {
+  let url = API_URL + "/events";
+  if (showall) {
+    url = url + showall
   }
   if (q) {
     url = url + q;
@@ -127,7 +128,7 @@ export async function getEvents(q,showall=false) {
       console.log(responseData);
       return responseData;
     })
-    .catch((error) => console.warn(error));
+    .catch((error) => console.log(error));
 }
 
 export async function getEvent(id) {
@@ -158,7 +159,7 @@ export function searchEventCategories(q) {
 }
 
 export function CreateOrder(data) {
-  let url = API_URL + "/order/" ;
+  let url = API_URL + "/order/";
   console.log(url);
   return generalPostRequest(url, data);
 }
