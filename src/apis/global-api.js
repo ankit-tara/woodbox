@@ -115,7 +115,7 @@ export async function getCities() {
 export async function getEvents(q, showall = false) {
   let url = API_URL + "/events";
   if (showall) {
-    url = url + showall
+    url = url + '/'+showall
   }
   if (q) {
     url = url + q;

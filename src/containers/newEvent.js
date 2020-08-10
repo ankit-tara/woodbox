@@ -380,6 +380,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       visit_website_link: visitLink,
       social_profiles: socialLinks,
       files: files,
+      seller_id:user.id,
       active: event ? event.active : false,
     };
     event = event ? event : eventData
