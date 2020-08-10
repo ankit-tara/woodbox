@@ -159,7 +159,7 @@ export function searchEventCategories(q) {
 }
 
 export function CreateOrder(data) {
-  let url = API_URL + "/order/";
+  let url = API_URL + "/order";
   console.log(url);
   return generalPostRequest(url, data);
 }
