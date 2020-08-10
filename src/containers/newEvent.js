@@ -178,6 +178,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const [filesInfo, setfilesInfo] = useState([]);
   const [title, settitle] = useState(event.title);
   const [description, setdescription] = useState(event.description);
+  const [promo_code, setpromo_code] = useState(event.promo_code);
   const [price, setprice] = useState(event.price);
   const [eventDate, seteventdate] = useState(event.event_date);
   const [eventTime, seteventtime] = useState(event.event_time);
@@ -381,6 +382,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       social_profiles: socialLinks,
       files: files,
       active: event ? event.active : false,
+      promo_code:promo_code
     };
     event = event ? event : eventData
     if (formtype == "edit" && event.id) {
@@ -819,6 +821,22 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                             value={description}
                             placeholder="Description"
                             onChange={(e) => updateformData(e, "description")}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                     <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <DetailsIcon />
+                        </Grid>
+                        <Grid item className={`${classes.formInputField} ${classes.formInputFieldFull}`}>
+                          <TextField
+                            id="about"
+                            label="Promo Code"
+                            value={promo_code}
+                            placeholder="Promo Code"
+                            onChange={(e) => updateformData(e, "promo_code")}
                           />
                         </Grid>
                       </Grid>
