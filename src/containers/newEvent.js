@@ -380,8 +380,8 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       visit_website_link: visitLink,
       social_profiles: socialLinks,
       files: files,
-      seller_id:user.id,
-      active: event ? event.active : false,
+      seller_id: user.id,
+      active: event ? event.active : event.event_price > 0 ? false : true,
     };
     event = event ? event : eventData
     if (formtype == "edit" && event.id) {
@@ -390,7 +390,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           setbackdrop(false);
           setformerrs(response.msg);
         } else {
-          if (event.price > 0 && !event.order_id) {
+          if (event.event_price > 0 && !event.order_id) {
             paymentHandler(response.body.event)
           } else {
             router.push("/profile/events");
@@ -407,7 +407,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           seteventData(response.body.event)
 
           console.log(response)
-          if (response.body.event.price > 0) {
+          if (response.body.event.event_price > 0) {
             paymentHandler(response.body.event)
           } else {
 
@@ -515,8 +515,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const showPayButton = () => {
     let ev = event ? event : eventData
     console.log(event)
-    if (ev.id && ev.event_price && ev.event_price > 0 && !ev.order_id)
-     {
+    if (ev.id && ev.event_price && ev.event_price > 0 && !ev.order_id) {
       return (
         <Button
           onClick={() => paymentHandler(ev)}
@@ -526,7 +525,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
           Pay Now
         </Button>
       )
-     }
+    }
     return null
   }
 
