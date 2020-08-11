@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
 const Testimonial = ({ data }) => {
 
   const classes = useStyles()
+  console.log('aaaaaaaaaaaaaaaaaaaaaaa',data);
 
   const params = {
     loop: true,
@@ -46,7 +47,7 @@ const Testimonial = ({ data }) => {
           <div className={classes.TestimonialSlide} key={item.id}>
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
-                <img src={item.image.url} alt="" className={classes.image} />
+                <img src={item.link} alt="" className={classes.image} />
                 <Box className={classes.slideContent}>
                   <Typography variant="h6" className={classes.name}>{item.name}</Typography>
                   <StarRatings
@@ -57,7 +58,7 @@ const Testimonial = ({ data }) => {
                     numberOfStars={5}
                     name={data.id}
                   />
-                  <Typography className={classes.review}>{item.review}</Typography>
+                  <Typography className={classes.text}>{item.text}</Typography>
                 </Box>
               </CardContent>
             </Card>

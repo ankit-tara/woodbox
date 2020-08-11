@@ -178,6 +178,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   const [filesInfo, setfilesInfo] = useState([]);
   const [title, settitle] = useState(event.title);
   const [description, setdescription] = useState(event.description);
+  const [promo_code, setpromo_code] = useState(event.promo_code);
   const [price, setprice] = useState(event.price);
   const [eventDate, seteventdate] = useState(event.event_date);
   const [eventTime, seteventtime] = useState(event.event_time);
@@ -209,6 +210,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       ? [{ name: event.category.name, id: event.category.id }]
       : []
   );
+  const [promoCodeDicount, setpromoCodeDicount] = useState(0);
   const [loading, setloading] = useState(false);
   const [loadingUni, setloadingUni] = useState(false);
   const [backdrop, setbackdrop] = useState(false);
@@ -367,6 +369,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       (item) => item.name == university.name
     );
     let category_id = categories.find((item) => item.name == category.name);
+    console.log(title,category_id.id);
     let data = {
       title: title,
       description: description,
@@ -382,6 +385,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       files: files,
       seller_id: user.id,
       active: event ? event.active : event.event_price > 0 ? false : true,
+      promo_code:promo_code
     };
     event = event ? event : eventData
     if (formtype == "edit" && event.id) {
@@ -408,7 +412,8 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
 
           console.log(response)
           if (response.body.event.event_price > 0) {
-            paymentHandler(response.body.event)
+           
+            paymentHandler(response.body.event,response.body.promo_code)
           } else {
 
             router.push("/profile/events");
@@ -437,7 +442,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     setsnackbar(!snackbar);
   };
 
-  const paymentHandler = async (event) => {
+  const paymentHandler = async (event,promoCodeDetail) => {
     if (!event) {
       setsnackbar(true);
       setsnackbarMsg("Event not valid");
@@ -446,6 +451,12 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     const APP_URL = process.env.APP_URL
     let receipt_id = 'receipt_event' + event.id
     let event_price = event.event_price * 100
+    let promo_code_id = 0
+    if(promoCodeDetail!='') {
+      let discount = event_price*promoCodeDetail.amount/100
+      event_price  = event_price - discount
+      promo_code_id  = promoCodeDetail.id
+    }
     // e.preventDefault();
     const orderUrl = `${APP_URL}order/${event_price}/${receipt_id}`;
     console.log(orderUrl)
@@ -466,6 +477,9 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
         try {
           const paymentId = response.razorpay_payment_id;
           const url = `${APP_URL}capture/${paymentId}/${event_price}`;
+
+          console.log(url);
+
           const captureResponse = await axios.post(url, {});
           console.log(captureResponse.data);
           let resp = JSON.parse(captureResponse.data)
@@ -477,7 +491,8 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
             'price': resp.amount / 100,
             'user_id': user.id,
             'type': 'event',
-            'event_id': event.id
+            'event_id': event.id,
+            'promo_code_id':promo_code_id
           }
 
           CreateOrder(data).then((response) => {
@@ -823,6 +838,24 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                         </Grid>
                       </Grid>
                     </div>
+                    {formtype == "add" ? 
+                     <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <DetailsIcon />
+                        </Grid>
+                        <Grid item className={`${classes.formInputField} ${classes.formInputFieldFull}`}>
+                          <TextField
+                            id="about"
+                            label="Promo Code"
+                            value={promo_code}
+                            placeholder="Promo Code"
+                            onChange={(e) => updateformData(e, "promo_code")}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                    : ""}
                     <div
                       className={`${classes.formInput} ${classes.formInputFullWidth} `}
                     >

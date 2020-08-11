@@ -164,6 +164,21 @@ export function CreateOrder(data) {
   return generalPostRequest(url, data);
 }
 
+export async function getAllFeedback(q) {
+  let url = API_URL + "/all-feedback";
+  if (q) {
+    url = url + q;
+  }
+  console.log(url);
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
 
 function generalPostRequest(url, data) {
   return fetch(url, {

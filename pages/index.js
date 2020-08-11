@@ -55,16 +55,21 @@ export async function getStaticProps() {
   res = await fetch(API_URL + "/events?paginate=10");
   const events = await res.json();
 
+  let feedback = await fetch(API_URL + "/all-feedback");
+  const reviews = await feedback.json();
+
+
   return {
     props: {
       bproducts,
       sproducts,
       events,
+      reviews
     },
   };
 }
 
-export default function Index({ bproducts, sproducts, events }) {
+export default function Index({ bproducts, sproducts, events ,reviews }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [opensell, setOpensell] = React.useState(false);
@@ -74,6 +79,7 @@ export default function Index({ bproducts, sproducts, events }) {
   const [sellType, setsellType] = useState('')
   const [list_bproducts, setlist_bproducts] = useState(bproducts)
   const [list_sproducts, setlist_sproducts] = useState(sproducts)
+  const [list_reviews, setlist_reviews] = useState(reviews)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -401,7 +407,7 @@ export default function Index({ bproducts, sproducts, events }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography>
           </Box>
-          <Testimonial data={TestimonialData} />
+          <Testimonial data={list_reviews} />
         </Container>
       </section>
     </Layout>
