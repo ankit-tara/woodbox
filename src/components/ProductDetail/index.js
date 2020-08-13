@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import ImageGallery from "react-image-gallery";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -21,7 +20,7 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 // import { chatDialog } from "../../redux/actions/dialog";
 import ConnectyCube from "connectycube";
-
+import ShareIcon from "../ShareIcon"
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -33,6 +32,7 @@ const ProductDetail = ({ data }) => {
   const [product, setproduct] = useState({});
   const [images, setimages] = useState([]);
   const [showVideo, setshowVideo] = useState(false);
+  const router = useRouter()
 
   const staticImages = [
     {
@@ -87,8 +87,7 @@ const ProductDetail = ({ data }) => {
   }
 
   const _toggleShowVideo=(url)=> {
-    console.log('called')
-    console.log(showVideo);
+  
     setshowVideo(!showVideo);
   }
 
@@ -121,7 +120,6 @@ const ProductDetail = ({ data }) => {
           });
         }
       });
-console.log(imgArr);
       setimages(imgArr);
     }
     // setproducts(data);
@@ -158,7 +156,6 @@ console.log(imgArr);
   
 const authUser = useSelector((state) => state.auth_user);
 
-console.log("authUser", authUser);
 
   function handleChatBtn(){
     if (!authUser.user.connectycube_user) {
@@ -180,7 +177,6 @@ console.log("authUser", authUser);
     ConnectyCube.chat.dialog
       .create(params)
       .then((dialog) => {
-        console.log("dialog", dialog);
         // store.dispatch(chatDialog(dialog));
         Router.push("/chat");
       })
@@ -237,7 +233,7 @@ console.log("authUser", authUser);
                 </div>
                 <div className={classes.Right}>
                   <FavoriteBorderIcon />
-                  <ShareOutlinedIcon />
+                  <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`}/>
                 </div>
               </CardContent>
             </Card>

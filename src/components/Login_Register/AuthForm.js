@@ -110,24 +110,20 @@ export const AuthForm = ({ type }) => {
         setbtnloading(false);
         setLogin(user, accessToken);
         setshowRedirect(true);
-        console.log(response);
       }
     });
   };
 
   const setLogin = (user, accessToken) => {
-    console.log(user, accessToken);
     dispatch(authenticated(user, accessToken));
     router.push("/profile/edit");
   };
   const responseGoogleSuccess = (response) => {
-    console.log(response)
 
     let data = {
       email: response.profileObj.email,
       google_id: response.googleId
     };
-    console.log(data)
     // return
 
     googleSignup(data).then((response) => {
@@ -140,7 +136,6 @@ export const AuthForm = ({ type }) => {
         setbtnloading(false);
         setLogin(user, accessToken);
         setshowRedirect(true);
-        console.log(response);
       }
     });
   };

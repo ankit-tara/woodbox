@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import ImageGallery from "react-image-gallery";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
@@ -19,6 +18,8 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import Link from "next/link";
+import ShareIcon from "../ShareIcon"
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -30,6 +31,7 @@ const EventDetail = ({ data }) => {
   const [event, setevent] = useState({});
   const [images, setimages] = useState([]);
   const [showVideo, setshowVideo] = useState(false);
+  const router = useRouter()
 
   function _renderVideo(item) {
     return (
@@ -62,8 +64,7 @@ const EventDetail = ({ data }) => {
   }
 
   const _toggleShowVideo = (url) => {
-    console.log("called");
-    console.log(showVideo);
+   
     setshowVideo(!showVideo);
   };
 
@@ -96,7 +97,6 @@ const EventDetail = ({ data }) => {
           });
         }
       });
-      console.log(imgArr);
       setimages(imgArr);
     }
     // setevents(data);
@@ -132,7 +132,6 @@ const EventDetail = ({ data }) => {
 
   const classes = useStyles();
 
-  console.log("data", data);
   if (!data || !data.active)
     return (
       <Container maxWidth="xl">
@@ -190,7 +189,7 @@ const EventDetail = ({ data }) => {
                 </div>
                 <div className={classes.Right}>
                   <FavoriteBorderIcon />
-                  <ShareOutlinedIcon />
+                  <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`} />
                 </div>
               </CardContent>
             </Card>

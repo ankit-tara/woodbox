@@ -68,7 +68,6 @@ const EditProfile = ({ user }) => {
   const classes = useStyles();
 
   useEffect(() => {
-   console.log(user.is_complete)
    if(!user.is_complete){
      setsnackbar(true);
      setsnackbarMsg("Please complete your profile before proceeding");
@@ -88,7 +87,6 @@ const EditProfile = ({ user }) => {
       branch: branch,
       email: user.email,
     };
-    console.log(data);
     setloading(true);
     editProfile(data, user.id).then((data) => {
       setloading(false);
@@ -133,7 +131,6 @@ const EditProfile = ({ user }) => {
       setimgFile(tmppath);
       setimageCrop(true);
     }
-    console.log(e.target.files);
   };
 
   const saveProfileImage = (data) => {

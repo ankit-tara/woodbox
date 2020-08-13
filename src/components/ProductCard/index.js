@@ -61,12 +61,10 @@ function ProductCard({ data, isAuthUser = false }) {
   };
   const handleDelete = () => {
     DeleteProduct(data, data.id).then((response) => {
-      console.log(response);
       if (response.error) {
         setsnackbar(true);
         setsnackbarMsg("There is some error.Please try again later");
         setsnackbarType("error");
-        console.log(response.error)
       } else {
         setsnackbar(true);
         setsnackbarMsg("Deleted");
