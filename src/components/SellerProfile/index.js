@@ -15,8 +15,10 @@ import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import SchoolIcon from "@material-ui/icons/School";
 import ProductCard from "../ProductCard";
 import EventCard from "../EventCard";
+import ResetPassword from "../ResetPassword";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import { getProducts, getEvents } from "../../apis/global-api";
+import { GetUserFavourite } from "../../apis/auth-api";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
@@ -28,25 +30,29 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("xs")]: mobileStyles,
 }));
 
-const sellerProfile = ({ user, events }) => {
+const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
   const [data, setdata] = useState();
   const [eventsdata, seteventsdata] = useState();
+  const [faveventsdata, setfaveventsdata] = useState();
+  const [favproductsdata,setfavproductsdata] = useState();
   const auth_user = useSelector((state) => state.auth_user.user);
 
   useEffect(() => {
     const fetchData = () => {
       getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
       getEvents(`?seller_id=${user.id}`,true).then((data) => seteventsdata(data));
+      GetUserFavourite(user.id,'event').then((data) => setfaveventsdata(data));
+      GetUserFavourite(user.id,'product').then((data) => setfavproductsdata(data));
     };
     fetchData();
   }, [user]);
 
 
-  console.log("datadata", eventsdata);
 
   const classes = useStyles();
 
   const isAuthUser = auth_user.id && user.id == auth_user.id;
+
   return (
     <section className={classes.section}>
       <Container maxWidth="xl">
@@ -119,7 +125,78 @@ const sellerProfile = ({ user, events }) => {
             </Card>
           </Grid>
           )}
-          {!events && (
+          {favevents && (<Grid item lg={9} md={9} sm={12} xs={12}>
+            <Card className={classes.card}>
+              <CardContent className={classes.cardBody}>
+                <Box className={classes.productsHeader}>
+                  <Typography variant="h5">Favourite Events</Typography>
+                  {/* <div className={classes.addmoreGrid}>
+                    <a className={classes.addmorebtn} href="/post">Add More ads</a>
+                  </div> */}
+                </Box>
+                <Box className={classes.ProductsGridWrapper}>
+                  {faveventsdata &&
+                    faveventsdata.data.length > 0 &&
+                    faveventsdata.data.map((data) => (
+                      <div key={data.id}>
+                        <EventCard data={data.event} isAuthUser={false} showState={false} />
+                      </div>
+                    ))}
+                </Box>
+                {faveventsdata && faveventsdata.data.length == 0 && (
+                  <div className={classes.Noads}>
+                    <Typography variant="h5">
+                      There are No Favourite Events to show
+                    </Typography>
+                    <a href="/post" title="Add Product">
+                      <img src="/static/images/addfile.svg" />
+                    </a>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+          )}
+           {favproducts && (<Grid item lg={9} md={9} sm={12} xs={12}>
+            <Card className={classes.card}>
+              <CardContent className={classes.cardBody}>
+                <Box className={classes.productsHeader}>
+                  <Typography variant="h5">Favourite Products</Typography>
+                  {/* <div className={classes.addmoreGrid}>
+                    <a className={classes.addmorebtn} href="/post">Add More ads</a>
+                  </div> */}
+                </Box>
+                <Box className={classes.ProductsGridWrapper}>
+                  {favproductsdata &&
+                    favproductsdata.data.length > 0 &&
+                    favproductsdata.data.map((data) => (
+                      <div key={data.id}>
+                        <ProductCard data={data.event} isAuthUser={false} s/>
+                      </div>
+                    ))}
+                </Box>
+                {favproductsdata && favproductsdata.data.length == 0 && (
+                  <div className={classes.Noads}>
+                    <Typography variant="h5">
+                      There are No Favourite Products to show
+                    </Typography>
+                    <a href="/post" title="Add Product">
+                      <img src="/static/images/addfile.svg" />
+                    </a>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+          )}
+          {resetPwd && (<Grid item lg={9} md={9} sm={12} xs={12}>
+            <Card className={classes.card}>
+              
+              <ResetPassword user={user}/>
+            </Card>
+          </Grid>
+          )}
+          {!events && !favevents && !favproducts && !resetPwd && (
             <Grid item lg={9} md={9} sm={12} xs={12}>
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
