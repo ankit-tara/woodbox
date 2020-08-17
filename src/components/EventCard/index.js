@@ -13,7 +13,11 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import { authenticated } from "../../redux/actions/auth";
-
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
   [theme.breakpoints.up('sm')]: desktopStyles,
@@ -50,6 +54,7 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
       }
     };
   const changeRating = () => {
+    console.log('clk');
     if (!accessToken || accessToken==''){
       window.location.replace("/?signup=open");
     }
@@ -60,8 +65,7 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
         if (response.error) {
           setsnackbar(true);
           setsnackbarMsg("There is some error.Please try again later");
-          setsnackbarType("error");
-          console.log(response.error)
+          setsnackbarType("error");          
           dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
 
         } else {
@@ -79,12 +83,11 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
     } else {
 
        Favourite({'type_id':data.id,type:'event','user_id':user,'action':'remove'}).then((response) => {
-        console.log(response);
+       
         if (response.error) {
           setsnackbar(true);
           setsnackbarMsg("There is some error.Please try again later");
-          setsnackbarType("error");
-          console.log(response.error)
+          setsnackbarType("error");       
           dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
         } else {
           setsnackbar(true);
@@ -130,6 +133,13 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
     });
   };
 
+
+  
+  const handlesnackbar = () => {
+    setsnackbar(!snackbar);
+  };
+
+
   return (
     <Card className={`${classes.card} event__card`} id={"card_"+data.id}>
       {/* <img src={data.image.url} alt="" className={classes.image} /> */}
@@ -149,6 +159,15 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
             : `${classes.cardInner}`
         }
       >
+             <Snackbar
+            open={snackbar}
+            autoHideDuration={6000}
+            onClose={handlesnackbar}
+          >
+            <Alert onClose={handlesnackbar} severity={snackbarType}>
+              {snackbarMsg}
+            </Alert>
+          </Snackbar>
         <div className={classes.flex}>
           <Typography variant="h6" className={classes.title}>
             {data.title.length >= 25 && (
@@ -182,17 +201,11 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
               </Menu>
             </div>
           )}
-          {!isAuthUser && (
-            <StarRatings
-              rating={eventStar}
-              starRatedColor="#FC821A"
-              starHoverColor="#FC821A"
-              changeRating={changeRating}
-              starDimension="24px"
-              numberOfStars={1}
-              id={data.id}
-            />
-          )}
+          {!isAuthUser &&
+            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
+            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
+          
+          
 
         </div>
         {isAuthUser ?

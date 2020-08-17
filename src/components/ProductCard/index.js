@@ -15,7 +15,8 @@ import { DeleteProduct,Favourite } from "../../apis/auth-api"
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -191,17 +192,9 @@ function ProductCard({ data, isAuthUser = false }) {
               </Menu>
             </div>
           )}
-          {!isAuthUser && (
-            <StarRatings
-              rating={productStar}
-              starRatedColor="#FC821A"
-              starHoverColor="#FC821A"
-              changeRating={changeRating}
-              starDimension="24px"
-              numberOfStars={1}
-              id={data.id}
-            />
-          )}
+          {!isAuthUser &&
+            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
+            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
         </div>
         <div className={classes.cardBody}>
           {data.images.length > 0 && (
