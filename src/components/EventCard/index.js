@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect} from "react";
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, Link } from '@material-ui/core'
 import StarRatings from 'react-star-ratings'
@@ -8,10 +8,11 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { DeleteEvent } from "../../apis/auth-api";
+import { DeleteEvent , Favourite} from "../../apis/auth-api";
 import { useRouter } from "next/router";
-
+import { useDispatch, useSelector } from "react-redux";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
+import { authenticated } from "../../redux/actions/auth";
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
@@ -21,27 +22,85 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function EventCard({ data, isAuthUser = false, showState=false }) {
-
+  const dispatch = useDispatch();
   const [isSaved, setisSaved] = React.useState(data.saved)
   const [eventStar, seteventStar] = React.useState(isSaved ? 1 : 0)
   const [snackbar, setsnackbar] = React.useState(false);
   const [snackbarMsg, setsnackbarMsg] = React.useState("");
   const [snackbarType, setsnackbarType] = React.useState("success");
+  const user = useSelector((state) => state.auth_user.user.id);
+  const userFavEvents = useSelector((state) => state.auth_user.userFavEvents);
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const userdetail = useSelector((state) => state.auth_user.user);
 
+    useEffect(() => {
+       isFavourite();
+    }, [userFavEvents])
   const router = useRouter();
+  const favPage = router.pathname.search('favourite')==-1 ? false : true;
 
   const classes = useStyles()
 
+  const isFavourite = () => {
+      if (userFavEvents && userFavEvents.includes(data.id)) {
+          console.log(userFavEvents,userFavEvents.includes(data.id))
+          setisSaved(1);
+          seteventStar(1);
+         
+      }
+    };
   const changeRating = () => {
+    if (!accessToken || accessToken==''){
+      window.location.replace("/?signup=open");
+    }
+   
     if (!isSaved && eventStar == 0) {
-      seteventStar(1)
-      setisSaved(!isSaved)
+
+       Favourite({'type_id':data.id,type:'event','user_id':user,'action':'add'}).then((response) => {
+        if (response.error) {
+          setsnackbar(true);
+          setsnackbarMsg("There is some error.Please try again later");
+          setsnackbarType("error");
+          console.log(response.error)
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+
+        } else {
+          setsnackbar(true);
+          setsnackbarMsg("Added to favourites");
+          setsnackbarType("success");
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+
+         
+        }
+      });
+
+      seteventStar(1);
+      setisSaved(!isSaved);
+    } else {
+
+       Favourite({'type_id':data.id,type:'event','user_id':user,'action':'remove'}).then((response) => {
+        console.log(response);
+        if (response.error) {
+          setsnackbar(true);
+          setsnackbarMsg("There is some error.Please try again later");
+          setsnackbarType("error");
+          console.log(response.error)
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+        } else {
+          setsnackbar(true);
+          setsnackbarMsg("Removed from favourites");
+          setsnackbarType("success");
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+          if(favPage){
+            document.getElementById('card_'+data.id).parentElement.remove();
+          }
+        }
+      });
+
+      seteventStar(0);
+      setisSaved(!isSaved);
     }
-    else {
-      seteventStar(0)
-      setisSaved(!isSaved)
-    }
-  }
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -72,7 +131,7 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
   };
 
   return (
-    <Card className={`${classes.card} event__card`}>
+    <Card className={`${classes.card} event__card`} id={"card_"+data.id}>
       {/* <img src={data.image.url} alt="" className={classes.image} /> */}
       {data.images.length > 0 && (
         <Link href={`/events/item/${data.id}`}>

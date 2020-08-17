@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 const Testimonial = ({ data }) => {
 
   const classes = useStyles()
-  console.log('aaaaaaaaaaaaaaaaaaaaaaa',data);
 
   const params = {
     loop: true,

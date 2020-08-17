@@ -8,9 +8,11 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case AUTHENTICATED:
-      const { user, accessToken } = action.payload;
+      const { user, accessToken ,userFavEvents, userFavProducts } = action.payload;
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userFavEvents", userFavEvents);
+      localStorage.setItem("userFavProducts", userFavProducts);
 
       return {
         ...state,
@@ -21,6 +23,8 @@ export default function (state = initialState, action) {
     case UNAUTHENTICATED:
       localStorage.setItem("user", "");
       localStorage.setItem("accessToken", "");
+      localStorage.setItem("userFavEvents", "");
+      localStorage.setItem("userFavProducts", "");
       return initialState;
 
     default:
@@ -30,6 +34,8 @@ export default function (state = initialState, action) {
         let userData = window.localStorage.getItem("user");
         userData = userData ? JSON.parse(userData) : "";
         let accessTokenData = window.localStorage.getItem("accessToken");
+        let userFavEvents = window.localStorage.getItem("userFavEvents");
+        let userFavProducts = window.localStorage.getItem("userFavProducts");
         accessTokenData =
           accessTokenData && accessTokenData != "undefined"
             ? accessTokenData
@@ -38,6 +44,9 @@ export default function (state = initialState, action) {
           data = {
             user: userData,
             accessToken: accessTokenData,
+            userFavEvents:userFavEvents,
+            userFavProducts:userFavProducts
+
           };
         }
       }

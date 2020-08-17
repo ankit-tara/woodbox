@@ -79,7 +79,9 @@ export const AuthForm = ({ type }) => {
         setbtnloading(false);
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
-        setLogin(user, accessToken);
+        let favEvents = response.body.favEvents;
+        let favProducts = response.body.favProducts;
+        setLogin(user, accessToken,favEvents,favProducts);
         setshowRedirect(true);
       }
     });
@@ -108,14 +110,17 @@ export const AuthForm = ({ type }) => {
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setbtnloading(false);
-        setLogin(user, accessToken);
+        let favEvents = response.body.favEvents;
+        let favProducts = response.body.favProducts;
+        setLogin(user, accessToken,favEvents,favProducts);
         setshowRedirect(true);
       }
     });
   };
 
-  const setLogin = (user, accessToken) => {
-    dispatch(authenticated(user, accessToken));
+  const setLogin = (user, accessToken, favEvents, favProducts) => {
+    console.log(user, accessToken);
+    dispatch(authenticated(user, accessToken, favEvents,favProducts));
     router.push("/profile/edit");
   };
   const responseGoogleSuccess = (response) => {
@@ -134,7 +139,9 @@ export const AuthForm = ({ type }) => {
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setbtnloading(false);
-        setLogin(user, accessToken);
+         let favEvents = response.body.favEvents;
+        let favProducts = response.body.favProducts;
+        setLogin(user, accessToken,favEvents,favProducts);
         setshowRedirect(true);
       }
     });
@@ -185,7 +192,10 @@ export const AuthForm = ({ type }) => {
       setuniversities(response);
     });
   };
-
+  
+  const gotoForgotPassword = () => {
+    router.push("/forgot-password");
+  };
   return (
     <div className={classes.form}>
       <div style={{ textAlign: "center" }} className="googleBtn">
@@ -346,6 +356,8 @@ export const AuthForm = ({ type }) => {
           {btnloading ? <CircularProgress color="primary" size={20} /> : null}
         </Button>
       </form>
+
+      <p>Forgot password ? click <span onClick={gotoForgotPassword} >here</span></p>
       {showRedirect && (
         <Typography color="primary">
           Redirecting to profile page!!{" "}
