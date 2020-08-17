@@ -62,6 +62,10 @@ body::-webkit-scrollbar-thumb {
   min-width: 60%;
 }
 
+.MuiAccordion-root:before{
+  display: none;
+}
+
 @keyframes slideFromLeft {
   0% {
     margin-left: -200px;
