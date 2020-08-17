@@ -128,6 +128,19 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   const gotoEvents = () => {
     router.push("/profile/events");
   };
+  const gotoFavEvents = () =>{
+    router.push("/profile/favourite-events");
+  };
+  const gotoFavProducts = () =>{
+    router.push("/profile/favourite-products");
+  };
+  const gotoAddRequest = () =>{
+    router.push("/post/request");
+  };
+  const gotoResetPassword = () => {
+    router.push("/profile/reset-password");
+  }
+  
 
   const logout = () => {
     setAnchorEl(null);
@@ -156,8 +169,13 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
       >
         <MenuItem onClick={gotoProfile}>View Profile</MenuItem>
         <MenuItem onClick={gotoProfileEdit}>Edit Profile</MenuItem>
+        <MenuItem onClick={gotoResetPassword}>Reset Password</MenuItem>
         <MenuItem onClick={gotoProfile}>Published Ads</MenuItem>
         <MenuItem onClick={gotoEvents}>Published Events</MenuItem>
+        <MenuItem onClick={gotoFavEvents}>Favourite Events</MenuItem>
+        <MenuItem onClick={gotoFavProducts}>Favourite Products</MenuItem>
+        <MenuItem onClick={gotoAddRequest}>Add Product Request</MenuItem>
+        
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
 

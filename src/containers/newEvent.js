@@ -285,7 +285,6 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       count++;
       const reader = new FileReader();
       reader.onload = (event) => {
-        console.log(event.target.result);
         //store result into your state array.
         let updatedImages = files.concat(event.target.result);
         let updatedImagesInfo = filesInfo.concat({
@@ -356,9 +355,9 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
   };
 
   const handleSubmit = (e, uploaded_files) => {
-
-    console.log(socialLinks)
     e && e.preventDefault();
+    
+   
     let is_valid = checkValidation();
 
     if (!is_valid) {
@@ -369,7 +368,6 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       (item) => item.name == university.name
     );
     let category_id = categories.find((item) => item.name == category.name);
-    console.log(title,category_id.id);
     let data = {
       title: title,
       description: description,
@@ -404,13 +402,13 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       });
     } else {
       AddEvent(data).then((response) => {
+       
         if (response.error) {
           setbackdrop(false);
           setformerrs(response.msg);
         } else if (response.body && response.body.event) {
           seteventData(response.body.event)
 
-          console.log(response)
           if (response.body.event.event_price > 0) {
            
             paymentHandler(response.body.event,response.body.promo_code)
@@ -448,7 +446,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
       setsnackbarMsg("Event not valid");
       setsnackbarType("error");
     }
-    const APP_URL = process.env.APP_URL
+    const APP_URL = process.env.APP_URL+'/'
     let receipt_id = 'receipt_event' + event.id
     let event_price = event.event_price * 100
     let promo_code_id = 0
@@ -459,10 +457,8 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     }
     // e.preventDefault();
     const orderUrl = `${APP_URL}order/${event_price}/${receipt_id}`;
-    console.log(orderUrl)
     // return
     const response = await axios.get(orderUrl);
-    console.log("response", response);
 
     const { data } = response;
     const options = {
@@ -529,7 +525,6 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
 
   const showPayButton = () => {
     let ev = event ? event : eventData
-    console.log(event)
     if (ev.id && ev.event_price && ev.event_price > 0 && !ev.order_id) {
       return (
         <Button

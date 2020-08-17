@@ -144,6 +144,19 @@ export async function getEvent(id) {
     })
     .catch((error) => console.warn(error));
 }
+export async function getRequest(id) {
+  let url = API_URL + "/product-request/" + id;
+
+  console.log(url);
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
 
 export function searchEventCategories(q) {
   let url = API_URL + `/event-categories-search/${q}`;
@@ -178,6 +191,18 @@ export async function getAllFeedback(q) {
       return responseData;
     })
     .catch((error) => console.warn(error));
+}
+
+export function ForgotPasswordAPI(data) {
+  let url = API_URL + "/forgot-password";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+
+export function UpdatePasswordAPI(data) {
+  let url = API_URL + "/update-password";
+  console.log(url);
+  return generalPostRequest(url, data);
 }
 
 function generalPostRequest(url, data) {

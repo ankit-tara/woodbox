@@ -71,7 +71,38 @@ export function DeleteEvent(data, id) {
   console.log(url);
   return generalPostRequest(url, data);
 }
-
+export function Favourite(data) {
+  let url = API_URL + "/favourite";
+  console.log(url);  
+  
+  return generalPostRequest(url, data);
+}
+export function GetUserFavourite(user_id,type) {
+  let url = API_URL + "/user-favourite/"+user_id+'/'+type;
+  
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
+export function AddProductRequest(data) {
+  let url = API_URL + "/product-request";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+export function UpdateProductRequest(data, id) {
+  let url = API_URL + "/product-request/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
+export function ResetPasswordAPI(data) {
+  let url = API_URL + "/reset-password";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
 function generalPostRequest(url, data) {
   return fetch(url, {
     headers: {
@@ -94,3 +125,4 @@ function generalPostRequest(url, data) {
     })
     .catch((error) => console.log(error));
 }
+

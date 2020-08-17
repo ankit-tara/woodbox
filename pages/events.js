@@ -17,7 +17,6 @@ function EventsPage({ query }) {
   if (type) {
     url = url + '&type=' + type
   }
-  console.log(url)
   return <Events url={url}  />;
 }
 
