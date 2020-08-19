@@ -212,7 +212,7 @@ export default function ForgotPassword({  }) {
          
         } else {
           setbackdrop(false);
-          setsuccessMsg('You may got the 6 digit code in your email for reset the password.')          
+          setsuccessMsg('You may have got the 6 digit code in your email for reset the password.')          
           setpage('reset')
         }
       });

@@ -229,6 +229,14 @@ export default function SearchAppBar() {
                     <ListItemText primary="Sell" />
                   </ListItem>
                 </a>
+                <a href="/buy-request">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <FormatListBulletedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Requests" />
+                  </ListItem>
+                </a>
                 <Divider />
                 <a href="/post" onClick={handleListEvent}>
                   <ListItem button>

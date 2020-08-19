@@ -191,6 +191,9 @@ function Header({ modalOpen }) {
                 <a href="/events">Events</a>
               </li>
               <li>
+                <a href="/buy-request">Requests</a>
+              </li>
+              <li>
                 <a>
                   <span onClick={handleListProduct}>Sell</span>
                 </a>
@@ -275,9 +278,9 @@ function Header({ modalOpen }) {
               <li>
                 <ChatIcon />
               </li>
-              <li>
+              {/* <li>
                 <NotificationsNoneIcon />
-              </li>
+              </li> */}
               <li>
                 <AuthIcon modalOpen={authModal} />
               </li>

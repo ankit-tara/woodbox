@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Accordian(props) {
+export default function Accordian({ data }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -76,22 +76,21 @@ export default function Accordian(props) {
       <AccordionSummary
         aria-controls="panel1a-content"
         id="panel1a-header"
-        // expandIcon={<ExpandMoreIcon />}
+      // expandIcon={<ExpandMoreIcon />}
       >
         <div className={classes.Flex}>
           <Typography variant="h6" className={classes.heading}>
-            I won't, then!--Bill's to go nearer till she was.
+            {data.title}
           </Typography>
           <Button color="primary">Chat</Button>
         </div>
       </AccordionSummary>
       <AccordionDetails className={classes.Details}>
         <Typography className={classes.desc}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+         {data.description}
         </Typography>
         <Typography className={classes.collegeName}>
-          Gurn Nanak Dev Engineering College, Ludhiana
+          {data.user.university.name}
         </Typography>
       </AccordionDetails>
     </Accordion>
