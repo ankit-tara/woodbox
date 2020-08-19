@@ -114,7 +114,6 @@ export const AuthForm = ({ type }) => {
         let favProducts = response.body.favProducts;
         setLogin(user, accessToken,favEvents,favProducts);
         setshowRedirect(true);
-        console.log(response);
       }
     });
   };
@@ -125,13 +124,11 @@ export const AuthForm = ({ type }) => {
     router.push("/profile/edit");
   };
   const responseGoogleSuccess = (response) => {
-    console.log(response)
 
     let data = {
       email: response.profileObj.email,
       google_id: response.googleId
     };
-    console.log(data)
     // return
 
     googleSignup(data).then((response) => {
@@ -146,7 +143,6 @@ export const AuthForm = ({ type }) => {
         let favProducts = response.body.favProducts;
         setLogin(user, accessToken,favEvents,favProducts);
         setshowRedirect(true);
-        console.log(response);
       }
     });
   };

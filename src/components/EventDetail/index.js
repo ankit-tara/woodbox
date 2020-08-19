@@ -10,9 +10,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import ImageGallery from "react-image-gallery";
+<<<<<<< HEAD
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
+=======
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+>>>>>>> master
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
@@ -20,6 +24,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import Link from "next/link";
+<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteEvent , Favourite} from "../../apis/auth-api"
 import Snackbar from "@material-ui/core/Snackbar";
@@ -28,6 +33,11 @@ import { authenticated } from "../../redux/actions/auth";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+=======
+import ShareIcon from "../ShareIcon"
+import { useRouter } from "next/router";
+
+>>>>>>> master
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("md")]: desktopStyles,
@@ -41,6 +51,7 @@ const EventDetail = ({ data }) => {
   const [event, setevent] = useState({});
   const [images, setimages] = useState([]);
   const [showVideo, setshowVideo] = useState(false);
+<<<<<<< HEAD
    const [snackbar, setsnackbar] = React.useState(false);
   const [snackbarMsg, setsnackbarMsg] = React.useState("");
   const [snackbarType, setsnackbarType] = React.useState("success");
@@ -112,6 +123,9 @@ const EventDetail = ({ data }) => {
    const handlesnackbar = () => {
     setsnackbar(!snackbar);
   };
+=======
+  const router = useRouter()
+>>>>>>> master
 
   function _renderVideo(item) {
     return (
@@ -144,8 +158,7 @@ const EventDetail = ({ data }) => {
   }
 
   const _toggleShowVideo = (url) => {
-    console.log("called");
-    console.log(showVideo);
+   
     setshowVideo(!showVideo);
   };
 
@@ -178,7 +191,6 @@ const EventDetail = ({ data }) => {
           });
         }
       });
-      console.log(imgArr);
       setimages(imgArr);
     }
     // setevents(data);
@@ -214,7 +226,6 @@ const EventDetail = ({ data }) => {
 
   const classes = useStyles();
 
-  console.log("data", data);
   if (!data || !data.active)
     return (
       <Container maxWidth="xl">
@@ -282,12 +293,17 @@ const EventDetail = ({ data }) => {
                   </Box>
                 </div>
                 <div className={classes.Right}>
+<<<<<<< HEAD
                 {
             isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
             <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
           
           
                   <ShareOutlinedIcon />
+=======
+                  <FavoriteBorderIcon />
+                  <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`} />
+>>>>>>> master
                 </div>
               </CardContent>
             </Card>

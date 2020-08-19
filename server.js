@@ -80,9 +80,7 @@ app.prepare().then(() => {
           //     message: "Something Went Wrong 1",
           //   });
           // }
-          console.log("Status:", response.statusCode);
-          console.log("Headers:", JSON.stringify(response.headers));
-          console.log("Response:", body);
+         
           return res.status(200).json(body);
         }
       );

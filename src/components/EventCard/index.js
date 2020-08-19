@@ -120,12 +120,10 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
   };
   const handleDelete = () => {
     DeleteEvent(data, data.id).then((response) => {
-      console.log(response);
       if (response.error) {
         setsnackbar(true);
         setsnackbarMsg("There is some error.Please try again later");
         setsnackbarType("error");
-        console.log(response.error);
       } else {
         setsnackbar(true);
         setsnackbarMsg("Deleted");

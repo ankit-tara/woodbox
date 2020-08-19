@@ -46,7 +46,7 @@ const Testimonial = ({ data }) => {
           <div className={classes.TestimonialSlide} key={item.id}>
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
-                <img src={item.link} alt="" className={classes.image} />
+                <img src={item.image.url} alt="" className={classes.image} />
                 <Box className={classes.slideContent}>
                   <Typography variant="h6" className={classes.name}>{item.name}</Typography>
                   <StarRatings
@@ -57,7 +57,7 @@ const Testimonial = ({ data }) => {
                     numberOfStars={5}
                     name={data.id}
                   />
-                  <Typography className={classes.text}>{item.text}</Typography>
+                  <Typography className={classes.text}>{item.review}</Typography>
                 </Box>
               </CardContent>
             </Card>

@@ -70,7 +70,6 @@ export default function singlePage({ query }) {
   };
 
   const classes = useStyles();
-  console.log(data);
 
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 

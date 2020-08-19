@@ -25,8 +25,7 @@ Router.events.on("routeChangeComplete", () => { isuserProfileComplete(); NProgre
 Router.events.on("routeChangeError", () => NProgress.done());
 
 const isuserProfileComplete = () => {
-  console.log('test')
-  console.log(Router.router.asPath != '/profile/edit')
+  
   let userData = window.localStorage.getItem("user");
   userData = userData ? JSON.parse(userData) : "";
   let accessTokenData = window.localStorage.getItem("accessToken");

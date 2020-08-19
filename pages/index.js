@@ -89,7 +89,6 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
   };
 
   const handleClose = async(event, data) => {
-    console.log(event.target, data)
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }

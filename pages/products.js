@@ -17,7 +17,6 @@ function ProductsPage({ query }) {
   if (type){
     url = url + '&type=' + type
   }
-  console.log(url)
   return <Products url={url} />;
 }
 
