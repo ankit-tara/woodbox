@@ -10,13 +10,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import ImageGallery from "react-image-gallery";
-<<<<<<< HEAD
+
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
-=======
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
->>>>>>> master
+
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -26,19 +24,19 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 // import { chatDialog } from "../../redux/actions/dialog";
 import ConnectyCube from "connectycube";
-<<<<<<< HEAD
+
 import { DeleteEvent , Favourite} from "../../apis/auth-api"
 
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { authenticated } from "../../redux/actions/auth";
+import ShareIcon from "../ShareIcon"
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-=======
-import ShareIcon from "../ShareIcon"
->>>>>>> master
+
+
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -53,7 +51,7 @@ const ProductDetail = ({ data }) => {
   const [product, setproduct] = useState({});
   const [images, setimages] = useState([]);
   const [showVideo, setshowVideo] = useState(false);
-<<<<<<< HEAD
+
   const userFavProducts = useSelector((state) => state.auth_user.userFavProducts);
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user.id);
@@ -61,10 +59,10 @@ const ProductDetail = ({ data }) => {
   const [snackbar, setsnackbar] = React.useState(false);
   const [snackbarMsg, setsnackbarMsg] = React.useState("");
   const [snackbarType, setsnackbarType] = React.useState("success");
-=======
+
   const router = useRouter()
 
->>>>>>> master
+
   const staticImages = [
     {
       original: "/static/images/bike1.jpg",
@@ -335,15 +333,13 @@ const authUser = useSelector((state) => state.auth_user);
                   </Box>
                 </div>
                 <div className={classes.Right}>
-<<<<<<< HEAD
+
                  {
             isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
             <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
-                  <ShareOutlinedIcon />
-=======
-                  <FavoriteBorderIcon />
+                
                   <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`}/>
->>>>>>> master
+
                 </div>
               </CardContent>
             </Card>
