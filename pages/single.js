@@ -25,11 +25,28 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.');
 }
 
-export default function singlePage() {
+export async function getStaticProps() {
+  const API_URL = process.env.api_url;
+
+  
+
+  let feedback = await fetch(API_URL + "/all-feedback");
+  const reviews = await feedback.json();
+
+
+  return {
+    props: {
+      reviews
+    },
+  };
+}
+
+export default function singlePage({ reviews}) {
 
   const classes = useStyles()
 
   const matches = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  const [list_reviews, setlist_reviews] = useState(reviews)
 
   return (
     <Layout>
@@ -59,7 +76,7 @@ export default function singlePage() {
             <Typography variant="h2">REVIEW</Typography>
             <Typography>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent  consectetuer adipiscing elit</Typography>
           </Box>
-          <Testimonial data={TestimonialData} />
+          <Testimonial data={list_reviews}  />
         </Container>
       </section>
 

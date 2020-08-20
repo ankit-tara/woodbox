@@ -178,7 +178,7 @@ export function CreateOrder(data) {
 }
 
 export async function getAllFeedback(q) {
-  let url = API_URL + "/all-feedback";
+  let url = API_URL + "/feedback";
   if (q) {
     url = url + q;
   }
@@ -188,7 +188,7 @@ export async function getAllFeedback(q) {
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
-      return responseData;
+      return responseData.data;
     })
     .catch((error) => console.warn(error));
 }

@@ -28,16 +28,21 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 import { useRouter } from "next/router";
-import { getEvents } from "../apis/global-api";
+import { getEvents, getAllFeedback } from "../apis/global-api";
 
 function Events({ data, url, showState=false }) {
   const [events, setevents] = useState([]);
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
+  const [list_reviews, setlist_reviews] = useState([])
+
   useEffect(() => {
     console.log("url", url);
     if (url) fetchTypeEvents(url, 0, []);
+    getAllFeedback().then((data) => {
+      setlist_reviews(data)
+    });
     // setevents(data);
   }, [data, url]);
 
@@ -205,7 +210,7 @@ function Events({ data, url, showState=false }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography>
           </Box>
-          <Testimonial data={TestimonialData} />
+          {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
         </Container>
       </section>
     </Layout>

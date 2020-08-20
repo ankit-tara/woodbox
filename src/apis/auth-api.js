@@ -54,6 +54,11 @@ export function DeleteProduct(data, id) {
   console.log(url);
   return generalPostRequest(url, data);
 }
+export function DeleteRequest(data, id) {
+  let url = API_URL + "/product-request/delete/" + id;
+  console.log(url);
+  return generalPostRequest(url, data);
+}
 
 export function AddEvent(data) {
   let url = API_URL + "/event";
@@ -79,6 +84,17 @@ export function Favourite(data) {
 }
 export function GetUserFavourite(user_id,type) {
   let url = API_URL + "/user-favourite/"+user_id+'/'+type;
+  
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
+export function GetUserRequests(user_id) {
+  let url = API_URL + "/product-request/user/"+user_id;
   
   return fetch(url)
     .then((response) => response.json())

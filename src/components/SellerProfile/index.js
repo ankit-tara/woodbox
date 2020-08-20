@@ -18,9 +18,10 @@ import EventCard from "../EventCard";
 import ResetPassword from "../ResetPassword";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import { getProducts, getEvents } from "../../apis/global-api";
-import { GetUserFavourite } from "../../apis/auth-api";
+import { GetUserFavourite, GetUserRequests } from "../../apis/auth-api";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import Accordian from "../Accordian";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,25 +31,27 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("xs")]: mobileStyles,
 }));
 
-const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
+const sellerProfile = ({ user, events, favevents, favproducts, resetPwd, requests }) => {
   const [data, setdata] = useState();
   const [eventsdata, seteventsdata] = useState();
   const [faveventsdata, setfaveventsdata] = useState();
-  const [favproductsdata,setfavproductsdata] = useState();
+  const [favproductsdata, setfavproductsdata] = useState();
+  const [requestsdata, setrequestsdata] = useState();
   const auth_user = useSelector((state) => state.auth_user.user);
 
   useEffect(() => {
-    const fetchData = () => {
-      getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
-      getEvents(`?seller_id=${user.id}`,true).then((data) => seteventsdata(data));
-      GetUserFavourite(user.id,'event').then((data) => setfaveventsdata(data));
-      GetUserFavourite(user.id,'product').then((data) => setfavproductsdata(data));
-    };
+
     fetchData();
   }, [user]);
 
 
-
+  const fetchData = () => {
+    getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
+    events && getEvents(`?seller_id=${user.id}`, true).then((data) => seteventsdata(data));
+    favevents && GetUserFavourite(user.id, 'event').then((data) => setfaveventsdata(data));
+    favproducts && GetUserFavourite(user.id, 'product').then((data) => setfavproductsdata(data));
+    requests && GetUserRequests(user.id).then((data) => setrequestsdata(data));
+  };
   const classes = useStyles();
 
   const isAuthUser = auth_user.id && user.id == auth_user.id;
@@ -111,12 +114,12 @@ const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
                       </div>
                     ))}
                 </Box>
-                {data && data.data.length == 0 && (
+                {eventsdata && eventsdata.data.length == 0 && (
                   <div className={classes.Noads}>
                     <Typography variant="h5">
                       There are No Events to show
                     </Typography>
-                    <a href="/post" title="Add Product">
+                    <a href="/post/event" title="Add Product">
                       <img src="/static/images/addfile.svg" />
                     </a>
                   </div>
@@ -143,21 +146,12 @@ const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
                       </div>
                     ))}
                 </Box>
-                {faveventsdata && faveventsdata.data.length == 0 && (
-                  <div className={classes.Noads}>
-                    <Typography variant="h5">
-                      There are No Favourite Events to show
-                    </Typography>
-                    <a href="/post" title="Add Product">
-                      <img src="/static/images/addfile.svg" />
-                    </a>
-                  </div>
-                )}
+
               </CardContent>
             </Card>
           </Grid>
           )}
-           {favproducts && (<Grid item lg={9} md={9} sm={12} xs={12}>
+          {favproducts && (<Grid item lg={9} md={9} sm={12} xs={12}>
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
                 <Box className={classes.productsHeader}>
@@ -171,7 +165,7 @@ const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
                     favproductsdata.data.length > 0 &&
                     favproductsdata.data.map((data) => (
                       <div key={data.id}>
-                        <ProductCard data={data.event} isAuthUser={false} s/>
+                        <ProductCard data={data.event} isAuthUser={false} s />
                       </div>
                     ))}
                 </Box>
@@ -189,38 +183,30 @@ const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
             </Card>
           </Grid>
           )}
-          {resetPwd && (<Grid item lg={9} md={9} sm={12} xs={12}>
-            <Card className={classes.card}>
-              
-              <ResetPassword user={user}/>
-            </Card>
-          </Grid>
-          )}
-          {!events && !favevents && !favproducts && !resetPwd && (
-            <Grid item lg={9} md={9} sm={12} xs={12}>
+          {requests && (<Grid item lg={9} md={9} sm={12} xs={12}>
             <Card className={classes.card}>
               <CardContent className={classes.cardBody}>
                 <Box className={classes.productsHeader}>
-                  <Typography variant="h5">Published Ads</Typography>
+                  <Typography variant="h5">Published Requests</Typography>
                   {/* <div className={classes.addmoreGrid}>
                     <a className={classes.addmorebtn} href="/post">Add More ads</a>
                   </div> */}
                 </Box>
                 <Box className={classes.ProductsGridWrapper}>
-                  {data &&
-                    data.data.length > 0 &&
-                    data.data.map((data) => (
+                  {requestsdata &&
+                    requestsdata.data.length > 0 &&
+                    requestsdata.data.map((data) => (
                       <div key={data.id}>
-                        <ProductCard data={data} isAuthUser={isAuthUser} />
+                        <Accordian data={data} isAuthUser={true}/>
                       </div>
                     ))}
                 </Box>
-                {data && data.data.length == 0 && (
+                {requestsdata && requestsdata.data.length == 0 && (
                   <div className={classes.Noads}>
                     <Typography variant="h5">
-                      There are No ads to show
+                      There are No Requests to show
                     </Typography>
-                    <a href="/post" title="Add Product">
+                    <a href="/post/request" title="Add Product">
                       <img src="/static/images/addfile.svg" />
                     </a>
                   </div>
@@ -229,8 +215,48 @@ const sellerProfile = ({ user, events ,favevents, favproducts,resetPwd }) => {
             </Card>
           </Grid>
           )}
+          {resetPwd && (<Grid item lg={9} md={9} sm={12} xs={12}>
+            <Card className={classes.card}>
+
+              <ResetPassword user={user} />
+            </Card>
           </Grid>
-          
+          )}
+          {!events && !favevents && !favproducts && !resetPwd && !requests && (
+            <Grid item lg={9} md={9} sm={12} xs={12}>
+              <Card className={classes.card}>
+                <CardContent className={classes.cardBody}>
+                  <Box className={classes.productsHeader}>
+                    <Typography variant="h5">Published Ads</Typography>
+                    {/* <div className={classes.addmoreGrid}>
+                    <a className={classes.addmorebtn} href="/post">Add More ads</a>
+                  </div> */}
+                  </Box>
+                  <Box className={classes.ProductsGridWrapper}>
+                    {data &&
+                      data.data.length > 0 &&
+                      data.data.map((data) => (
+                        <div key={data.id}>
+                          <ProductCard data={data} isAuthUser={isAuthUser} />
+                        </div>
+                      ))}
+                  </Box>
+                  {data && data.data.length == 0 && (
+                    <div className={classes.Noads}>
+                      <Typography variant="h5">
+                        There are No ads to show
+                    </Typography>
+                      <a href="/post" title="Add Product">
+                        <img src="/static/images/addfile.svg" />
+                      </a>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+        </Grid>
+
       </Container>
     </section>
   );

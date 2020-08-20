@@ -29,7 +29,7 @@ import {
   TabStyles,
 } from "../../../src/styles";
 import { useRouter } from "next/router";
-import { getProduct } from "../../../src/apis/global-api";
+import { getProduct, getAllFeedback } from "../../../src/apis/global-api";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles((theme) => ({
@@ -43,13 +43,14 @@ function handleClick(event) {
   event.preventDefault();
   console.info("You clicked a breadcrumb.");
 }
+const fetch = require("node-fetch");
 
 export default function singlePage({ query }) {
   const router = useRouter();
   const { pid } = query;
   const [data, setData] = useState({});
   const [loading, setloading] = useState(true);
-
+  const [list_reviews, setlist_reviews] = useState([])
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -64,8 +65,13 @@ export default function singlePage({ query }) {
   }, []);
 
   const fetchData = async () => {
-    getProduct(pid).then((product) => {setData(product)
-    setloading(false)
+    getProduct(pid).then((product) => {
+      setData(product)
+      setloading(false)
+    });
+
+    getAllFeedback().then((data) => {
+      setlist_reviews(data)
     });
   };
 
@@ -100,7 +106,7 @@ export default function singlePage({ query }) {
         <Backdrop
           className={classes.backdrop}
           open={loading}
-          // onClick={handleClose}
+        // onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
@@ -118,7 +124,7 @@ export default function singlePage({ query }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography>
           </Box>
-          <Testimonial data={TestimonialData} />
+          {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
         </Container>
       </section>
     </Layout>
