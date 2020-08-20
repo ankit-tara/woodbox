@@ -204,7 +204,7 @@ function Header({ modalOpen }) {
                 </a>
               </li>
               <li>
-                <a href="/coming-soon">Feedback</a>
+                <a href="/feedback">Feedback</a>
               </li>
               <li>
                 <Button
