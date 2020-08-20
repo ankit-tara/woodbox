@@ -176,6 +176,11 @@ export function CreateOrder(data) {
   console.log(url);
   return generalPostRequest(url, data);
 }
+export function CreateContact(data) {
+  let url = API_URL + "/contact";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
 
 export async function getAllFeedback(q) {
   let url = API_URL + "/feedback";

@@ -23,6 +23,8 @@ module.exports = {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     RAZOR_PAY_KEY_ID: process.env.RAZOR_PAY_KEY_ID,
     RAZOR_PAY_KEY_SECRET: process.env.RAZOR_PAY_KEY_SECRET,
-    APP_URL: process.env.APP_URL
+    APP_URL: process.env.APP_URL,
+    FROM_EMAIL: process.env.FROM_EMAIL,
+    TO_EMAIL: process.env.TO_EMAIL,
   },
 };
