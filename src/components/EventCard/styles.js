@@ -35,7 +35,7 @@ export const commonStyles = {
   title: {
     flex: "0 0 80%",
     textAlign: "left",
-    fontSize: "1.5rem",
+    fontSize: "1.35rem",
     fontWeight: "500",
   },
   image: {
