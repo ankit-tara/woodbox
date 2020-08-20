@@ -14,9 +14,7 @@ const useStyles = makeStyles(theme => ({
 export default function CommingSoon() {
 
   const classes = useStyles()
-
-
-
+  
   return (
     <Layout>
       <section className={classes.section} style={{textAlign: 'center'}}>

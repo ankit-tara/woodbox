@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
 
 const Testimonial = ({ data }) => {
 
+
+  console.log("reviewdata", data);
+
   const classes = useStyles()
 
   const params = {
@@ -42,30 +45,36 @@ const Testimonial = ({ data }) => {
   return (
     <div className={classes.carousel}>
       <Swiper {...params}>
-        {data.length && data.map(item => (
-          <div className={classes.TestimonialSlide} key={item.id}>
-            <Card className={classes.card}>
-              <CardContent className={classes.cardBody}>
-                <img src={item.image.url} alt="" className={classes.image} />
-                <Box className={classes.slideContent}>
-                  <Typography variant="h6" className={classes.name}>{item.name}</Typography>
-                  <StarRatings
-                    rating={item.rating}
-                    starRatedColor='#FFC107'
-                    starHoverColor='#FFC107'
-                    starDimension='26px'
-                    numberOfStars={5}
-                    name={data.id}
-                  />
-                  <Typography className={classes.text}>{item.review}</Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </div>
+        {data &&
+          data.length &&
+          data.map((item) => (
+            <div className={classes.TestimonialSlide} key={item.id}>
+              <Card className={classes.card}>
+                <CardContent className={classes.cardBody}>
+                  <img src={item.link} alt="" className={classes.image} />
+                  <Box className={classes.slideContent}>
+                    <Typography variant="h6" className={classes.name}>
+                      {item.name}
+                    </Typography>
+                    <StarRatings
+                      rating={item.rating}
+                      starRatedColor="#FFC107"
+                      starHoverColor="#FFC107"
+                      starDimension="26px"
+                      numberOfStars={5}
+                      name={data.id}
+                    />
+                    <Typography className={classes.review}>
+                      {item.text}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </div>
           ))}
       </Swiper>
     </div>
-  )
+  );
 }
 
 export default Testimonial

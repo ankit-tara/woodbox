@@ -51,7 +51,8 @@ export const commonStyles = {
   image:{
     width: '160px',
     height: '160px',
-    borderRadius: '50%'
+    borderRadius: '50%',
+    objectFit: 'cover'
   }
 }
 
