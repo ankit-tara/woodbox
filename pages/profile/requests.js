@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import Profile from "../../src/containers/profile";
 
-const ProfileFavEventsPage = () => {
+const ProfileRequestsPage = () => {
     const router = useRouter();
 
     const accessToken = useSelector((state) => state.auth_user.accessToken);
@@ -18,6 +18,6 @@ const ProfileFavEventsPage = () => {
 
     if (!user) return null;
 
-    return <Profile user={user} favevents={true} events={false}/>;
+    return <Profile user={user} requests={true} />;
 };
-export default ProfileFavEventsPage;
+export default ProfileRequestsPage;

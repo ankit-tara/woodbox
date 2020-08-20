@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import Profile from "../../src/containers/profile";
 
-const ProfilePage = () => {
+const ProfileEditPage = () => {
   const router = useRouter();
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
@@ -19,4 +19,4 @@ const ProfilePage = () => {
 
   return <Profile user={user} edit={true} />;
 };
-export default ProfilePage;
+export default ProfileEditPage;

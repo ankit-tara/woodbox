@@ -128,6 +128,9 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   const gotoEvents = () => {
     router.push("/profile/events");
   };
+  const gotoRequeste = () => {
+    router.push("/profile/requests");
+  };
   const gotoFavEvents = () =>{
     router.push("/profile/favourite-events");
   };
@@ -172,6 +175,7 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
         <MenuItem onClick={gotoResetPassword}>Reset Password</MenuItem>
         <MenuItem onClick={gotoProfile}>Published Ads</MenuItem>
         <MenuItem onClick={gotoEvents}>Published Events</MenuItem>
+        <MenuItem onClick={gotoRequeste}>Published Requests</MenuItem>
         <MenuItem onClick={gotoFavEvents}>Favourite Events</MenuItem>
         <MenuItem onClick={gotoFavProducts}>Favourite Products</MenuItem>
         <MenuItem onClick={gotoAddRequest}>Add Product Request</MenuItem>

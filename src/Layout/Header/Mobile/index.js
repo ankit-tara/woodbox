@@ -306,7 +306,7 @@ export default function SearchAppBar() {
                         <a href="/profile">
                           <ListItem button>
                             <ListItemIcon>
-                              <AccountCircle />
+                              {/* <AccountCircle /> */}
                             </ListItemIcon>
                             <ListItemText primary="View Profile" />
                           </ListItem>
@@ -315,7 +315,7 @@ export default function SearchAppBar() {
                         <a href="/profile/edit">
                           <ListItem button>
                             <ListItemIcon>
-                              <CreateIcon />
+                              {/* <CreateIcon /> */}
                             </ListItemIcon>
                             <ListItemText primary="Edit Profile" />
                           </ListItem>
@@ -324,7 +324,7 @@ export default function SearchAppBar() {
                         <a href="/profile">
                           <ListItem button>
                             <ListItemIcon>
-                              <CreateIcon />
+                              {/* <CreateIcon /> */}
                             </ListItemIcon>
                             <ListItemText primary="Published Adds" />
                           </ListItem>
@@ -333,11 +333,48 @@ export default function SearchAppBar() {
                         <a href="/profile/events">
                           <ListItem button>
                             <ListItemIcon>
-                              <CreateIcon />
+                              {/* <CreateIcon /> */}
                             </ListItemIcon>
                             <ListItemText primary="Published Events" />
                           </ListItem>
                         </a>
+                        <Divider />
+                        <a href="/profile/requests">
+                          <ListItem button>
+                            <ListItemIcon>
+                              {/* <CreateIcon /> */}
+                            </ListItemIcon>
+                            <ListItemText primary="Published Requests" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/profile/favourite-events">
+                          <ListItem button>
+                            <ListItemIcon>
+                              {/* <CreateIcon /> */}
+                            </ListItemIcon>
+                            <ListItemText primary="Favourite Events" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/profile/favourite-products">
+                          <ListItem button>
+                            <ListItemIcon>
+                              {/* <CreateIcon /> */}
+                            </ListItemIcon>
+                            <ListItemText primary="Favourite products" />
+                          </ListItem>
+                        </a>
+                        <Divider />
+                        <a href="/post/request">
+                          <ListItem button>
+                            <ListItemIcon>
+                              {/* <CreateIcon /> */}
+                            </ListItemIcon>
+                            <ListItemText primary="Add Product Request" />
+                          </ListItem>
+                        </a>
+                        <Divider />
                         <ListItem button onClick={logout}>
                           <ListItemIcon>
                             <ExitToAppIcon />

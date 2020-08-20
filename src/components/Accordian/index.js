@@ -5,6 +5,17 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { useRouter } from "next/router";
+import { DeleteRequest } from "../../apis/auth-api";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   Accordian: {
@@ -63,12 +74,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Accordian({ data }) {
+export default function Accordian({ data, isAuthUser }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [snackbar, setsnackbar] = React.useState(false);
+  const [snackbarMsg, setsnackbarMsg] = React.useState("");
+  const [snackbarType, setsnackbarType] = React.useState("success");
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+  const router = useRouter();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleEdit = () => {
+    router.push("/post/request/edit/" + data.id);
+
+  };
+  const handleDelete = () => {
+    DeleteRequest(data, data.id).then((response) => {
+      if (response.error) {
+        setsnackbar(true);
+        setsnackbarMsg("There is some error.Please try again later");
+        setsnackbarType("error");
+      } else {
+        setsnackbar(true);
+        setsnackbarMsg("Deleted");
+        setsnackbarType("success");
+        location.reload();
+      }
+    });
+  };
+
+  const handlesnackbar = () => {
+    setsnackbar(!snackbar);
   };
 
   return (
@@ -79,18 +123,47 @@ export default function Accordian({ data }) {
       // expandIcon={<ExpandMoreIcon />}
       >
         <div className={classes.Flex}>
+          <Snackbar
+            open={snackbar}
+            autoHideDuration={6000}
+            onClose={handlesnackbar}
+          >
+            <Alert onClose={handlesnackbar} severity={snackbarType}>
+              {snackbarMsg}
+            </Alert>
+          </Snackbar>
           <Typography variant="h6" className={classes.heading}>
             {data.title}
           </Typography>
-          <Button color="primary">Chat</Button>
+          {!isAuthUser &&
+            <Button color="primary">Chat</Button>}
+          {isAuthUser && (
+            <div>
+              <MoreVertIcon
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              ></MoreVertIcon>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleEdit}>Edit</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              </Menu>
+            </div>
+          )}
         </div>
       </AccordionSummary>
       <AccordionDetails className={classes.Details}>
         <Typography className={classes.desc}>
-         {data.description}
+          {data.description}
         </Typography>
         <Typography className={classes.collegeName}>
-          {data.user.university.name}
+          {data.university.name}
         </Typography>
       </AccordionDetails>
     </Accordion>

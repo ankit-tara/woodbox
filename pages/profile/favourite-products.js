@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import Profile from "../../src/containers/profile";
 
-const ProfilePage = () => {
+const ProfileFavProductsPage = () => {
     const router = useRouter();
 
     const accessToken = useSelector((state) => state.auth_user.accessToken);
@@ -20,4 +20,4 @@ const ProfilePage = () => {
 
     return <Profile user={user}  favproducts={true}/>;
 };
-export default ProfilePage;
+export default ProfileFavProductsPage;
