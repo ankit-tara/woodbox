@@ -28,16 +28,21 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 import { useRouter } from "next/router";
-import { getProducts } from "../apis/global-api";
+import { getProducts, getAllFeedback } from "../apis/global-api";
 
 function Products({ data, url }) {
   const [products, setproducts] = useState([]);
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
+  const [list_reviews, setlist_reviews] = useState([])
+
   useEffect(() => {
     console.log("url", url);
     if (url) fetchTypeProducts(url, 0, []);
+    getAllFeedback().then((data) => {
+      setlist_reviews(data)
+    });
     // setproducts(data);
   }, [data, url]);
 
@@ -207,7 +212,7 @@ function Products({ data, url }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography>
           </Box>
-          <Testimonial data={TestimonialData} />
+          {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
         </Container>
       </section>
     </Layout>
