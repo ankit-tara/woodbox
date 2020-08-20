@@ -30,6 +30,7 @@ import { useRouter } from "next/router";
 import { getEvent } from "../../../src/apis/global-api";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("md")]: desktopStyles,
@@ -69,6 +70,7 @@ export default function singlePage({ query }) {
   };
 
   const classes = useStyles();
+
 
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 

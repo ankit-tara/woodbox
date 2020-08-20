@@ -10,7 +10,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import ImageGallery from "react-image-gallery";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
+
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -20,7 +24,19 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 // import { chatDialog } from "../../redux/actions/dialog";
 import ConnectyCube from "connectycube";
+
+import { DeleteEvent , Favourite} from "../../apis/auth-api"
+
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { authenticated } from "../../redux/actions/auth";
 import ShareIcon from "../ShareIcon"
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -29,10 +45,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductDetail = ({ data }) => {
+
+  const dispatch = useDispatch();
+   const [isSaved, setisSaved] = React.useState(0)
   const [product, setproduct] = useState({});
   const [images, setimages] = useState([]);
   const [showVideo, setshowVideo] = useState(false);
+
+  const userFavProducts = useSelector((state) => state.auth_user.userFavProducts);
+  const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const user = useSelector((state) => state.auth_user.user.id);
+  const userdetail = useSelector((state) => state.auth_user.user);
+  const [snackbar, setsnackbar] = React.useState(false);
+  const [snackbarMsg, setsnackbarMsg] = React.useState("");
+  const [snackbarType, setsnackbarType] = React.useState("success");
+
   const router = useRouter()
+
 
   const staticImages = [
     {
@@ -56,6 +85,68 @@ const ProductDetail = ({ data }) => {
     },
   ];
 
+  useEffect(() => {
+       isFavourite();
+    }, [userFavProducts])
+
+  const isFavourite = () => {
+      if (userFavProducts && userFavProducts.includes(data.id)) {
+          console.log(userFavProducts,userFavProducts.includes(data.id))
+          setisSaved(1);
+         
+      }
+    };
+   const changeRating = () => {
+    console.log('clk');
+    if (!accessToken || accessToken==''){
+      window.location.replace("/?signup=open");
+    }
+   
+    if (!isSaved ) {
+
+       Favourite({'type_id':data.id,type:'product','user_id':user,'action':'add'}).then((response) => {
+        if (response.error) {
+          setsnackbar(true);
+          setsnackbarMsg("There is some error.Please try again later");
+          setsnackbarType("error");          
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+
+        } else {
+          setsnackbar(true);
+          setsnackbarMsg("Added to favourites");
+          setsnackbarType("success");
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+
+         
+        }
+      });
+
+      setisSaved(!isSaved);
+    } else {
+
+       Favourite({'type_id':data.id,type:'product','user_id':user,'action':'remove'}).then((response) => {
+       
+        if (response.error) {
+          setsnackbar(true);
+          setsnackbarMsg("There is some error.Please try again later");
+          setsnackbarType("error");       
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+        } else {
+          setsnackbar(true);
+          setsnackbarMsg("Removed from favourites");
+          setsnackbarType("success");
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+         
+        }
+      });
+
+      setisSaved(!isSaved);
+    }
+  };
+
+   const handlesnackbar = () => {
+    setsnackbar(!snackbar);
+  };
   function _renderVideo(item) {
     return (
       <div className="video-wrapper">
@@ -194,6 +285,16 @@ const authUser = useSelector((state) => state.auth_user);
       <Container maxWidth="xl">
         <Grid container>
           <Grid item lg={12} md={12} sm={12} xs={12} className={classes.grid}>
+
+            <Snackbar
+            open={snackbar}
+            autoHideDuration={6000}
+            onClose={handlesnackbar}
+          >
+            <Alert onClose={handlesnackbar} severity={snackbarType}>
+              {snackbarMsg}
+            </Alert>
+          </Snackbar>
             <Card
               className={`${classes.card} ${classes.spanCol4} ${classes.spanRow2}`}
             >
@@ -232,8 +333,13 @@ const authUser = useSelector((state) => state.auth_user);
                   </Box>
                 </div>
                 <div className={classes.Right}>
-                  <FavoriteBorderIcon />
+
+                 {
+            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
+            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
+                
                   <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`}/>
+
                 </div>
               </CardContent>
             </Card>
