@@ -42,15 +42,17 @@ const Chat = () => {
                 <a href="javascript:;" className="search"></a> */}
           </div>
           <ul className="people">
-            <li onClick={gotoChat} className="person">
+            {Dialogs && Dialogs.length > 0 && Dialogs.map((dialog)=>(  
+              <li onClick={gotoChat} className="person">
               <img
                 src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/thomas.jpg"
                 alt=""
-              />
-              <span className="name">Thomas Bangalter</span>
+                />
+              <span className="name">{dialog.name}</span>
               <span className="time">2:09 PM</span>
               <span className="preview">I was wondering...</span>
-            </li>
+            </li>)
+            )}
           </ul>
         </div>
         <div className="right">
