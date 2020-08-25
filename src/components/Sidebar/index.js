@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, Button } from '@material-ui/core'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -22,6 +22,9 @@ import {
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import { useRouter } from "next/router";
 import TuneIcon from "@material-ui/icons/Tune";
+import { SELECTED_FILTER_UNIVERSITY, PAGE_PRODUCTS } from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { addVisited } from "../../redux/actions/PageVisited";
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
@@ -30,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-function Sidebar({ type = '',showFilterBtn=false }) {
+function Sidebar({ type = '', showFilterBtn = false, m_uni }) {
 
   const [categories, setcategories] = useState([]);
   const [selectedCategories, setselectedCategories] = useState([]);
@@ -39,13 +42,38 @@ function Sidebar({ type = '',showFilterBtn=false }) {
   const [Cities, setCities] = useState([]);
   const [selectedCities, setselectedCities] = useState([]);
   const [producttype, setproducttype] = useState([]);
+  const [uniMsg, setUniMsg] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch();
+  const pageVisited = useSelector((state) => state.pageVisited);
 
   const handleTypeChange = (x) => {
     setproducttype(producttype.includes(x)
       ? producttype.filter(c => c !== x)
       : [...producttype, x])
   }
+
+  useEffect(() => {
+    console.log('pageVisited', typeof (pageVisited), pageVisited)
+    // console.log('pageVisited',pageVisited.includes(PAGE_PRODUCTS))
+    if (m_uni) {
+      if (!selecteduniversities.length && m_uni) {
+        const now = new Date()
+
+        searchUniversities(m_uni).then((response) => {
+          setselecteduniversities(response);
+          setExpanded('panel3')
+          let data = {
+            response: response,
+            expiry: now.getTime()
+          }
+
+          localStorage.setItem(SELECTED_FILTER_UNIVERSITY, JSON.stringify(data))
+          // dispatch(addVisited(PAGE_PRODUCTS));
+        });
+      }
+    }
+  }, [m_uni])
 
   const handleCatSearch = (e) => {
     console.log(type)
@@ -154,9 +182,9 @@ function Sidebar({ type = '',showFilterBtn=false }) {
 
   return (
     <>
-      {showFilterBtn && 
-      <Button className={classes.fliterBtn} onClick={toggle}>
-        <TuneIcon />
+      {showFilterBtn &&
+        <Button className={classes.fliterBtn} onClick={toggle}>
+          <TuneIcon />
           Filter
         </Button>}
       {showsidebar &&
@@ -164,14 +192,14 @@ function Sidebar({ type = '',showFilterBtn=false }) {
           <div className={classes.root}>
             <Typography variant="h6" className={classes.heading}>Filter</Typography>
             {type != 'events' &&
-              <ExpansionPanel expanded={expanded === 'panel0'} onChange={handlePanelChange('panel0')}>
-                <ExpansionPanelSummary
+              <Accordion expanded={expanded === 'panel0'} onChange={handlePanelChange('panel0')}>
+                <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel0a-content"
                   id="panel0a-header"
                 >
                   <Typography variant="h6" className={classes.title}>Type</Typography>
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 <Checkbox
                   value="buy"
                   inputProps={{ 'aria-label': 'Checkbox A' }}
@@ -182,18 +210,18 @@ function Sidebar({ type = '',showFilterBtn=false }) {
                   inputProps={{ 'aria-label': 'Checkbox A' }}
                   onChange={() => handleTypeChange('rental')}
                 />Rent
-        </ExpansionPanel>
+        </Accordion>
             }
-            <ExpansionPanel expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
-              <ExpansionPanelSummary
+            <Accordion expanded={expanded === 'panel1'} onChange={handlePanelChange('panel1')}>
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
                 <Typography variant="h6" className={classes.title}>Category</Typography>
-              </ExpansionPanelSummary>
+              </AccordionSummary>
               <input className={classes.searchField} type="text" placeholder="search Categoty" onKeyUp={handleCatSearch} />
-              <ExpansionPanelDetails>
+              <AccordionDetails>
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormGroup>
                     {categories && categories.map((cat) => (
@@ -217,18 +245,18 @@ function Sidebar({ type = '',showFilterBtn=false }) {
                     ))}
                   </FormGroup>
                 </FormControl>}
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel expanded={expanded === 'panel2'} onChange={handlePanelChange('panel2')}>
-              <ExpansionPanelSummary
+              </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel2'} onChange={handlePanelChange('panel2')}>
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
                 <Typography variant="h6" className={classes.title}>City</Typography>
-              </ExpansionPanelSummary>
+              </AccordionSummary>
               <input className={classes.searchField} type="text" placeholder="search City" onKeyUp={handleCitySearch} />
-              <ExpansionPanelDetails>
+              <AccordionDetails>
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormGroup>
                     {Cities && Cities.map((cat) => (
@@ -251,18 +279,18 @@ function Sidebar({ type = '',showFilterBtn=false }) {
                     ))}
                   </FormGroup>
                 </FormControl>}
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-            <ExpansionPanel expanded={expanded === 'panel3'} onChange={handlePanelChange('panel3')}>
-              <ExpansionPanelSummary
+              </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={expanded === 'panel3'} onChange={handlePanelChange('panel3')}>
+              <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
                 <Typography variant="h6" className={classes.title}>College</Typography>
-              </ExpansionPanelSummary>
+              </AccordionSummary>
               <input className={classes.searchField} type="text" placeholder="search College" onKeyUp={handleUniSearch} />
-              <ExpansionPanelDetails>
+              <AccordionDetails>
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormGroup>
                     {universities && universities.map((cat) => (
@@ -286,8 +314,8 @@ function Sidebar({ type = '',showFilterBtn=false }) {
                   </FormGroup>
                 </FormControl>}
 
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
           </div>
           <Button className={classes.filterBtn} onClick={filterSearch}>Filter</Button>
         </>

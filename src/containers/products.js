@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 import { useRouter } from "next/router";
 import { getProducts, getAllFeedback } from "../apis/global-api";
 
-function Products({ data, url }) {
+function Products({ data, url, m_uni }) {
   const [products, setproducts] = useState([]);
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
@@ -44,7 +44,7 @@ function Products({ data, url }) {
       setlist_reviews(data)
     });
     // setproducts(data);
-  }, [data, url]);
+  }, [data, url, m_uni]);
 
   const handleButtonClick = () => {
     if (!loadMore) {
@@ -114,12 +114,12 @@ function Products({ data, url }) {
           <Grid container>
             <Grid item lg={3} md={3} sm={12} xs={12}>
               {matches ? (
-                <Sidebar showFilterBtn="true"/>
+                <Sidebar showFilterBtn="true" m_uni={m_uni} />
               ) : (
-                <StickyBox offsetTop={100} offsetBottom={20}>
-                  <Sidebar />
-                </StickyBox>
-              )}
+                  <StickyBox offsetTop={100} offsetBottom={20}>
+                    <Sidebar m_uni={m_uni} />
+                  </StickyBox>
+                )}
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>

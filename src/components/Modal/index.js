@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
@@ -7,7 +7,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import styled from "styled-components";
+import { searchUniversities } from "../../apis/global-api";
 
+import { useRouter } from "next/router";
 
 const StyledDialog = styled(Dialog)`
   .MuiBackdrop-root {
@@ -23,16 +25,27 @@ const useStyles = makeStyles(theme => ({
   [theme.breakpoints.down('xs')]: mobileStyles
 }))
 
-const Modal = (props) => {
+const Modal = ({ openStatus }) => {
 
-  const [open, setopen] = useState(props.open);
+  useEffect(() => {
+    console.log('openStatus', openStatus)
+    setopen(openStatus)
+
+  }, [openStatus])
+
+  const [open, setopen] = useState(openStatus);
   const [loading, setloading] = useState(false);
   const [universities, setuniversities] = useState([
     {
-      name:  "",
+      name: "",
       id: "",
     },
   ]);
+
+  const [university, setuniversity] = useState({
+    name: "",
+    id: "",
+  });
   const openModal = () => {
     setopen(true);
   };
@@ -40,6 +53,7 @@ const Modal = (props) => {
   const closeModal = () => {
     setopen(false);
   };
+  const router = useRouter();
 
   const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -74,6 +88,15 @@ const Modal = (props) => {
 
   const [value, setValue] = React.useState(null);
 
+  const handleFormSubmit=()=>{
+    // let uni = universities.find(
+    //   (item) => item.name == university.name
+    // );
+    closeModal()
+    router.push("/products?m_uni=" + university.name);
+    // console.log(uni)
+  }
+
   const classes = useStyles()
 
   return (
@@ -92,13 +115,13 @@ const Modal = (props) => {
             <Typography variant="h5" className={classes.title}>Fill Important Details</Typography>
             <Typography >To make Your Search Easy Kindly Please Select Your College Name or Location</Typography>
             <form className={classes.container}>
-              <Autocomplete
+              {/* <Autocomplete
                 {...defaultProps}
                 id="debug"
                 className={classes.Autocomplete}
                 debug
                 renderInput={(params) => <TextField {...params} label="Type Your College Name" margin="normal" />}
-              />
+              /> */}
 
               <Autocomplete
                 className={classes.Autocomplete}
@@ -115,14 +138,14 @@ const Modal = (props) => {
                 onInputChange={(e) => e && handleUniSearch(e)}
                 // onChange={(e) => updateformData(e, "university")}
                 onSelect={(e) =>
-                  setuniversity({ name: e.target.value })
+                  e.target.value && setuniversity({ name: e.target.value })
                 }
                 renderInput={(params) => (
                   <TextField {...params} label="Type Your College Name" margin="normal" />
                 )}
               />
 
-              <Button variant="contained" className={classes.Button}>
+              <Button variant="contained" className={classes.Button} onClick={handleFormSubmit}>
                 Done
               </Button>
             </form>
