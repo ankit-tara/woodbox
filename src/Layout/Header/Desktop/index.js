@@ -20,7 +20,7 @@ import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import AuthIcon from "../../../components/Login_Register";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
+import Link from 'next/link'
 const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
@@ -66,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.up("md")]: desktopStyles,
   [theme.breakpoints.down("md")]: TabStyles,
 }));
-import Link from "next/link";
 import { showModal } from "../../../redux/actions/authModal";
 
 function Header({ modalOpen }) {
@@ -166,7 +165,7 @@ function Header({ modalOpen }) {
       <Container maxWidth="xl">
         <Grid container>
           <Grid item xs={1}>
-            <a href="/">
+            <Link href="/">
               <img
                 className={classNames(
                   classes.logo,
@@ -174,37 +173,45 @@ function Header({ modalOpen }) {
                 )}
                 src="/static/images/logo.png"
               />
-            </a>
+            </Link>
           </Grid>
           <Grid item xs={8}>
             <ul className={classes.Menu}>
-              <li>
-                <a href="/">Home</a>
+              <li className={router.pathname == "/" ? "active" : ""}>
+                <Link href="/">Home</Link>
               </li>
-              <li>
-                <a href="/products?type=buy">Buy</a>
+              <li
+                className={
+                  router.pathname == "/products?type=buy" ? "active" : ""
+                }
+              >
+                <Link href="/products?type=buy">Buy</Link>
               </li>
-              <li>
-                <a href="/products?type=rental">Rent</a>
+              <li
+                className={
+                  router.pathname == "/products?type=rental" ? "active" : ""
+                }
+              >
+                <Link href="/products?type=rental">Rent</Link>
               </li>
-              <li>
-                <a href="/events">Events</a>
+              <li className={router.pathname == "/events" ? "active" : ""}>
+                <Link href="/events">Events</Link>
               </li>
-              <li>
-                <a href="/buy-request">Requests</a>
+              <li className={router.pathname == "/buy-request" ? "active" : ""}>
+                <Link href="/buy-request">Requests</Link>
               </li>
-              <li>
+              <li className={router.pathname == "/post" ? "active" : ""}>
                 <a>
                   <span onClick={handleListProduct}>Sell</span>
                 </a>
               </li>
-              <li>
+              <li className={router.pathname == "/post/event" ? "active" : ""}>
                 <a>
                   <span onClick={handleListEvent}>Add Event</span>
                 </a>
               </li>
-              <li>
-                <a href="/feedback">Feedback</a>
+              <li className={router.pathname == "/feedback" ? "active" : ""}>
+                <Link href="/feedback">Feedback</Link>
               </li>
               <li>
                 <Button

@@ -7,7 +7,7 @@ export const commonStyles = {
     border: '#D6D6D6 solid 4px',
     boxShadow: 'none',
     width: 'auto',
-    maxWidth: '100%',
+    maxWidth: '310px',
     margin: '1rem 1rem 1rem 0'
   },
   Orangecard:{

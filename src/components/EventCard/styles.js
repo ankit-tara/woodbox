@@ -7,9 +7,10 @@ export const commonStyles = {
     border: "none",
     boxShadow: "none",
     width: "90%",
+    maxWidth: "310px",
     margin: "1rem 1rem 1rem 0",
     display: "grid",
-    minHeight: "510px",
+    minHeight: "475px",
     gridTemplateRows: "auto 1fr",
   },
   cardInner: {
@@ -92,6 +93,9 @@ export const mobileStyles = {
   college: {
     fontSize: "0.8rem",
   },
+  card: {
+    minHeight: '445px'
+  }
 };
 
 export const TabStyles = {};

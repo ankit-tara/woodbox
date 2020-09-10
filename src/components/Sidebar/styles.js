@@ -3,22 +3,22 @@ export const commonStyles = {
     marginTop: '3rem',
     marginBottom: 0,
     borderBottom: 'solid 1px #BDBDBD',
-    '& .MuiExpansionPanel-root':{
+    '& .MuiAccordion-root':{
       borderTop: 'solid 1px #BDBDBD',
       boxShadow: 'none'
     },
-    '& .MuiExpansionPanelSummary-content.Mui-expanded':{
+    '& .MuiAccordionSummary-content.Mui-expanded':{
       marginBottom: '0'
     },
-    '& .MuiExpansionPanel-root.Mui-expanded':{
+    '& .MuiAccordion-root.Mui-expanded':{
       margin: '0'
     },
-    '& .MuiExpansionPanelDetails-root':{
+    '& .MuiAccordionDetails-root':{
       paddingLeft: '0',
       maxHeight: '300px',
       overflow: 'auto'
     },
-    '& .MuiExpansionPanelSummary-root':{
+    '& .MuiAccordionSummary-root':{
       paddingLeft: '0'
     },
     '& .MuiFormControlLabel-label':{

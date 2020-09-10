@@ -4,78 +4,84 @@
 
 export const commonStyles = {
   root: {
-    position: 'absolute',
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '100vw',
-    zIndex: '99',
-    backgroundColor: '#fff',
-    transition: 'all ease-in 350ms'
+    position: "absolute",
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100vw",
+    zIndex: "99",
+    backgroundColor: "#fff",
+    transition: "all ease-in 350ms",
   },
   scrolled: {
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '100vw',
-    zIndex: '99',
-    backgroundColor: '#fff',
-    boxShadow: '0px 14px 18px rgba(0,0,0,0.1)'
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100vw",
+    zIndex: "99",
+    backgroundColor: "#fff",
+    boxShadow: "0px 14px 18px rgba(0,0,0,0.1)",
   },
   Menu: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    margin: '0',
-    padding: '0',
-    listStyleType: 'none',
-    '& li': {
-      marginRight: '1.3rem'
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    margin: "0",
+    padding: "0",
+    listStyleType: "none",
+    "& li": {
+      marginRight: "1.3rem",
     },
-    '& li ul li': {
-      marginRight: '0'
+    "& li ul li": {
+      marginRight: "0",
     },
-    '& a': {
-      color: '#000',
-      fontSize: '1.1rem',
-      fontWeight: '500',
-      textDecoration: 'none'
+    "& a": {
+      color: "#000",
+      fontSize: "1.1rem",
+      fontWeight: "500",
+      textDecoration: "none",
     },
-    '& button': {
-      color: '#000',
-      fontSize: '1.1rem',
-      fontWeight: '500',
-      textTransform: 'capitalize'
+    "& li:hover a": {
+      color: "#f69902",
     },
-    '& button:hover': {
-      background: 'none',
-    }
+    "& li.active a": {
+      color: "#f69902",
+    },
+    "& button": {
+      color: "#000",
+      fontSize: "1.1rem",
+      fontWeight: "500",
+      textTransform: "capitalize",
+    },
+    "& button:hover": {
+      background: "none",
+    },
   },
   MenuRight: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    height: '100%',
-    margin: '0',
-    padding: '0',
-    listStyleType: 'none',
-    '& li': {
-      marginRight: '1rem'
-    }
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    height: "100%",
+    margin: "0",
+    padding: "0",
+    listStyleType: "none",
+    "& li": {
+      marginRight: "1rem",
+    },
   },
   logo: {
-    margin: '1rem 0',
-    width: 'auto',
-    height: '85px',
-    transition: 'all ease-in 350ms'
+    margin: "1rem 0",
+    width: "auto",
+    height: "85px",
+    transition: "all ease-in 350ms",
   },
   logoScrolled: {
-    margin: '0.2rem 0',
-    width: 'auto',
-    height: '65px'
-  }
-}
+    margin: "0.2rem 0",
+    width: "auto",
+    height: "65px",
+  },
+};
 
 export const mobileStyles = {
 

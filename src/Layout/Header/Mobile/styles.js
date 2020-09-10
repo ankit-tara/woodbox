@@ -3,73 +3,79 @@ export const commonStyles = {
     flexGrow: 1,
   },
   menuButton: {
-     marginRight: '2rem'
+    marginRight: "2rem",
   },
   title: {
     flexGrow: 1,
-    display: 'block',
+    display: "block",
   },
   search: {
-    position: 'relative',
+    position: "relative",
     marginLeft: 0,
-    width: '100%',
+    width: "100%",
   },
   searchIcon: {
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   inputRoot: {
-    color: 'inherit',
+    color: "inherit",
   },
   inputInput: {
-    width: '100%',
+    width: "100%",
   },
   fullList: {
-    width: 'auto',
+    width: "auto",
   },
   logo: {
-    height: '50px',
-    width: 'auto',
-    padding: '5px 0'
+    height: "50px",
+    width: "auto",
+    padding: "5px 0",
   },
   menuIcons: {
-    marginLeft: 'auto',
-    display: 'flex'
+    marginLeft: "auto",
+    display: "flex",
   },
-  sideBar:{
-    width: '280px',
-    '& .MuiDrawer-paper':{
-      width: '280px'
+  sideBar: {
+    width: "280px",
+    "& .MuiDrawer-paper": {
+      width: "280px",
     },
-    '& .MuiBackdrop-root':{
-      pointerEvents: 'none'
+    "& .MuiBackdrop-root": {
+      pointerEvents: "none",
     },
-    '& a':{
-      color: '#333',
-      textDecoration: 'none'
-    }
+    "& a": {
+      color: "#333",
+      textDecoration: "none",
+    },
+    "& a.active": {
+      color: "#f69902",
+    },
+    "& a.active svg": {
+      color: "#f69902",
+    },
   },
-  searchBar:{
-    position: 'fixed',
-    width: '100%',
-    background: '#fff',
-    left: '0',
-    zIndex: '100',
-    display: 'flex',
-    top: '0',
-    height: '57px'
+  searchBar: {
+    position: "fixed",
+    width: "100%",
+    background: "#fff",
+    left: "0",
+    zIndex: "100",
+    display: "flex",
+    top: "0",
+    height: "57px",
   },
-  searchbtn:{
-    height: '35px',
-    background: '#f5811a',
-    color: '#fff',
-    alignSelf: 'center',
-    borderRadius: '4px',
-    padding: '5px 10px',
-    border: 'none'
-  }
-}
+  searchbtn: {
+    height: "35px",
+    background: "#f5811a",
+    color: "#fff",
+    alignSelf: "center",
+    borderRadius: "4px",
+    padding: "5px 10px",
+    border: "none",
+  },
+};
