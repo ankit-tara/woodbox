@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography, Dialog } from "@material-ui/core";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import Link from "next/link";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ConnectyCube from "connectycube";
 import { useSelector } from "react-redux";
 import store from "../../redux/store";
+import PageLoader from "../PageLoader";
+import { fetchDialogs } from "../../apis/chat-api";
+import DialogBox from "./DialogBox";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,12 +18,27 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 
-const Chat = () => {
-  const Dialogs = store.getState().dialogs
+const Chat = ({ type, id }) => {
+  // const Dialogs = useSelector((state) => state.dialogs);
 
-  console.log('chat dialogs', Dialogs);
+  // console.log('chat dialogs', Dialogs);
+  const [Dialogs, setDialogs] = useState([])
 
   const [open, setOpen] = React.useState(true);
+  const [loader, setloader] = React.useState(true);
+  const user = useSelector((state) => state.auth_user.user);
+
+  useEffect(() => {
+    getDialogs(type, id)
+  }, [type, id])
+
+  const getDialogs = (type, id) => {
+    console.log(user)
+    fetchDialogs(user.id).then(data => {
+      setDialogs(data.data)
+      setloader(false)
+    })
+  }
 
   const gotoChat = () => {
     setOpen(false);
@@ -34,6 +52,7 @@ const Chat = () => {
 
   return (
     <div className={classes.wrapper}>
+      <PageLoader loading={loader} />
       <div className="container">
         <div className={open == true ? "left" : "active left"}>
           <div className="top">
@@ -42,16 +61,10 @@ const Chat = () => {
                 <a href="javascript:;" className="search"></a> */}
           </div>
           <ul className="people">
-            {Dialogs && Dialogs.length > 0 && Dialogs.map((dialog)=>(  
-              <li onClick={gotoChat} className="person">
-              <img
-                src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/thomas.jpg"
-                alt=""
-                />
-              <span className="name">{dialog.name}</span>
-              <span className="time">2:09 PM</span>
-              <span className="preview">I was wondering...</span>
-            </li>)
+            {Dialogs && Dialogs.length > 0 && Dialogs.map((dialog) => (
+              <DialogBox dialog={dialog} key={dialog.id} auth={user} />
+
+              )
             )}
           </ul>
         </div>

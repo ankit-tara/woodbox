@@ -15,23 +15,23 @@ const ChatMessageIcon = () => {
 
     useEffect(() => {
         // if (!authUser)
-        let test = AuthService.init()
-        test && authUser.user.connectycube_user && authUser &&
-            AuthService.login({
-                email: authUser.user.email,
-                password: authUser.user.connectycube_user.password,
-            }).then((user) => {
-                // console.log(user)
-                ChatService.fetchDialogsFromServer()
-                  .then((dialogs) => {
-                    console.log("dialogsdialogs", dialogs);
-                    setDialogs(dialogs);
-                  })
-                  .catch((err) => {
-                    console.log("err", err);
-                  });
-            })
-            .catch((error) => { console.log(error)});;
+        // let test = AuthService.init()
+        // test && authUser.user.connectycube_user && authUser &&
+        //     AuthService.login({
+        //         email: authUser.user.email,
+        //         password: authUser.user.connectycube_user.password,
+        //     }).then((user) => {
+        //         // console.log(user)
+        //         // ChatService.fetchDialogsFromServer()
+        //         //   .then((dialogs) => {
+        //         //     console.log("dialogsdialogs", dialogs);
+        //         //     setDialogs(dialogs);
+        //         //   })
+        //         //   .catch((err) => {
+        //         //     console.log("err", err);
+        //         //   });
+        //     })
+        //     .catch((error) => { console.log(error)});;
 
     }, [])
     return (

@@ -181,6 +181,11 @@ export function CreateContact(data) {
   console.log(url);
   return generalPostRequest(url, data);
 }
+export function CreateVisit(data) {
+  let url = API_URL + "/user-visit";
+  console.log(url);
+  return generalPostRequest(url, data);
+}
 
 export async function getAllFeedback(q) {
   let url = API_URL + "/feedback";

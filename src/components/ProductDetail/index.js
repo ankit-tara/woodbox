@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 // import { chatDialog } from "../../redux/actions/dialog";
 import ConnectyCube from "connectycube";
 
-import { DeleteEvent , Favourite} from "../../apis/auth-api"
+import { DeleteEvent, Favourite } from "../../apis/auth-api"
 
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const ProductDetail = ({ data }) => {
 
   const dispatch = useDispatch();
-   const [isSaved, setisSaved] = React.useState(0)
+  const [isSaved, setisSaved] = React.useState(0)
   const [product, setproduct] = useState({});
   const [images, setimages] = useState([]);
   const [showVideo, setshowVideo] = useState(false);
@@ -86,57 +86,57 @@ const ProductDetail = ({ data }) => {
   ];
 
   useEffect(() => {
-       isFavourite();
-    }, [userFavProducts])
+    isFavourite();
+  }, [userFavProducts])
 
   const isFavourite = () => {
-      if (userFavProducts && userFavProducts.includes(data.id)) {
-          console.log(userFavProducts,userFavProducts.includes(data.id))
-          setisSaved(1);
-         
-      }
-    };
-   const changeRating = () => {
+    if (userFavProducts && userFavProducts.includes(data.id)) {
+      console.log(userFavProducts, userFavProducts.includes(data.id))
+      setisSaved(1);
+
+    }
+  };
+  const changeRating = () => {
     console.log('clk');
-    if (!accessToken || accessToken==''){
+    if (!accessToken || accessToken == '') {
       window.location.replace("/?signup=open");
     }
-   
-    if (!isSaved ) {
 
-       Favourite({'type_id':data.id,type:'product','user_id':user,'action':'add'}).then((response) => {
+    if (!isSaved) {
+
+      Favourite({ 'type_id': data.id, type: 'product', 'user_id': user, 'action': 'add' }).then((response) => {
         if (response.error) {
           setsnackbar(true);
           setsnackbarMsg("There is some error.Please try again later");
-          setsnackbarType("error");          
-          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+          setsnackbarType("error");
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents, response.body.favProducts));
 
         } else {
           setsnackbar(true);
           setsnackbarMsg("Added to favourites");
           setsnackbarType("success");
-          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents, response.body.favProducts));
 
-         
+
         }
       });
 
       setisSaved(!isSaved);
     } else {
 
-       Favourite({'type_id':data.id,type:'product','user_id':user,'action':'remove'}).then((response) => {
-       
+      Favourite({ 'type_id': data.id, type: 'product', 'user_id': user, 'action': 'remove' }).then((response) => {
+
         if (response.error) {
           setsnackbar(true);
           setsnackbarMsg("There is some error.Please try again later");
-          setsnackbarType("error");       
-          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+          setsnackbarType("error");
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents, response.body.favProducts));
         } else {
           setsnackbar(true);
           setsnackbarMsg("Removed from favourites");
           setsnackbarType("success");
-          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
-         
+          dispatch(authenticated(userdetail, accessToken, response.body.favEvents, response.body.favProducts));
+
         }
       });
 
@@ -144,7 +144,7 @@ const ProductDetail = ({ data }) => {
     }
   };
 
-   const handlesnackbar = () => {
+  const handlesnackbar = () => {
     setsnackbar(!snackbar);
   };
   function _renderVideo(item) {
@@ -177,8 +177,8 @@ const ProductDetail = ({ data }) => {
     );
   }
 
-  const _toggleShowVideo=(url)=> {
-  
+  const _toggleShowVideo = (url) => {
+
     setshowVideo(!showVideo);
   }
 
@@ -215,7 +215,7 @@ const ProductDetail = ({ data }) => {
     }
     // setproducts(data);
   }, [data]);
-  
+
 
   function renderLeftNav(onClick, disabled) {
     return (
@@ -244,35 +244,69 @@ const ProductDetail = ({ data }) => {
       </button>
     );
   }
-  
-const authUser = useSelector((state) => state.auth_user);
+
+  const authUser = useSelector((state) => state.auth_user);
 
 
-  function handleChatBtn(){
+  function handleChatBtn() {
+
     if (!authUser.user.connectycube_user) {
-      alert("please Login First");
+      window.location.replace("/?signup=open");
       return;
     }
-      const params = {
-        type: 3,
-        occupants_ids: [
-          authUser.user.connectycube_user.connectycube_id,
-          data.seller.connectycube_user.connectycube_id,
-        ],
-      };
+    
+    Router.push("/chat/product/" + data.id);
 
-    // JS SDK v1
-    ConnectyCube.chat.dialog.create(params, (error, dialog) => {});
-
-    // JS SDK v2
-    ConnectyCube.chat.dialog
-      .create(params)
-      .then((dialog) => {
-        // store.dispatch(chatDialog(dialog));
-        Router.push("/chat");
-      })
-      .catch((error) => {});
   }
+  // function handleChatBtn() {
+  //   let dialog_id = "product_4" 
+  //   // let dialog_id = "product_" + data.id
+  //   if (!authUser.user.connectycube_user) {
+  //     alert("please Login First");
+  //     return;
+  //   }
+  //   let params = {
+  //     search_text: dialog_id,
+  //     // search_text: dialog_id,
+  //     limit: 1
+  //   }
+  //   // search
+  //   ConnectyCube.chat
+  //     .search(params)
+  //     .then(result => {
+  //       console.log(result)
+  //       if (result.dialogs && result.dialogs.length) {
+  //         let dialog = result.dialogs[0]
+  //         if (dialog.name == dialog_id) {
+  //           return
+  //         }
+  //       }
+
+
+  //       let params = {
+  //         type: 2,
+  //         occupants_ids: [
+  //           authUser.user.connectycube_user.connectycube_id,
+  //           data.seller.connectycube_user.connectycube_id,
+  //         ],
+  //         name: dialog_id
+  //       };
+
+  //       // JS SDK v2
+  //       ConnectyCube.chat.dialog
+  //         .create(params)
+  //         .then((dialog) => {
+  //           // store.dispatch(chatDialog(dialog));
+  //           Router.push("/chat");
+  //         })
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //       alert('Oops!! there was some problem while connecting.')
+  //     });
+
+
+  // }
 
   const classes = useStyles();
 
@@ -287,14 +321,14 @@ const authUser = useSelector((state) => state.auth_user);
           <Grid item lg={12} md={12} sm={12} xs={12} className={classes.grid}>
 
             <Snackbar
-            open={snackbar}
-            autoHideDuration={6000}
-            onClose={handlesnackbar}
-          >
-            <Alert onClose={handlesnackbar} severity={snackbarType}>
-              {snackbarMsg}
-            </Alert>
-          </Snackbar>
+              open={snackbar}
+              autoHideDuration={6000}
+              onClose={handlesnackbar}
+            >
+              <Alert onClose={handlesnackbar} severity={snackbarType}>
+                {snackbarMsg}
+              </Alert>
+            </Snackbar>
             <Card
               className={`${classes.card} ${classes.spanCol4} ${classes.spanRow2}`}
             >
@@ -334,11 +368,11 @@ const authUser = useSelector((state) => state.auth_user);
                 </div>
                 <div className={classes.Right}>
 
-                 {
-            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
-            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
-                
-                  <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`}/>
+                  {
+                    isSaved ? <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating} id={data.id} /> :
+                      <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating} id={data.id} />}
+
+                  <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`} />
 
                 </div>
               </CardContent>
@@ -366,7 +400,7 @@ const authUser = useSelector((state) => state.auth_user);
                       <Typography className={classes.heading}>
                         Seller Location
                       </Typography>
-                      <Typography variant="h6">{data.seller && data.seller.university ? data.seller.university.name:''}</Typography>
+                      <Typography variant="h6">{data.seller && data.seller.university ? data.seller.university.name : ''}</Typography>
                     </Box>
                   </div>
                 </div>
@@ -379,7 +413,7 @@ const authUser = useSelector((state) => state.auth_user);
                   </Button>
                   <Link
                     href={`/profile/${data.seller.id}`}
-                    // as={`/profile/${data.seller.id}`}
+                  // as={`/profile/${data.seller.id}`}
                   >
                     <Button className={classes.secondaryBtn}>
                       Check Seller Profile
@@ -391,9 +425,9 @@ const authUser = useSelector((state) => state.auth_user);
             <Card className={`${classes.card} ${classes.spanCol6}`}>
               <CardContent className={classes.cardBody}>
                 <Typography className={classes.heading}>Description</Typography>
-                { data.type == 'Rental' &&
+                {data.type == 'Rental' &&
                   <Typography className={classes.heading}>{data.type} - per {data.time_period ? data.time_period : 'month'}</Typography>
-                        }
+                }
                 <Typography className={classes.paragraph}>
                   {data.description}
                 </Typography>
