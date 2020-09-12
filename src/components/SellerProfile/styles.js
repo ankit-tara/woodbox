@@ -81,7 +81,12 @@ export const commonStyles = {
   ProductsGridWrapper: {
     display: "grid",
     gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
-    padding: "2rem 0",
+    "&:nth-of-type(1)": {
+      paddingTop: "2rem",
+    },
+    "&:nth-last-of-type(1)": {
+      paddingTop: "2rem",
+    },
   },
   Noads: {
     display: "grid",

@@ -66,6 +66,10 @@ body::-webkit-scrollbar-thumb {
   display: none;
 }
 
+.swiper-slide .MuiCard-root {
+  max-width: 100% !important;
+}
+
 @keyframes slideFromLeft {
   0% {
     margin-left: -200px;

@@ -10,6 +10,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import AuthIcon from "../../components/Login_Register";
 import { Link } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
 
 const useStyles = makeStyles({
   root: {
@@ -27,11 +29,16 @@ const useStyles = makeStyles({
     "& a": {
       color: "#908e8e",
     },
+    "& a.active": {
+      color: "#FD8118",
+    },
   },
 });
 
 
+
 export default function SimpleBottomNavigation() {
+  const router = useRouter();
   const classes = useStyles();
   
   const [value, setValue] = useState('0');
@@ -55,24 +62,28 @@ export default function SimpleBottomNavigation() {
         component={Link}
         href="/"
         label="Home"
+        className={router.pathname == "/" ? "active" : ""}
         icon={<HomeRoundedIcon />}
       />
       <BottomNavigationAction
         component={Link}
         href="/products?type=buy"
         label="Buy"
+        className={router.pathname == "/products?type=buy" ? "active" : ""}
         icon={<LocalMallRoundedIcon />}
       />
       <BottomNavigationAction
         component={Link}
         href="/events"
         label="Events"
+        className={router.pathname == "/events" ? "active" : ""}
         icon={<EventNoteRoundedIcon />}
       />
       <BottomNavigationAction
         component={Link}
         href="/profile"
         label="My ads"
+        className={router.pathname == "/profile" ? "active" : ""}
         icon={<LiveTvRoundedIcon />}
       />
       {!accessToken && (

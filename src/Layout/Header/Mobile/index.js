@@ -5,7 +5,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
-import { Link } from "@material-ui/core";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -42,6 +41,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { unauthenticated } from "../../../redux/actions/auth";
 import ChatMessageIcon from "../../../chat/components/ChatIcon";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -185,76 +185,103 @@ export default function SearchAppBar() {
               </div>
               <Divider />
               <List>
-                <a href="/">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <HomeRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Home" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/"
+                  className={router.pathname == "/" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <HomeRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
                 <Divider />
-                <a href="/products?type=buy">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <LocalMallRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Buy" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/products?type=buy"
+                  className={router.pathname == "/products?type=buy" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <LocalMallRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Buy" />
+                </ListItem>
                 <Divider />
-                <a href="/products?type=rental">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <LocalMallRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Rent" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/products?type=rental"
+                  className={router.pathname == "/products?type=rental" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <LocalMallRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Rent" />
+                </ListItem>
                 <Divider />
-                <a href="/events">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <EventNoteRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Event" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/events"
+                  className={router.pathname == "/events" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <EventNoteRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Event" />
+                </ListItem>
                 <Divider />
-                <a href="/post" onClick={handleListProduct}>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <FormatListBulletedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sell" />
-                  </ListItem>
-                </a>
-                <a href="/buy-request">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <FormatListBulletedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Requests" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/post"
+                  onClick={handleListProduct}
+                  className={router.pathname == "/post" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <FormatListBulletedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Sell" />
+                </ListItem>
                 <Divider />
-                <a href="/post" onClick={handleListEvent}>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <FormatListBulletedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Add Events" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/buy-request"
+                  className={router.pathname == "/buy-request" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <FormatListBulletedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Requests" />
+                </ListItem>
                 <Divider />
-                <a href="/coming-soon">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <FeedbackIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Feedback" />
-                  </ListItem>
-                </a>
+                <ListItem
+                  button
+                  component={Link}
+                  href="/post/event"
+                  onClick={handleListEvent}
+                  className={router.pathname == "/post/event" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <FormatListBulletedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Add Events" />
+                </ListItem>
+                <Divider />
+                <ListItem
+                  button
+                  component={Link}
+                  href="/feedback"
+                  className={router.pathname == "/feedback" ? "active" : ""}
+                >
+                  <ListItemIcon>
+                    <FeedbackIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Feedback" />
+                </ListItem>
                 <Divider />
                 <ListItem button onClick={toggleSubmenu}>
                   <ListItemIcon>
@@ -265,30 +292,30 @@ export default function SearchAppBar() {
                 </ListItem>
                 <Collapse in={openMenu} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <a href="/coming-soon">
+                    <Link href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
                         </ListItemIcon>
                         <ListItemText primary="About" />
                       </ListItem>
-                    </a>
-                    <a href="/coming-soon">
+                    </Link>
+                    <Link href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
                         </ListItemIcon>
                         <ListItemText primary="Privacy Policy" />
                       </ListItem>
-                    </a>
-                    <a href="/coming-soon">
+                    </Link>
+                    <Link href="/coming-soon">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
                         </ListItemIcon>
                         <ListItemText primary="Terms &amp; Conditions" />
                       </ListItem>
-                    </a>
+                    </Link>
                   </List>
                 </Collapse>
                 <Divider />
@@ -303,77 +330,107 @@ export default function SearchAppBar() {
                     </ListItem>
                     <Collapse in={openAMenu} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        <a href="/profile">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <AccountCircle /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="View Profile" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile"
+                          className={
+                            router.pathname == "/profile" ? "active" : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <AccountCircle /> */}</ListItemIcon>
+                          <ListItemText primary="View Profile" />
+                        </ListItem>
                         <Divider />
-                        <a href="/profile/edit">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Edit Profile" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile/edit"
+                          className={
+                            router.pathname == "/profile/edit" ? "active" : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Edit Profile" />
+                        </ListItem>
                         <Divider />
-                        <a href="/profile">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Published Adds" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile"
+                          className={
+                            router.pathname == "/profile" ? "active" : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Published Adds" />
+                        </ListItem>
                         <Divider />
-                        <a href="/profile/events">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Published Events" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile/events"
+                          className={
+                            router.pathname == "/profile/events" ? "active" : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Published Events" />
+                        </ListItem>
                         <Divider />
-                        <a href="/profile/requests">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Published Requests" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile/requests"
+                          className={
+                            router.pathname == "/profile/requests"
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Published Requests" />
+                        </ListItem>
                         <Divider />
-                        <a href="/profile/favourite-events">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Favourite Events" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile/favourite-events"
+                          className={
+                            router.pathname == "/profile/favourite-events"
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Favourite Events" />
+                        </ListItem>
                         <Divider />
-                        <a href="/profile/favourite-products">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Favourite products" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/profile/favourite-products"
+                          className={
+                            router.pathname == "/profile/favourite-products"
+                              ? "active"
+                              : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Favourite products" />
+                        </ListItem>
                         <Divider />
-                        <a href="/post/request">
-                          <ListItem button>
-                            <ListItemIcon>
-                              {/* <CreateIcon /> */}
-                            </ListItemIcon>
-                            <ListItemText primary="Add Product Request" />
-                          </ListItem>
-                        </a>
+                        <ListItem
+                          button
+                          component={Link}
+                          href="/post/request"
+                          className={
+                            router.pathname == "/post/request" ? "active" : ""
+                          }
+                        >
+                          <ListItemIcon>{/* <CreateIcon /> */}</ListItemIcon>
+                          <ListItemText primary="Add Product Request" />
+                        </ListItem>
                         <Divider />
                         <ListItem button onClick={logout}>
                           <ListItemIcon>
@@ -387,9 +444,9 @@ export default function SearchAppBar() {
                 )}
               </List>
             </Drawer>
-            <a href="/">
+            <Link href="/">
               <img className={classes.logo} src="/static/images/logo.png" />
-            </a>
+            </Link>
             <div className={classes.menuIcons}>
               {/* <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">
