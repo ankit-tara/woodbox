@@ -42,3 +42,20 @@ export function fetchDialogs(user_id, q) {
     console.log(url);
     return generalGetRequest(url)
 }
+
+export function fetchMessages(dialog_id, q) {
+    let url = API_URL + "/messages/" + dialog_id;
+
+    if (q) {
+        url = url + q;
+    }
+    console.log(url);
+    return generalGetRequest(url)
+}
+
+export function createMessage(data) {
+    let url = API_URL + "/message";
+
+    console.log(url);
+    return generalPostRequest(url, data)
+}

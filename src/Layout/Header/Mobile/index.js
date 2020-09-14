@@ -454,14 +454,14 @@ export default function SearchAppBar() {
                 </Badge>
               </IconButton> */}
               <ChatMessageIcon />
-              <IconButton
+              {/* <IconButton
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
                 <Badge badgeContent={17} color="secondary">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 aria-label="search"
                 color="inherit"

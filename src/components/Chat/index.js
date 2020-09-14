@@ -3,15 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography, Dialog } from "@material-ui/core";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import Link from "next/link";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ConnectyCube from "connectycube";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import store from "../../redux/store";
 import PageLoader from "../PageLoader";
 import { fetchDialogs } from "../../apis/chat-api";
 import DialogBox from "./DialogBox";
-
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import dialogs from "../../redux/reducers/dialogs";
+import { selectedDialog } from "../../redux/actions/selectedDialog";
+import ChatBox from "./ChatBox";
+import useSocket from '../../Utils/useSocket'
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("sm")]: desktopStyles,
@@ -19,26 +21,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Chat = ({ type, id }) => {
-  // const Dialogs = useSelector((state) => state.dialogs);
+  const selectedDialogVal = useSelector((state) => state.selectedDialog);
+  // const user = useSelector((state) => state.auth_user.user);
 
-  // console.log('chat dialogs', Dialogs);
-  const [Dialogs, setDialogs] = useState([])
-
+  const [Dialogs, setDialogs] = useState([]);
+  const [data, setdata] = useState([]);
   const [open, setOpen] = React.useState(true);
   const [loader, setloader] = React.useState(true);
+  const [dialogLoader, setdialogLoader] = React.useState(false);
   const user = useSelector((state) => state.auth_user.user);
+  const dispatch = useDispatch();
+  const socket = useSocket();
 
   useEffect(() => {
-    getDialogs(type, id)
-  }, [type, id])
+    getDialogs(type, id);
+    if (socket && user) {
+      socket.on(`message.chat${user.id}`, message => {
+        console.log('message', message)
+      });
+    }
+
+    // this.socket = io()
+  }, [type, id, socket, user]);
 
   const getDialogs = (type, id) => {
-    console.log(user)
-    fetchDialogs(user.id).then(data => {
-      setDialogs(data.data)
-      setloader(false)
-    })
-  }
+    let count = 1;
+    if (data && data.current_page) {
+      count = data.current_page + 1;
+    }
+    let q = `?page=${count}`;
+    fetchDialogs(user.id, q).then((data) => {
+      let dialogs = Dialogs.concat(data.data);
+      setDialogs(dialogs);
+      setdata(data);
+      setloader(false);
+      setdialogLoader(false)
+    });
+  };
 
   const gotoChat = () => {
     setOpen(false);
@@ -48,8 +67,22 @@ const Chat = ({ type, id }) => {
     setOpen(true);
   };
 
-  const classes = useStyles();
+  const handleDialogsSCroll = (e) => {
+    if (!Dialogs.length || data.current_page == data.last_page) {
+      return;
+    }
+    let target = e.target;
+    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+      setdialogLoader(true)
+      getDialogs();
+    }
+  };
 
+  const selectDialog = (dialog) => {
+    dispatch(selectedDialog(dialog))
+  };
+
+  const classes = useStyles();
   return (
     <div className={classes.wrapper}>
       <PageLoader loading={loader} />
@@ -60,45 +93,39 @@ const Chat = ({ type, id }) => {
             {/* <input type="text" placeholder="Search" />
                 <a href="javascript:;" className="search"></a> */}
           </div>
-          <ul className="people">
-            {Dialogs && Dialogs.length > 0 && Dialogs.map((dialog) => (
-              <DialogBox dialog={dialog} key={dialog.id} auth={user} />
-
-              )
+          <ul className="people" onScroll={handleDialogsSCroll}>
+            {Dialogs &&
+              Dialogs.length > 0 &&
+              Dialogs.map((dialog) => (
+                <DialogBox
+                  dialog={dialog}
+                  key={dialog.id}
+                  auth={user}
+                  selectDialog={selectDialog}
+                />
+              ))}
+            {dialogLoader && (
+              <div class="dialog-loader">
+                <CircularProgress color="primary" size={20} />
+              </div>
             )}
           </ul>
         </div>
-        <div className="right">
-          <div className="top">
-            <KeyboardBackspaceIcon
-              className={classes.backBtn}
-              onClick={goBack}
-            />
-            <span>
-              To: <span className="name">Dog Woofson</span>
-            </span>
-          </div>
-          <div className="chat">
-            <div className="conversation-start">
-              <span>Today, 5:38 PM</span>
+        {selectedDialogVal && (
+          <ChatBox selectedDialogVal={selectedDialogVal} auth={user} />
+        )}
+        {!selectedDialogVal && (
+          <div className="right">
+            <div className="top"></div>
+            <div className="chat">
+              <div className="emptyDialog">
+                <Typography >
+                  Please select a dialog to start chat
+                </Typography>
+              </div>
             </div>
-            <div className="bubble you">Hello, can you hear me?</div>
-            <div className="bubble you">I'm in California dreaming</div>
-            <div className="bubble me">... about who we used to be.</div>
-            <div className="bubble me">Are you serious?</div>
-            <div className="bubble you">I'm in California dreaming</div>
-            <div className="bubble me">... about who we used to be.</div>
-            <div className="bubble me">Are you serious?</div>
-            <div className="bubble you">When we were younger and free...</div>
-            <div className="bubble you">I've forgotten how it felt before</div>
           </div>
-          <div className="write">
-            <a href="javascript:;" className="write-link attach"></a>
-            <input type="text" />
-            <a href="javascript:;" className="write-link smiley"></a>
-            <a href="javascript:;" className="write-link send"></a>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 export const commonStyles = {
   wrapper: {
+    marginBottom: '40px',
     position: "relative",
     left: "50%",
     width: "var(--wrapper)",
@@ -119,6 +120,10 @@ export const commonStyles = {
       color: "var(--grey)",
       backgroundColor: "var(--white)"
     },
+    "& .container .left .dialog-loader": {
+      textAlign: 'center',
+      padding: '10px',
+    },
     "& .container .left .people .person .preview": {
       fontSize: "14px",
       display: "inline-block",
@@ -133,7 +138,7 @@ export const commonStyles = {
       marginLeft: "-1px",
       paddingTop: "13px",
       border: "0",
-      backgroundColor: "var(--blue)",
+      backgroundColor: "var(--grey)",
       width: "calc(100% + 2px)",
       paddingLeft: "calc(10% + 1px)"
     },
@@ -144,6 +149,22 @@ export const commonStyles = {
     "& .container .left .people .person.active:after, & .container .left .people .person:hover:after": {
       display: "none"
     },
+    "& .container .left .people .person.active, & .container .left .people .person.selected": {
+      marginTop: "-1px",
+      marginLeft: "-1px",
+      paddingTop: "13px",
+      border: "0",
+      backgroundColor: "var(--blue)",
+      width: "calc(100% + 2px)",
+      paddingLeft: "calc(10% + 1px)"
+    },
+    "& .container .left .people .person.active span, & .container .left .people .person.selected span": {
+      color: "var(--white)",
+      background: "transparent"
+    },
+    "& .container .left .people .person.active:after, & .container .left .people .person.selected:after": {
+      display: "none"
+    },
     "& .container .right": {
       position: "relative",
       float: "left",
@@ -152,7 +173,7 @@ export const commonStyles = {
     },
     "& .container .right .top": {
       width: "100%",
-      height: "47px",
+      // height: "47px",
       padding: "15px 29px",
       backgroundColor: "#eceff1"
     },
@@ -162,6 +183,13 @@ export const commonStyles = {
       fontFamily: "'Source Sans Pro', sans-serif",
       fontWeight: "600"
     },
+    "& .container .right .emptyDialog": {
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'gray',
+    },
     "& .container .right .chat": {
       position: "relative",
       // display: "flex",
@@ -170,7 +198,8 @@ export const commonStyles = {
       borderWidth: "1px 1px 1px 0",
       borderStyle: "solid",
       borderColor: "var(--light)",
-      height: "calc(100% - 48px)",
+      height: "80%",
+      // height: "calc(100% - 48px)",
       WebkitBoxPack: "end",
       justifyContent: "flex-end",
       WebkitBoxOrient: "vertical",
@@ -179,7 +208,7 @@ export const commonStyles = {
     },
     "& .container .right::before": {
       content: '""',
-      height: '92px',
+      height: '46px',
       width: '97%',
       background: '#fff',
       bottom: '2px',
@@ -189,7 +218,7 @@ export const commonStyles = {
     },
     "& .container .right .write": {
       position: "absolute",
-      bottom: "29px",
+      bottom: "0",
       zIndex: '2',
       left: "30px",
       height: "42px",
@@ -246,15 +275,21 @@ export const commonStyles = {
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center"
     },
+    "& .container .right .bubble .time" : {
+      fontSize:'10px',
+      color:'gray'
+    },
     "& .container .right .bubble": {
       fontSize: "16px",
       position: "relative",
-      display: "inline-block",
+      // display: "inline-block",
       clear: "both",
       marginBottom: "8px",
       padding: "13px 14px",
       verticalAlign: "top",
-      borderRadius: "5px"
+      borderRadius: "5px",
+      display:'flex',
+      flexDirection:"column"
     },
     "& .container .right .bubble:before": {
       position: "absolute",
@@ -316,23 +351,23 @@ export const commonStyles = {
 }
 
 export const desktopStyles = {
-  backBtn:{
-    display:'none'
+  backBtn: {
+    display: 'none'
   }
 }
 
 export const mobileStyles = {
   wrapper: {
     marginTop: '0',
-    width:'100%',
-    height:'calc(100vh - 117px)',
+    width: '100%',
+    height: 'calc(100vh - 117px)',
     "& .container .right": {
-      width:'100%'
+      width: '100%'
     },
     "& .container .left": {
-      width:'100%',
-      position:'absolute',
-      zIndex:9,
+      width: '100%',
+      position: 'absolute',
+      zIndex: 9,
       transform: 'translateX(0)',
       transition: 'transform ease-in-out 450ms',
     },
@@ -347,7 +382,7 @@ export const mobileStyles = {
       display: 'flex'
     }
   },
-  backBtn:{
+  backBtn: {
     marginRight: '1rem'
   }
 }

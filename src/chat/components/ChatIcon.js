@@ -38,7 +38,7 @@ const ChatMessageIcon = () => {
         <div>
             <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">
-                    <ChatIcon />
+                    <a href="/chat"> <ChatIcon /></a>
                 </Badge>
             </IconButton>
         </div>

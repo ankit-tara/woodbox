@@ -250,10 +250,14 @@ const ProductDetail = ({ data }) => {
 
   function handleChatBtn() {
 
-    if (!authUser.user.connectycube_user) {
+    if (!authUser.user) {
       window.location.replace("/?signup=open");
       return;
     }
+    // if (!authUser.user.connectycube_user) {
+    //   window.location.replace("/?signup=open");
+    //   return;
+    // }
     
     Router.push("/chat/product/" + data.id);
 
