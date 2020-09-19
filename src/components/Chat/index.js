@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 
-const Chat = ({ type, id }) => {
+const Chat = ({ type = '', id = '' }) => {
   const selectedDialogVal = useSelector((state) => state.selectedDialog);
   // const user = useSelector((state) => state.auth_user.user);
 
@@ -34,28 +34,32 @@ const Chat = ({ type, id }) => {
   const socket = useSocket();
 
   useEffect(() => {
-    getDialogs(type, id);
-    if (socket && user) {
-      socket.on(`message.chat${user.id}`, message => {
-        console.log('message', message)
-      });
+    if (!Dialogs.length) {
+      getDialogs(type, id);
     }
-
-    // this.socket = io()
-  }, [type, id, socket, user]);
+  }, [type, id, user]);
 
   const getDialogs = (type, id) => {
     let count = 1;
+    if (data && data.current_page >= data.last_page) {
+      return
+    }
     if (data && data.current_page) {
       count = data.current_page + 1;
     }
     let q = `?page=${count}`;
+    if (type, id) {
+      q += `&type=${type}&id=${id}`;
+    }
     fetchDialogs(user.id, q).then((data) => {
       let dialogs = Dialogs.concat(data.data);
       setDialogs(dialogs);
       setdata(data);
       setloader(false);
       setdialogLoader(false)
+      if (!selectedDialogVal && dialogs.length) {
+        selectDialog(dialogs[0])
+      }
     });
   };
 
@@ -79,8 +83,22 @@ const Chat = ({ type, id }) => {
   };
 
   const selectDialog = (dialog) => {
+    setOpen(false);
+    clearUnread(dialog.id)
     dispatch(selectedDialog(dialog))
+
   };
+
+  const clearUnread = (id) => {
+    let dialogs = Dialogs.map(item => {
+      if (item.id == id) {
+        item.unread_messages_count = 0
+      }
+      return item
+    })
+    // setDialogs([])
+    setDialogs(dialogs)
+  }
 
   const classes = useStyles();
   return (
@@ -94,15 +112,18 @@ const Chat = ({ type, id }) => {
                 <a href="javascript:;" className="search"></a> */}
           </div>
           <ul className="people" onScroll={handleDialogsSCroll}>
-            {Dialogs &&
-              Dialogs.length > 0 &&
+            {
               Dialogs.map((dialog) => (
-                <DialogBox
-                  dialog={dialog}
-                  key={dialog.id}
-                  auth={user}
-                  selectDialog={selectDialog}
-                />
+
+                <>
+                  <DialogBox
+                    dialog={dialog}
+                    key={dialog.id}
+                    auth={user}
+                    selectDialog={selectDialog}
+                    unread_messages_count={dialog.unread_messages_count ? dialog.unread_messages_count : ''}
+                  />
+                </>
               ))}
             {dialogLoader && (
               <div class="dialog-loader">
@@ -112,7 +133,7 @@ const Chat = ({ type, id }) => {
           </ul>
         </div>
         {selectedDialogVal && (
-          <ChatBox selectedDialogVal={selectedDialogVal} auth={user} />
+          <ChatBox clearUnread={clearUnread} selectedDialogVal={selectedDialogVal} auth={user} goBack={goBack} />
         )}
         {!selectedDialogVal && (
           <div className="right">

@@ -3,34 +3,42 @@ import moment from "moment";
 import { useSelector } from 'react-redux';
 import dialogs from '../../redux/reducers/dialogs';
 
-const DialogBox = ({ dialog, auth, selectDialog }) => {
+const DialogBox = ({ dialog, auth, selectDialog, unread_messages_count}) => {
     const [user, setuser] = useState('')
     const [msg, setmsg] = useState('')
     const [title, settitle] = useState('')
     const [time, settime] = useState('')
+    const [unread, setunread] = useState('')
     const selectedDialogVal = useSelector((state) => state.selectedDialog);
 
     useEffect(() => {
-        if (dialog.dialog && dialog.dialog.users.length) {
-            let user = dialog.dialog.users.filter(item => item.user.id != auth.id)
+
+        if (!dialog) {
+            return
+        }
+        if (dialog.related_data) {
+            settitle(dialog.related_data.title)
+        }
+        // if (unread_messages_count) {
+        //     setunread(unread_messages_count ? unread_messages_count:'')
+        // }
+        if (dialog.users.length) {
+            let user = dialog.users.filter(item => item.user.id != auth.id)
             setuser(user[0].user)
         }
-        if (dialog.dialog && dialog.dialog.last_message) {
-            setmsg(dialog.dialog.last_message)
+        if (dialog.last_message) {
+            setmsg(dialog.last_message)
         }
-        if (dialog.dialog && dialog.dialog.related_data) {
-            settitle(dialog.dialog.related_data.title)
-        }
-    }, [dialog])
+    }, [dialog, unread_messages_count])
 
     const gotoChat = () => {
-        if (!dialog || !dialog.dialog) {
+        if (!dialog) {
             return
         }
         selectDialog(dialog)
     }
 
-    const isSelected = selectedDialogVal && dialog && selectedDialogVal.dialog_id == dialog.dialog_id
+    const isSelected = selectedDialogVal && dialog && selectedDialogVal.id == dialog.id
     return (
 
         <li onClick={gotoChat} className={`person ${isSelected ? 'selected' : ''}`}>
@@ -43,6 +51,9 @@ const DialogBox = ({ dialog, auth, selectDialog }) => {
                 {msg.created_at ? moment(msg.created_at).fromNow() : ''}
             </span>
             <span className="preview">{title}</span>
+            {unread_messages_count   && <span className="unread-box">
+                <span className="unread">{unread_messages_count}</span>
+            </span>}
         </li>
     )
 }

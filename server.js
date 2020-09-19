@@ -37,7 +37,7 @@ nextApp.prepare().then(() => {
     //     res.header('Access-Control-Allow-Headers', 'Content-Type');
     //     next();
     // });
-    
+
 
     // app.get("/products/type/:type", (req, res) => {
     //   let query = req.query ? req.query : {};
@@ -49,6 +49,27 @@ nextApp.prepare().then(() => {
     // app.get("/products/category/:slug", (req, res) => {
     //   return app.render(req, res, "/products", req.query);
     // });
+
+    app.get('/service-worker.js', (req, res) => {
+        app.serveStatic(req, res, './.next/service-worker.js')
+    })
+
+    const serviceWorkers = [
+        {
+            filename: 'service-worker.js',
+            path: './.next/service-worker.js',
+        },
+        {
+            filename: 'firebase-messaging-sw.js',
+            path: './static/firebase-messaging-sw.js',
+        },
+    ]
+
+    serviceWorkers.forEach(({ filename, path }) => {
+        app.get(`/${filename}`, (req, res) => {
+            app.serveStatic(req, res, path)
+        })
+    })
 
     app.get("/order/:price/:reciept_id", (req, res) => {
         try {
@@ -105,12 +126,12 @@ nextApp.prepare().then(() => {
         }
     });
 
-  // app.get("/b", (req, res) => {
-  //   return app.render(req, res, "/b", req.query);
-  // });
-app.get('*', (req, res,next) => {
+    // app.get("/b", (req, res) => {
+    //   return app.render(req, res, "/b", req.query);
+    // });
+    app.get('*', (req, res, next) => {
         // next();
-    return nextHandler(req, res, next)
+        return nextHandler(req, res, next)
     })
     server.listen(3000, (err) => {
         if (err) throw err

@@ -5,15 +5,29 @@ import Badge from "@material-ui/core/Badge";
 import AuthService from "../services/authService"
 import { useSelector } from "react-redux";
 import ChatService from "../../redux/services/chat-service";
+import Link from 'next/link'
+import { unreadMsg } from "../../apis/chat-api";
+import useSocket from "../../Utils/useSocket";
+
 // import ConnectyCube from 'connectycube'
 
 const ChatMessageIcon = () => {
+    const socket = useSocket()
 
-    const authUser = useSelector((state) => state.auth_user);
+    const authUser = useSelector((state) => state.auth_user.user);
 
-    const [Dialogs, setDialogs] = useState([]);
+    const [count, setcount] = useState();
+    // const [Dialogs, setDialogs] = useState([]);
 
     useEffect(() => {
+        if(authUser){
+            unreadMsg(authUser.id).then(data=>{
+                data && setcount(data)
+            })
+        }
+
+
+
         // if (!authUser)
         // let test = AuthService.init()
         // test && authUser.user.connectycube_user && authUser &&
@@ -33,12 +47,15 @@ const ChatMessageIcon = () => {
         //     })
         //     .catch((error) => { console.log(error)});;
 
-    }, [])
+    }, [authUser,socket])
     return (
         <div>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                    <a href="/chat"> <ChatIcon /></a>
+            <IconButton  color="inherit">
+            {/* <IconButton aria-label="you haves" color="inherit"> */}
+                <Badge badgeContent={count} color="secondary">
+                    <Link href="/chat">
+                        <ChatIcon />
+                    </Link>
                 </Badge>
             </IconButton>
         </div>

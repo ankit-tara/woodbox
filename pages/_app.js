@@ -18,6 +18,7 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 import { CreateVisit } from "../src/apis/global-api";
 import { VALID_ROUTES } from "../src/constants";
+import { firebaseCloudMessaging } from "../utils/webPush";
 
 Router.events.on("routeChangeStart", () => {
 
@@ -85,6 +86,8 @@ export default function MyApp(props) {
   const router = useRouter();
 
   React.useEffect(() => {
+    firebaseCloudMessaging.init()
+
     isuserProfileComplete()
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");

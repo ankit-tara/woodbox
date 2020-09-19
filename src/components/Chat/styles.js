@@ -78,6 +78,12 @@ export const commonStyles = {
       overflowY: 'auto',
       overflowX: 'hidden'
     },
+    "& .container .left  .unread-box": {
+      background: '#f7812a',
+      borderRadius: '50%',
+      padding: '5px',
+      fontSize: '9px',
+    },
     "& .container .left .people .person": {
       position: "relative",
       width: "100%",
@@ -275,9 +281,9 @@ export const commonStyles = {
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center"
     },
-    "& .container .right .bubble .time" : {
-      fontSize:'10px',
-      color:'gray'
+    "& .container .right .bubble .time": {
+      fontSize: '10px',
+      color: 'gray'
     },
     "& .container .right .bubble": {
       fontSize: "16px",
@@ -288,8 +294,8 @@ export const commonStyles = {
       padding: "13px 14px",
       verticalAlign: "top",
       borderRadius: "5px",
-      display:'flex',
-      flexDirection:"column"
+      display: 'flex',
+      flexDirection: "column"
     },
     "& .container .right .bubble:before": {
       position: "absolute",
@@ -379,7 +385,7 @@ export const mobileStyles = {
       display: 'flex'
     },
     "& .container .right .top": {
-      display: 'flex'
+      // display: 'flex'
     }
   },
   backBtn: {

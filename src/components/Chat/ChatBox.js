@@ -3,7 +3,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { makeStyles } from "@material-ui/core/styles";
 import { commonStyles, desktopStyles, mobileStyles } from "./styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { createMessage, fetchMessages } from "../../apis/chat-api";
+import { createMessage, fetchMessages, readAll } from "../../apis/chat-api";
 import dialogs from "../../redux/reducers/dialogs";
 import Message from "./Message";
 import { AddToPhotosSharp } from "@material-ui/icons";
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: desktopStyles,
     [theme.breakpoints.down("sm")]: mobileStyles,
 }));
-const ChatBox = ({ selectedDialogVal, auth }) => {
+const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
     const classes = useStyles();
     const [loading, setloading] = useState(true);
     // const [dialog, setdialog] = useState({});
@@ -33,13 +33,13 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
 
         setloading(true);
         let dialog = selectedDialogVal;
-        if (dialog.dialog && dialog.dialog.users.length) {
-            let user = dialog.dialog.users.filter((item) => item.user.id != auth.id);
+        if (dialog && dialog.users.length) {
+            let user = dialog.users.filter((item) => item.user.id != auth.id);
             setuser(user[0].user);
         }
-        if (dialog.dialog && dialog.dialog.related_data) {
-            let type = dialog.dialog.related;
-            let data = dialog.dialog.related_data;
+        if (dialog && dialog.related_data) {
+            let type = dialog.related;
+            let data = dialog.related_data;
 
             let link = `products/item/${data.id}`
             if (type == "event") {
@@ -52,7 +52,7 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
         getMessages();
         if (socket && auth) {
             socket.on(`message.chat${auth.id}`, message => {
-                if (message.data && message.data.dialog_id == selectedDialogVal.dialog_id) {
+                if (message.data && message.data.dialog_id == selectedDialogVal.id) {
                     setmsgs(msgs.concat([message.data]))
                 }
                 console.log('message', message)
@@ -61,28 +61,50 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
     }, [selectedDialogVal, socket]);
 
     const getMessages = (data, msgs = []) => {
+        if (!msgs.length) {
+            setmsgs([])
+
+        }
         let count = 1;
         if (data && data.current_page) {
             count = data.current_page + 1;
         }
         let q = `?page=${count}`;
         let dialog = selectedDialogVal;
-        if (!dialog.dialog_id) {
+        if (!dialog) {
             return;
         }
-        fetchMessages(dialog.dialog_id, q).then((data) => {
-            let newMsgs = data.data.reverse()
-            let msgData = newMsgs.concat(msgs);
-            setmsgs(msgData);
-            setdata(data);
-            setloading(false);
-            setTimeout(() => {
-                scrollToBottom()
-            }, 1000);
+        fetchMessages(dialog.id, q).then((data) => {
+            if (data && data.data) {
+                let newMsgs = data.data.reverse()
+                let msgData = newMsgs.concat(msgs);
+                setmsgs(msgData);
+                setdata(data);
+            }
+
+
+            if (!msgs.length) {
+                setTimeout(() => {
+                    setloading(false);
+                    scrollToBottom()
+
+                }, 200);
+            } else {
+                setloading(false);
+            }
+        
+            // readAll(dialog.id, auth.id).then(data=>console.log(data))
+
+
         });
     };
 
     const scrollToBottom = () => {
+        if (!chatBoxREf || !chatBoxREf.current) {
+            return
+        }
+
+        chatBoxREf.current.scrollTop = chatBoxREf.current.scrollHeight
         // console.log(chatBoxREf.current)
         // chatBoxREf.current.scrollIntoView({ behavior: 'smooth' });
 
@@ -90,11 +112,10 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
 
     const handleChatBoxScroll = (e) => {
         let target = e.target;
-
         if (!msgs.length || data.current_page == data.last_page) {
             return;
         }
-        if (!target.scrollTop) {
+        if (!target.scrollTop && !loading) {
             // setdialogLoader(true)
             // getDialogs();
             getMessages(data, msgs)
@@ -107,17 +128,16 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
             return
         }
         let data = {
-            dialog_id: selectedDialogVal.dialog_id,
+            dialog_id: selectedDialogVal.id,
             user_id: auth.id,
             message: userMsg,
             created_at: new Date().toISOString()
         }
         setmsgs(msgs.concat([data]))
         setuserMsg('')
-
         createMessage(data)
             .then(resp => {
-                console.log(resp)
+                // console.log(resp)
             })
             .catch((err) => console.log(err))
 
@@ -138,7 +158,7 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
             <div className="top">
                 <KeyboardBackspaceIcon
                     className={classes.backBtn}
-                // onClick={goBack}
+                    onClick={goBack}
                 />
                 <span>
                     To:{" "}
@@ -160,7 +180,7 @@ const ChatBox = ({ selectedDialogVal, auth }) => {
                         <CircularProgress color="primary" size={30} />
                     </div>
                 )}
-                {!loading && msgs.length > 0 && (
+                {msgs.length > 0 && (
                     msgs.map((msg) => <Message message={msg} auth={auth} />)
 
                 )}

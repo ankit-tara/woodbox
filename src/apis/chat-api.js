@@ -59,3 +59,17 @@ export function createMessage(data) {
     console.log(url);
     return generalPostRequest(url, data)
 }
+
+export function unreadMsg(user_id) {
+    let url = API_URL + "/unread-message/" + user_id;
+
+    console.log(url);
+    return generalGetRequest(url)
+}
+
+export function readAll(dialog_id, user_id) {
+    let url = API_URL + "/mark-read-dialog/" + dialog_id + '/' + user_id;
+
+    console.log(url);
+    return generalGetRequest(url)
+}
