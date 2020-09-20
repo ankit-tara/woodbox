@@ -90,14 +90,14 @@ const Chat = ({ type = '', id = '' }) => {
   };
 
   const clearUnread = (id) => {
-    let dialogs = Dialogs.map(item => {
-      if (item.id == id) {
-        item.unread_messages_count = 0
-      }
-      return item
-    })
+    // let dialogs = Dialogs.map(item => {
+    //   if (item.id == id) {
+    //     item.unread_messages_count = 0
+    //   }
+    //   return item
+    // })
     // setDialogs([])
-    setDialogs(dialogs)
+    // setDialogs(dialogs)
   }
 
   const classes = useStyles();

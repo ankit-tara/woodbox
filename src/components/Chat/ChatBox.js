@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { makeStyles } from "@material-ui/core/styles";
-import { commonStyles, desktopStyles, mobileStyles } from "./styles";
+import { commonStyles, desktopStyles, tabStyles, mobileStyles } from "./styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { createMessage, fetchMessages, readAll } from "../../apis/chat-api";
 import dialogs from "../../redux/reducers/dialogs";
@@ -13,6 +13,7 @@ import useSocket from '../../Utils/useSocket'
 const useStyles = makeStyles((theme) => ({
     ...commonStyles,
     [theme.breakpoints.up("sm")]: desktopStyles,
+    [theme.breakpoints.up("md")]: tabStyles,
     [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
@@ -156,16 +157,18 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
     return (
         <div className="right" >
             <div className="top">
-                <KeyboardBackspaceIcon
-                    className={classes.backBtn}
-                    onClick={goBack}
-                />
-                <span>
-                    To:{" "}
-                    <span className="name">
-                        {user.first_name} {user.last_name}
+                <div className={classes.flex}>
+                    <KeyboardBackspaceIcon
+                        className={classes.backBtn}
+                        onClick={goBack}
+                    />
+                    <span>
+                        To:{" "}
+                        <span className="name">
+                            {user.first_name} {user.last_name}
+                        </span>
                     </span>
-                </span>
+                </div>
                 {link ? (
                     <p>
                         <a href={link}>{title}</a>

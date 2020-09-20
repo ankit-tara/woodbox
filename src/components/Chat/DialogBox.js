@@ -46,14 +46,16 @@ const DialogBox = ({ dialog, auth, selectDialog, unread_messages_count}) => {
                 src={user.profile_img ? user.profile_img : '/static/images/user-placeholder.png'}
                 alt=""
             />
-            <span className="name">{user.first_name}</span>
-            <span className="time">
-                {msg.created_at ? moment(msg.created_at).fromNow() : ''}
-            </span>
-            <span className="preview">{title}</span>
-            {unread_messages_count   && <span className="unread-box">
-                <span className="unread">{unread_messages_count}</span>
-            </span>}
+            <div className="imgRight">
+                <span className="name">{user.first_name}</span>
+                <span className="time">
+                    {msg.created_at ? moment(msg.created_at).fromNow() : ''}
+                </span>
+                <span className="preview">{title}</span>
+                {unread_messages_count && <span className="unread-box">
+                    <span className="unread">{unread_messages_count}</span>
+                </span>}
+            </div>
         </li>
     )
 }
