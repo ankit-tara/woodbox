@@ -4,6 +4,7 @@ const io = require('socket.io').listen(server)
 const next = require('next')
 const Razorpay = require("razorpay")
 const request = require('request');
+const serveStatic = require('serve-static')
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev })
@@ -51,7 +52,7 @@ nextApp.prepare().then(() => {
     // });
 
     app.get('/service-worker.js', (req, res) => {
-        app.serveStatic(req, res, './.next/service-worker.js')
+        nextApp.serveStatic(req, res, './.next/service-worker.js')
     })
 
     const serviceWorkers = [
@@ -61,13 +62,13 @@ nextApp.prepare().then(() => {
         },
         {
             filename: 'firebase-messaging-sw.js',
-            path: './static/firebase-messaging-sw.js',
+            path: './public/static/firebase-messaging-sw.js',
         },
     ]
 
     serviceWorkers.forEach(({ filename, path }) => {
         app.get(`/${filename}`, (req, res) => {
-            app.serveStatic(req, res, path)
+            nextApp.serveStatic(req, res, path)
         })
     })
 

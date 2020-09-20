@@ -8,12 +8,15 @@ const firebaseCloudMessaging = {
     },
 
     init: async function () {
-        firebase.initializeApp({
+        console.log('reached')
+        let data = {
             apiKey: process.env.FIREBASE_API_KEY,
             projectId: process.env.projectId,
             messagingSenderId: process.env.messagingSenderId,
             appId: process.env.appId,
-        })
+        }
+        console.log('localforage', data)
+        firebase.initializeApp(data)
 
         try {
             if ((await this.tokenInlocalforage()) !== null) {
@@ -27,7 +30,7 @@ const firebaseCloudMessaging = {
             localforage.setItem('fcm_token', token)
             console.log('fcm_token', token)
         } catch (error) {
-            console.error(error)
+            console.log('fcmerror',error)
         }
     },
 }

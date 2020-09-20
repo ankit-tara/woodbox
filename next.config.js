@@ -26,5 +26,10 @@ module.exports = {
     APP_URL: process.env.APP_URL,
     FROM_EMAIL: process.env.FROM_EMAIL,
     TO_EMAIL: process.env.TO_EMAIL,
+    apiKey: process.env.FIREBASE_API_KEY,
+    projectId: process.env.projectId,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId,
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY
   },
 };
