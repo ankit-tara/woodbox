@@ -19,7 +19,7 @@ const Message = ({ message, auth }) => {
 
     return (
         <div className="msg">
-            <div className={`bubble you ${isAuth ? 'me' : 'you'}`}>
+            <div className={`bubble ${isAuth ? 'me' : 'you'}`}>
                 <span className="text">{text}</span>
                 <span className="time"> {moment(message.created_at).format("hh:mm a")}</span>
             </div>

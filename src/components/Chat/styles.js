@@ -83,13 +83,19 @@ export const commonStyles = {
       borderRadius: '50%',
       padding: '5px',
       fontSize: '9px',
+      display: 'inline-block',
+      width: '20px',
+      background: '#010101',
+      color:'#fff',
+      textAlign: 'center'
     },
     "& .container .left .people .person": {
       position: "relative",
       width: "100%",
-      padding: "12px 10% 16px",
+      padding: "12px 30px 16px",
       cursor: "pointer",
-      backgroundColor: "var(--white)"
+      backgroundColor: "var(--white)",
+      display: 'flex'
     },
     "& .container .left .people .person:after": {
       position: "absolute",
@@ -110,12 +116,18 @@ export const commonStyles = {
       marginRight: "12px",
       borderRadius: "50%"
     },
+    "& .container .left .people .person .imgRight": {
+        display: 'flex',
+        flexWrap: 'wrap',
+        width: 'calc(100% - 50px)'
+    },
     "& .container .left .people .person .name": {
       fontSize: "14px",
       lineHeight: "22px",
       color: "var(--dark)",
       fontFamily: "'Source Sans Pro', sans-serif",
-      fontWeight: "600"
+      fontWeight: "600",
+      width: '100%'
     },
     "& .container .left .people .person .time": {
       fontSize: "14px",
@@ -124,7 +136,7 @@ export const commonStyles = {
       right: "10%",
       padding: "0 0 5px 5px",
       color: "var(--grey)",
-      backgroundColor: "var(--white)"
+      // backgroundColor: "var(--white)"
     },
     "& .container .left .dialog-loader": {
       textAlign: 'center',
@@ -134,7 +146,7 @@ export const commonStyles = {
       fontSize: "14px",
       display: "inline-block",
       overflow: "hidden !important",
-      width: "70%",
+      width: "calc(100% - 25px)",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
       color: "var(--grey)"
@@ -166,7 +178,7 @@ export const commonStyles = {
     },
     "& .container .left .people .person.active span, & .container .left .people .person.selected span": {
       color: "var(--white)",
-      background: "transparent"
+      // background: "transparent"
     },
     "& .container .left .people .person.active:after, & .container .left .people .person.selected:after": {
       display: "none"
@@ -179,9 +191,23 @@ export const commonStyles = {
     },
     "& .container .right .top": {
       width: "100%",
-      // height: "47px",
+      height: "100px",
       padding: "15px 29px",
-      backgroundColor: "#eceff1"
+      backgroundColor: "#eceff1",
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'flex-start'
+    },
+    "& .container .right .top p": {
+      margin: '5px 0 10px',
+      width: '100%',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    },
+    "& .container .right .top p a": {
+      color: '#519f3f'
     },
     "& .container .right .top span": { fontSize: "15px", color: "var(--grey)" },
     "& .container .right .top span .name": {
@@ -204,8 +230,8 @@ export const commonStyles = {
       borderWidth: "1px 1px 1px 0",
       borderStyle: "solid",
       borderColor: "var(--light)",
-      height: "80%",
-      // height: "calc(100% - 48px)",
+      // height: "80%",
+      height: "calc(100% - 100px)",
       WebkitBoxPack: "end",
       justifyContent: "flex-end",
       WebkitBoxOrient: "vertical",
@@ -224,7 +250,7 @@ export const commonStyles = {
     },
     "& .container .right .write": {
       position: "absolute",
-      bottom: "0",
+      bottom: "20px",
       zIndex: '2',
       left: "30px",
       height: "42px",
@@ -284,6 +310,14 @@ export const commonStyles = {
     "& .container .right .bubble .time": {
       fontSize: '10px',
       color: 'gray'
+    },
+    "& .container .right .bubble.me .time": {
+      fontSize: '10px',
+      color: 'gray'
+    },
+    "& .container .right .bubble.you .time": {
+      fontSize: '10px',
+      color: '#fff'
     },
     "& .container .right .bubble": {
       fontSize: "16px",
@@ -357,6 +391,9 @@ export const commonStyles = {
 }
 
 export const desktopStyles = {
+  
+}
+export const tabStyles = {
   backBtn: {
     display: 'none'
   }
@@ -390,5 +427,8 @@ export const mobileStyles = {
   },
   backBtn: {
     marginRight: '1rem'
+  },
+  flex:{
+    display: 'flex'
   }
 }
