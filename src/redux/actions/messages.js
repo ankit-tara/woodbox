@@ -1,15 +1,14 @@
 import {
-  FETCH_MESSAGES,
+  SET_MESSAGES,
   PUSH_MESSAGE,
   DELETE_ALL_MESSAGES,
   LAZY_FETCH_MESSAGES,
   UPDATE_MESSAGES,
 } from "../actionTypes/messages";
 
-export const fetchMessages = (dialogId, history) => ({
-  type: FETCH_MESSAGES,
-  dialogId,
-  history,
+export const setMessages = (msgs) => ({
+  type: SET_MESSAGES,
+  msgs,
 });
 export const lazyFetchMessages = (dialogId, history) => ({
   type: LAZY_FETCH_MESSAGES,
@@ -22,12 +21,10 @@ export const updateMessages = (dialogId, msgId, msg) => ({
   msgId,
   msg,
 });
-export const pushMessage = (message, dialogId) => ({
+export const pushMessage = ( msg) => ({
   type: PUSH_MESSAGE,
-  message,
-  dialogId,
+  msg
 });
-export const deleteAllMessages = (dialogId) => ({
+export const deleteAllMessages = () => ({
   type: DELETE_ALL_MESSAGES,
-  dialogId,
 });

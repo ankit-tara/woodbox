@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import moment from "moment";
-import { useSelector } from 'react-redux';
-import dialogs from '../../redux/reducers/dialogs';
+import { useSelector, useDispatch} from 'react-redux';
+import {selectedDialog} from '../../redux/actions/selectedDialog';
+// import dialogs from '../../redux/reducers/dialogs';
 
-const DialogBox = ({ dialog, auth, selectDialog, unread_messages_count}) => {
+const DialogBox = ({ dialog, auth, selectDialog, dialogs, unread_messages_count }) => {
     const [user, setuser] = useState('')
     const [msg, setmsg] = useState('')
     const [title, settitle] = useState('')
     const [time, settime] = useState('')
     const [unread, setunread] = useState('')
     const selectedDialogVal = useSelector((state) => state.selectedDialog);
+    const dispatch = useDispatch();
 
     useEffect(() => {
 
-        if (!dialog) {
-            return
-        }
+        // if (!dialog) {
+        //     return
+        // }
         if (dialog.related_data) {
             settitle(dialog.related_data.title)
         }
@@ -29,13 +31,15 @@ const DialogBox = ({ dialog, auth, selectDialog, unread_messages_count}) => {
         if (dialog.last_message) {
             setmsg(dialog.last_message)
         }
-    }, [dialog, unread_messages_count])
+    }, [dialog, unread_messages_count, dialogs])
 
     const gotoChat = () => {
         if (!dialog) {
             return
         }
-        selectDialog(dialog)
+        console.log('clicked')
+        // dispatch(selectedDialog(dialog))
+        selectDialog(dialog, dialogs)
     }
 
     const isSelected = selectedDialogVal && dialog && selectedDialogVal.id == dialog.id
@@ -51,7 +55,7 @@ const DialogBox = ({ dialog, auth, selectDialog, unread_messages_count}) => {
                 {msg.created_at ? moment(msg.created_at).fromNow() : ''}
             </span>
             <span className="preview">{title}</span>
-            {unread_messages_count   && <span className="unread-box">
+            {unread_messages_count && <span className="unread-box">
                 <span className="unread">{unread_messages_count}</span>
             </span>}
         </li>

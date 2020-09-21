@@ -8,7 +8,10 @@ import dialogs from "../../redux/reducers/dialogs";
 import Message from "./Message";
 import { AddToPhotosSharp } from "@material-ui/icons";
 import moment from 'moment'
-import useSocket from '../../Utils/useSocket'
+
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteAllMessages, pushMessage, setMessages } from "../../redux/actions/messages";
+import useSocket from "../../Utils/useSocket";
 
 const useStyles = makeStyles((theme) => ({
     ...commonStyles,
@@ -18,20 +21,29 @@ const useStyles = makeStyles((theme) => ({
 const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
     const classes = useStyles();
     const [loading, setloading] = useState(true);
-    // const [dialog, setdialog] = useState({});
+    const [prevdialog, setprevdialog] = useState({});
     const [data, setdata] = useState({});
     const [userMsg, setuserMsg] = useState('');
-    const [msgs, setmsgs] = useState([]);
+    const msgs = useSelector((state) => state.messages);
+    const socket = useSocket()
+    // const [msgs, setmsgs] = useState([]);
     const [user, setuser] = useState("");
     const [title, settitle] = useState("");
     const [link, setlink] = useState("");
-    const socket = useSocket();
+    const [connected, setconnected] = useState(false);
+
+    const dispatch = useDispatch();
 
     const chatBoxREf = useRef('')
 
     useEffect(() => {
+        if (prevdialog.id != selectedDialogVal.id) {
+            // setloading(false);
+            // setloading(true);
 
-        setloading(true);
+            setprevdialog(selectedDialogVal)
+            getMessages();
+        }
         let dialog = selectedDialogVal;
         if (dialog && dialog.users.length) {
             let user = dialog.users.filter((item) => item.user.id != auth.id);
@@ -39,32 +51,38 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
         }
         if (dialog && dialog.related_data) {
             let type = dialog.related;
-            let data = dialog.related_data;
+            let related_data = dialog.related_data;
 
-            let link = `products/item/${data.id}`
+            let link = `products/item/${related_data.id}`
             if (type == "event") {
-                link = `events/item/${data.id}`
+                link = `events/item/${related_data.id}`
             }
 
-            settitle(data.title);
+            settitle(related_data.title);
             setlink(link);
         }
-        getMessages();
-        if (socket && auth) {
+
+
+        if (socket && auth ) {
             socket.on(`message.chat${auth.id}`, message => {
                 if (message.data && message.data.dialog_id == selectedDialogVal.id) {
-                    setmsgs(msgs.concat([message.data]))
+                    dispatch(pushMessage(message.data))
+                    // console.log('message2')
+                    // setmsgs(msgs.concat([message.data]))
                 }
                 console.log('message', message)
             });
+            // setconnected(true)
         }
     }, [selectedDialogVal, socket]);
 
     const getMessages = (data, msgs = []) => {
+        // return
         if (!msgs.length) {
-            setmsgs([])
+            dispatch(deleteAllMessages())
 
         }
+
         let count = 1;
         if (data && data.current_page) {
             count = data.current_page + 1;
@@ -72,41 +90,44 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
         let q = `?page=${count}`;
         let dialog = selectedDialogVal;
         if (!dialog) {
+            setloading(false);
             return;
         }
+
         fetchMessages(dialog.id, q).then((data) => {
             if (data && data.data) {
                 let newMsgs = data.data.reverse()
                 let msgData = newMsgs.concat(msgs);
-                setmsgs(msgData);
+                dispatch(setMessages(msgData))
+                // setmsgs(msgData);
                 setdata(data);
             }
 
 
             if (!msgs.length) {
                 setTimeout(() => {
-                    setloading(false);
+
                     scrollToBottom()
 
                 }, 200);
             } else {
-                setloading(false);
+                scrollToBottom(30)
             }
-        
-            // readAll(dialog.id, auth.id).then(data=>console.log(data))
+
+            // readAll(dialog.id, auth.id).then(data => console.log(data))
 
 
         });
     };
 
-    const scrollToBottom = () => {
+    const scrollToBottom = (height = '') => {
+        setloading(false);
         if (!chatBoxREf || !chatBoxREf.current) {
             return
         }
 
-        chatBoxREf.current.scrollTop = chatBoxREf.current.scrollHeight
-        // console.log(chatBoxREf.current)
-        // chatBoxREf.current.scrollIntoView({ behavior: 'smooth' });
+        chatBoxREf.current.scrollTop = height ? height : chatBoxREf.current.scrollHeight
+        // chatBoxREf.current.scrollTop = chatBoxREf.current.scrollHeight
 
     }
 
@@ -133,7 +154,8 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
             message: userMsg,
             created_at: new Date().toISOString()
         }
-        setmsgs(msgs.concat([data]))
+        dispatch(pushMessage(data))
+        // setmsgs(msgs.concat([data]))
         setuserMsg('')
         createMessage(data)
             .then(resp => {

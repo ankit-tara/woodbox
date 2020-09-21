@@ -10,10 +10,9 @@ import PageLoader from "../PageLoader";
 import { fetchDialogs } from "../../apis/chat-api";
 import DialogBox from "./DialogBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import dialogs from "../../redux/reducers/dialogs";
+// import dialogs from "../../redux/reducers/dialogs";
 import { selectedDialog } from "../../redux/actions/selectedDialog";
 import ChatBox from "./ChatBox";
-import useSocket from '../../Utils/useSocket'
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("sm")]: desktopStyles,
@@ -24,17 +23,16 @@ const Chat = ({ type = '', id = '' }) => {
   const selectedDialogVal = useSelector((state) => state.selectedDialog);
   // const user = useSelector((state) => state.auth_user.user);
 
-  const [Dialogs, setDialogs] = useState([]);
+  const [dialogsArr, setDialogs] = useState([]);
   const [data, setdata] = useState([]);
   const [open, setOpen] = React.useState(true);
   const [loader, setloader] = React.useState(true);
   const [dialogLoader, setdialogLoader] = React.useState(false);
   const user = useSelector((state) => state.auth_user.user);
   const dispatch = useDispatch();
-  const socket = useSocket();
 
   useEffect(() => {
-    if (!Dialogs.length) {
+    if (!dialogsArr.length) {
       getDialogs(type, id);
     }
   }, [type, id, user]);
@@ -52,13 +50,13 @@ const Chat = ({ type = '', id = '' }) => {
       q += `&type=${type}&id=${id}`;
     }
     fetchDialogs(user.id, q).then((data) => {
-      let dialogs = Dialogs.concat(data.data);
+      let dialogs = dialogsArr.concat(data.data);
       setDialogs(dialogs);
       setdata(data);
       setloader(false);
       setdialogLoader(false)
       if (!selectedDialogVal && dialogs.length) {
-        selectDialog(dialogs[0])
+        selectDialog(dialogs[0], dialogs)
       }
     });
   };
@@ -72,7 +70,7 @@ const Chat = ({ type = '', id = '' }) => {
   };
 
   const handleDialogsSCroll = (e) => {
-    if (!Dialogs.length || data.current_page == data.last_page) {
+    if (!dialogsArr.length || data.current_page == data.last_page) {
       return;
     }
     let target = e.target;
@@ -82,22 +80,21 @@ const Chat = ({ type = '', id = '' }) => {
     }
   };
 
-  const selectDialog = (dialog) => {
+  const selectDialog = (dialog, dialogs) => {
     setOpen(false);
-    clearUnread(dialog.id)
+    // clearUnread(dialog.id, dialogs)
     dispatch(selectedDialog(dialog))
 
   };
 
-  const clearUnread = (id) => {
-    let dialogs = Dialogs.map(item => {
+  const clearUnread = (id, dialogsArr=[]) => {
+    let dialogs = dialogsArr.map(item => {
       if (item.id == id) {
         item.unread_messages_count = 0
       }
       return item
     })
-    // setDialogs([])
-    setDialogs(dialogs)
+    // setDialogs(dialogs)
   }
 
   const classes = useStyles();
@@ -112,18 +109,17 @@ const Chat = ({ type = '', id = '' }) => {
                 <a href="javascript:;" className="search"></a> */}
           </div>
           <ul className="people" onScroll={handleDialogsSCroll}>
-            {
-              Dialogs.map((dialog) => (
+            {dialogsArr.length >0 &&
+              dialogsArr.map((dialog) => (
+                <DialogBox
+                  dialog={dialog}
+                  key={dialog.id}
+                  auth={user}
+                  selectDialog={selectDialog}
+                  dialogs={dialogsArr} 
+                  unread_messages_count={dialog.unread_messages_count ? dialog.unread_messages_count : ''}
+                />
 
-                <>
-                  <DialogBox
-                    dialog={dialog}
-                    key={dialog.id}
-                    auth={user}
-                    selectDialog={selectDialog}
-                    unread_messages_count={dialog.unread_messages_count ? dialog.unread_messages_count : ''}
-                  />
-                </>
               ))}
             {dialogLoader && (
               <div class="dialog-loader">
@@ -132,8 +128,8 @@ const Chat = ({ type = '', id = '' }) => {
             )}
           </ul>
         </div>
-        {selectedDialogVal && (
-          <ChatBox clearUnread={clearUnread} selectedDialogVal={selectedDialogVal} auth={user} goBack={goBack} />
+        {selectedDialogVal && user && (
+          <ChatBox selectedDialogVal={selectedDialogVal} auth={user} goBack={goBack} />
         )}
         {!selectedDialogVal && (
           <div className="right">

@@ -8,7 +8,7 @@ import {
 } from '../actions/dialogs'
 import {
   pushMessage,
-  fetchMessages,
+  setMessages,
   lazyFetchMessages,
   updateMessages,
 } from '../actions/messages'
@@ -83,7 +83,7 @@ class ChatService {
 
       const newObj = Object.assign(dialog, { isAlreadyMessageFetch: true })
       this.updateDialogsUnreadMessagesCount(newObj)
-      store.dispatch(fetchMessages(dialog.id, messages))
+      store.dispatch(setMessages(dialog.id, messages))
       amountMessages = messages.length
     } else {
       // If the second entry into the chat
