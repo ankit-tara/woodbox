@@ -11,7 +11,7 @@ const Message = ({ message, auth }) => {
         setisAuth(message.user_id == auth.id)
         settext(message.message)
 
-    }, [message])
+    }, [])
 
     if (!text) {
         return false

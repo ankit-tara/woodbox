@@ -9,6 +9,7 @@ export default function useSocket(cb) {
     const user = useSelector((state) => state.auth_user.user);
 
     useEffect(() => {
+        console.log('updated usesocket')
         // debug("Socket updated", { socket, activeSocket });
         if (activeSocket || !socket) return;
         cb && cb(socket);
