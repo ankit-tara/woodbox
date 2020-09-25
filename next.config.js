@@ -30,6 +30,7 @@ module.exports = {
     projectId: process.env.projectId,
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId,
-    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+    API_HOST: process.env.API_HOST
   },
 };

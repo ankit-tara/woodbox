@@ -19,6 +19,8 @@ import { useRouter } from "next/router";
 import { CreateVisit } from "../src/apis/global-api";
 import { VALID_ROUTES } from "../src/constants";
 import { firebaseCloudMessaging } from "../utils/webPush";
+import firebase from 'firebase/app'
+import OneSignal, { useOneSignalSetup } from 'react-onesignal';
 
 Router.events.on("routeChangeStart", () => {
 
@@ -29,7 +31,24 @@ Router.events.on("routeChangeComplete", () => {
   NProgress.done()
 });
 Router.events.on("routeChangeError", () => NProgress.done());
+const isuserProfileComplete = () => {
 
+  let userData = window.localStorage.getItem("user");
+  userData = userData ? JSON.parse(userData) : "";
+  let accessTokenData = window.localStorage.getItem("accessToken");
+  if (accessTokenData && accessTokenData != "undefined" && userData) {
+    // setToken(userData);
+    // firebaseCloudMessaging.init(userData)
+    if (!userData.is_complete && Router.router.asPath != '/profile/edit') {
+      Router.push("/profile/edit");
+    } else {
+      setUserVisit(userData)
+    }
+
+
+  }
+
+}
 const setUserVisit = (userData) => {
   let route = Router.router.route.replace('/', '')
 
@@ -64,29 +83,40 @@ const setUserVisit = (userData) => {
   });
 }
 
-const isuserProfileComplete = () => {
+// const setToken = async (userData) => {
+//   try {
+//     const token = await firebaseCloudMessaging.init(userData);
+//     if (token) {
+//       getMessage();
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
 
-  let userData = window.localStorage.getItem("user");
-  userData = userData ? JSON.parse(userData) : "";
-  let accessTokenData = window.localStorage.getItem("accessToken");
-  if (accessTokenData && accessTokenData != "undefined" && userData) {
-    if (!userData.is_complete && Router.router.asPath != '/profile/edit') {
-      Router.push("/profile/edit");
-    } else {
-      setUserVisit(userData)
-    }
-
-
-  }
-
+// }
+const getMessage = () => {
+  const messaging = firebase.messaging();
+  messaging.onMessage((message) => console.log('foreground', message));
 }
+
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   const router = useRouter();
 
+  useOneSignalSetup(() => {
+    let userData = window.localStorage.getItem("user");
+    userData = userData ? JSON.parse(userData) : "";
+    if(userData){
+      OneSignal.setEmail(userData.email);
+      OneSignal.setExternalUserId(userData.id);
+    }
+    
+  });
+
+
   React.useEffect(() => {
-    firebaseCloudMessaging.init()
+
 
     isuserProfileComplete()
     // Remove the server-side injected CSS.
@@ -96,6 +126,18 @@ export default function MyApp(props) {
     }
   }, []);
 
+  // const setToken = async (userData) => {
+  
+  //   // try {
+  //   //   const token = await firebaseCloudMessaging.init(userData);
+  //   //   if (token) {
+  //   //     getMessage();
+  //   //   }
+  //   // } catch (error) {
+  //   //   console.log(error);
+  //   // }
+
+  // }
 
 
   return (

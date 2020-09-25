@@ -6,9 +6,10 @@ import {
   UPDATE_MESSAGES,
 } from "../actionTypes/messages";
 
-export const setMessages = (msgs) => ({
+export const setMessages = (msgs, dialog) => ({
   type: SET_MESSAGES,
   msgs,
+  dialog
 });
 export const lazyFetchMessages = (dialogId, history) => ({
   type: LAZY_FETCH_MESSAGES,

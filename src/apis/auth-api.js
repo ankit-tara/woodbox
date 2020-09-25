@@ -78,13 +78,13 @@ export function DeleteEvent(data, id) {
 }
 export function Favourite(data) {
   let url = API_URL + "/favourite";
-  console.log(url);  
-  
+  console.log(url);
+
   return generalPostRequest(url, data);
 }
-export function GetUserFavourite(user_id,type) {
-  let url = API_URL + "/user-favourite/"+user_id+'/'+type;
-  
+export function GetUserFavourite(user_id, type) {
+  let url = API_URL + "/user-favourite/" + user_id + '/' + type;
+
   return fetch(url)
     .then((response) => response.json())
     .then((responseData) => {
@@ -94,8 +94,8 @@ export function GetUserFavourite(user_id,type) {
     .catch((error) => console.warn(error));
 }
 export function GetUserRequests(user_id) {
-  let url = API_URL + "/product-request/user/"+user_id;
-  
+  let url = API_URL + "/product-request/user/" + user_id;
+
   return fetch(url)
     .then((response) => response.json())
     .then((responseData) => {
@@ -142,3 +142,14 @@ function generalPostRequest(url, data) {
     .catch((error) => console.log(error));
 }
 
+export function updateDeviceToken(user_id, token) {
+  let url = API_URL + "/device-token/" + user_id + '/' + token;
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}

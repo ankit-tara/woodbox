@@ -13,13 +13,14 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 // import dialogs from "../../redux/reducers/dialogs";
 import { selectedDialog } from "../../redux/actions/selectedDialog";
 import ChatBox from "./ChatBox";
+import { pushMessage } from "../../redux/actions/messages";
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("sm")]: desktopStyles,
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 
-const Chat = ({ type = '', id = '' }) => {
+const Chat = ({ type = "", id = "" }) => {
   const selectedDialogVal = useSelector((state) => state.selectedDialog);
   // const user = useSelector((state) => state.auth_user.user);
 
@@ -33,6 +34,7 @@ const Chat = ({ type = '', id = '' }) => {
 
   useEffect(() => {
     if (!dialogsArr.length) {
+      setloader(true);
       getDialogs(type, id);
     }
   }, [type, id, user]);
@@ -40,13 +42,13 @@ const Chat = ({ type = '', id = '' }) => {
   const getDialogs = (type, id) => {
     let count = 1;
     if (data && data.current_page >= data.last_page) {
-      return
+      return;
     }
     if (data && data.current_page) {
       count = data.current_page + 1;
     }
     let q = `?page=${count}`;
-    if (type, id) {
+    if ((type, id)) {
       q += `&type=${type}&id=${id}`;
     }
     fetchDialogs(user.id, q).then((data) => {
@@ -54,9 +56,9 @@ const Chat = ({ type = '', id = '' }) => {
       setDialogs(dialogs);
       setdata(data);
       setloader(false);
-      setdialogLoader(false)
+      setdialogLoader(false);
       if (!selectedDialogVal && dialogs.length) {
-        selectDialog(dialogs[0], dialogs)
+        selectDialog(dialogs[0], dialogs);
       }
     });
   };
@@ -67,6 +69,8 @@ const Chat = ({ type = '', id = '' }) => {
 
   const goBack = () => {
     setOpen(true);
+    dispatch(selectedDialog({}));
+    dispatch(pushMessage([]));
   };
 
   const handleDialogsSCroll = (e) => {
@@ -75,51 +79,68 @@ const Chat = ({ type = '', id = '' }) => {
     }
     let target = e.target;
     if (target.scrollHeight - target.scrollTop === target.clientHeight) {
-      setdialogLoader(true)
+      setdialogLoader(true);
       getDialogs();
     }
   };
 
   const selectDialog = (dialog, dialogs) => {
     setOpen(false);
-    // clearUnread(dialog.id, dialogs)
-    dispatch(selectedDialog(dialog))
-
+    clearUnread(dialog.id, dialogs);
+    dispatch(selectedDialog(dialog));
   };
 
-  const clearUnread = (id, dialogsArr=[]) => {
-    let dialogs = dialogsArr.map(item => {
+  const clearUnread = (id, dialogsArr = []) => {
+    let dialogs = dialogsArr.map((item) => {
       if (item.id == id) {
-        item.unread_messages_count = 0
+        item.unread_messages_count = 0;
       }
-      return item
-    })
-    // setDialogs(dialogs)
-  }
+      return item;
+    });
+    setDialogs(dialogs);
+  };
 
   const classes = useStyles();
+  // if (!loader && !dialogsArr.length) {
+  //   return (
+  //     <div className={classes.wrapper}>
+  //       <div className="container">
+  //         <div className="emptyDialog">
+  //           <img src="/static/images/undraw_typing.svg" />
+  //           <Typography >
+
+  //             Your message box is empty
+  //           </Typography>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
   return (
     <div className={classes.wrapper}>
       <PageLoader loading={loader} />
       <div className="container">
         <div className={open == true ? "left" : "active left"}>
           <div className="top">
-            <Typography variant="h4">Messages (2 )</Typography>
+            <Typography variant="h4">Messages </Typography>
             {/* <input type="text" placeholder="Search" />
                 <a href="javascript:;" className="search"></a> */}
           </div>
           <ul className="people" onScroll={handleDialogsSCroll}>
-            {dialogsArr.length >0 &&
+            {dialogsArr.length > 0 &&
               dialogsArr.map((dialog) => (
                 <DialogBox
                   dialog={dialog}
                   key={dialog.id}
                   auth={user}
                   selectDialog={selectDialog}
-                  dialogs={dialogsArr} 
-                  unread_messages_count={dialog.unread_messages_count ? dialog.unread_messages_count : ''}
+                  dialogs={dialogsArr}
+                  unread_messages_count={
+                    dialog.unread_messages_count
+                      ? dialog.unread_messages_count
+                      : ""
+                  }
                 />
-
               ))}
             {dialogLoader && (
               <div class="dialog-loader">
@@ -128,21 +149,34 @@ const Chat = ({ type = '', id = '' }) => {
             )}
           </ul>
         </div>
-        {selectedDialogVal && user && (
-          <ChatBox selectedDialogVal={selectedDialogVal} auth={user} goBack={goBack} />
+        {user && (
+          <ChatBox
+            selectedDialogVal={selectedDialogVal ? selectedDialogVal : {}}
+            auth={user}
+            goBack={goBack}
+            dialogsArr={dialogsArr}
+          />
         )}
-        {!selectedDialogVal && (
+        {/* {!selectedDialogVal && (
           <div className="right">
             <div className="top"></div>
             <div className="chat">
-              <div className="emptyDialog">
-                <Typography >
-                  Please select a dialog to start chat
-                </Typography>
-              </div>
+
+              {!loader && !dialogsArr.length && (
+                <div className="emptyDialog">
+                  <img src="/static/images/undraw_typing.svg" />
+                  <Typography>Your message box is empty</Typography>
+                </div>
+              )}
+              {!loader && dialogsArr.length && (
+                <div className="emptyDialog">
+                  <Typography>Please select a dialog to start chat</Typography>
+                </div>
+              )}
+
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

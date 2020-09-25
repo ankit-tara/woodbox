@@ -15,6 +15,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
           />
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+          {/* <script src={`${process.env.API_HOST}/js/webpushr.js`}></script> */}
         </Head>
         <body>
           <Main />

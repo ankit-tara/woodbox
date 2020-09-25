@@ -1,4 +1,5 @@
 import { UNAUTHENTICATED, AUTHENTICATED } from "../actionTypes/auth";
+import localforage from 'localforage'
 
 const initialState = {
   user: {},
@@ -8,7 +9,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case AUTHENTICATED:
-      const { user, accessToken ,userFavEvents, userFavProducts } = action.payload;
+      const { user, accessToken, userFavEvents, userFavProducts } = action.payload;
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userFavEvents", userFavEvents);
@@ -25,6 +26,8 @@ export default function (state = initialState, action) {
       localStorage.setItem("accessToken", "");
       localStorage.setItem("userFavEvents", "");
       localStorage.setItem("userFavProducts", "");
+      localforage.removeItem('fcm_token')
+      localforage.removeItem('fcm_token_user')
       return initialState;
 
     default:
@@ -44,8 +47,8 @@ export default function (state = initialState, action) {
           data = {
             user: userData,
             accessToken: accessTokenData,
-            userFavEvents:userFavEvents,
-            userFavProducts:userFavProducts
+            userFavEvents: userFavEvents,
+            userFavProducts: userFavProducts
 
           };
         }

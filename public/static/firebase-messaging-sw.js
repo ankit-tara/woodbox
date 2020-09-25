@@ -9,4 +9,5 @@ firebase.initializeApp({
     appId: '1:1071728065834:web:247a0ced4e0b8b4016f253',
 })
 
-firebase.messaging()
+// firebase.messaging()
+firebase.messaging().setBackgroundMessageHandler((payload) => console.log('payload', payload));

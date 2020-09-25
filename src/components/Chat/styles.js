@@ -86,7 +86,7 @@ export const commonStyles = {
       display: 'inline-block',
       width: '20px',
       background: '#010101',
-      color:'#fff',
+      color: '#fff',
       textAlign: 'center'
     },
     "& .container .left .people .person": {
@@ -117,9 +117,9 @@ export const commonStyles = {
       borderRadius: "50%"
     },
     "& .container .left .people .person .imgRight": {
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: 'calc(100% - 50px)'
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: 'calc(100% - 50px)'
     },
     "& .container .left .people .person .name": {
       fontSize: "14px",
@@ -215,7 +215,11 @@ export const commonStyles = {
       fontFamily: "'Source Sans Pro', sans-serif",
       fontWeight: "600"
     },
-    "& .container .right .emptyDialog": {
+    "& .container .emptyDialog img": {
+      height: '100px'
+
+    },
+    "& .container .emptyDialog": {
       height: '100%',
       display: 'flex',
       justifyContent: 'center',
@@ -391,7 +395,7 @@ export const commonStyles = {
 }
 
 export const desktopStyles = {
-  
+
 }
 export const tabStyles = {
   backBtn: {
@@ -428,7 +432,7 @@ export const mobileStyles = {
   backBtn: {
     marginRight: '1rem'
   },
-  flex:{
+  flex: {
     display: 'flex'
   }
 }

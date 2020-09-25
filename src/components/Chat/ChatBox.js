@@ -8,10 +8,13 @@ import dialogs from "../../redux/reducers/dialogs";
 import Message from "./Message";
 import { AddToPhotosSharp } from "@material-ui/icons";
 import moment from 'moment'
+import { Typography } from "@material-ui/core";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteAllMessages, pushMessage, setMessages } from "../../redux/actions/messages";
 import useSocket from "../../Utils/useSocket";
+import Messages from "./Messages";
+import { selectedDialog } from "../../redux/actions/selectedDialog";
 
 const useStyles = makeStyles((theme) => ({
     ...commonStyles,
@@ -19,18 +22,19 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: tabStyles,
     [theme.breakpoints.down("sm")]: mobileStyles,
 }));
-const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
+const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
     const classes = useStyles();
     const [loading, setloading] = useState(true);
     const [prevdialog, setprevdialog] = useState({});
     const [data, setdata] = useState({});
     const [userMsg, setuserMsg] = useState('');
-    const msgs = useSelector((state) => state.messages);
+    // const msgs = useSelector((state) => state.messages);
     const socket = useSocket()
-    // const [msgs, setmsgs] = useState([]);
+    const [msgs, setmsgs] = useState([]);
     const [user, setuser] = useState("");
     const [title, settitle] = useState("");
     const [link, setlink] = useState("");
+    const [chatType, setchatType] = useState("");
     const [connected, setconnected] = useState(false);
 
     const dispatch = useDispatch();
@@ -38,13 +42,21 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
     const chatBoxREf = useRef('')
 
     useEffect(() => {
-        if (prevdialog.id != selectedDialogVal.id) {
-            // setloading(false);
-            // setloading(true);
-
-            setprevdialog(selectedDialogVal)
-            getMessages();
+       
+        if (!selectedDialogVal.id){
+            setloading(false)
+            setuser('')
+            settitle('');
+            setlink('');
+            return
         }
+        // if (prevdialog.id != selectedDialogVal.id) {
+        // setloading(false);
+        // setloading(true);
+
+        setprevdialog(selectedDialogVal)
+        getMessages();
+        // }
         let dialog = selectedDialogVal;
         if (dialog && dialog.users.length) {
             let user = dialog.users.filter((item) => item.user.id != auth.id);
@@ -62,20 +74,25 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
             settitle(related_data.title);
             setlink(link);
         }
-
-
-        if (socket && auth ) {
+        if (socket && auth && !connected) {
             socket.on(`message.chat${auth.id}`, message => {
-                if (message.data && message.data.dialog_id == selectedDialogVal.id) {
-                    dispatch(pushMessage(message.data))
-                    // console.log('message2')
-                    // setmsgs(msgs.concat([message.data]))
-                }
-                console.log('message', message)
+                handleNewMsg(message)
+
             });
-            // setconnected(true)
+            setconnected(true)
         }
+
+       
     }, [selectedDialogVal, socket]);
+
+    const handleNewMsg = (message) => {
+        // if (message.data && message.data.dialog_id == selectedDialogVal.id) {
+        dispatch(pushMessage(message.data))
+        //     console.log('message2', message.data.dialog_id == selectedDialogVal.id)
+        //     // setmsgs(msgs.concat([message.data]))
+        // }
+        // console.log('message', message, selectedDialogVal)
+    }
 
     const getMessages = (data, msgs = []) => {
         // return
@@ -99,7 +116,11 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
             if (data && data.data) {
                 let newMsgs = data.data.reverse()
                 let msgData = newMsgs.concat(msgs);
-                dispatch(setMessages(msgData))
+                dispatch(setMessages(msgData, selectedDialogVal))
+                console.log('testcount', count, msgData.length, selectedDialogVal.related)
+                if (count == 1 && !msgData.length) {
+                    setuserMsg(selectedDialogVal.related == 'product' ? 'Do you still have this product?' : '')
+                }
                 // setmsgs(msgData);
                 setdata(data);
             }
@@ -138,6 +159,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
             return;
         }
         if (!target.scrollTop && !loading) {
+
             // setdialogLoader(true)
             // getDialogs();
             getMessages(data, msgs)
@@ -156,6 +178,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
             created_at: new Date().toISOString()
         }
         dispatch(pushMessage(data))
+
         // setmsgs(msgs.concat([data]))
         setuserMsg('')
         createMessage(data)
@@ -168,12 +191,32 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
             user: `message.chat${user.id}`,
             type: 'message',
             data: data
-
         });
 
 
         // console.log(userMsg)
 
+    }
+    if(!selectedDialogVal.id){
+       return(
+           <div className="right">
+               <div className="top"></div>
+               <div className="chat">
+
+                   {!loading && !dialogsArr.length && (
+                       <div className="emptyDialog">
+                           <img src="/static/images/undraw_typing.svg" />
+                           <Typography>Your message box is empty</Typography>
+                       </div>
+                   )}
+                   {!loading && dialogsArr.length >0 && (
+                       <div className="emptyDialog">
+                           <Typography>Please select a dialog to start chat</Typography>
+                       </div>
+                   )}
+               </div>
+           </div>
+       )
     }
 
     return (
@@ -205,10 +248,11 @@ const ChatBox = ({ selectedDialogVal, auth, goBack }) => {
                         <CircularProgress color="primary" size={30} />
                     </div>
                 )}
-                {msgs.length > 0 && (
+                <Messages auth={auth} />
+                {/* {msgs.length > 0 && (
                     msgs.map((msg) => <Message message={msg} auth={auth} />)
 
-                )}
+                )} */}
 
             </div>
             {/* // <Message>

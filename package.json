@@ -36,6 +36,7 @@
     "react-google-login": "^5.1.21",
     "react-id-swiper": "^3.0.0",
     "react-image-gallery": "^1.0.7",
+    "react-onesignal": "^1.7.0",
     "react-redux": "^7.2.0",
     "react-share": "^4.2.1",
     "react-star-ratings": "^2.3.0",
