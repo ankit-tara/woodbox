@@ -14,6 +14,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { selectedDialog } from "../../redux/actions/selectedDialog";
 import ChatBox from "./ChatBox";
 import { pushMessage } from "../../redux/actions/messages";
+
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
   [theme.breakpoints.up("sm")]: desktopStyles,
@@ -22,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Chat = ({ type = "", id = "" }) => {
   const selectedDialogVal = useSelector((state) => state.selectedDialog);
+  const chatConnected = useSelector((state) => state.chatConnected);
   // const user = useSelector((state) => state.auth_user.user);
-
+  console.log('chatConnected', chatConnected)
   const [dialogsArr, setDialogs] = useState([]);
   const [data, setdata] = useState([]);
   const [open, setOpen] = React.useState(true);
@@ -33,11 +35,40 @@ const Chat = ({ type = "", id = "" }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!dialogsArr.length) {
+    if (!dialogsArr.length && chatConnected) {
+      setUpListeners()
       setloader(true);
       getDialogs(type, id);
     }
-  }, [type, id, user]);
+  }, [type, id, user, chatConnected]);
+
+
+  const setUpListeners = () => {
+    ConnectyCube.chat.onMessageListener = onMessage;
+    // const opponentId = '2066689';
+    // const date = Math.floor(Date.now() / 1000)
+    // let message = {
+    //   type: "groupchat",
+    //   body: "How are you today hghg?",
+    //   extension: {
+    //     save_to_history: 1,
+    //     dialog_id: '5f6f3676ca8bf42a744c3f4b',
+    //     // sender_id: '2066645',
+    //     sender_id: '2066689',
+    //     date_sent: date,
+    //   },
+    //   markable: 1
+    // };
+    // message.id = ConnectyCube.chat.helpers.getBsonObjectId()
+    // console.log('message', message)
+
+    // message = ConnectyCube.chat.send('2769_5f6f3676ca8bf42a744c3f4b@muc.chat.connectycube.com', message);
+    // console.log('message2', message)
+  }
+
+  function onMessage(userId, message) {
+    console.log('[ConnectyCube.chat.onMessageListener] callback:', userId, message)
+  }
 
   const getDialogs = (type, id) => {
     let count = 1;
@@ -51,15 +82,20 @@ const Chat = ({ type = "", id = "" }) => {
     if ((type, id)) {
       q += `&type=${type}&id=${id}`;
     }
-    fetchDialogs(user.id, q).then((data) => {
+    fetchDialogs(user.id, q).then((resp) => {
+      let data = resp.body
+      if (resp.error) {
+        alert('Oops!! there was some problem while connecting')
+        return
+      }
       let dialogs = dialogsArr.concat(data.data);
       setDialogs(dialogs);
       setdata(data);
       setloader(false);
       setdialogLoader(false);
-      if (!selectedDialogVal && dialogs.length) {
-        selectDialog(dialogs[0], dialogs);
-      }
+      // if (!chatAuthenticated && dialogs.length) {
+      //   selectDialog(dialogs[0], dialogs);
+      // }
     });
   };
 

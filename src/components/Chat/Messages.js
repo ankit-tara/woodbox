@@ -9,7 +9,7 @@ const Messages = ({ auth }) => {
         if (msgs.messages.length && auth) {
             let lastmsg = msgs.messages.slice(-1).pop()
             if (lastmsg.user_id != auth.id && !lastmsg.read) {
-                readAll(lastmsg.dialog_id, auth.id).then(data => console.log(data))
+                // readAll(lastmsg.dialog_id, auth.id).then(data => console.log(data))
             }
         }
 

@@ -33,7 +33,7 @@ export default (messages = initial_state, action) => {
     case PUSH_MESSAGE: {
       let msg = action.msg
       console.log(action, messages, msg.dialog_id)
-      if (msg && msg.dialog_id == messages.dialog.id) {
+      if (msg && msg.dialog_id == messages.dialog.connecty_dialog_id) {
         const msgs = messages.messages.concat(action.msg);
         return { ...messages, messages: msgs };
       }

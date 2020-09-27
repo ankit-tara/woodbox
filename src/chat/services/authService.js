@@ -5,6 +5,7 @@ import store from '../../redux/store'
 // import { setCurrentUser } from '../actions/currentUser'
 import { getImageLinkFromUID } from '../helpers/file'
 import { chatAuthenticated } from '../../redux/actions/chatUser'
+import { chatConnection } from '../../redux/actions/chatConnected'
 // import { LogOut } from '../reducers/index'
 
 class AuthService {
@@ -52,7 +53,9 @@ class AuthService {
   // }
 
   async connect(userId, password) {
-      await ConnectyCube.chat.connect({ userId, password })
+      await ConnectyCube.chat.connect({ userId, password }).then((error,contactlist)=>{
+        store.dispatch(chatConnection());
+      })
   }
 
   setUserSession(userSession) {

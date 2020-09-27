@@ -9,6 +9,7 @@ import Message from "./Message";
 import { AddToPhotosSharp } from "@material-ui/icons";
 import moment from 'moment'
 import { Typography } from "@material-ui/core";
+import ConnectyCube from "connectycube";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteAllMessages, pushMessage, setMessages } from "../../redux/actions/messages";
@@ -27,10 +28,11 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
     const [loading, setloading] = useState(true);
     const [prevdialog, setprevdialog] = useState({});
     const [data, setdata] = useState({});
+    const [page, setpage] = useState(0);
     const [userMsg, setuserMsg] = useState('');
-    // const msgs = useSelector((state) => state.messages);
+    const msgs = useSelector((state) => state.messages);
     const socket = useSocket()
-    const [msgs, setmsgs] = useState([]);
+    // const [msgs, setmsgs] = useState([]);
     const [user, setuser] = useState("");
     const [title, settitle] = useState("");
     const [link, setlink] = useState("");
@@ -42,12 +44,13 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
     const chatBoxREf = useRef('')
 
     useEffect(() => {
-       
-        if (!selectedDialogVal.id){
+
+        if (!selectedDialogVal.id) {
             setloading(false)
             setuser('')
             settitle('');
             setlink('');
+            setpage(0)
             return
         }
         // if (prevdialog.id != selectedDialogVal.id) {
@@ -82,7 +85,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             setconnected(true)
         }
 
-       
+
     }, [selectedDialogVal, socket]);
 
     const handleNewMsg = (message) => {
@@ -94,53 +97,93 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         // console.log('message', message, selectedDialogVal)
     }
 
-    const getMessages = (data, msgs = []) => {
+    const getMessages = () => {
+
+        let count = page + 1
         // return
-        if (!msgs.length) {
-            dispatch(deleteAllMessages())
+        const dialogId = selectedDialogVal.connecty_dialog_id;
+        let skip = (count - 1) * 20
+        const params = {
+            chat_dialog_id: dialogId,
+            sort_desc: "date_sent",
+            limit: 20,
+            skip: skip
+        };
+        ConnectyCube.chat.message
+            .list(params)
+            .then(messages => {
 
-        }
+                console.log('pageset', !messages.items.length ? -1 : count)
 
-        let count = 1;
-        if (data && data.current_page) {
-            count = data.current_page + 1;
-        }
-        let q = `?page=${count}`;
-        let dialog = selectedDialogVal;
-        if (!dialog) {
-            setloading(false);
-            return;
-        }
+                if (messages.items.length) {
+                    let newMsgs = messages.items.reverse().concat(msgs.messages)
+                    setTimeout(() => {
+                        scrollToBottom(!msgs.messages.length ? '' : 30)
+                    }, 200);
+                    dispatch(setMessages(newMsgs, selectedDialogVal))
+                    setpage(count)
 
-        fetchMessages(dialog.id, q).then((data) => {
-            if (data && data.data) {
-                let newMsgs = data.data.reverse()
-                let msgData = newMsgs.concat(msgs);
-                dispatch(setMessages(msgData, selectedDialogVal))
-                console.log('testcount', count, msgData.length, selectedDialogVal.related)
-                if (count == 1 && !msgData.length) {
-                    setuserMsg(selectedDialogVal.related == 'product' ? 'Do you still have this product?' : '')
+                } else {
+                    if (count == 1) {
+                        setuserMsg(selectedDialogVal.related == 'product' ? 'Do you still have this product?' : '')
+                    }
+                    setpage(-1)
+
                 }
-                // setmsgs(msgData);
-                setdata(data);
-            }
 
 
-            if (!msgs.length) {
-                setTimeout(() => {
+            })
+            .catch(error => {
+            });
+    }
 
-                    scrollToBottom()
+    // const getMessages = (data, msgs = []) => {
+    //     // return
+    //     if (!msgs.length) {
+    //         dispatch(deleteAllMessages())
 
-                }, 200);
-            } else {
-                scrollToBottom(30)
-            }
+    //     }
 
-            // readAll(dialog.id, auth.id).then(data => console.log(data))
+    //     let count = 1;
+    //     if (data && data.current_page) {
+    //         count = data.current_page + 1;
+    //     }
+    //     let q = `?page=${count}`;
+    //     let dialog = selectedDialogVal;
+    //     if (!dialog) {
+    //         setloading(false);
+    //         return;
+    //     }
+
+    //     fetchMessages(dialog.id, q).then((data) => {
+    //         if (data && data.data) {
+    //             let newMsgs = data.data.reverse()
+    //             let msgData = newMsgs.concat(msgs);
+    //             dispatch(setMessages(msgData, selectedDialogVal))
+    //             console.log('testcount', count, msgData.length, selectedDialogVal.related)
+    //             if (count == 1 && !msgData.length) {
+    //                 setuserMsg(selectedDialogVal.related == 'product' ? 'Do you still have this product?' : '')
+    //             }
+    //             // setmsgs(msgData);
+    //             setdata(data);
+    //         }
 
 
-        });
-    };
+    //         if (!msgs.length) {
+    //             setTimeout(() => {
+
+    //                 scrollToBottom()
+
+    //             }, 200);
+    //         } else {
+    //             scrollToBottom(30)
+    //         }
+
+    //         // readAll(dialog.id, auth.id).then(data => console.log(data))
+
+
+    //     });
+    // };
 
     const scrollToBottom = (height = '') => {
         setloading(false);
@@ -155,10 +198,10 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
 
     const handleChatBoxScroll = (e) => {
         let target = e.target;
-        if (!msgs.length || data.current_page == data.last_page) {
+        if (!msgs.messages.length || page < 0) {
             return;
         }
-        if (!target.scrollTop && !loading) {
+        if (!target.scrollTop) {
 
             // setdialogLoader(true)
             // getDialogs();
@@ -171,52 +214,87 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         if (!userMsg) {
             return
         }
-        let data = {
-            dialog_id: selectedDialogVal.id,
-            user_id: auth.id,
+        let dialog = selectedDialogVal
+        const date = Math.floor(Date.now() / 1000)
+        let message = {
+            type: "groupchat",
+            body: userMsg,
             message: userMsg,
-            created_at: new Date().toISOString()
-        }
-        dispatch(pushMessage(data))
+            dialog_id: dialog.connecty_dialog_id,
+            extension: {
+                save_to_history: 1,
+                dialog_id: dialog.connecty_dialog_id,
+                // sender_id: '2066645',
+                sender_id: auth.connectycube_user.connectycube_id,
+                date_sent: date,
+            },
+            markable: 1
+        };
+        dispatch(pushMessage(message))
 
         // setmsgs(msgs.concat([data]))
         setuserMsg('')
-        createMessage(data)
-            .then(resp => {
-                // console.log(resp)
-            })
-            .catch((err) => console.log(err))
+        message.id = ConnectyCube.chat.helpers.getBsonObjectId()
 
-        socket.emit("sendmessage", {
-            user: `message.chat${user.id}`,
-            type: 'message',
-            data: data
-        });
+        message = ConnectyCube.chat.send(dialog.xmpp_room_jid, message);
+        setTimeout(() => {
 
+            scrollToBottom()
 
-        // console.log(userMsg)
-
+        }, 200);
     }
-    if(!selectedDialogVal.id){
-       return(
-           <div className="right">
-               <div className="top"></div>
-               <div className="chat">
 
-                   {!loading && !dialogsArr.length && (
-                       <div className="emptyDialog">
-                           <img src="/static/images/undraw_typing.svg" />
-                           <Typography>Your message box is empty</Typography>
-                       </div>
-                   )}
-                   {!loading && dialogsArr.length >0 && (
-                       <div className="emptyDialog">
-                           <Typography>Please select a dialog to start chat</Typography>
-                       </div>
-                   )}
-               </div>
-           </div>
-       )
+    // const sendMsg = (e) => {
+    //     e.preventDefault()
+    //     if (!userMsg) {
+    //         return
+    //     }
+    //     let data = {
+    //         dialog_id: selectedDialogVal.id,
+    //         user_id: auth.id,
+    //         message: userMsg,
+    //         created_at: new Date().toISOString()
+    //     }
+    //     dispatch(pushMessage(data))
+
+    //     // setmsgs(msgs.concat([data]))
+    //     setuserMsg('')
+    //     createMessage(data)
+    //         .then(resp => {
+    //             // console.log(resp)
+    //         })
+    //         .catch((err) => console.log(err))
+
+    //     socket.emit("sendmessage", {
+    //         user: `message.chat${user.id}`,
+    //         type: 'message',
+    //         data: data
+    //     });
+
+
+    //     // console.log(userMsg)
+
+    // }
+    if (!selectedDialogVal.id) {
+        return (
+            <div className="right">
+                <div className="top"></div>
+                <div className="chat">
+
+                    {!loading && !dialogsArr.length && (
+                        <div className="emptyDialog">
+                            <img src="/static/images/undraw_typing.svg" />
+                            <Typography>Your message box is empty</Typography>
+                        </div>
+                    )}
+                    {!loading && dialogsArr.length > 0 && (
+                        <div className="emptyDialog">
+                            <Typography>Please select a dialog to start chat</Typography>
+                        </div>
+                    )}
+                </div>
+            </div>
+        )
     }
 
     return (

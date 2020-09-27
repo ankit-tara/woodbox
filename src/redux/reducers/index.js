@@ -6,6 +6,8 @@ import dialogs from "./dialogs";
 import messages from "./messages";
 import selectedDialog from "./selectedDialog";
 import pageVisited from "./PageVisited";
+import chatAuthenticated from "./chatUser";
+import chatConnected from "./chatConnected";
 
 export default combineReducers({
   auth_user,
@@ -14,5 +16,7 @@ export default combineReducers({
   dialogs,
   messages,
   selectedDialog,
-  pageVisited
+  pageVisited,
+  chatAuthenticated,
+  chatConnected
 });
