@@ -58,7 +58,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         // setloading(true);
 
         setprevdialog(selectedDialogVal)
-        getMessages();
+        getMessages(1);
         // }
         let dialog = selectedDialogVal;
         if (dialog && dialog.users.length) {
@@ -97,9 +97,9 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         // console.log('message', message, selectedDialogVal)
     }
 
-    const getMessages = () => {
+    const getMessages = (pageNo) => {
 
-        let count = page + 1
+        let count = pageNo ? pageNo : page + 1
         // return
         const dialogId = selectedDialogVal.connecty_dialog_id;
         let skip = (count - 1) * 10
@@ -109,6 +109,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             limit: 10,
             skip: skip
         };
+        console.log(params, page, count)
         ConnectyCube.chat.message
             .list(params)
             .then(messages => {
@@ -227,7 +228,8 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
                 sender_id: auth.connectycube_user.connectycube_id,
                 date_sent: date,
             },
-            markable: 1
+            markable: 1,
+            sender_id: auth.connectycube_user.connectycube_id,
         };
         dispatch(pushMessage(message))
 

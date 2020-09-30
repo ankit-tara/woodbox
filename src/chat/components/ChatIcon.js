@@ -16,6 +16,7 @@ import { unSelectedDialog } from "../../redux/actions/selectedDialog";
 
 const ChatMessageIcon = () => {
     const authUser = useSelector((state) => state.auth_user.user);
+    const chatUnreadCount = useSelector((state) => state.chatUnreadCount);
 
     const [count, setcount] = useState();
     const dispatch = useDispatch()
@@ -25,41 +26,24 @@ const ChatMessageIcon = () => {
             dispatch(chatUnauthenticated())
             dispatch(chatReset())
             dispatch(unSelectedDialog())
-            // connectChat()
-            // console.log('authUser', authUser)
-            // return
             let init = AuthService.init();
-            const userCredentials = {
-                email: authUser.email,
-                password: authUser.connectycube_user.password,
-            };
-            // ConnectyCube.createSession(userCredentials)
-            //     .then((session) => { 
-            //         console.log('session',session)
-            //     })
-            //     .catch((error) => { console.log('error', error)});
+           
             if (init && authUser.connectycube_user) {
                 console.log()
                 AuthService.login({
                     email: authUser.email,
                     password: authUser.connectycube_user.password,
                 }).then((user) => {
-                //      chatService.fetchDialogsFromServer()
-                //   .then((dialogs) => {
-                //     console.log("dialogsdialogs", dialogs);
-                //     setDialogs(dialogs);
-                //   })
-                //   .catch((err) => {
-                //     console.log("err", err);
-                //   });
-                    // setUpListeners()
+
+                    
+
                 })
                     .catch((error) => { console.log(error) });
             }
 
-            unreadMsg(authUser.id).then((data) => {
-                data && setcount(data);
-            });
+            // unreadMsg(authUser.id).then((data) => {
+            //     data && setcount(data);
+            // });
         }
     }, []);
 
@@ -118,7 +102,7 @@ const ChatMessageIcon = () => {
         <div>
             <IconButton color="inherit">
                 {/* <IconButton aria-label="you haves" color="inherit"> */}
-                <Badge badgeContent={count} color="secondary">
+                <Badge badgeContent={chatUnreadCount} color="secondary">
                     <Link href="/chat">
                         <ChatIcon />
                     </Link>

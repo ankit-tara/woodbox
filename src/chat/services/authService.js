@@ -6,6 +6,7 @@ import store from '../../redux/store'
 import { getImageLinkFromUID } from '../helpers/file'
 import { chatAuthenticated } from '../../redux/actions/chatUser'
 import { chatConnection } from '../../redux/actions/chatConnected'
+import { chatUnreadCount } from '../../redux/actions/chatUnread'
 // import { LogOut } from '../reducers/index'
 
 class AuthService {
@@ -53,13 +54,24 @@ class AuthService {
   // }
 
   async connect(userId, password) {
-      await ConnectyCube.chat.connect({ userId, password }).then((error,contactlist)=>{
-        store.dispatch(chatConnection());
+    await ConnectyCube.chat.connect({ userId, password }).then((error, contactlist) => {
+      store.dispatch(chatConnection());
+      this.getUnread()
+    })
+  }
+
+  async getUnread() {
+    await ConnectyCube.chat.message
+      .unreadCount()
+      .then(result => {
+        store.dispatch(chatUnreadCount(result.total))
+        console.log('unread', reasult)
       })
+      .catch(error => { });
   }
 
   setUserSession(userSession) {
-      return localStorage.setItem(AuthService.CURRENT_USER_SESSION_KEY, JSON.stringify(userSession))
+    return localStorage.setItem(AuthService.CURRENT_USER_SESSION_KEY, JSON.stringify(userSession))
   }
 
   getUserSession() {
