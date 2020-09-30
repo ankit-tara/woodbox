@@ -12,6 +12,7 @@ import appConfig from '../../../appConfig'
 import { chatUnauthenticated } from "../../redux/actions/chatUser";
 import { chatReset } from "../../redux/actions/chatConnected";
 import chatService from "../../redux/services/chat-service";
+import { unSelectedDialog } from "../../redux/actions/selectedDialog";
 
 const ChatMessageIcon = () => {
     const authUser = useSelector((state) => state.auth_user.user);
@@ -23,6 +24,7 @@ const ChatMessageIcon = () => {
         if (authUser && authUser.connectycube_user) {
             dispatch(chatUnauthenticated())
             dispatch(chatReset())
+            dispatch(unSelectedDialog())
             // connectChat()
             // console.log('authUser', authUser)
             // return

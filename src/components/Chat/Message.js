@@ -8,10 +8,10 @@ const Message = ({ message, auth }) => {
         if (!message) {
             return
         }
-        setisAuth(message.user_id == auth.id)
+        setisAuth(message.sender_id == auth.connectycube_user.connectycube_id)
         settext(message.message)
 
-    }, [])
+    }, [message])
 
     if (!text) {
         return false
@@ -23,7 +23,6 @@ const Message = ({ message, auth }) => {
                 <span className="text">{text}</span>
                 <span className="time"> {moment(message.created_at).format("hh:mm a")}</span>
             </div>
-
         </div>
     )
 }

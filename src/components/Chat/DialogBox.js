@@ -37,7 +37,6 @@ const DialogBox = ({ dialog, auth, selectDialog, dialogs, unread_messages_count 
         if (!dialog) {
             return
         }
-        console.log('clicked')
         
         // dispatch(selectedDialog(dialog))
         selectDialog(dialog, dialogs)

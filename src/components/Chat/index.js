@@ -25,7 +25,6 @@ const Chat = ({ type = "", id = "" }) => {
   const selectedDialogVal = useSelector((state) => state.selectedDialog);
   const chatConnected = useSelector((state) => state.chatConnected);
   // const user = useSelector((state) => state.auth_user.user);
-  console.log('chatConnected', chatConnected)
   const [dialogsArr, setDialogs] = useState([]);
   const [data, setdata] = useState([]);
   const [open, setOpen] = React.useState(true);
@@ -67,7 +66,13 @@ const Chat = ({ type = "", id = "" }) => {
   }
 
   function onMessage(userId, message) {
-    console.log('[ConnectyCube.chat.onMessageListener] callback:', userId, message)
+    if (!user || !user.connectycube_user || userId == user.connectycube_user.connectycube_id) {
+      return
+    }
+    message.message = message.body
+    dispatch(pushMessage(message))
+
+    // console.log('[ConnectyCube.chat.onMessageListener] callback:', user, userId, message)
   }
 
   const getDialogs = (type, id) => {

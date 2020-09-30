@@ -102,18 +102,17 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         let count = page + 1
         // return
         const dialogId = selectedDialogVal.connecty_dialog_id;
-        let skip = (count - 1) * 20
+        let skip = (count - 1) * 10
         const params = {
             chat_dialog_id: dialogId,
             sort_desc: "date_sent",
-            limit: 20,
+            limit: 10,
             skip: skip
         };
         ConnectyCube.chat.message
             .list(params)
             .then(messages => {
 
-                console.log('pageset', !messages.items.length ? -1 : count)
 
                 if (messages.items.length) {
                     let newMsgs = messages.items.reverse().concat(msgs.messages)
@@ -205,7 +204,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
 
             // setdialogLoader(true)
             // getDialogs();
-            getMessages(data, msgs)
+            getMessages()
         }
     }
 
@@ -327,9 +326,11 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
                     </div>
                 )}
                 <Messages auth={auth} />
-                {/* {msgs.length > 0 && (
-                    msgs.map((msg) => <Message message={msg} auth={auth} />)
-
+                {/* {msgs.messages.length > 0 && (
+                    <>
+                        {console.log('logged',msgs.messages)}
+                        {msgs.messages.map((msg, index) => <Message message={msg} auth={auth} key={index} />)
+                        }</>
                 )} */}
 
             </div>
