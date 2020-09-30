@@ -115,6 +115,11 @@ export default function Accordian({ data, isAuthUser }) {
     setsnackbar(!snackbar);
   };
 
+  const gotoChat=()=>{
+    console.log('clicked')
+    router.push("/chat/request/" + data.id);
+  }
+
   return (
     <Accordion className={classes.Accordian}>
       <AccordionSummary
@@ -136,7 +141,7 @@ export default function Accordian({ data, isAuthUser }) {
             {data.title}
           </Typography>
           {!isAuthUser &&
-            <Button color="primary">Chat</Button>}
+            <Button color="primary" onClick={gotoChat}>Chat</Button>}
           {isAuthUser && (
             <div>
               <MoreVertIcon

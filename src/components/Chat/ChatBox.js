@@ -69,9 +69,9 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             let type = dialog.related;
             let related_data = dialog.related_data;
 
-            let link = `products/item/${related_data.id}`
-            if (type == "event") {
-                link = `events/item/${related_data.id}`
+            let link = `/products/item/${related_data.id}`
+            if (type == "request") {
+                link = `/buy-request`
             }
 
             settitle(related_data.title);
@@ -125,7 +125,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
 
                 } else {
                     if (count == 1) {
-                        setuserMsg(selectedDialogVal.related == 'product' ? 'Do you still have this product?' : '')
+                        setuserMsg(selectedDialogVal.related == 'product' ? 'Do you still have this product?' : 'Do you still have this request')
                     }
                     setpage(-1)
 

@@ -18,6 +18,7 @@ import {
   TabStyles,
 } from "../src/styles";
 import { getAllBuyRequests } from "../src/apis/global-api";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BuyRequest() {
+  const user = useSelector((state) => state.auth_user.user);
+
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [requests, setrequests] = useState({});
@@ -105,7 +108,7 @@ export default function BuyRequest() {
                   {requests && requests.data &&
                     requests.data.length > 0 &&
                     requests.data.map((data) => (
-                      <Accordian data={data} />
+                      <Accordian data={data} isAuthUser={data.user_id == user.id} key={data.id} />
                     ))}
                   {/* <Accordian />
                   
