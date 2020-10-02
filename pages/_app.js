@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -20,7 +20,8 @@ import { CreateVisit } from "../src/apis/global-api";
 import { VALID_ROUTES } from "../src/constants";
 import { firebaseCloudMessaging } from "../utils/webPush";
 import firebase from 'firebase/app'
-import OneSignal, { useOneSignalSetup } from 'react-onesignal';
+import { updateDeviceToken } from "../src/apis/auth-api";
+// import OneSignal, { useOneSignalSetup } from 'react-onesignal';
 
 Router.events.on("routeChangeStart", () => {
 
@@ -103,20 +104,58 @@ const getMessage = () => {
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   const router = useRouter();
+  const [onesignalinit, setonesignalinit] = useState(false)
 
-  useOneSignalSetup(() => {
-    let userData = window.localStorage.getItem("user");
-    userData = userData ? JSON.parse(userData) : "";
-    if(userData){
-      OneSignal.setEmail(userData.email);
-      OneSignal.setExternalUserId(userData.id);
-    }
-    
-  });
+  // useOneSignalSetup(() => {
+  // let userData = window.localStorage.getItem("user");
+  // userData = userData ? JSON.parse(userData) : "";
+
+  // if (userData) {
+  //   OneSignal.setEmail(userData.email);
+  //   OneSignal.setExternalUserId(userData.id);
+  // }
+
+  // });
 
 
   React.useEffect(() => {
 
+    var OneSignal = window.OneSignal || [];
+    var initConfig = {
+      appId: "442ccc52-d5fb-4521-a46c-a5320cff49ae",
+      notifyButton: {
+        enable: true
+      },
+    };
+    let userData = window.localStorage.getItem("user");
+    userData = userData ? JSON.parse(userData) : "";
+
+
+    OneSignal.push(function () {
+
+
+      OneSignal.SERVICE_WORKER_PARAM = { scope: '/subdirectory/' };
+      OneSignal.SERVICE_WORKER_PATH = 'subdirectory/OneSignalSDKWorker.js'
+      OneSignal.SERVICE_WORKER_UPDATER_PATH = 'subdirectory/OneSignalSDKUpdaterWorker.js'
+      if (!onesignalinit) {
+        OneSignal.init(initConfig);
+        setonesignalinit(true)
+      }
+      if (userData) {
+        OneSignal.getUserId(function (userId) {
+          if (userId != userData.device_token) {
+            updateDeviceToken(userData.id, userId).then(result => {
+              userData.device_token = userId
+              window.localStorage.setItem("user", JSON.stringify(userData));
+            })
+          }
+          console.log(userData, userId);
+        });
+        OneSignal.sendTag("user", userData.id);
+      }
+
+
+    });
 
     isuserProfileComplete()
     // Remove the server-side injected CSS.
@@ -124,10 +163,13 @@ export default function MyApp(props) {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+
+  
+
   }, []);
 
   // const setToken = async (userData) => {
-  
+
   //   // try {
   //   //   const token = await firebaseCloudMessaging.init(userData);
   //   //   if (token) {

@@ -1,4 +1,4 @@
-import { UNAUTHENTICATED, AUTHENTICATED } from "../actionTypes/auth";
+import { UNAUTHENTICATED, AUTHENTICATED, UPDATE_DEVICE_TOKEN} from "../actionTypes/auth";
 import localforage from 'localforage'
 
 const initialState = {
@@ -20,6 +20,17 @@ export default function (state = initialState, action) {
         user: user,
         accessToken: accessToken,
       };
+    case UPDATE_DEVICE_TOKEN:
+      let { token } = action.payload
+      let u = state.user
+      u.device_token = token
+      localStorage.setItem("user", JSON.stringify(u));
+      return {
+        ...state,
+        user: u,
+
+      };
+
 
     case UNAUTHENTICATED:
       localStorage.setItem("user", "");

@@ -44,35 +44,19 @@ const Chat = ({ type = "", id = "" }) => {
 
   const setUpListeners = () => {
     ConnectyCube.chat.onMessageListener = onMessage;
-    // const opponentId = '2066689';
-    // const date = Math.floor(Date.now() / 1000)
-    // let message = {
-    //   type: "groupchat",
-    //   body: "How are you today hghg?",
-    //   extension: {
-    //     save_to_history: 1,
-    //     dialog_id: '5f6f3676ca8bf42a744c3f4b',
-    //     // sender_id: '2066645',
-    //     sender_id: '2066689',
-    //     date_sent: date,
-    //   },
-    //   markable: 1
-    // };
-    // message.id = ConnectyCube.chat.helpers.getBsonObjectId()
-    // console.log('message', message)
 
-    // message = ConnectyCube.chat.send('2769_5f6f3676ca8bf42a744c3f4b@muc.chat.connectycube.com', message);
-    // console.log('message2', message)
   }
 
   function onMessage(userId, message) {
     if (!user || !user.connectycube_user || userId == user.connectycube_user.connectycube_id) {
       return
     }
+    console.log(message)
     message.message = message.body
+    message.device_token = user.device_token
+    message.notif = true
     dispatch(pushMessage(message))
-
-    // console.log('[ConnectyCube.chat.onMessageListener] callback:', user, userId, message)
+  
   }
 
   const getDialogs = (type, id) => {

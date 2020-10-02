@@ -15,8 +15,6 @@ const useStyles = makeStyles(theme => ({
 const Testimonial = ({ data }) => {
 
 
-  console.log("reviewdata", data);
-
   const classes = useStyles()
 
   const params = {

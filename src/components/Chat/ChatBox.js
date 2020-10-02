@@ -50,7 +50,8 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             setuser('')
             settitle('');
             setlink('');
-            setpage(0)
+            setpage(0);
+          
             return
         }
         // if (prevdialog.id != selectedDialogVal.id) {
@@ -98,7 +99,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
     }
 
     const getMessages = (pageNo) => {
-
+        setuserMsg('')
         let count = pageNo ? pageNo : page + 1
         // return
         const dialogId = selectedDialogVal.connecty_dialog_id;
