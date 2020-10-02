@@ -1,6 +1,6 @@
 const app = require('express')()
 const server = require('http').Server(app)
-const io = require('socket.io').listen(server)
+// const io = require('socket.io').listen(server)
 const next = require('next')
 const Razorpay = require("razorpay")
 const request = require('request');
@@ -18,14 +18,14 @@ const instance = new Razorpay({
 // const messages = []
 
 // socket.io server
-io.on('connection', socket => {
-    console.log('connected')
-    socket.on("sendmessage", data => {
-        console.log({ data });
-        // messages.push(data);
-        socket.broadcast.emit(data.user, data);
-    });
-})
+// io.on('connection', socket => {
+//     console.log('connected')
+//     socket.on("sendmessage", data => {
+//         console.log({ data });
+//         // messages.push(data);
+//         socket.broadcast.emit(data.user, data);
+//     });
+// })
 
 nextApp.prepare().then(() => {
 

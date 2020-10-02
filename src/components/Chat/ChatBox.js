@@ -13,7 +13,7 @@ import ConnectyCube from "connectycube";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteAllMessages, pushMessage, setMessages } from "../../redux/actions/messages";
-import useSocket from "../../Utils/useSocket";
+// import useSocket from "../../Utils/useSocket";
 import Messages from "./Messages";
 import { selectedDialog } from "../../redux/actions/selectedDialog";
 
@@ -31,7 +31,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
     const [page, setpage] = useState(0);
     const [userMsg, setuserMsg] = useState('');
     const msgs = useSelector((state) => state.messages);
-    const socket = useSocket()
+    // const socket = useSocket()
     // const [msgs, setmsgs] = useState([]);
     const [user, setuser] = useState("");
     const [title, settitle] = useState("");
@@ -78,16 +78,16 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             settitle(related_data.title);
             setlink(link);
         }
-        if (socket && auth && !connected) {
-            socket.on(`message.chat${auth.id}`, message => {
-                handleNewMsg(message)
+        // if (socket && auth && !connected) {
+        //     socket.on(`message.chat${auth.id}`, message => {
+        //         handleNewMsg(message)
 
-            });
-            setconnected(true)
-        }
+        //     });
+        //     setconnected(true)
+        // }
 
 
-    }, [selectedDialogVal, socket]);
+    }, [selectedDialogVal]);
 
     const handleNewMsg = (message) => {
         // if (message.data && message.data.dialog_id == selectedDialogVal.id) {
