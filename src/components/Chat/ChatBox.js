@@ -16,6 +16,7 @@ import { deleteAllMessages, pushMessage, setMessages } from "../../redux/actions
 // import useSocket from "../../Utils/useSocket";
 import Messages from "./Messages";
 import { selectedDialog } from "../../redux/actions/selectedDialog";
+import { getSeller, sendChatUpdate } from "../../apis/global-api";
 
 const useStyles = makeStyles((theme) => ({
     ...commonStyles,
@@ -51,7 +52,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             settitle('');
             setlink('');
             setpage(0);
-          
+
             return
         }
         // if (prevdialog.id != selectedDialogVal.id) {
@@ -64,7 +65,8 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         let dialog = selectedDialogVal;
         if (dialog && dialog.users.length) {
             let user = dialog.users.filter((item) => item.user.id != auth.id);
-            setuser(user[0].user);
+            user[0].user && getSeller(user[0].user.id).then(data => data && data.id && setuser(data))
+            // setuser(user[0].user);
         }
         if (dialog && dialog.related_data) {
             let type = dialog.related;
@@ -116,6 +118,8 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             .then(messages => {
 
 
+
+
                 if (messages.items.length) {
                     let newMsgs = messages.items.reverse().concat(msgs.messages)
                     setTimeout(() => {
@@ -131,6 +135,16 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
                     setpage(-1)
 
                 }
+
+                ConnectyCube.chat
+                    .getLastUserActivity(userId)
+                    .then(result => {
+                        console.log('lastactive', result)
+                        const userId = result.userId;
+                        const seconds = result.seconds;
+                        // 'userId' was 'seconds' ago
+                    })
+                    .catch(error => { });
 
 
             })
@@ -239,6 +253,49 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
         message.id = ConnectyCube.chat.helpers.getBsonObjectId()
 
         message = ConnectyCube.chat.send(dialog.xmpp_room_jid, message);
+        ConnectyCube.chat
+            .getLastUserActivity(user.connectycube_user.connectycube_id)
+            .then(result => {
+                console.log('resultconect', result)
+                const userId = result.userId;
+                const seconds = result.seconds;
+                if (seconds > 500) {
+                    sendChatUpdate(user.id)
+                    var message = {
+                        app_id: process.env.ONESIGNAL_APP_ID,
+                        contents: { "en": "You recieved a new message." },
+                        filters: [
+                            { "field": "tag", "key": "user", "relation": "=", "value": user.id },
+
+                        ],
+                        url: process.env.APP_URL + '/chat'
+                    };
+                    fetch('https://onesignal.com/api/v1/notifications', {
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                            "Authorization": "Basic " + process.env.ONESIGNAL_REST_KEY
+                        },
+                        method: "post",
+                        body: JSON.stringify(message),
+                        // body: JSON.stringify(data),
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw Error(`Request rejected with status ${response.status}`);
+                            }
+                        })
+                        .then((responseData) => {
+                            console.log('responseDatasadsad', responseData);
+                            return responseData;
+                        })
+                        .catch((error) => console.log('responseDatasadsad', error));
+                }
+                // 'userId' was 'seconds' ago
+            })
+            .catch(error => { });
+
         setTimeout(() => {
 
             scrollToBottom()

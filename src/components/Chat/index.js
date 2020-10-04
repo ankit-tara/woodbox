@@ -35,17 +35,17 @@ const Chat = ({ type = "", id = "" }) => {
 
   useEffect(() => {
     if (!dialogsArr.length && chatConnected) {
-      setUpListeners()
+      // setUpListeners()
       setloader(true);
       getDialogs(type, id);
     }
   }, [type, id, user, chatConnected]);
 
 
-  const setUpListeners = () => {
-    ConnectyCube.chat.onMessageListener = onMessage;
+  // const setUpListeners = () => {
+  //   ConnectyCube.chat.onMessageListener = onMessage;
 
-  }
+  // }
 
   function onMessage(userId, message) {
     if (!user || !user.connectycube_user || userId == user.connectycube_user.connectycube_id) {

@@ -119,7 +119,8 @@ export default function MyApp(props) {
 
 
   React.useEffect(() => {
-
+    let userData = window.localStorage.getItem("user");
+    userData = userData ? JSON.parse(userData) : "";
     var OneSignal = window.OneSignal || [];
     var initConfig = {
       appId: "442ccc52-d5fb-4521-a46c-a5320cff49ae",
@@ -127,21 +128,20 @@ export default function MyApp(props) {
         enable: true
       },
     };
-    let userData = window.localStorage.getItem("user");
-    userData = userData ? JSON.parse(userData) : "";
 
 
-    OneSignal.push(function () {
+    if (userData) {
+      OneSignal.push(function () {
 
 
-      OneSignal.SERVICE_WORKER_PARAM = { scope: '/subdirectory/' };
-      OneSignal.SERVICE_WORKER_PATH = 'subdirectory/OneSignalSDKWorker.js'
-      OneSignal.SERVICE_WORKER_UPDATER_PATH = 'subdirectory/OneSignalSDKUpdaterWorker.js'
-      if (!onesignalinit) {
-        OneSignal.init(initConfig);
-        setonesignalinit(true)
-      }
-      if (userData) {
+        OneSignal.SERVICE_WORKER_PARAM = { scope: '/subdirectory/' };
+        OneSignal.SERVICE_WORKER_PATH = 'subdirectory/OneSignalSDKWorker.js'
+        OneSignal.SERVICE_WORKER_UPDATER_PATH = 'subdirectory/OneSignalSDKUpdaterWorker.js'
+        if (!onesignalinit) {
+          OneSignal.init(initConfig);
+          setonesignalinit(true)
+        }
+        // if (userData) {
         OneSignal.getUserId(function (userId) {
           if (userId != userData.device_token) {
             updateDeviceToken(userData.id, userId).then(result => {
@@ -152,11 +152,11 @@ export default function MyApp(props) {
           console.log(userData, userId);
         });
         OneSignal.sendTag("user", userData.id);
-      }
+        // }
 
 
-    });
-
+      });
+    }
     isuserProfileComplete()
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -164,7 +164,7 @@ export default function MyApp(props) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
 
-  
+
 
   }, []);
 

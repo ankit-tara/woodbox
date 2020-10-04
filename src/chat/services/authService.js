@@ -7,6 +7,7 @@ import { getImageLinkFromUID } from '../helpers/file'
 import { chatAuthenticated } from '../../redux/actions/chatUser'
 import { chatConnection } from '../../redux/actions/chatConnected'
 import { chatUnreadCount } from '../../redux/actions/chatUnread'
+import { pushMessage } from '../../redux/actions/messages'
 // import { LogOut } from '../reducers/index'
 
 class AuthService {
@@ -54,10 +55,18 @@ class AuthService {
   // }
 
   async connect(userId, password) {
-    await ConnectyCube.chat.connect({ userId, password }).then((error, contactlist) => {
+    const isConnected = ConnectyCube.chat.isConnected;
+    if (isConnected) {
       store.dispatch(chatConnection());
       this.getUnread()
-    })
+    } else {
+      await ConnectyCube.chat.connect({ userId, password }).then((error, contactlist) => {
+        this.setUpListeners()
+        store.dispatch(chatConnection());
+        this.getUnread()
+      })
+    }
+
   }
 
   async getUnread() {
@@ -68,6 +77,25 @@ class AuthService {
         console.log('unread', reasult)
       })
       .catch(error => { });
+  }
+
+  async setUpListeners() {
+    ConnectyCube.chat.onMessageListener = this.onMessage.bind(this);
+  }
+
+  onMessage(userId, message) {
+    let user = localStorage.getItem("user");
+    user = user ? JSON.parse(user) : "";
+    console.log(message, userId, user.connectycube_user.connectycube_id)
+    if (!user || !user.connectycube_user || userId == user.connectycube_user.connectycube_id) {
+      return
+    }
+
+    message.message = message.body
+    message.device_token = user.device_token
+    message.notif = true
+    store.dispatch(pushMessage(message))
+
   }
 
   setUserSession(userSession) {

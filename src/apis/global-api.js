@@ -230,6 +230,12 @@ export function UpdatePasswordAPI(data) {
   return generalPostRequest(url, data);
 }
 
+export function sendChatUpdate(user_id) {
+  let url = API_URL + "/send-chat-message/" + user_id;
+  console.log(url);
+  return generalPostRequest(url);
+}
+
 function generalPostRequest(url, data) {
   return fetch(url, {
     headers: {
