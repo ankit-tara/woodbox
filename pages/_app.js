@@ -123,9 +123,9 @@ export default function MyApp(props) {
     userData = userData ? JSON.parse(userData) : "";
     var OneSignal = window.OneSignal || [];
     var initConfig = {
-      appId: "442ccc52-d5fb-4521-a46c-a5320cff49ae",
+      appId: process.env.ONESIGNAL_APP_ID,
       notifyButton: {
-        enable: true
+        enable: true,
       },
     };
 
