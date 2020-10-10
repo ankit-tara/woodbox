@@ -411,7 +411,7 @@ const ChatBox = ({ selectedDialogVal, auth, goBack, dialogsArr }) => {
             <div className="write">
                 {!loading && (
                     <>
-                        <a href="javascript:;" className="write-link attach"></a>
+                        <a href="javascript:;" className="test"></a>
                         <input
                             type="text"
                             name="chatmessage"

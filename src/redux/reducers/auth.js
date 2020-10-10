@@ -1,5 +1,6 @@
 import { UNAUTHENTICATED, AUTHENTICATED, UPDATE_DEVICE_TOKEN} from "../actionTypes/auth";
 import localforage from 'localforage'
+import { SELECTED_FILTER_RESET, SELECTED_FILTER_UNIVERSITY } from "../../constants";
 
 const initialState = {
   user: {},
@@ -39,6 +40,8 @@ export default function (state = initialState, action) {
       localStorage.setItem("userFavProducts", "");
       localforage.removeItem('fcm_token')
       localforage.removeItem('fcm_token_user')
+      localStorage.setItem(SELECTED_FILTER_UNIVERSITY, '');
+      localStorage.setItem(SELECTED_FILTER_RESET, false);
       return initialState;
 
     default:

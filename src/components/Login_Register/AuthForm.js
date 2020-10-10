@@ -7,15 +7,11 @@ import { searchUniversities } from "../../apis/global-api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import Typography from "@material-ui/core/Typography";
-import { simpleSignup, login, googleSignup} from "../../apis/auth-api";
+import { simpleSignup, login, googleSignup } from "../../apis/auth-api";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
 import { GoogleLogin } from "react-google-login";
-
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -28,14 +24,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "0.5rem",
   },
   button: {
-    '&:focus': {
-      background: 'rgb(177, 90, 16)'
+    "&:focus": {
+      background: "rgb(177, 90, 16)",
     },
-    '& .MuiCircularProgress-colorPrimary': {
-      marginLeft: '10px',
-      color: '#fff'
-    }
-  }
+    "& .MuiCircularProgress-colorPrimary": {
+      marginLeft: "10px",
+      color: "#fff",
+    },
+  },
 }));
 
 export const AuthForm = ({ type }) => {
@@ -73,7 +69,7 @@ export const AuthForm = ({ type }) => {
     };
     login(data).then((response) => {
       if (response.error) {
-        setbtnloading(true);
+        setbtnloading(false);
         setformerrs(response.msg);
       } else {
         setbtnloading(false);
@@ -81,7 +77,7 @@ export const AuthForm = ({ type }) => {
         let accessToken = response.body.user.api_token;
         let favEvents = response.body.favEvents;
         let favProducts = response.body.favProducts;
-        setLogin(user, accessToken,favEvents,favProducts);
+        setLogin(user, accessToken, favEvents, favProducts);
         setshowRedirect(true);
       }
     });
@@ -112,7 +108,7 @@ export const AuthForm = ({ type }) => {
         setbtnloading(false);
         let favEvents = response.body.favEvents;
         let favProducts = response.body.favProducts;
-        setLogin(user, accessToken,favEvents,favProducts);
+        setLogin(user, accessToken, favEvents, favProducts);
         setshowRedirect(true);
       }
     });
@@ -120,14 +116,13 @@ export const AuthForm = ({ type }) => {
 
   const setLogin = (user, accessToken, favEvents, favProducts) => {
     console.log(user, accessToken);
-    dispatch(authenticated(user, accessToken, favEvents,favProducts));
+    dispatch(authenticated(user, accessToken, favEvents, favProducts));
     router.push("/profile/edit");
   };
   const responseGoogleSuccess = (response) => {
-
     let data = {
       email: response.profileObj.email,
-      google_id: response.googleId
+      google_id: response.googleId,
     };
     // return
 
@@ -139,17 +134,17 @@ export const AuthForm = ({ type }) => {
         let user = response.body.user;
         let accessToken = response.body.user.api_token;
         setbtnloading(false);
-         let favEvents = response.body.favEvents;
+        let favEvents = response.body.favEvents;
         let favProducts = response.body.favProducts;
-        setLogin(user, accessToken,favEvents,favProducts);
+        setLogin(user, accessToken, favEvents, favProducts);
         setshowRedirect(true);
       }
     });
   };
   const responseGoogleFailure = (response) => {
-    alert('Oops!! there was some problem while logging in.')
+    console.log(response);
+    // alert('Oops!! there was some problem while logging in.')
   };
-
 
   const backdropClose = () => {
     setbackdrop(false);
@@ -192,7 +187,7 @@ export const AuthForm = ({ type }) => {
       setuniversities(response);
     });
   };
-  
+
   const gotoForgotPassword = () => {
     router.push("/forgot-password");
   };
@@ -211,7 +206,7 @@ export const AuthForm = ({ type }) => {
       </div>
       <br />
       <br />
-      <div style={{ textAlign: "center" }} >or</div>
+      <div style={{ textAlign: "center" }}>or</div>
       <br />
       <br />
       <form className={classes.container} onSubmit={validateform}>
@@ -357,7 +352,9 @@ export const AuthForm = ({ type }) => {
         </Button>
       </form>
 
-      <p>Forgot password ? click <span onClick={gotoForgotPassword} >here</span></p>
+      <p style={{ cursor: "pointer" }} onClick={gotoForgotPassword}>
+        Forgot password ? click <span>here</span>
+      </p>
       {showRedirect && (
         <Typography color="primary">
           Redirecting to profile page!!{" "}

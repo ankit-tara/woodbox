@@ -10,7 +10,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (!accessToken) {
-      router.push("/");
+     window.location.replace("/?signup=open");
     }
   }, []);
 

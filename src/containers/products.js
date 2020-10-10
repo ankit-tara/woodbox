@@ -30,21 +30,20 @@ const useStyles = makeStyles((theme) => ({
 import { useRouter } from "next/router";
 import { getProducts, getAllFeedback } from "../apis/global-api";
 
-function Products({ data, url, m_uni }) {
+function Products({ data, url, m_uni, query }) {
   const [products, setproducts] = useState([]);
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
-  const [list_reviews, setlist_reviews] = useState([])
+  const [list_reviews, setlist_reviews] = useState([]);
 
   useEffect(() => {
-    console.log("url", url);
     if (url) fetchTypeProducts(url, 0, []);
     getAllFeedback().then((data) => {
-      setlist_reviews(data)
+      setlist_reviews(data);
     });
     // setproducts(data);
-  }, [data, url, m_uni]);
+  }, [data, url, m_uni, query]);
 
   const handleButtonClick = () => {
     if (!loadMore) {
@@ -85,7 +84,7 @@ function Products({ data, url, m_uni }) {
     };
 
     const [showsidebar, setshowsidebar] = React.useState(false);
-    return <Sidebar />
+    return <Sidebar />;
     return (
       <>
         <Button className={classes.fliterBtn} onClick={toggle}>
@@ -114,12 +113,12 @@ function Products({ data, url, m_uni }) {
           <Grid container>
             <Grid item lg={3} md={3} sm={12} xs={12}>
               {matches ? (
-                <Sidebar showFilterBtn="true" m_uni={m_uni} />
+                <Sidebar showFilterBtn="true" m_uni={m_uni} query={query} />
               ) : (
-                  <StickyBox offsetTop={100} offsetBottom={20}>
-                    <Sidebar m_uni={m_uni} />
-                  </StickyBox>
-                )}
+                <StickyBox offsetTop={100} offsetBottom={20}>
+                  <Sidebar m_uni={m_uni} query={query} />
+                </StickyBox>
+              )}
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box className={classes.ProductsGridWrapper}>

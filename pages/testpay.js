@@ -33,17 +33,20 @@ const paymentHandler = async (e) => {
 };
 
 const TestPayPage = () => {
-  return (<div>
-    GOOGLE_CLIENT_ID  {process.env.GOOGLE_CLIENT_ID}
-    <br></br>
- RAZOR_PAY_KEY_ID   {process.env.RAZOR_PAY_KEY_ID}
-    <br></br>
- RAZOR_PAY_KEY_SECRET   {process.env.RAZOR_PAY_KEY_SECRET}
-    <br></br>
- APP_URL   {process.env.APP_URL}
-    <br></br>
-    <button onClick={paymentHandler}>Pay Now</button>
-  </div>)
+  return (
+    <div>
+      GOOGLE_CLIENT_ID {process.env.GOOGLE_CLIENT_ID}
+      <br></br>
+      RAZOR_PAY_KEY_ID {process.env.RAZOR_PAY_KEY_ID}
+      <br></br>
+      RAZOR_PAY_KEY_SECRET {process.env.RAZOR_PAY_KEY_SECRET}
+      <br></br>
+      APP_URL {process.env.APP_URL}
+      <br></br>
+      {process.env}
+      <button onClick={paymentHandler}>Pay Now</button>
+    </div>
+  );
 };
 
 
