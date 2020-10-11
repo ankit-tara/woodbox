@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userFavEvents", userFavEvents);
       localStorage.setItem("userFavProducts", userFavProducts);
-
+      localStorage.setItem(SELECTED_FILTER_RESET, false);
       return {
         ...state,
         user: user,

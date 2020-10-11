@@ -83,7 +83,7 @@ export function Favourite(data) {
   return generalPostRequest(url, data);
 }
 export function GetUserFavourite(user_id, type) {
-  let url = API_URL + "/user-favourite/" + user_id + '/' + type;
+  let url = API_URL + "/user-favourite/" + user_id + "/" + type;
 
   return fetch(url)
     .then((response) => response.json())
@@ -143,7 +143,18 @@ function generalPostRequest(url, data) {
 }
 
 export function updateDeviceToken(user_id, token) {
-  let url = API_URL + "/device-token/" + user_id + '/' + token;
+  let url = API_URL + "/device-token/" + user_id + "/" + token;
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
+export function verifyEmail(token) {
+  let url = API_URL + "/verify-email-token/" + token;
 
   return fetch(url)
     .then((response) => response.json())

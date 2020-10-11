@@ -221,12 +221,13 @@ export default function Post({ user, formtype = "add", product = {} }) {
   };
 
   const handleSave = (filesArr) => {
+    console.log(filesArr);
     let count = 0;
-    filesArr.map((file) => {
+    filesArr.map((file,index) => {
       count++;
       const reader = new FileReader();
       reader.onload = (event) => {
-        console.log(event.target.result);
+        console.log("testfile", index, files, filesInfo);
         //store result into your state array.
         let updatedImages = files.concat(event.target.result);
         let updatedImagesInfo = filesInfo.concat({
@@ -293,8 +294,11 @@ export default function Post({ user, formtype = "add", product = {} }) {
   };
 
   const handleSubmit = (e, uploaded_files) => {
-
     e && e.preventDefault();
+
+    // console.log(files,filesInfo)
+    // return
+
     let is_valid = checkValidation();
 
     if (!is_valid) {
@@ -535,39 +539,46 @@ export default function Post({ user, formtype = "add", product = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    {type == 'Rental' && 
-                    <div className={`${classes.formInput}`}>
+                    {type == "Rental" && (
+                      <div className={`${classes.formInput}`}>
+                        <Grid container spacing={1} alignItems="flex-end">
+                          <Grid item>
+                            <DetailsIcon />
+                          </Grid>
+                          <Grid item className={`${classes.formInputField} `}>
+                            <FormControl className={classes.formControl}>
+                              <InputLabel id="demo-simple-select-label">
+                                Time Period
+                              </InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={time_period}
+                                onChange={(e) =>
+                                  updateformData(e, "time_period")
+                                }
+                              >
+                                <MenuItem value="day">Day</MenuItem>
+                                <MenuItem value="week">Week</MenuItem>
+                                <MenuItem value="month">Month</MenuItem>
+                                <MenuItem value="year">Year</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    )}
+                    <div
+                      className={`${classes.formInput} ${classes.formInputFullWidth}`}
+                    >
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
                           <DetailsIcon />
                         </Grid>
-                        <Grid item className={`${classes.formInputField} `}>
-                          <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-label">
-                              Time Period
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={time_period}
-                              onChange={(e) => updateformData(e, "time_period")}
-                            >
-                              <MenuItem value="day">Day</MenuItem>
-                              <MenuItem value="week">Week</MenuItem>
-                              <MenuItem value="month">Month</MenuItem>
-                              <MenuItem value="year">Year</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </Grid>
-                      </Grid>
-                    </div>
-}
-                  <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
-                      <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item>
-                          <DetailsIcon />
-                        </Grid>
-                        <Grid item className={`${classes.formInputField} ${classes.formInputFieldFull}`}>
+                        <Grid
+                          item
+                          className={`${classes.formInputField} ${classes.formInputFieldFull}`}
+                        >
                           <textarea
                             id="about"
                             label="Description"
@@ -620,6 +631,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
                         </Button>
                       </div>
                       <DropzoneDialog
+                        filesLimit={10}
                         open={open}
                         onSave={handleSave.bind(this)}
                         acceptedFiles={["image/*", "video/*"]}

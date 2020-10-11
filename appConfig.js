@@ -14,7 +14,7 @@ const data = {
         }
       },
       "debug": {
-        "mode": 1
+        "mode": 0
       }
     }
   ]

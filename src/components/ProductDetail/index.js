@@ -384,9 +384,17 @@ const ProductDetail = ({ data }) => {
                   </Box>
                   <Box className={classes.Pricebox}>
                     <Typography className={classes.heading}>Price</Typography>
-                    <Typography variant="h4" color="primary">
-                      &#8377;{data.price}
-                    </Typography>
+                    {data.type == "Rental" && (
+                      <Typography variant="h4" color="primary">
+                        {data.price} /
+                        {data.time_period ? data.time_period : "month"}
+                      </Typography>
+                    )}
+                    {data.type != "Rental" && (
+                      <Typography variant="h4" color="primary">
+                        &#8377;{data.price}
+                      </Typography>
+                    )}
                   </Box>
                 </div>
                 <div className={classes.Right}>

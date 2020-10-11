@@ -19,70 +19,75 @@ import { useRouter } from "next/router";
 import { CreateVisit } from "../src/apis/global-api";
 import { VALID_ROUTES } from "../src/constants";
 import { firebaseCloudMessaging } from "../utils/webPush";
-import firebase from 'firebase/app'
+import firebase from "firebase/app";
 import { updateDeviceToken } from "../src/apis/auth-api";
 // import OneSignal, { useOneSignalSetup } from 'react-onesignal';
 
 Router.events.on("routeChangeStart", () => {
-
-  NProgress.start()
+  NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => {
   isuserProfileComplete();
-  NProgress.done()
+  NProgress.done();
 });
 Router.events.on("routeChangeError", () => NProgress.done());
 const isuserProfileComplete = () => {
-
   let userData = window.localStorage.getItem("user");
   userData = userData ? JSON.parse(userData) : "";
   let accessTokenData = window.localStorage.getItem("accessToken");
   if (accessTokenData && accessTokenData != "undefined" && userData) {
     // setToken(userData);
     // firebaseCloudMessaging.init(userData)
-    if (!userData.is_complete && Router.router.asPath != '/profile/edit') {
+    console.log(Router.router.route);
+    if (
+      !userData.email_verified_at &&
+      Router.router.asPath != "/not-verified-email"
+    ) {
+      if (Router.router.route != "/verify") {
+        Router.push("/not-verified-email");
+      }
+      return false;
+    } else if (
+      userData.email_verified_at &&
+      !userData.is_complete &&
+      Router.router.asPath != "/profile/edit"
+    ) {
       Router.push("/profile/edit");
     } else {
-      setUserVisit(userData)
+      setUserVisit(userData);
     }
-
-
   }
-
-}
+};
 const setUserVisit = (userData) => {
-  let route = Router.router.route.replace('/', '')
+  let route = Router.router.route.replace("/", "");
 
-  if (!route)
-    return
+  if (!route) return;
 
-  if (route == 'products') {
-    let { type, s } = Router.router.query
-    if (type == 'buy') {
-      route = 'products-buy'
+  if (route == "products") {
+    let { type, s } = Router.router.query;
+    if (type == "buy") {
+      route = "products-buy";
     }
-    if (type == 'sell') {
-      route = 'products-sell'
+    if (type == "sell") {
+      route = "products-sell";
     }
     if (s) {
-      route = "products-search"
+      route = "products-search";
     }
   }
 
-  var routeExist = VALID_ROUTES.find(obj => obj.route === route);
-  console.log('routetest', Router.router, route, routeExist)
-  if (!routeExist)
-    return
-
+  var routeExist = VALID_ROUTES.find((obj) => obj.route === route);
+  console.log("routetest", Router.router, route, routeExist);
+  if (!routeExist) return;
 
   let data = {
     user_id: userData.id,
-    feature: routeExist.title
-  }
+    feature: routeExist.title,
+  };
   CreateVisit(data).then((data) => {
-    console.log(data)
+    console.log(data);
   });
-}
+};
 
 // const setToken = async (userData) => {
 //   try {
@@ -97,14 +102,13 @@ const setUserVisit = (userData) => {
 // }
 const getMessage = () => {
   const messaging = firebase.messaging();
-  messaging.onMessage((message) => console.log('foreground', message));
-}
-
+  messaging.onMessage((message) => console.log("foreground", message));
+};
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   const router = useRouter();
-  const [onesignalinit, setonesignalinit] = useState(false)
+  const [onesignalinit, setonesignalinit] = useState(false);
 
   // useOneSignalSetup(() => {
   // let userData = window.localStorage.getItem("user");
@@ -117,7 +121,6 @@ export default function MyApp(props) {
 
   // });
 
-
   React.useEffect(() => {
     let userData = window.localStorage.getItem("user");
     userData = userData ? JSON.parse(userData) : "";
@@ -129,43 +132,36 @@ export default function MyApp(props) {
       },
     };
 
-
     if (userData) {
       OneSignal.push(function () {
-
-
-        OneSignal.SERVICE_WORKER_PARAM = { scope: '/subdirectory/' };
-        OneSignal.SERVICE_WORKER_PATH = 'subdirectory/OneSignalSDKWorker.js'
-        OneSignal.SERVICE_WORKER_UPDATER_PATH = 'subdirectory/OneSignalSDKUpdaterWorker.js'
+        OneSignal.SERVICE_WORKER_PARAM = { scope: "/subdirectory/" };
+        OneSignal.SERVICE_WORKER_PATH = "subdirectory/OneSignalSDKWorker.js";
+        OneSignal.SERVICE_WORKER_UPDATER_PATH =
+          "subdirectory/OneSignalSDKUpdaterWorker.js";
         if (!onesignalinit) {
           OneSignal.init(initConfig);
-          setonesignalinit(true)
+          setonesignalinit(true);
         }
         // if (userData) {
         OneSignal.getUserId(function (userId) {
           if (userId != userData.device_token) {
-            updateDeviceToken(userData.id, userId).then(result => {
-              userData.device_token = userId
+            updateDeviceToken(userData.id, userId).then((result) => {
+              userData.device_token = userId;
               window.localStorage.setItem("user", JSON.stringify(userData));
-            })
+            });
           }
           console.log(userData, userId);
         });
         OneSignal.sendTag("user", userData.id);
         // }
-
-
       });
     }
-    isuserProfileComplete()
+    isuserProfileComplete();
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
-
-
-
   }, []);
 
   // const setToken = async (userData) => {
@@ -180,7 +176,6 @@ export default function MyApp(props) {
   //   // }
 
   // }
-
 
   return (
     <Provider store={store}>
