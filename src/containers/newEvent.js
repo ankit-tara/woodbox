@@ -281,18 +281,23 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
 
   const handleSave = (filesArr) => {
     let count = 0;
-    filesArr.map((file) => {
+    filesArr.map((file, index) => {
       count++;
       const reader = new FileReader();
+      let filesArr = files;
+      let filesInfoArr = filesInfo;
       reader.onload = (event) => {
+        console.log("testfile", index, filesArr, filesArr);
         //store result into your state array.
-        let updatedImages = files.concat(event.target.result);
-        let updatedImagesInfo = filesInfo.concat({
+        filesArr[index] = event.target.result;
+        filesInfoArr[index] = {
           type: file["type"].split("/")[0],
           data: event.target.result,
-        });
-        setfiles(updatedImages);
-        setfilesInfo(updatedImagesInfo);
+        };
+        // let updatedImages = ();
+        // let updatedImagesInfo = ();
+        setfiles(filesArr);
+        setfilesInfo(filesInfoArr);
         if (count == filesArr.length) {
           setOpen(false);
         }

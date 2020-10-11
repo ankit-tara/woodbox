@@ -102,16 +102,16 @@ const useStyles = makeStyles((theme) => ({
       "& .MuiTextField-root": {
         width: "100%",
       },
-      '& textarea':{
-        width: '100%',
-        border: 'none',
-        borderBottom: 'solid 1px #ccc',
-        height: '50px'
+      "& textarea": {
+        width: "100%",
+        border: "none",
+        borderBottom: "solid 1px #ccc",
+        height: "50px",
       },
-      '& textarea:focus':{
-        outline: 'none',
-        borderBottom: 'solid 1px #FD8118'
-      }
+      "& textarea:focus": {
+        outline: "none",
+        borderBottom: "solid 1px #FD8118",
+      },
     },
   },
   formControl: {
@@ -202,12 +202,12 @@ export default function Post({ user, formtype = "add", product = {} }) {
       let updatedImages = [];
       let updatedImagesInfo = [];
       product.images.map((fileData, index) => {
-         updatedImages = updatedImages.concat(fileData.base64_data);
-         updatedImagesInfo = updatedImagesInfo.concat({
+        updatedImages = updatedImages.concat(fileData.base64_data);
+        updatedImagesInfo = updatedImagesInfo.concat({
           type: fileData.type,
           data: fileData.link,
         });
-      
+
         if (index + 1 == product.images.length) {
           setfiles(updatedImages);
           setfilesInfo(updatedImagesInfo);
@@ -223,19 +223,24 @@ export default function Post({ user, formtype = "add", product = {} }) {
   const handleSave = (filesArr) => {
     console.log(filesArr);
     let count = 0;
-    filesArr.map((file,index) => {
+    let testARr = [];
+    filesArr.map((file, index) => {
       count++;
       const reader = new FileReader();
+      let filesArr = files;
+      let filesInfoArr = filesInfo;
       reader.onload = (event) => {
-        console.log("testfile", index, files, filesInfo);
+        console.log("testfile", index, filesArr, filesArr);
         //store result into your state array.
-        let updatedImages = files.concat(event.target.result);
-        let updatedImagesInfo = filesInfo.concat({
+        filesArr[index] = event.target.result;
+        filesInfoArr[index] = {
           type: file["type"].split("/")[0],
           data: event.target.result,
-        });
-        setfiles(updatedImages);
-        setfilesInfo(updatedImagesInfo);
+        };
+        // let updatedImages = ();
+        // let updatedImagesInfo = ();
+        setfiles(filesArr);
+        setfilesInfo(filesInfoArr);
         if (count == filesArr.length) {
           setOpen(false);
         }
@@ -319,7 +324,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
       type: type,
       files: files,
       active: true,
-      time_period: time_period
+      time_period: time_period,
     };
     if (formtype == "edit" && product.id) {
       UpdateProduct(data, product.id).then((response) => {
@@ -343,7 +348,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
   };
 
   const removeImage = (index) => {
-    let filterFiles = files.filter(function (file,i) {
+    let filterFiles = files.filter(function (file, i) {
       return i !== index;
     });
     let filterFilesInfo = filesInfo.filter(function (file, i) {
@@ -352,10 +357,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
 
     setfilesInfo(filterFilesInfo);
     setfiles(filterFiles);
-    
   };
-
-  
 
   return (
     <Layout>
