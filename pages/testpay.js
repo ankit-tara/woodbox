@@ -43,7 +43,7 @@ const TestPayPage = () => {
       <br></br>
       APP_URL {process.env.APP_URL}
       <br></br>
-      {process.env}
+      {/* {process.env} */}
       <button onClick={paymentHandler}>Pay Now</button>
     </div>
   );
