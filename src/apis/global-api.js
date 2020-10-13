@@ -235,6 +235,11 @@ export function sendChatUpdate(user_id) {
   console.log(url);
   return generalPostRequest(url);
 }
+export function sendVerifyEmail(user_id) {
+  let url = API_URL + "/send-verify-email/" + user_id;
+  console.log(url);
+  return generalPostRequest(url);
+}
 
 function generalPostRequest(url, data) {
   return fetch(url, {
