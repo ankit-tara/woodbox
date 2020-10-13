@@ -55,7 +55,7 @@ function VerifyEmail({ query }) {
         localStorage.setItem("user", JSON.stringify(userData));
       }
       setTimeout(() => {
-        window.location.replace("/");
+        window.location.replace("/profile/edit");
       }, 1000);
     });
   }, [query]);
