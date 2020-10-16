@@ -30,18 +30,18 @@ const useStyles = makeStyles((theme) => ({
 import { useRouter } from "next/router";
 import { getEvents, getAllFeedback } from "../apis/global-api";
 
-function Events({ data, url, showState=false }) {
+function Events({ data, url, showState = false, query }) {
   const [events, setevents] = useState([]);
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
-  const [list_reviews, setlist_reviews] = useState([])
+  const [list_reviews, setlist_reviews] = useState([]);
 
   useEffect(() => {
     console.log("url", url);
     if (url) fetchTypeEvents(url, 0, []);
     getAllFeedback().then((data) => {
-      setlist_reviews(data)
+      setlist_reviews(data);
     });
     // setevents(data);
   }, [data, url]);
@@ -56,23 +56,22 @@ function Events({ data, url, showState=false }) {
     }
   };
 
-  const fetchTypeEvents =  (url, page, events) => {
+  const fetchTypeEvents = (url, page, events) => {
     page = !page ? 1 : page + 1;
     setpage(page);
     url = `${url}&page=${page}`;
-     getEvents(url).then((data) => {
+    getEvents(url).then((data) => {
       if (events && events.data) {
         data.data = events.data.concat(data.data);
-        
       }
-      if(data){
+      if (data) {
         setevents(data);
       }
       if (data && data.current_page == data.last_page) {
         setlastPage(true);
       }
       // console.log(page, url, data);
-     
+
       setloadMore(false);
     });
   };
@@ -95,9 +94,7 @@ function Events({ data, url, showState=false }) {
           <TuneIcon />
           Filter
         </Button>
-        {showsidebar && (
-          <Sidebar type="events" />
-        )}
+        {showsidebar && <Sidebar type="events" />}
       </>
     );
   };
@@ -125,10 +122,10 @@ function Events({ data, url, showState=false }) {
               // style={{ height: "200px", overflow: "scroll" }}
             >
               {matches ? (
-                <Sidebar showFilterBtn="true" />
+                <Sidebar showFilterBtn="true" query={query} />
               ) : (
                 <StickyBox offsetTop={100} offsetBottom={20}>
-                    <Sidebar type="events" />
+                  <Sidebar type="events" query={query} />
                 </StickyBox>
               )}
             </Grid>

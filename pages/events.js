@@ -17,7 +17,7 @@ function EventsPage({ query }) {
   if (type) {
     url = url + '&type=' + type
   }
-  return <Events url={url}  />;
+  return <Events url={url} query={query} />;
 }
 
 // export async function getStaticProps(context) {

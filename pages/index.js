@@ -9,15 +9,15 @@ import EventCard from "../src/components/EventCard";
 import Banner from "../src/components/Banner";
 import CardHorizontal from "../src/components/CardHorizontal";
 import Testimonial from "../src/components/Testimonial";
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
 import Swiper from "react-id-swiper";
-import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
+import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
 import {
   IconCardsData,
   EventIconCardsData,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 
-export async function getStaticProps() {
+Index.getInitialProps=async()=> {
   const API_URL = process.env.api_url;
 
   let res = await fetch(API_URL + "/products?type=buy&paginate=10");
@@ -58,28 +58,59 @@ export async function getStaticProps() {
   let feedback = await fetch(API_URL + "/all-feedback");
   const reviews = await feedback.json();
 
-
+  console.log("testhomedata", {
+    bproducts,
+    sproducts,
+    events,
+    reviews,
+  });
   return {
-    props: {
-      bproducts,
-      sproducts,
-      events,
-      reviews
-    },
+    bproducts,
+    sproducts,
+    events,
+    reviews,
   };
 }
+// export async function getInitialProps() {
+//   const API_URL = process.env.api_url;
 
-export default function Index({ bproducts, sproducts, events ,reviews }) {
+//   let res = await fetch(API_URL + "/products?type=buy&paginate=10");
+//   const bproducts = await res.json();
+
+//   res = await fetch(API_URL + "/products?type=rental&paginate=10");
+//   const sproducts = await res.json();
+
+//   res = await fetch(API_URL + "/events?paginate=10");
+//   const events = await res.json();
+
+//   let feedback = await fetch(API_URL + "/all-feedback");
+//   const reviews = await feedback.json();
+
+//   console.log("testhomedata", {
+//     bproducts,
+//     sproducts,
+//     events,
+//     reviews,
+//   });
+//   return {
+//     bproducts,
+//     sproducts,
+//     events,
+//     reviews,
+//   };
+// }
+
+export default function Index({ bproducts, sproducts, events, reviews }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [opensell, setOpensell] = React.useState(false);
   const anchorRef = React.useRef(null);
   const anchorRefSell = React.useRef(null);
-  const [buyType, setbuyType] = useState('')
-  const [sellType, setsellType] = useState('')
-  const [list_bproducts, setlist_bproducts] = useState(bproducts)
-  const [list_sproducts, setlist_sproducts] = useState(sproducts)
-  const [list_reviews, setlist_reviews] = useState(reviews)
+  const [buyType, setbuyType] = useState("");
+  const [sellType, setsellType] = useState("");
+  const [list_bproducts, setlist_bproducts] = useState(bproducts);
+  const [list_sproducts, setlist_sproducts] = useState(sproducts);
+  const [list_reviews, setlist_reviews] = useState(reviews);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -88,7 +119,7 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
     setOpensell((prevOpenSell) => !prevOpenSell);
   };
 
-  const handleClose = async(event, data) => {
+  const handleClose = async (event, data) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -97,13 +128,15 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
 
     if (data && data.title) {
       const API_URL = process.env.api_url;
-      let res = await fetch(API_URL + "/products?type=buy&paginate=10&cat_title=" + data.title);
+      let res = await fetch(
+        API_URL + "/products?type=buy&paginate=10&cat_title=" + data.title
+      );
       let result = await res.json();
-      setlist_bproducts(result)
-      setbuyType(data.title)
+      setlist_bproducts(result);
+      setbuyType(data.title);
     }
   };
-  const handleCloseSell = async(event, data) => {
+  const handleCloseSell = async (event, data) => {
     if (anchorRefSell.current && anchorRefSell.current.contains(event.target)) {
       return;
     }
@@ -112,15 +145,17 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
 
     if (data && data.title) {
       const API_URL = process.env.api_url;
-      let res = await fetch(API_URL + "/products?type=rental&paginate=10&cat_title=" + data.title);
+      let res = await fetch(
+        API_URL + "/products?type=rental&paginate=10&cat_title=" + data.title
+      );
       let result = await res.json();
-      setlist_sproducts(result)
-      setsellType(data.title)
+      setlist_sproducts(result);
+      setsellType(data.title);
     }
   };
 
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -270,15 +305,17 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
             </div>
           </Box>
 
-          <Box className={classes.EventIconCardWrapper}>
-            <Swiper {...params}>
-              {list_bproducts.data.map((data) => (
-                <div key={data.id}>
-                  <ProductCard data={data} />
-                </div>
-              ))}
-            </Swiper>
-          </Box>
+          {list_bproducts && list_bproducts.data.length && (
+            <Box className={classes.EventIconCardWrapper}>
+              <Swiper {...params}>
+                {list_bproducts.data.map((data) => (
+                  <div key={data.id}>
+                    <ProductCard data={data} />
+                  </div>
+                ))}
+              </Swiper>
+            </Box>
+          )}
         </Container>
 
         <Box className={classes.spacingBox} />
@@ -333,7 +370,7 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
             </div>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {list_sproducts.data.length > 4 && (
+            {list_sproducts && list_sproducts.data.length > 4 && (
               <Swiper {...params}>
                 {list_sproducts.data.map((data) => (
                   <div key={data.id}>
@@ -342,7 +379,8 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
                 ))}
               </Swiper>
             )}
-            {list_sproducts.data.length <= 4 &&
+            {list_sproducts &&
+              list_sproducts.data.length <= 4 &&
               list_sproducts.data.map((data) => (
                 <div key={data.id}>
                   <ProductCard data={data} />
@@ -359,7 +397,7 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
             <Typography variant="h5">Newly Added Events</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {events.data.length > 4 && (
+            {events && events.data.length > 4 && (
               <Swiper {...params}>
                 {events.data.map((data) => (
                   <div key={data.id}>
@@ -368,7 +406,8 @@ export default function Index({ bproducts, sproducts, events ,reviews }) {
                 ))}
               </Swiper>
             )}
-            {events.data.length <= 4 &&
+            {events &&
+              events.data.length <= 4 &&
               events.data.map((data) => (
                 <div key={data.id}>
                   <EventCard data={data} />
