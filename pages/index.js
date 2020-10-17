@@ -439,7 +439,7 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
       <section className={classes.section} style={{ background: "#FFF6EF" }}>
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
-            <Typography variant="h2">REVIEW</Typography>
+            <Typography variant="h2">FEEDBACK</Typography>
             <Typography>
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
