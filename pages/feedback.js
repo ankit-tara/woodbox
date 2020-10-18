@@ -51,7 +51,7 @@ export default function Feedback() {
     <Layout>
       <section className={classes.section}>
         <Container maxWidth="xl">
-          <Typography variant="h3" className={classes.heading}>Reviews</Typography>
+          <Typography variant="h3" className={classes.heading}>Feedback</Typography>
           {list_reviews &&
             list_reviews.length > 0 &&
             list_reviews.map((item) => (
