@@ -178,7 +178,9 @@ function Header({ modalOpen }) {
           <Grid item xs={8}>
             <ul className={classes.Menu}>
               <li className={router.pathname == "/" ? "active" : ""}>
-                <Link href="/">Home</Link>
+                <Link href="/">
+                  <a>Home</a>
+                </Link>
               </li>
               <li
                 className={

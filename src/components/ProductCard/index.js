@@ -1,4 +1,4 @@
-import React ,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography, Link } from "@material-ui/core";
 import StarRatings from "react-star-ratings";
@@ -11,12 +11,13 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { DeleteProduct,Favourite } from "../../apis/auth-api"
+import { DeleteProduct, Favourite } from "../../apis/auth-api";
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+const API_HOST = process.env.API_HOST;
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -29,11 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductCard({ data, isAuthUser = false }) {
-  
-
-
   const dispatch = useDispatch();
-  const [isSaved, setisSaved] = React.useState(data.saved);  
+  const [isSaved, setisSaved] = React.useState(data.saved);
   const [productStar, setproductStar] = React.useState(isSaved ? 1 : 0);
   const [snackbar, setsnackbar] = React.useState(false);
   const [snackbarMsg, setsnackbarMsg] = React.useState("");
@@ -41,59 +39,80 @@ function ProductCard({ data, isAuthUser = false }) {
   const userdetail = useSelector((state) => state.auth_user.user);
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user.id);
-  const userFavProducts = useSelector((state) => state.auth_user.userFavProducts);
+  const userFavProducts = useSelector(
+    (state) => state.auth_user.userFavProducts
+  );
 
-      useEffect(() => {
-       isFavourite();
-    }, [userFavProducts])
+  useEffect(() => {
+    isFavourite();
+  }, [userFavProducts]);
 
   const classes = useStyles();
   const router = useRouter();
-  const favPage = router.pathname.search('favourite')==-1 ? false : true;
-
+  const favPage = router.pathname.search("favourite") == -1 ? false : true;
 
   const changeRating = () => {
-
-    if (!accessToken || accessToken==''){
+    if (!accessToken || accessToken == "") {
       window.location.replace("/?signup=open");
     }
-   
+
     if (!isSaved && productStar == 0) {
-
-       Favourite({'type_id':data.id,type:'product','user_id':user,'action':'add'}).then((response) => {
-
+      Favourite({
+        type_id: data.id,
+        type: "product",
+        user_id: user,
+        action: "add",
+      }).then((response) => {
         if (response.error) {
           setsnackbar(true);
           setsnackbarMsg("There is some error.Please try again later");
           setsnackbarType("error");
-          console.log(response.error)          
-        } else {          
+          console.log(response.error);
+        } else {
           setsnackbar(true);
           setsnackbarMsg("Added to favourites");
           setsnackbarType("success");
           console.log(userdetail, accessToken, response);
-          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
+          dispatch(
+            authenticated(
+              userdetail,
+              accessToken,
+              response.body.favEvents,
+              response.body.favProducts
+            )
+          );
         }
       });
 
       setproductStar(1);
       setisSaved(!isSaved);
     } else {
-
-       Favourite({'type_id':data.id,type:'product','user_id':user,'action':'remove'}).then((response) => {
+      Favourite({
+        type_id: data.id,
+        type: "product",
+        user_id: user,
+        action: "remove",
+      }).then((response) => {
         console.log(response);
         if (response.error) {
           setsnackbar(true);
           setsnackbarMsg("There is some error.Please try again later");
           setsnackbarType("error");
-          console.log(response.error)
+          console.log(response.error);
         } else {
           setsnackbar(true);
           setsnackbarMsg("Removed from favourites");
           setsnackbarType("success");
-          dispatch(authenticated(userdetail, accessToken, response.body.favEvents,response.body.favProducts));
-          if(favPage){
-            document.getElementById('card_'+data.id).parentElement.remove();
+          dispatch(
+            authenticated(
+              userdetail,
+              accessToken,
+              response.body.favEvents,
+              response.body.favProducts
+            )
+          );
+          if (favPage) {
+            document.getElementById("card_" + data.id).parentElement.remove();
           }
         }
       });
@@ -113,8 +132,7 @@ function ProductCard({ data, isAuthUser = false }) {
     setAnchorEl(null);
   };
   const handleEdit = () => {
-     router.push("/post/edit/"+data.id);
-
+    router.push("/post/edit/" + data.id);
   };
   const handleDelete = () => {
     DeleteProduct(data, data.id).then((response) => {
@@ -132,27 +150,25 @@ function ProductCard({ data, isAuthUser = false }) {
   };
 
   const isFavourite = () => {
-      if (userFavProducts && userFavProducts.includes(data.id)) {
-        console.log(userFavProducts,userFavProducts.includes(data.id))
-         setisSaved(true);
-          setproductStar(1);
+    if (userFavProducts && userFavProducts.includes(data.id)) {
+      console.log(userFavProducts, userFavProducts.includes(data.id));
+      setisSaved(true);
+      setproductStar(1);
+    }
+  };
 
-      }
-    };
-
-  
   const handlesnackbar = () => {
     setsnackbar(!snackbar);
   };
 
   return (
     <Card
-      id={"card_"+data.id}
+      id={"card_" + data.id}
       className={
         isSaved ? `${classes.card} ${classes.Orangecard} ` : `${classes.card}`
       }
     >
-      <CardContent className={classes.cardInner} >
+      <CardContent className={classes.cardInner}>
         <div className={classes.cardHead}>
           <Snackbar
             open={snackbar}
@@ -192,18 +208,28 @@ function ProductCard({ data, isAuthUser = false }) {
               </Menu>
             </div>
           )}
-          {!isAuthUser &&
-            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
-            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
+          {!isAuthUser && isSaved ? (
+            <FavoriteIcon
+              style={{ color: "#FC821A" }}
+              onClick={changeRating}
+              id={data.id}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              style={{ color: "#FC821A" }}
+              onClick={changeRating}
+              id={data.id}
+            />
+          )}
         </div>
         <div className={classes.cardBody}>
           {data.images.length > 0 && (
             <Link href={`/products/item/${data.id}`}>
               <img
-                src={data.images[0].thumbnail_link}
+                src={`${API_HOST}/generate-thumb/145/300/${data.images[0].thumbnail_link}`}
                 alt=""
                 className={classes.image}
-                />
+              />
             </Link>
           )}
         </div>
