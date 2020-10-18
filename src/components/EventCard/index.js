@@ -15,6 +15,8 @@ import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import { authenticated } from "../../redux/actions/auth";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+const API_HOST = process.env.API_HOST;
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -146,7 +148,7 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
       {data.images.length > 0 && (
         <Link href={`/events/item/${data.id}`}>
           <img
-            src={data.images[0].thumbnail_link}
+            src={`${API_HOST}/generate-thumb/220/300/${data.images[0].thumbnail_link}`}
             alt=""
             className={classes.image}
           />
