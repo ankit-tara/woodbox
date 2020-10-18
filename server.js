@@ -48,12 +48,12 @@ nextApp.prepare().then(() => {
   // app.get("/products/category/:slug", (req, res) => {
   //   return app.render(req, res, "/products", req.query);
   // });
-  app.use(
-    "/static",
-    nextApp.static(__dirname + "/static", {
-      maxAge: "365d",
-    })
-  );
+//   app.use(
+//     "/static",
+//     server.static(__dirname + "/static", {
+//       maxAge: "365d",
+//     })
+//   );
   app.get("/service-worker.js", (req, res) => {
     nextApp.serveStatic(req, res, "./.next/service-worker.js");
   });
