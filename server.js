@@ -50,7 +50,7 @@ nextApp.prepare().then(() => {
   // });
   app.use(
     "/static",
-    express.static(__dirname + "/static", {
+    nextApp.static(__dirname + "/static", {
       maxAge: "365d",
     })
   );
