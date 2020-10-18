@@ -23,7 +23,13 @@
     "dotenv-webpack": "^1.8.0",
     "express": "^4.17.1",
     "firebase": "^7.21.0",
+    "image-trace-loader": "^1.0.2",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0",
+    "jimp": "^0.16.1",
     "localforage": "^1.9.0",
+    "lqip-loader": "^2.2.1",
     "material-ui": "^1.0.0-beta.47",
     "material-ui-dropzone": "^3.1.0",
     "moment": "^2.26.0",
@@ -47,11 +53,14 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "request": "^2.88.2",
+    "responsive-loader": "^2.2.0",
     "serve-static": "^1.14.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.1",
-    "swiper": "^5.3.8"
+    "svg-sprite-loader": "^5.0.0",
+    "swiper": "^5.3.8",
+    "webp-loader": "^0.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
