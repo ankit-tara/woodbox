@@ -181,17 +181,24 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
     loop: false,
     watchOverflow: false,
     slidesPerView: "4",
+    spaceBetween: 20,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
     scrollbar: {
-      el: ".swiper-scrollbar",
+      // el: ".swiper-scrollbar",
       hide: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
     },
     breakpoints: {
       0: {
-        slidesPerView: "1.2",
+        slidesPerView: "1.25",
+        spaceBetween: 10,
+        centeredSlides: true
       },
       480: {
         slidesPerView: "2",

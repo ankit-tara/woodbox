@@ -8,7 +8,6 @@ export const commonStyles = {
     boxShadow: 'none',
     width: 'auto',
     maxWidth: '310px',
-    margin: '1rem 1rem 1rem 0'
   },
   Orangecard:{
     border: 'solid 4px #FC821A'
@@ -34,7 +33,8 @@ export const commonStyles = {
   image: {
     width: 'auto',
     height: '140px',
-    objectFit: 'contain'
+    objectFit: 'contain',
+    maxWidth: '100%'
   },
   cardBody: {
     textAlign: 'center'
@@ -77,6 +77,9 @@ export const commonStyles = {
 }
 
 export const mobileStyles = {
+  card:{
+    margin: 'auto'
+  },
   title:{
     fontSize: '1rem'
   },
@@ -85,6 +88,9 @@ export const mobileStyles = {
   },
   cardFooter:{
     marginTop: '1rem'
+  },
+  price:{
+    fontSize: '1.2rem'
   }
 }
 
