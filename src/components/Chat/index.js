@@ -41,22 +41,24 @@ const Chat = ({ type = "", id = "" }) => {
     }
   }, [type, id, user, chatConnected]);
 
-
   // const setUpListeners = () => {
   //   ConnectyCube.chat.onMessageListener = onMessage;
 
   // }
 
   function onMessage(userId, message) {
-    if (!user || !user.connectycube_user || userId == user.connectycube_user.connectycube_id) {
-      return
+    if (
+      !user ||
+      !user.connectycube_user ||
+      userId == user.connectycube_user.connectycube_id
+    ) {
+      return;
     }
-    console.log(message)
-    message.message = message.body
-    message.device_token = user.device_token
-    message.notif = true
-    dispatch(pushMessage(message))
-  
+    console.log(message);
+    message.message = message.body;
+    message.device_token = user.device_token;
+    message.notif = true;
+    dispatch(pushMessage(message));
   }
 
   const getDialogs = (type, id) => {
@@ -72,10 +74,10 @@ const Chat = ({ type = "", id = "" }) => {
       q += `&type=${type}&id=${id}`;
     }
     fetchDialogs(user.id, q).then((resp) => {
-      let data = resp.body
+      let data = resp.body;
       if (resp.error) {
-        alert('Oops!! there was some problem while connecting')
-        return
+        alert("Oops!! there was some problem while connecting");
+        return;
       }
       let dialogs = dialogsArr.concat(data.data);
       setDialogs(dialogs);
@@ -113,6 +115,21 @@ const Chat = ({ type = "", id = "" }) => {
     setOpen(false);
     clearUnread(dialog.id, dialogs);
     dispatch(selectedDialog(dialog));
+  };
+  const updateDialogSeenBySeller = (dialog, dialogs) => {
+    dialogs = dialogsArr.map((item) => {
+      if (item.id == dialog.id) {
+        item.opened_by_seller = true;
+      }
+      return item;
+    });
+    console.log("dialogsupdate", dialogs);
+    setDialogs(dialogs);
+  };
+  const deleteDialogSeenBySeller = (dialog, dialogs) => {
+    dialogs = dialogsArr.filter((item) => item.id != dialog.id);
+    setDialogs(dialogs);
+    dispatch(selectedDialog({}));
   };
 
   const clearUnread = (id, dialogsArr = []) => {
@@ -176,10 +193,13 @@ const Chat = ({ type = "", id = "" }) => {
         </div>
         {user && (
           <ChatBox
+            dialogs={dialogsArr}
             selectedDialogVal={selectedDialogVal ? selectedDialogVal : {}}
             auth={user}
             goBack={goBack}
             dialogsArr={dialogsArr}
+            updateDialogSeenBySeller={updateDialogSeenBySeller}
+            deleteDialogSeenBySeller={deleteDialogSeenBySeller}
           />
         )}
         {/* {!selectedDialogVal && (

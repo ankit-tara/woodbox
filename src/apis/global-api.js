@@ -97,7 +97,6 @@ export async function getCategories() {
     .catch((error) => console.warn(error));
 }
 
-
 export async function getCities() {
   let url = API_URL + "/cities";
 
@@ -106,7 +105,7 @@ export async function getCities() {
   return fetch(url)
     .then((response) => response.json())
     .then((responseData) => {
-      console.log('responseData', responseData);
+      console.log("responseData", responseData);
       return responseData;
     })
     .catch((error) => console.warn(error));
@@ -115,7 +114,7 @@ export async function getCities() {
 export async function getEvents(q, showall = false) {
   let url = API_URL + "/events";
   if (showall) {
-    url = url + '/'+showall
+    url = url + "/" + showall;
   }
   if (q) {
     url = url + q;
@@ -237,6 +236,12 @@ export function sendChatUpdate(user_id) {
 }
 export function sendVerifyEmail(user_id) {
   let url = API_URL + "/send-verify-email/" + user_id;
+  console.log(url);
+  return generalPostRequest(url);
+}
+export function updateOpenStatus(dialog_id, status,user_id) {
+  let url =
+    API_URL + "/update-open-status/" + dialog_id + "/" + status + "/" + user_id;
   console.log(url);
   return generalPostRequest(url);
 }

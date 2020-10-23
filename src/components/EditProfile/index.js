@@ -36,6 +36,7 @@ import { authenticated } from "../../redux/actions/auth";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import ImageCropper from "../ImageCropper";
+import Router from "next/router";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -97,6 +98,7 @@ const EditProfile = ({ user }) => {
         setsnackbar(true);
         setsnackbarMsg("Updated successfully.");
         setsnackbarType("success");
+         Router.push("/");
       } else {
         setsnackbar(true);
         setsnackbarMsg("There is some error.Please try again later");

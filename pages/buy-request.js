@@ -19,6 +19,7 @@ import {
 } from "../src/styles";
 import { getAllBuyRequests } from "../src/apis/global-api";
 import { useSelector } from "react-redux";
+import Router from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,16 +100,36 @@ export default function BuyRequest() {
           <Grid container>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Box className="mb-3">
-                <Typography variant="h3" style={{ textAlign: 'center', marginBottom: '1rem' }}>Buy Requests</Typography>
+                <Typography
+                  variant="h3"
+                  style={{ textAlign: "center", marginBottom: "1rem" }}
+                >
+                  Buy Requests
+                </Typography>
               </Box>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ textAlign: "center", marginBottom: "1rem" }}
+                onClick={() => {
+                  Router.push("/post/request");
+                }}
+              >
+                Add Request
+              </Button>
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Box>
                 <div className={classes.root}>
-                  {requests && requests.data &&
+                  {requests &&
+                    requests.data &&
                     requests.data.length > 0 &&
                     requests.data.map((data) => (
-                      <Accordian data={data} isAuthUser={data.user_id == user.id} key={data.id} />
+                      <Accordian
+                        data={data}
+                        isAuthUser={data.user_id == user.id}
+                        key={data.id}
+                      />
                     ))}
                   {/* <Accordian />
                   
