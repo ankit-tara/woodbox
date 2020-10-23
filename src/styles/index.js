@@ -129,6 +129,7 @@ export const commonStyles = {
   ProductsGridWrapper: {
     display: "grid",
     gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
+    gridGap:'1rem',
     "&:nth-of-type(1)": {
       paddingTop: "2rem",
     },
@@ -191,6 +192,7 @@ export const commonStyles = {
   loadMorewrapper: {
     textAlign: "center",
     position: "relative",
+    marginTop: '1.2rem'
   },
   buttonProgress: {
     position: "absolute",
@@ -242,6 +244,13 @@ export const mobileStyles = {
     },
   },
   EventIconCardWrapper: {
+    marginTop: '1rem',
+    "& .swiper-container":{
+      paddingBottom: '2.5rem'
+    },
+    "& .swiper-pagination-bullet-active":{
+      background: '#fd8118'
+    },
     "& .swiper-button-prev": {
       display: "none",
     },
@@ -279,4 +288,9 @@ export const desktopStyles = {
   downloadTitle: {
     width: "50%",
   },
+  EventIconCardWrapper: {
+    "& .swiper-pagination":{
+      display:'none'
+    }
+  }
 };

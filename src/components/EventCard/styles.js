@@ -6,9 +6,9 @@ export const commonStyles = {
   card: {
     border: "none",
     boxShadow: "none",
-    width: "90%",
+    width: "100%",
     maxWidth: "310px",
-    margin: "1rem 1rem 1rem 0",
+    // margin: "1rem 1rem 1rem 0",
     display: "grid",
     minHeight: "475px",
     gridTemplateRows: "auto 1fr",
@@ -94,7 +94,11 @@ export const mobileStyles = {
     fontSize: "0.8rem",
   },
   card: {
-    minHeight: '445px'
+    minHeight: '445px',
+    margin: 'auto'
+  },
+  price:{
+    fontSize: '1.2rem'
   }
 };
 
