@@ -12,7 +12,7 @@ const AddRequestPage = () => {
 
   useEffect(() => {
     if (!accessToken) {
-      router.push("/");
+      window.location.replace("/?signup=open");
     }
   }, []);
 
