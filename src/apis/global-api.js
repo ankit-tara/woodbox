@@ -239,11 +239,15 @@ export function sendVerifyEmail(user_id) {
   console.log(url);
   return generalPostRequest(url);
 }
-export function updateOpenStatus(dialog_id, status,user_id) {
+export function updateOpenStatus(dialog_id, status, user_id) {
   let url =
     API_URL + "/update-open-status/" + dialog_id + "/" + status + "/" + user_id;
   console.log(url);
   return generalPostRequest(url);
+}
+export function sendFeedbackMessage(data) {
+  let url = API_URL + "/send-feedback-message/";
+  return generalPostRequest(url, data);
 }
 
 function generalPostRequest(url, data) {

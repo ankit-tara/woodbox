@@ -33,7 +33,7 @@ import Select from "@material-ui/core/Select";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../redux/actions/auth";
 import { useRouter } from "next/router";
-import { fileToBase64 } from "../Utils/helpers";
+import { fileToBase64, isPhone } from "../Utils/helpers";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from '@material-ui/icons/Add';
 import axios from "axios";
@@ -354,6 +354,10 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
     }
     if (!files.length) {
       setformerrs(["Images are required"]);
+      return false;
+    }
+    if (!isPhone(contact)) {
+      setformerrs(["Contact number is not valid.Please enter 10 digit number"]);
       return false;
     }
     return true;

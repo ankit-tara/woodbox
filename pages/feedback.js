@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../src/Layout";
 import StarRatings from "react-star-ratings";
-import { Container, Card, CardContent, Box, Typography, Link } from "@material-ui/core";
+import { Container, Card, CardContent, Box, Typography, Link, Button } from "@material-ui/core";
 import { getAllFeedback } from "../src/apis/global-api";
 
+import Router from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -51,7 +52,19 @@ export default function Feedback() {
     <Layout>
       <section className={classes.section}>
         <Container maxWidth="xl">
-          <Typography variant="h3" className={classes.heading}>Feedback</Typography>
+          <Typography variant="h3" className={classes.heading}>
+            Feedback
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ textAlign: "center", marginBottom: "1rem" }}
+            onClick={() => {
+              Router.push("/post/feedback");
+            }}
+          >
+            Add Your Feedback
+          </Button>
           {list_reviews &&
             list_reviews.length > 0 &&
             list_reviews.map((item) => (

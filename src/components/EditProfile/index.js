@@ -37,6 +37,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import ImageCropper from "../ImageCropper";
 import Router from "next/router";
+import { isPhone } from "../../Utils/helpers";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -88,7 +89,10 @@ const EditProfile = ({ user }) => {
       branch: branch,
       email: user.email,
     };
-    setloading(true);
+    if (phone_no && !isPhone(phone_no)){
+      seterror(['Phone number is not valid'])
+      return
+    } setloading(true);
     editProfile(data, user.id).then((data) => {
       setloading(false);
       if (data && data.error) {
