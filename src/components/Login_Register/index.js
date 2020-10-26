@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTab-textColorPrimary.Mui-selected": {
       color: "#ffffff",
-      background: "#f5811a",
+      background: "var(--theme)",
     },
     "& .MuiTabs-indicator": {
       display: "none",
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   orange: {
     color: "#fff",
-    backgroundColor: "#f5811a",
+    backgroundColor: "var(--theme)",
     width: "30px",
     height: "30px",
     fontSize: "1rem",

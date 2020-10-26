@@ -204,8 +204,8 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
             </div>
           )}
           {!isAuthUser &&
-            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
-            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
+            isSaved ?    <FavoriteIcon style={{ color: 'var(--theme)' }} onClick={changeRating}  id={data.id} /> : 
+            <FavoriteBorderIcon style={{ color: 'var(--theme)' }} onClick={changeRating}  id={data.id} />  }
           
           
 
@@ -217,7 +217,7 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
       
         <div className={classes.flex}>
           <Typography className={classes.date}>{data.event_date}</Typography>
-          <Typography
+          {/* <Typography
             className={
               isSaved
                 ? `${classes.price} ${classes.Orangeprice} `
@@ -225,12 +225,12 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
             }
           >
             &#8377;{data.price}
-          </Typography>
+          </Typography> */}
         </div>
         <div className={classes.cardBody}>
-          <Typography className={classes.excerpt}>
+          {/* <Typography className={classes.excerpt}>
             {data.description.substring(0, 35) + "..."}{" "}
-          </Typography>
+          </Typography> */}
           {data.university.name.length >= 25 && (
             <Typography className={classes.college}>
               {data.university.name.substring(0, 25) + "..."}{" "}

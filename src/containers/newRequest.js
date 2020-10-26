@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
       },
       '& textarea:focus':{
         outline: 'none',
-        borderBottom: 'solid 1px #FD8118'
+        borderBottom: 'solid 1px var(--theme)'
       }
     },
   },
@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     width: "80%",
     height: "50px",
     marginTop: "1rem",
-    backgroundColor: "#FD8118",
+    backgroundColor: "var(--theme)",
     color: "#fff",
     fontSize: "1rem",
     boxShadow: "none",

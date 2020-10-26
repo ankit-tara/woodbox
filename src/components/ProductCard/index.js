@@ -210,13 +210,13 @@ function ProductCard({ data, isAuthUser = false }) {
           )}
           {!isAuthUser && isSaved ? (
             <FavoriteIcon
-              style={{ color: "#FC821A" }}
+              style={{ color: "var(--theme)" }}
               onClick={changeRating}
               id={data.id}
             />
           ) : (
             <FavoriteBorderIcon
-              style={{ color: "#FC821A" }}
+              style={{ color: "var(--theme)" }}
               onClick={changeRating}
               id={data.id}
             />

@@ -7,8 +7,8 @@ export const commonStyles = {
     cursor: 'pointer',
     margin: '1rem 0.5rem',
     '&.Veh:hover':{
-      background:'#FD8118',
-      border: '#FD8118 solid 3px',
+      background:'var(--theme)',
+      border: 'var(--theme) solid 3px',
       boxShadow: '0 14px 18px rgba(0,0,0,0.09)'
     },
     '&.Boo:hover': {

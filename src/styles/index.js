@@ -159,7 +159,7 @@ export const commonStyles = {
     },
   },
   fliterBtn: {
-    background: "#FD8118",
+    background: "var(--theme)",
     color: "#fff",
     width: "1rem",
     marginLeft: "auto",
@@ -169,7 +169,7 @@ export const commonStyles = {
     height: "2.5rem",
     display: "flex",
     "&:hover": {
-      background: "#FD8118",
+      background: "var(--theme)",
     },
   },
   Breadcrumbs: {
@@ -249,7 +249,7 @@ export const mobileStyles = {
       paddingBottom: '2.5rem'
     },
     "& .swiper-pagination-bullet-active":{
-      background: '#fd8118'
+      background: 'var(--theme)'
     },
     "& .swiper-button-prev": {
       display: "none",

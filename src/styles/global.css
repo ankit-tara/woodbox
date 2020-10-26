@@ -24,6 +24,8 @@
   --light: #e6e6e6;
   --wrapper: 850px;
   --blue: #2c3539;
+  --theme: #8544ff;
+  --theme-light: #f0e3ff;
 }
 
 body{
@@ -45,8 +47,8 @@ body::-webkit-scrollbar-track {
 }
  
 body::-webkit-scrollbar-thumb {
-  background-color: #F90;
-  outline: 1px solid #F90;
+  background-color: var(--theme);
+  outline: 1px solid var(--theme);
 }
 
 .swiper-button-next, .swiper-button-prev{

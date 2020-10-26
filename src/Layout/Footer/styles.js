@@ -5,7 +5,7 @@
 export const commonStyles = {
   Footer:{
     padding: '2rem 0',
-    backgroundColor: '#EBEEEF'
+    backgroundColor: '#151728'
   },
   FooterMenu:{
     display: 'flex',
@@ -18,13 +18,13 @@ export const commonStyles = {
       marginBottom: '0.5rem'
     },
     '& ul li p':{
-      color: '#002F34',
+      color: '#ffffff',
       textTransform: 'uppercase',
       fontSize: '20px',
       fontWeight: 'bold'
     },
     '& ul li a':{
-      color: '#002F34',
+      color: '#ffffff',
       fontSize: '18px',
       fontWeight: '500'
     }
@@ -33,6 +33,7 @@ export const commonStyles = {
     '& ul': {
       listStyleType: 'none',
       display: 'flex',
+      paddingLeft:0,
       flexWrap: 'wrap'
     },
     '& ul li': {
@@ -42,9 +43,10 @@ export const commonStyles = {
       width: '100%'
     },
     '& ul li p': {
-      color: '#002F34',
+      color: '#ffffff',
       textTransform: 'uppercase',
       fontSize: '20px',
+      margin:0,
       fontWeight: 'bold'
     },
     '& ul li a': {
@@ -54,16 +56,29 @@ export const commonStyles = {
     },
     '& ul li svg': {
       width: '1.3em',
-      height: '1.3em'
+      height: '1.3em',
+      fill: '#fff',
+      marginRight: '10px'
     }
   },
+  logo:{
+    width:'200px'
+  },
+  compInfo:{
+    color:'#fff',
+    paddingRight:'2rem'
+  },
   Copyright:{
-    backgroundColor: '#C2C2C2',
+    backgroundColor: '#151728f0',
     padding: '1rem',
     textAlign: 'center',
     '& p':{
-      color: '#000',
+      color: '#fff',
       fontWeight: '500'
+    },
+    '& a':{
+      color: '#fff',
+      textDecoration:'underline !important'
     }
   },
   downloadApp: {
@@ -98,6 +113,22 @@ export const commonStyles = {
       textAlign: "center",
     },
   },
+  contactDetails:{
+    '& a':{
+      display: 'flex',
+      alignItems: 'center'
+    },
+    '& span':{
+      color: '#fff',
+      fontSize:'18px',
+      display: 'flex',
+      alignItems: 'center'
+    },
+    '& svg':{
+      fontSize:'18px',
+      marginRight: '10px'
+    }
+  },
   downloadLinks: {
     display: "flex",
     alignItems: "center",
@@ -120,13 +151,35 @@ export const mobileStyles = {
   },
   FooterMenu: {
     '& ul': {
-      paddingLeft: '1rem',
+      margin: '0',
+      borderBottom:'solid 1px #393939',
+      textAlign:'center',
+      padding: '1rem 0',
       width: '100%'
     },
+    '& ul li p':{
+      margin:0
+    }
+  },
+  logo:{
+    display: 'block',
+    margin:'auto'
+  },
+  contactDetails:{
+    '& a':{
+      justifyContent: 'center'
+    },
+    '& span':{
+      justifyContent: 'center'
+    }
   },
   SocialMenu: {
+    textAlign:'center',
     '& ul': {
-      paddingLeft: '1rem'
+      paddingLeft: '0',
+      justifyContent: 'center',
+      marginBottom:0,
+      borderBottom:'solid 1px #393939'
     }
   },
   downloadTitle: {
@@ -139,6 +192,9 @@ export const mobileStyles = {
     "& img": {
       width: "100px",
     },
+  },
+  compInfo:{
+    paddingRight:0
   }
 }
 

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: "0",
     },
     "& button": {
-      border: "solid 1px #fd8118",
+      border: "solid 1px var(--theme)",
     },
   },
   Flex: {

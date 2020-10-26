@@ -53,10 +53,10 @@ export const commonStyles = {
       textDecoration: "none",
     },
     "& a.active": {
-      color: "#f69902",
+      color: "var(--theme)",
     },
     "& a.active svg": {
-      color: "#f69902",
+      color: "var(--theme)",
     },
   },
   searchBar: {
@@ -71,7 +71,7 @@ export const commonStyles = {
   },
   searchbtn: {
     height: "35px",
-    background: "#f5811a",
+    background: "var(--theme)",
     color: "#fff",
     alignSelf: "center",
     borderRadius: "4px",

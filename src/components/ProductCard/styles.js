@@ -10,10 +10,10 @@ export const commonStyles = {
     maxWidth: '310px',
   },
   Orangecard:{
-    border: 'solid 4px #FC821A'
+    border: 'solid 4px var(--theme)'
   },
   cardInner:{
-    height: '340px',
+    height: '300px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -60,7 +60,7 @@ export const commonStyles = {
     textOverflow: 'ellipsis'
   },
   Orangeprice:{
-    color: '#FC821A'
+    color: 'var(--theme)'
   },
   date:{
     fontSize: '0.8rem'

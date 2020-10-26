@@ -400,13 +400,13 @@ const ProductDetail = ({ data }) => {
                 <div className={classes.Right}>
                   {isSaved ? (
                     <FavoriteIcon
-                      style={{ color: "#FC821A" }}
+                      style={{ color: "var(--theme)" }}
                       onClick={changeRating}
                       id={data.id}
                     />
                   ) : (
                     <FavoriteBorderIcon
-                      style={{ color: "#FC821A" }}
+                      style={{ color: "var(--theme)" }}
                       onClick={changeRating}
                       id={data.id}
                     />

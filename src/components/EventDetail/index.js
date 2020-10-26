@@ -293,8 +293,8 @@ const EventDetail = ({ data }) => {
                 <div className={classes.Right}>
 
                 {
-            isSaved ?    <FavoriteIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} /> : 
-            <FavoriteBorderIcon style={{ color: '#FC821A' }} onClick={changeRating}  id={data.id} />  }
+            isSaved ?    <FavoriteIcon style={{ color: 'var(--theme)' }} onClick={changeRating}  id={data.id} /> : 
+            <FavoriteBorderIcon style={{ color: 'var(--theme)' }} onClick={changeRating}  id={data.id} />  }
           
           
                  <ShareIcon title={data.title} url={`${process.env.APP_URL}${router.asPath}`} />

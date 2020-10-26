@@ -25,7 +25,7 @@ export const commonStyles = {
       fontSize: '1.1rem'
     },
     '& .MuiCheckbox-colorPrimary.Mui-checked + .MuiFormControlLabel-label':{
-      color: '#FD8118'
+      color: 'var(--theme)'
     },
   },
   title:{
@@ -38,16 +38,16 @@ export const commonStyles = {
   searchField:{
     width: '100%',
     margin: '1rem 0',
-    border: 'solid 2px #ff9a39',
+    border: 'solid 2px var(--theme)',
     padding: '0.7rem 1rem'
   },
   filterBtn:{
     marginTop:'1rem',
-    background:'#fc8234',
+    background:'var(--theme)',
     color: '#fff',
     fontSize: '1rem',
     '&:hover':{
-      background: '#fc8234'
+      background: 'var(--theme)'
     }
   }
 }

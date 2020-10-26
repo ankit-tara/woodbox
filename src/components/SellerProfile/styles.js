@@ -18,7 +18,7 @@ export const commonStyles = {
     borderRadius: "50%",
     width: "200px",
     height: "200px",
-    border: "solid 2px #fd8118",
+    border: "solid 2px var(--theme)",
     position: "relative",
     overflow: "hidden",
     "& img": {
@@ -38,7 +38,7 @@ export const commonStyles = {
     width: "80%",
     height: "50px",
     marginTop: "2.5rem",
-    backgroundColor: "#FD8118",
+    backgroundColor: "var(--theme)",
     color: "#fff",
     fontSize: "1rem",
     boxShadow: "none",

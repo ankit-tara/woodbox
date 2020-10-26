@@ -30,7 +30,7 @@ const useStyles = makeStyles({
       color: "#908e8e",
     },
     "& a.active": {
-      color: "#FD8118",
+      color: "var(--theme)",
     },
   },
 });

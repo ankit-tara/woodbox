@@ -43,10 +43,10 @@ export const commonStyles = {
       textDecoration: "none",
     },
     "& li:hover a": {
-      color: "#f69902",
+      color: "var(--theme)",
     },
     "& li.active a": {
-      color: "#f69902",
+      color: "var(--theme)",
     },
     "& button": {
       color: "#000",

@@ -22,10 +22,10 @@ export const commonStyles = {
       paddingBottom: '2rem'
     },
     '& .swiper-slide-shadow-left': {
-      backgroundImage: 'linear-gradient(to left, rgb(255, 246, 239), rgba(0, 0, 0, 0))'
+      backgroundImage: 'linear-gradient(to left, var(--theme-light), rgba(0, 0, 0, 0))'
     },
     '& .swiper-slide-shadow-right': {
-      backgroundImage: 'linear-gradient(to left, rgb(255, 246, 239), rgba(0, 0, 0, 0))'
+      backgroundImage: 'linear-gradient(to left, var(--theme-light), rgba(0, 0, 0, 0))'
     }
   },
   slideContent: {

@@ -42,7 +42,7 @@ export const commonStyles = {
       width: '23%'
     },
     '& .image-gallery-thumbnail.active':{
-      border: '4px solid #ff8116'
+      border: '4px solid var(--theme)'
     },
     '& .image-gallery-left-nav .image-gallery-svg':{
       width: '60px',
@@ -176,7 +176,7 @@ export const commonStyles = {
       width: '71px',
       height: '71px',
       borderRadius: '50%',
-      border: 'solid 2px #FF8116'
+      border: 'solid 2px var(--theme)'
     }
   },
   sellerDetails:{
@@ -197,10 +197,10 @@ export const commonStyles = {
     }
   },
   primaryBtn:{
-    background: '#FF8116',
+    background: 'var(--theme)',
     color: '#fff',
     '&:hover': {
-      background: '#FF8116',
+      background: 'var(--theme)',
     }
   },
   secondaryBtn:{

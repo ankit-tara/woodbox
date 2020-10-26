@@ -115,7 +115,7 @@ export default function singlePage({ query }) {
       {!loading && <ProductDetail data={data} />}
 
       {/* Review Section */}
-      <section className={classes.section} style={{ background: "#FFF6EF" }}>
+      <section className={classes.section} style={{ background: "var(--theme-light)" }}>
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">REVIEW</Typography>

@@ -10,7 +10,7 @@ export const commonStyles = {
     maxWidth: "310px",
     // margin: "1rem 1rem 1rem 0",
     display: "grid",
-    minHeight: "475px",
+    // minHeight: "475px",
     gridTemplateRows: "auto 1fr",
   },
   cardInner: {
@@ -23,9 +23,10 @@ export const commonStyles = {
     borderTop: "none",
     position: "relative",
     top: "-5px",
+    minHeight: "150px",
   },
   Orangecard: {
-    border: "solid 4px #FC821A",
+    border: "solid 4px var(--theme)",
     borderTop: "none",
   },
   flex: {
@@ -41,7 +42,7 @@ export const commonStyles = {
   },
   image: {
     width: "100%",
-    height: "220px",
+    height: "200px",
     objectFit: "cover",
   },
   cardBody: {
@@ -59,10 +60,11 @@ export const commonStyles = {
     fontWeight: "600",
   },
   Orangeprice: {
-    color: "#FC821A",
+    color: "var(--theme)",
   },
   date: {
     fontSize: "1rem",
+    marginTop:'0.5rem'
   },
   college: {
     fontSize: "1rem",
@@ -94,8 +96,11 @@ export const mobileStyles = {
     fontSize: "0.8rem",
   },
   card: {
-    minHeight: '445px',
+    // minHeight: '445px',
     margin: 'auto'
+  },
+  cardInner:{
+    minHeight: '130px',
   },
   price:{
     fontSize: '1.2rem'

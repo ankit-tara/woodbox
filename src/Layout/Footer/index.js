@@ -1,10 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Container, Grid, Typography } from '@material-ui/core'
+import classNames from "classnames";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import PhoneIcon from '@material-ui/icons/Phone';
+import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
 import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
@@ -54,7 +58,24 @@ function Footer() {
       <footer className={classes.Footer}>
         <Container maxWidth="xl">
           <Grid container>
-            <Grid item lg={10} md={9} sm={9}>
+          <Grid item lg={4} md={3} sm={3}>
+            <Link href="/">
+                <img
+                  className={classes.logo}
+                  src="/static/images/logofooter.png"
+                />
+              </Link>
+              <div className={classes.SocialMenu}>
+                <p className={classes.compInfo}>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit</p>
+                <ul>
+                  <li><p>FOLLOW US </p></li>
+                  <li><Link href="/"><FacebookIcon color="#fff" /></Link></li>
+                  <li><Link href="/"><InstagramIcon color="#fff" /></Link></li>
+                  <li><Link href="/"><TwitterIcon color="#fff" /></Link></li>
+                </ul>
+              </div>
+            </Grid>
+            <Grid item lg={8} md={9} sm={9}>
               <div className={classes.FooterMenu}>
                 <ul>
                   <li><p>POPULAR COLLEGES</p></li>
@@ -64,32 +85,18 @@ function Footer() {
                   <li><Link href="/products?s=nit-delhi">IIT Delhi</Link></li>
                 </ul>
                 <ul>
-                  <li><p>EVENTS</p></li>
-                  <li><Link href="/">Events in NIT Jalandhar</Link></li>
-                  <li><Link href="/">Events in NIT Delhi</Link></li>
-                  <li><Link href="/">Events in NIT Kurukshetra</Link></li>
-                  <li><Link href="/">Events in IIT Delhi</Link></li>
-                </ul>
-                <ul>
-                  <li><p>About Us</p></li>
+                  <li><p>Useful Links</p></li>
                   <li><Link href="/">Our Story</Link></li>
                   <li><Link href="/">Careers</Link></li>
-                  <li><Link href="/contact">Contact Us</Link></li>
-                </ul>
-                <ul>
-                  <li><p>Legal</p></li>
                   <li><Link href="/">Privacy Policy</Link></li>
                   <li><Link href="/">Terms and Conditions</Link></li>
                 </ul>
-              </div>
-            </Grid>
-            <Grid item lg={2} md={3} sm={3}>
-              <div className={classes.SocialMenu}>
-                <ul>
-                  <li><p>FOLLOW US </p></li>
-                  <li><Link href="/"><FacebookIcon /></Link></li>
-                  <li><Link href="/"><InstagramIcon /></Link></li>
-                  <li><Link href="/"><TwitterIcon /></Link></li>
+                <ul className={classes.contactDetails}>
+                  <li><p>Contact</p></li>
+                  <li><span><HomeIcon color="#fff" />Jalandhar, Punjab</span></li>
+                  <li><a href="mailto:collegeplus@gmail.com"><MailIcon color="#fff" />collegeplus@gmail.com</a></li>
+                  <li><a href="tel:+917351586148"><PhoneIcon color="#fff" />+ 91 735 158 6148</a></li>
+                  <li><a href="tel:+917351586148"><PhoneIcon color="#fff" />+ 91 735 158 6148</a></li>
                 </ul>
               </div>
             </Grid>
@@ -98,7 +105,7 @@ function Footer() {
       </footer>
       <div className={classes.Copyright}>
         <Container maxWidth="lg">
-          <Typography>2020 Copyrights All rights Reserved Website Powered by Wood Box</Typography>
+          <Typography>2020 Copyrights All rights Reserved Website Powered by <a href="https://www.woodboxdigital.com/" target="_blank">Wood Box</a></Typography>
         </Container>
       </div>
     </>
