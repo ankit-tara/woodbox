@@ -9,8 +9,7 @@ export const commonStyles = {
       backgroundColor: '#F5F5F5',
     },
     '& ::-webkit-scrollbar-thumb': {
-      backgroundColor: '#F90',
-      backgroundImage: '-webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,	  transparent 75%, transparent)'
+      backgroundColor: 'var(--theme)',
     },
     '& a': {
       cursor: 'pointer !important',

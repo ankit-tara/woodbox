@@ -72,6 +72,16 @@ body::-webkit-scrollbar-thumb {
   max-width: 100% !important;
 }
 
+.selProd{
+    border: solid 1px #222;
+    color: #222;
+    padding: 10px;
+    display: inline-block;
+    margin: 2rem 0;
+    font-weight: 500;
+    font-size: 16px;
+}
+
 @keyframes slideFromLeft {
   0% {
     margin-left: -200px;

@@ -149,7 +149,7 @@ function Products({ data, url, m_uni, query }) {
                   Make Some extra caMake Some extra cash by selling things sh by
                   selling things
                 </Typography>
-                <button>Selling Product</button>
+                <a href="/post" className="selProd">Selling Product</a>
               </Box>
               <Box className={classes.ProductsGridWrapper}>
                 {products.data &&
