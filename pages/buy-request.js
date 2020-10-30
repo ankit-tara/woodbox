@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../src/Layout";
 import Accordian from "../src/components/Accordian";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import StickyBox from "react-sticky-box";
 
 import {
   commonStyles,
@@ -20,7 +15,10 @@ import {
 import { getAllBuyRequests } from "../src/apis/global-api";
 import { useSelector } from "react-redux";
 import Router from "next/router";
-
+import Sidebar from "../src/components/Sidebar";
+BuyRequest.getInitialProps = ({ query }) => {
+  return { query };
+};
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -40,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 
-export default function BuyRequest() {
+export default function BuyRequest({ query }) {
   const user = useSelector((state) => state.auth_user.user);
 
   const classes = useStyles();
@@ -49,19 +47,34 @@ export default function BuyRequest() {
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
+  const [selectedUni, setselectedUni] = useState("");
 
   useEffect(() => {
-    getProductRequest(page)
-  }, [])
+    // const { m_uni } = query;
+    // console.log("queryrequest", m_uni);
+    // if (m_uni) {
+    //   setselectedUni(m_uni);
+
+    // }
+    getProductRequest();
+  }, [query]);
 
   const getProductRequest = (page) => {
-     page = !page ? 1 : page + 1;
+    page = !page ? 1 : page + 1;
     setpage(page);
     let url = `&page=${page}`;
+
+    const { m_uni } = query;
+
+    if (m_uni) {
+      url = url + "&m_uni=" + m_uni;
+    }
+
+    console.log("queryrequesturl", url);
+
     getAllBuyRequests(url).then((data) => {
       if (requests && requests.data) {
         data.data = requests.data.concat(data.data);
-
       }
       if (data) {
         setrequests(data);
@@ -77,7 +90,7 @@ export default function BuyRequest() {
       //   setlastPage(false);
       // }
     });
-  }
+  };
 
   const handleButtonClick = () => {
     if (!loadMore) {
@@ -119,6 +132,9 @@ export default function BuyRequest() {
               </Button>
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
+              <StickyBox offsetTop={100} offsetBottom={20}>
+                <Sidebar type="requests" query={query} />
+              </StickyBox>
               <Box>
                 <div className={classes.root}>
                   {requests &&

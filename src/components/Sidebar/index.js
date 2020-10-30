@@ -51,7 +51,6 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
   const pageVisited = useSelector((state) => state.pageVisited);
 
   const handleTypeChange = (x) => {
-  
     setproducttype(
       producttype.includes(x)
         ? producttype.filter((c) => c !== x)
@@ -204,9 +203,13 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
       universities +
       "&type=" +
       p_type;
-    console.log(query);
+    let reqquery = "?m_uni=" + universities;
     if (type == "events") {
       window.location.replace("/events" + query);
+
+      // router.push("/events" + query);
+    } else if (type == "requests") {
+      window.location.replace("/buy-request" + reqquery);
 
       // router.push("/events" + query);
     } else {
@@ -235,7 +238,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
             <Typography variant="h6" className={classes.heading}>
               Filter
             </Typography>
-            {type != "events" && (
+            {type != "events" && type != "requests" && (
               <Accordion
                 expanded={expanded === "panel0"}
                 onChange={handlePanelChange("panel0")}
@@ -265,59 +268,34 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
                 Rent
               </Accordion>
             )}
-            <Accordion
-              expanded={expanded === "panel1"}
-              onChange={handlePanelChange("panel1")}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+            {type != "requests" && (
+              <Accordion
+                expanded={expanded === "panel1"}
+                onChange={handlePanelChange("panel1")}
               >
-                <Typography variant="h6" className={classes.title}>
-                  Category
-                </Typography>
-              </AccordionSummary>
-              <input
-                className={classes.searchField}
-                type="text"
-                placeholder="search Categoty"
-                onKeyUp={handleCatSearch}
-              />
-              <AccordionDetails>
-                <FormControl
-                  component="fieldset"
-                  className={classes.formControl}
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
                 >
-                  <FormGroup>
-                    {categories &&
-                      categories.map((cat) => (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={(e) => handleChange(e, "category", cat)}
-                              color="primary"
-                            />
-                          }
-                          label={cat.name}
-                          checked={
-                            selectedCategories.filter(
-                              (item) => item.id == cat.id
-                            ).length > 0
-                          }
-                        />
-                      ))}
-                  </FormGroup>
-                </FormControl>
-
-                {categories.length < 1 && selectedCategories.length > 0 && (
+                  <Typography variant="h6" className={classes.title}>
+                    Category
+                  </Typography>
+                </AccordionSummary>
+                <input
+                  className={classes.searchField}
+                  type="text"
+                  placeholder="search Categoty"
+                  onKeyUp={handleCatSearch}
+                />
+                <AccordionDetails>
                   <FormControl
                     component="fieldset"
                     className={classes.formControl}
                   >
                     <FormGroup>
-                      {selectedCategories &&
-                        selectedCategories.map((cat) => (
+                      {categories &&
+                        categories.map((cat) => (
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -327,83 +305,116 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
                                 color="primary"
                               />
                             }
-                            checked={true}
                             label={cat.name}
+                            checked={
+                              selectedCategories.filter(
+                                (item) => item.id == cat.id
+                              ).length > 0
+                            }
                           />
                         ))}
                     </FormGroup>
                   </FormControl>
-                )}
-              </AccordionDetails>
-            </Accordion>
-            <Accordion
-              expanded={expanded === "panel2"}
-              onChange={handlePanelChange("panel2")}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography variant="h6" className={classes.title}>
-                  City
-                </Typography>
-              </AccordionSummary>
-              <input
-                className={classes.searchField}
-                type="text"
-                placeholder="search City"
-                onKeyUp={handleCitySearch}
-              />
-              <AccordionDetails>
-                <FormControl
-                  component="fieldset"
-                  className={classes.formControl}
-                >
-                  <FormGroup>
-                    {Cities &&
-                      Cities.map((cat) => (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={(e) => handleChange(e, "cities", cat)}
-                              color="primary"
-                              name="mobile"
+
+                  {categories.length < 1 && selectedCategories.length > 0 && (
+                    <FormControl
+                      component="fieldset"
+                      className={classes.formControl}
+                    >
+                      <FormGroup>
+                        {selectedCategories &&
+                          selectedCategories.map((cat) => (
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onChange={(e) =>
+                                    handleChange(e, "category", cat)
+                                  }
+                                  color="primary"
+                                />
+                              }
+                              checked={true}
+                              label={cat.name}
                             />
-                          }
-                          label={cat.name}
-                          checked={
-                            selectedCities.filter((item) => item.id == cat.id)
-                              .length > 0
-                          }
-                        />
-                      ))}
-                  </FormGroup>
-                </FormControl>
-                {Cities.length < 1 && selectedCities.length > 0 && (
+                          ))}
+                      </FormGroup>
+                    </FormControl>
+                  )}
+                </AccordionDetails>
+              </Accordion>
+            )}
+            {type != "requests" && (
+              <Accordion
+                expanded={expanded === "panel2"}
+                onChange={handlePanelChange("panel2")}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography variant="h6" className={classes.title}>
+                    City
+                  </Typography>
+                </AccordionSummary>
+                <input
+                  className={classes.searchField}
+                  type="text"
+                  placeholder="search City"
+                  onKeyUp={handleCitySearch}
+                />
+                <AccordionDetails>
                   <FormControl
                     component="fieldset"
                     className={classes.formControl}
                   >
                     <FormGroup>
-                      {selectedCities &&
-                        selectedCities.map((cat) => (
+                      {Cities &&
+                        Cities.map((cat) => (
                           <FormControlLabel
                             control={
                               <Checkbox
                                 onChange={(e) => handleChange(e, "cities", cat)}
                                 color="primary"
+                                name="mobile"
                               />
                             }
-                            checked={true}
                             label={cat.name}
+                            checked={
+                              selectedCities.filter((item) => item.id == cat.id)
+                                .length > 0
+                            }
                           />
                         ))}
                     </FormGroup>
                   </FormControl>
-                )}
-              </AccordionDetails>
-            </Accordion>
+                  {Cities.length < 1 && selectedCities.length > 0 && (
+                    <FormControl
+                      component="fieldset"
+                      className={classes.formControl}
+                    >
+                      <FormGroup>
+                        {selectedCities &&
+                          selectedCities.map((cat) => (
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onChange={(e) =>
+                                    handleChange(e, "cities", cat)
+                                  }
+                                  color="primary"
+                                />
+                              }
+                              checked={true}
+                              label={cat.name}
+                            />
+                          ))}
+                      </FormGroup>
+                    </FormControl>
+                  )}
+                </AccordionDetails>
+              </Accordion>
+            )}
             <Accordion
               expanded={expanded === "panel3"}
               onChange={handlePanelChange("panel3")}
