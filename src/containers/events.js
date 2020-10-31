@@ -122,7 +122,7 @@ function Events({ data, url, showState = false, query }) {
               color="primary"
               onClick={handleAddProduct}
             >
-              Add Product
+              Add Event
             </Button>
           </Box>
         </Container>
