@@ -219,9 +219,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
       // router.push("/products" + query);
     }
   };
-  
-  const [showsidebar, setshowsidebar] = React.useState(!showFilterBtn);
-  
+    
   const toggle = () => {
     setshowsidebar(!showsidebar);
   };

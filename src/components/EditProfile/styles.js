@@ -30,7 +30,7 @@ export const commonStyles = {
       width: '100%',
       height: '30%',
       content: '""',
-      background: 'rgba(253, 129, 24, 0.5607843137254902)',
+      background: 'rgba(145, 109, 213, 0.58)',
       position: 'absolute',
       bottom: '0',
       left: '0%'
@@ -48,7 +48,7 @@ export const commonStyles = {
     width: '80%',
     height:'50px',
     marginTop: '2.5rem',
-    backgroundColor: '"var(--theme)"',
+    backgroundColor: 'var(--theme)',
     color: '#fff',
     fontSize: '1rem',
     boxShadow: 'none',
