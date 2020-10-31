@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   transparent: {
     color: "#000",
     width: "30px",
-    height: "30px",
+    height: "25px",
     backgroundColor: "transparent",
   },
 }));
