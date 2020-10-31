@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     boxShadow: "0px -3px 20px rgba(0,0,0,0.1)",
     "& button": {
       minWidth: "60px",
-      padding: "6px 10px 8px",
+      padding: "3px 10px 3px",
     },
     "& a": {
       color: "#908e8e",
