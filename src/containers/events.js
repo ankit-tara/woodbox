@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 import { useRouter } from "next/router";
 import { getEvents, getAllFeedback } from "../apis/global-api";
+import { useSelector } from "react-redux";
 
 function Events({ data, url, showState = false, query }) {
   const [events, setevents] = useState([]);
@@ -36,6 +37,7 @@ function Events({ data, url, showState = false, query }) {
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
   const [list_reviews, setlist_reviews] = useState([]);
+  const user = useSelector((state) => state.auth_user.user);
 
   useEffect(() => {
     console.log("url", url);
@@ -98,6 +100,13 @@ function Events({ data, url, showState = false, query }) {
       </>
     );
   };
+  const handleAddProduct = () => {
+    if (user.id) {
+      router.push("/post/event");
+    } else {
+      window.location.replace("/?signup=open");
+    }
+  };
 
   return (
     <Layout>
@@ -108,6 +117,18 @@ function Events({ data, url, showState = false, query }) {
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
             <Typography variant="h5">Events in your College</Typography>
+          </Box>
+          <Box
+            className={classes.productsSubHeader}
+            style={{ textAlign: "right" }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddProduct}
+            >
+              Add Product
+            </Button>
           </Box>
         </Container>
         <Container maxWidth="xl">
@@ -198,7 +219,10 @@ function Events({ data, url, showState = false, query }) {
         </Container>
       </section>
 
-      <section className={classes.section} style={{ background: "var(--theme-light)" }}>
+      <section
+        className={classes.section}
+        style={{ background: "var(--theme-light)" }}
+      >
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">REVIEW</Typography>
