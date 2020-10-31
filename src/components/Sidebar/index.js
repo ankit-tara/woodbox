@@ -60,6 +60,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
 
   useEffect(() => {
     console.log("query", query);
+    setshowsidebar(!showFilterBtn);
 
     // console.log('pageVisited',pageVisited.includes(PAGE_PRODUCTS))
     let { m_city, m_cat, type } = query;
@@ -222,7 +223,8 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
     setshowsidebar(!showsidebar);
   };
 
-  const [showsidebar, setshowsidebar] = React.useState(!showFilterBtn);
+  const [showsidebar, setshowsidebar] = React.useState(false);
+  // const [showsidebar, setshowsidebar] = React.useState(!showFilterBtn);
 
   return (
     <>
