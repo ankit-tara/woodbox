@@ -156,7 +156,7 @@ export default function SearchAppBar() {
   const handleListEvent = (e) => {
     setauthModal(false);
     e.preventDefault();
-    if (accessToken) {
+    if (user.id) {
       router.push("/post/event");
     } else {
       window.location.replace("/?signup=open");
@@ -201,7 +201,7 @@ export default function SearchAppBar() {
                   button
                   component={Link}
                   href="/products?type=buy"
-                  className={router.pathname == "/products?type=buy" ? "active" : ""}
+                  className={router.pathname == "/products" ? "active" : ""}
                 >
                   <ListItemIcon>
                     <LocalMallRoundedIcon />
@@ -213,7 +213,7 @@ export default function SearchAppBar() {
                   button
                   component={Link}
                   href="/products?type=rental"
-                  className={router.pathname == "/products?type=rental" ? "active" : ""}
+                  className={router.pathname == "/products" ? "active" : ""}
                 >
                   <ListItemIcon>
                     <LocalMallRoundedIcon />

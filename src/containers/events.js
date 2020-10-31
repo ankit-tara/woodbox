@@ -82,7 +82,7 @@ function Events({ data, url, showState = false, query }) {
 
   const classes = useStyles();
 
-  const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const matches = useMediaQuery('(max-width:600px)');
 
   const MobileSidebar = () => {
     const toggle = () => {
@@ -117,11 +117,6 @@ function Events({ data, url, showState = false, query }) {
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
             <Typography variant="h5">Events in your College</Typography>
-          </Box>
-          <Box
-            className={classes.productsSubHeader}
-            style={{ textAlign: "right" }}
-          >
             <Button
               variant="contained"
               color="primary"

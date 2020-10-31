@@ -50,6 +50,17 @@ export default function SimpleBottomNavigation() {
   });
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
+  const user = useSelector((state) => state.auth_user.user);
+
+  const handleAddProduct = () => {
+    if (user.id) {
+      router.push("/profile");
+    } else {
+      window.location.replace("/?signup=open");
+    }
+  };
+
+
 
   return (
     <BottomNavigation
@@ -72,7 +83,7 @@ export default function SimpleBottomNavigation() {
         component={Link}
         href="/products?type=buy"
         label="Buy"
-        className={router.pathname == "/products?type=buy" ? "active" : ""}
+        className={router.pathname == "/products" ? "active" : ""}
         icon={<LocalMallRoundedIcon />}
       />
       <BottomNavigationAction
@@ -84,7 +95,8 @@ export default function SimpleBottomNavigation() {
       />
       <BottomNavigationAction
         component={Link}
-        href="/profile"
+        // href="/profile"
+        onClick={handleAddProduct}
         label="My ads"
         className={router.pathname == "/profile" ? "active" : ""}
         icon={<LiveTvRoundedIcon />}

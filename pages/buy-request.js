@@ -24,6 +24,7 @@ BuyRequest.getInitialProps = ({ query }) => {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    marginTop: '1.5rem'
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -122,28 +123,24 @@ export default function BuyRequest({ query }) {
         <Container maxWidth="xl">
           <Grid container>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Box className="mb-3">
-                <Typography
-                  variant="h3"
-                  style={{ textAlign: "center", marginBottom: "1rem" }}
-                >
+              <Box className={classes.productsHeader}>
+                <Typography variant="h3">
                   Buy Requests
-                </Typography>
+            </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddProduct}
+                >
+                  Add Request
+            </Button>
               </Box>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ textAlign: "center", marginBottom: "1rem" }}
-                onClick={handleAddProduct}
-              >
-                Add Request
-              </Button>
             </Grid>
             <Grid item lg={3} md={3} sm={12} xs={12}>
               <StickyBox offsetTop={100} offsetBottom={20}>
                 <Sidebar type="requests" query={query} />
               </StickyBox>
-              </Grid>
+            </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box>
                 <div className={classes.root}>

@@ -77,6 +77,7 @@ export const commonStyles = {
     paddingBottom: "1rem",
     borderBottom: "solid 1px #BDBDBD",
     display: "flex",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
     "& h5": {
