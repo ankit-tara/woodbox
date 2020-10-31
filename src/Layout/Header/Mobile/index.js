@@ -154,7 +154,7 @@ export default function SearchAppBar() {
   };
 
   const handleListEvent = (e) => {
-    setauthModal(false);
+    // setauthModal(false);
     e.preventDefault();
     if (user.id) {
       router.push("/post/event");
@@ -236,7 +236,7 @@ export default function SearchAppBar() {
                 <ListItem
                   button
                   component={Link}
-                  href="/post"
+                  // href={!accessToken ? "/?signup=open" : "/post"}
                   onClick={handleListProduct}
                   className={router.pathname == "/post" ? "active" : ""}
                 >
@@ -261,7 +261,7 @@ export default function SearchAppBar() {
                 <ListItem
                   button
                   component={Link}
-                  href="/post/event"
+                  // href={!accessToken ? "/?signup=open" : "/post/event"}
                   onClick={handleListEvent}
                   className={router.pathname == "/post/event" ? "active" : ""}
                 >
