@@ -15,7 +15,7 @@ import { GoogleLogin } from "react-google-login";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    padding: "2.0rem",
+    padding: "1.5rem 2.0rem",
     [theme.breakpoints.up("sm")]: {
       margin: "2.5rem",
     },
@@ -205,9 +205,7 @@ export const AuthForm = ({ type }) => {
         />
       </div>
       <br />
-      <br />
       <div style={{ textAlign: "center" }}>or</div>
-      <br />
       <br />
       <form className={classes.container} onSubmit={validateform}>
         {type == "signup" && (

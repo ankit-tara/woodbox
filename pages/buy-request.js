@@ -6,6 +6,7 @@ import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import StickyBox from "react-sticky-box";
 
+
 import {
   commonStyles,
   desktopStyles,
@@ -19,6 +20,7 @@ import Sidebar from "../src/components/Sidebar";
 BuyRequest.getInitialProps = ({ query }) => {
   return { query };
 };
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -58,6 +60,14 @@ export default function BuyRequest({ query }) {
     // }
     getProductRequest();
   }, [query]);
+
+  const handleAddProduct = () => {
+    if (user.id) {
+      router.push("/post/request");
+    } else {
+      window.location.replace("/?signup=open");
+    }
+  };
 
   const getProductRequest = (page) => {
     page = !page ? 1 : page + 1;
@@ -124,17 +134,17 @@ export default function BuyRequest({ query }) {
                 variant="contained"
                 color="primary"
                 style={{ textAlign: "center", marginBottom: "1rem" }}
-                onClick={() => {
-                  Router.push("/post/request");
-                }}
+                onClick={handleAddProduct}
               >
                 Add Request
               </Button>
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={3} md={3} sm={12} xs={12}>
               <StickyBox offsetTop={100} offsetBottom={20}>
                 <Sidebar type="requests" query={query} />
               </StickyBox>
+              </Grid>
+            <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box>
                 <div className={classes.root}>
                   {requests &&

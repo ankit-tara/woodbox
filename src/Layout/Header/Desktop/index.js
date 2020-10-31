@@ -131,7 +131,7 @@ function Header({ modalOpen }) {
     if (accessToken) {
       router.push("/post");
     } else {
-      window.location.replace("/?signup=open");
+      router.push("/?signup=open");
     }
   };
 
@@ -142,7 +142,7 @@ function Header({ modalOpen }) {
     if (accessToken) {
       router.push("/post/event");
     } else {
-      window.location.replace("/?signup=open");   
+      router.push.replace("/?signup=open");   
     }
   };
 

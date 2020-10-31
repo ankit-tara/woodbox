@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundRepeat: "no-repeat",
     },
     [theme.breakpoints.down("sm")]:{
-      marginTop: '3rem'
+      marginTop: '1.5rem'
     }
   },
   Img: {

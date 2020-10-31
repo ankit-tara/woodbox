@@ -144,21 +144,34 @@ export const commonStyles = {
 
 export const mobileStyles = {
   Copyright:{
-    marginBottom: '3.5rem',
+    padding:'0.5rem 1rem',
+    marginBottom: '2.9rem',
     '& p': {
       fontSize: '14px'
     }
+  },
+  Footer:{
+    paddingBottom: '0'
   },
   FooterMenu: {
     '& ul': {
       margin: '0',
       borderBottom:'solid 1px #393939',
       textAlign:'center',
-      padding: '1rem 0',
+      padding: '0.4rem 0',
       width: '100%'
     },
     '& ul li p':{
       margin:0
+    },
+    '& ul li':{
+      marginBottom:'0.3rem'
+    },
+    '& ul li a': {
+      fontSize: '14px'
+    },
+    '& ul li span': {
+      fontSize: '14px'
     }
   },
   logo:{
@@ -180,6 +193,10 @@ export const mobileStyles = {
       justifyContent: 'center',
       marginBottom:0,
       borderBottom:'solid 1px #393939'
+    },
+    '& ul li svg': {
+      width: '1em',
+      height: '1em',
     }
   },
   downloadTitle: {
@@ -200,7 +217,7 @@ export const mobileStyles = {
 
 export const TabStyles = {
   Copyright: {
-    marginBottom: '3.5rem'
+    marginBottom: '2.9rem'
   },
 }
 

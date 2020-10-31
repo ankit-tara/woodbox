@@ -6,6 +6,8 @@ import { commonStyles, desktopStyles, mobileStyles, TabStyles } from './styles'
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
@@ -26,7 +28,7 @@ function Footer() {
 
       {/* Download App Section */}
 
-      <section
+      {/* <section
         className={`${classes.section} ${classes.downloadApp}`}
         style={{ backgroundImage: "url(/static/images/download.jpg)" }}
       >
@@ -54,7 +56,7 @@ function Footer() {
             </Grid>
           </Grid>
         </Container>
-      </section>
+      </section> */}
       <footer className={classes.Footer}>
         <Container maxWidth="xl">
           <Grid container>
@@ -72,6 +74,8 @@ function Footer() {
                   <li><Link href="/"><FacebookIcon color="#fff" /></Link></li>
                   <li><Link href="/"><InstagramIcon color="#fff" /></Link></li>
                   <li><Link href="/"><TwitterIcon color="#fff" /></Link></li>
+                  <li><Link href="/"><YouTubeIcon color="#fff" /></Link></li>
+                  <li><Link href="/"><LinkedInIcon color="#fff" /></Link></li>
                 </ul>
               </div>
             </Grid>

@@ -19,6 +19,7 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: 0,
     width: "100%",
+    height: '45px',
     zIndex: 2,
     background: "#fdfdfd",
     boxShadow: "0px -3px 20px rgba(0,0,0,0.1)",
@@ -28,6 +29,8 @@ const useStyles = makeStyles({
     },
     "& a": {
       color: "#908e8e",
+      paddingTop: '5px',
+      paddingBottom: '5px'
     },
     "& a.active": {
       color: "var(--theme)",

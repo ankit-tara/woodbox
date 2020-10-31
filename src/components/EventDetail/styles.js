@@ -157,7 +157,7 @@ export const commonStyles = {
       textAlign: 'right'
     },
     '& .social-links a':{
-        color: '#f58117',
+        color: 'var(--theme)',
         display: 'inline-block',
         margin: '5px'
     }

@@ -64,11 +64,17 @@ export const mobileStyles = {
     },
     '& .swiper-button-next': {
       transform: 'scale(0.6)'
+    },
+    '& .swiper-container': {
+      paddingBottom: 0
     }
   },
   review:{
     fontSize: '14px',
     marginTop: '1rem'
+  },
+  card:{
+    minHeight: 'auto'
   },
   cardBody:{
     padding: '2rem'

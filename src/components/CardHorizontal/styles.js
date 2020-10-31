@@ -72,7 +72,8 @@ export const commonStyles = {
 export const mobileStyles = {
   card: {
     '& .cardBody': {
-      flexDirection: 'column'
+      flexDirection: 'column',
+      paddingBottom: '0'
     },
     '&:nth-child(even) .cardBody': {
       flexDirection: 'column'
@@ -88,11 +89,11 @@ export const mobileStyles = {
     },
     '&:nth-child(even) .content': {
       textAlign: 'left',
-    },
-    paper:{
-      '& iframe':{
-        height: '400px'
-      }
+    }
+  },
+  paper: {
+    '& iframe': {
+      height: '400px'
     }
   },
   excerpt:{
