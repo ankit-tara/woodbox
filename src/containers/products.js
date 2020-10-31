@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 import { useRouter } from "next/router";
 import { getProducts, getAllFeedback } from "../apis/global-api";
+import { useSelector } from "react-redux";
 
 function Products({ data, url, m_uni, query }) {
   const [products, setproducts] = useState([]);
@@ -36,6 +37,7 @@ function Products({ data, url, m_uni, query }) {
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
   const [list_reviews, setlist_reviews] = useState([]);
+  const user = useSelector((state) => state.auth_user.user);
 
   useEffect(() => {
     if (url) fetchTypeProducts(url, 0, []);
@@ -96,6 +98,14 @@ function Products({ data, url, m_uni, query }) {
     );
   };
 
+  const handleAddProduct = () => {
+    if (user.id) {
+      router.push("/post");
+    } else {
+      window.location.replace("/?signup=open");
+    }
+  };
+
   return (
     <Layout>
       <Advertisement />
@@ -107,6 +117,18 @@ function Products({ data, url, m_uni, query }) {
             <Typography variant="h5">
               Buy/Rent Used Products in your College
             </Typography>
+          </Box>
+          <Box
+            className={classes.productsSubHeader}
+            style={{ textAlign: "right" }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddProduct}
+            >
+              Add Product
+            </Button>
           </Box>
         </Container>
         <Container maxWidth="xl">
@@ -149,7 +171,9 @@ function Products({ data, url, m_uni, query }) {
                   Make Some extra caMake Some extra cash by selling things sh by
                   selling things
                 </Typography>
-                <a href="/post" className="selProd">Selling Product</a>
+                <a onClick={handleAddProduct} className="selProd">
+                  Selling Product
+                </a>
               </Box>
               <Box className={classes.ProductsGridWrapper}>
                 {products.data &&
@@ -202,7 +226,10 @@ function Products({ data, url, m_uni, query }) {
         </Container>
       </section>
 
-      <section className={classes.section} style={{ background: "var(--theme-light)" }}>
+      <section
+        className={classes.section}
+        style={{ background: "var(--theme-light)" }}
+      >
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">REVIEW</Typography>

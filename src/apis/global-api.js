@@ -246,7 +246,7 @@ export function updateOpenStatus(dialog_id, status, user_id) {
   return generalPostRequest(url);
 }
 export function sendFeedbackMessage(data) {
-  let url = API_URL + "/send-feedback-message/";
+  let url = API_URL + "/send-feedback-message";
   return generalPostRequest(url, data);
 }
 
