@@ -218,10 +218,19 @@ export const commonStyles = {
 
 export const mobileStyles = {
   section: {
-    padding: "2.5rem 0",
+    padding: "1rem 0",
+  },
+  productContentSection:{
+    margin: '1rem 0',
+    paddingBottom: '0'
   },
   spacingBox: {
-    margin: "1.5rem 0",
+    margin: "0.5rem 0",
+  },
+  productsHeader: {
+    "& h5":{
+      marginBottom:0
+    }
   },
   sectionHeader: {
     "& h3": {
@@ -229,7 +238,7 @@ export const mobileStyles = {
       lineHeight: "2rem",
     },
     "& h2": {
-      marginBottom: "1rem",
+      marginBottom: "0rem",
     },
     "& p": {
       fontSize: "14px",
@@ -271,6 +280,7 @@ export const mobileStyles = {
     },
   },
   ProductsGridWrapper: {
+    paddingTop: "1rem",
     "& .event__card": {
       width: "100% !important",
     },

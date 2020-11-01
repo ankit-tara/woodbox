@@ -151,6 +151,7 @@ export const mobileStyles = {
     }
   },
   Footer:{
+    paddingTop:'1rem',
     paddingBottom: '0'
   },
   FooterMenu: {

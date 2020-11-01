@@ -59,6 +59,7 @@ theme.typography.h4 = {
   fontWeight: 'bold',
   [theme.breakpoints.down('md')]: {
     fontSize: '1.6rem',
+    lineHeight: '1.6rem',
   },
 };
 

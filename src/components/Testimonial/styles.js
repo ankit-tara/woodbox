@@ -58,7 +58,7 @@ export const commonStyles = {
 
 export const mobileStyles = {
   carousel:{
-    marginTop: '2rem',
+    marginTop: '1rem',
     '& .swiper-button-prev': {
       transform: 'scale(0.6)'
     },
