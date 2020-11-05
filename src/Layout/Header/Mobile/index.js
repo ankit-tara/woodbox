@@ -201,7 +201,9 @@ export default function SearchAppBar() {
                   button
                   component={Link}
                   href="/products?type=buy"
-                  className={router.pathname == "/products" ? "active" : ""}
+                  className={
+                    router.asPath == "/products?type=buy" ? "active" : ""
+                  }
                 >
                   <ListItemIcon>
                     <LocalMallRoundedIcon />
@@ -213,7 +215,9 @@ export default function SearchAppBar() {
                   button
                   component={Link}
                   href="/products?type=rental"
-                  className={router.pathname == "/products" ? "active" : ""}
+                  className={
+                    router.asPath == "/products?type=rental" ? "active" : ""
+                  }
                 >
                   <ListItemIcon>
                     <LocalMallRoundedIcon />

@@ -377,7 +377,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
               <Card className={classes.card}>
                 <CardContent className={classes.cardBody}>
                   <Typography variant="h4" style={{ marginBottom: "1rem" }}>
-                    {formtype == "add" ? "Add" : "Edit"} Ad Details
+                    {formtype == "add" ? "Add" : "Edit"} Item  Details
                   </Typography>
                   <form
                     className={classes.form}
@@ -649,7 +649,7 @@ export default function Post({ user, formtype = "add", product = {} }) {
                       variant="contained"
                       className={classes.Button}
                     >
-                      {formtype == "add" ? "Add" : "Edit"} Ad
+                      {formtype == "add" ? "Add" : "Edit"} Item
                     </Button>
                   </form>
                   {formerrs.length > 0 &&

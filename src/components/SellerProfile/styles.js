@@ -54,7 +54,7 @@ export const commonStyles = {
     // width: 'max-content'
   },
   cardBody: {
-    padding: "2rem !important",
+    // padding: "2rem !important",
   },
   ProfileDetails: {
     marginTop: "2rem",

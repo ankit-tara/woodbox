@@ -12,6 +12,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
 import Link from 'next/link';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   ...commonStyles,
@@ -90,8 +91,8 @@ function Footer() {
                 </ul>
                 <ul>
                   <li><p>Useful Links</p></li>
-                  <li><Link href="/">Our Story</Link></li>
-                  <li><Link href="/">Careers</Link></li>
+                  <li><Link href="/">About</Link></li>
+                  {/* <li><Link href="/">Careers</Link></li> */}
                   <li><Link href="/">Privacy Policy</Link></li>
                   <li><Link href="/">Terms and Conditions</Link></li>
                 </ul>
@@ -109,7 +110,7 @@ function Footer() {
       </footer>
       <div className={classes.Copyright}>
         <Container maxWidth="lg">
-          <Typography>2020 Copyrights All rights Reserved Website Powered by <a href="https://www.woodboxdigital.com/" target="_blank">Wood Box</a></Typography>
+          <Typography>{moment().year()} Copyrights All rights Reserved Website Powered by <a href="https://www.woodboxdigital.com/" target="_blank">Wood Box</a></Typography>
         </Container>
       </div>
     </>

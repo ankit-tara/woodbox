@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../src/Layout";
 import Accordian from "../src/components/Accordian";
-import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
+import { Backdrop, Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import StickyBox from "react-sticky-box";
 
@@ -50,7 +50,7 @@ export default function BuyRequest({ query }) {
   const [loadMore, setloadMore] = useState(false);
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
-  const [selectedUni, setselectedUni] = useState("");
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     // const { m_uni } = query;
@@ -84,6 +84,7 @@ export default function BuyRequest({ query }) {
     console.log("queryrequesturl", url);
 
     getAllBuyRequests(url).then((data) => {
+      setloading(false);
       if (requests && requests.data) {
         data.data = requests.data.concat(data.data);
       }
@@ -124,16 +125,14 @@ export default function BuyRequest({ query }) {
           <Grid container>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Box className={classes.productsHeader}>
-                <Typography variant="h3">
-                  Buy Requests
-            </Typography>
+                <Typography variant="h3">Buy Requests</Typography>
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={handleAddProduct}
                 >
                   Add Request
-            </Button>
+                </Button>
               </Box>
             </Grid>
             <Grid item lg={3} md={3} sm={12} xs={12}>
@@ -143,6 +142,15 @@ export default function BuyRequest({ query }) {
             </Grid>
             <Grid item lg={9} md={9} sm={12} xs={12}>
               <Box>
+                {loading && (
+                  <Backdrop
+                    className={classes.backdrop}
+                    open={loading}
+                    // onClick={handleClose}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                )}
                 <div className={classes.root}>
                   {requests &&
                     requests.data &&

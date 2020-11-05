@@ -165,7 +165,7 @@ const sellerProfile = ({ user, events, favevents, favproducts, resetPwd, request
                     favproductsdata.data.length > 0 &&
                     favproductsdata.data.map((data) => (
                       <div key={data.id}>
-                        <ProductCard data={data.event} isAuthUser={false} s />
+                        <ProductCard data={data.product} isAuthUser={false}  />
                       </div>
                     ))}
                 </Box>

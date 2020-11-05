@@ -338,7 +338,7 @@ const EditProfile = ({ user }) => {
                       <Grid item className={classes.formInputField}>
                         <TextField
                           id="branch"
-                          label="Branch"
+                          label="Stream"
                           value={branch}
                           onChange={(e) => updateformData(e, "branch")}
                         />

@@ -12,7 +12,8 @@ import { useDispatch } from "react-redux";
 import { authenticated } from "../../redux/actions/auth";
 import { useRouter } from "next/router";
 import { GoogleLogin } from "react-google-login";
-
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 const useStyles = makeStyles((theme) => ({
   form: {
     padding: "1.5rem 2.0rem",
@@ -40,7 +41,9 @@ export const AuthForm = ({ type }) => {
   const [email, setemail] = useState("");
   const [university, setuniversity] = useState({ name: "" });
   const [password, setpassword] = useState("");
+  const [showpassword, setshowpassword] = useState(false);
   const [confirm_password, setconfirm_password] = useState("");
+  const [showconfirm_password, setshowconfirm_password] = useState(false);
   const [phone_no, setphone_no] = useState("");
   const [errs, seterrs] = useState({});
   const [universities, setuniversities] = useState([]);
@@ -300,27 +303,53 @@ export const AuthForm = ({ type }) => {
           </>
         )}
 
-        <TextField
-          required
-          margin="dense"
-          label="Password"
-          type="password"
-          fullWidth
-          value={password}
-          onChange={(e) => updateformData(e, "password")}
-          name="password"
-        />
-        {type == "signup" && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <TextField
             required
             margin="dense"
-            label="Confirm Password"
-            type="password"
+            label="Password"
+            type={showpassword ? "text" : "password"}
             fullWidth
-            value={confirm_password}
-            onChange={(e) => updateformData(e, "confirm_password")}
-            name="confirm_password"
+            value={password}
+            onChange={(e) => updateformData(e, "password")}
+            name="password"
           />
+          <span onClick={() => setshowpassword(!showpassword)}>
+            {" "}
+            {showpassword ? <Visibility /> : <VisibilityOff />}
+          </span>
+        </div>
+        {type == "signup" && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <TextField
+              required
+              margin="dense"
+              label="Confirm Password"
+              type={showconfirm_password ? "text" : "password"}
+              fullWidth
+              value={confirm_password}
+              onChange={(e) => updateformData(e, "confirm_password")}
+              name="confirm_password"
+            />
+            <span
+              onClick={() => setshowconfirm_password(!showconfirm_password)}
+            >
+              {" "}
+              {showconfirm_password ? <Visibility /> : <VisibilityOff />}
+            </span>
+          </div>
         )}
         {errs["no_same"] && (
           <Typography color="error">
