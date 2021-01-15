@@ -17,7 +17,19 @@ export default class MyDocument extends Document {
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
           <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
           
-
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-182268251-1"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-182268251-1', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
           {/* <script src={`${process.env.API_HOST}/js/webpushr.js`}></script> */}
         </Head>
         <body>

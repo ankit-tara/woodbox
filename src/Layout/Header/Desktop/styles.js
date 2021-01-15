@@ -56,7 +56,11 @@ export const commonStyles = {
     },
     "& button:hover": {
       background: "none",
+      color: "var(--theme)"
     },
+    "& button .MuiTouchRipple-root": {
+      display: 'none'
+    }
   },
   MenuRight: {
     display: "flex",

@@ -5,7 +5,7 @@ import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import ProductCard from "../components/ProductCard";
 import Sidebar from "../components/Sidebar";
 import Advertisement from "../components/Advertisement";
-import CardHorizontal from "../components/CardHorizontal";
+// import CardHorizontal from "../components/CardHorizontal";
 import Testimonial from "../components/Testimonial";
 import TuneIcon from "@material-ui/icons/Tune";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -163,8 +163,7 @@ function Products({ data, url, m_uni, query }) {
                   Want to see Your Stuffs Here ?
                 </Typography>
                 <Typography>
-                  Make Some extra caMake Some extra cash by selling things sh by
-                  selling things
+                  Upload the products you want to sell, and get a buyer within your college.
                 </Typography>
                 <a onClick={handleAddProduct} className="selProd">
                   Selling Product
@@ -204,7 +203,7 @@ function Products({ data, url, m_uni, query }) {
         </Container>
       </section>
 
-      <section className={classes.section} style={{ background: "#F3F3F3" }}>
+      {/* <section className={classes.section} style={{ background: "#F3F3F3" }}>
         <Container maxWidth="lg">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2"> OUR CONCEPT</Typography>
@@ -219,7 +218,7 @@ function Products({ data, url, m_uni, query }) {
             ))}
           </Box>
         </Container>
-      </section>
+      </section> */}
 
       <section
         className={classes.section}
@@ -228,10 +227,10 @@ function Products({ data, url, m_uni, query }) {
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">REVIEW</Typography>
-            <Typography>
+            {/* <Typography>
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
-            </Typography>
+            </Typography> */}
           </Box>
           {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
         </Container>

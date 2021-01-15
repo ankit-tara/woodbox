@@ -11,6 +11,8 @@ import AuthIcon from "../../components/Login_Register";
 import { Link } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+
 
 
 const useStyles = makeStyles({
@@ -95,12 +97,21 @@ export default function SimpleBottomNavigation() {
       />
       <BottomNavigationAction
         component={Link}
+        href="/buy-request"
+        label="Requests"
+        className={router.pathname == "/buy-request" ? "active" : ""}
+        icon={<FormatListBulletedIcon />}
+      />
+      {accessToken && (
+      <BottomNavigationAction
+        component={Link}
         // href="/profile"
         onClick={handleAddProduct}
         label="My ads"
         className={router.pathname == "/profile" ? "active" : ""}
         icon={<LiveTvRoundedIcon />}
       />
+      )}
       {!accessToken && (
         <BottomNavigationAction
           label="Login"

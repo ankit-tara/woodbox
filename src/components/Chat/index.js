@@ -185,7 +185,7 @@ const Chat = ({ type = "", id = "" }) => {
                 />
               ))}
             {dialogLoader && (
-              <div class="dialog-loader">
+              <div className="dialog-loader">
                 <CircularProgress color="primary" size={20} />
               </div>
             )}

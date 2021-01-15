@@ -8,8 +8,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up("md")]: desktopStyles,
-  [theme.breakpoints.between("sm", "md")]: TabStyles,
+  [theme.breakpoints.up("xl")]: desktopStyles,
+  [theme.breakpoints.between("sm", "xl")]: TabStyles,
   [theme.breakpoints.down("sm")]: mobileStyles,
 }));
 

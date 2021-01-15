@@ -65,11 +65,11 @@ function Footer() {
             <Link href="/">
                 <img
                   className={classes.logo}
-                  src="/static/images/logofooter.png"
+                  src="/static/images/logo.svg"
                 />
               </Link>
               <div className={classes.SocialMenu}>
-                <p className={classes.compInfo}>Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit</p>
+                <p className={classes.compInfo}>Collegeplus is a platform with such an innovative idea to sell/ purchase or request a wide range of items within the college campus. Besides, you could get information of various events held in colleges throughout India.</p>
                 <ul>
                   <li><p>FOLLOW US </p></li>
                   <li><Link href="/"><FacebookIcon color="#fff" /></Link></li>

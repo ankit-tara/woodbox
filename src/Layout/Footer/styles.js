@@ -62,7 +62,7 @@ export const commonStyles = {
     }
   },
   logo:{
-    width:'200px'
+    width:'148px'
   },
   compInfo:{
     color:'#fff',

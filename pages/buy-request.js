@@ -64,7 +64,7 @@ export default function BuyRequest({ query }) {
 
   const handleAddProduct = () => {
     if (user.id) {
-      router.push("/post/request");
+      Router.push("/post/request");
     } else {
       window.location.replace("/?signup=open");
     }

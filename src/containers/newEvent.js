@@ -116,7 +116,8 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         border: 'none',
         borderBottom: 'solid 1px #ccc',
-        height: '50px'
+        height: '100px',
+        background: 'transparent'
       },
       '& textarea:focus': {
         outline: 'none',
@@ -798,7 +799,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    <p>Write one of these social text available : Facebook, Twitter, Linkedin, Instagram, Youtube</p>
+                    {/* <p>Write one of these social text available : Facebook, Twitter, Linkedin, Instagram, Youtube</p>
                     {socialLinks.length > 0 &&
                       socialLinks.map(
                         (item, index) => (
@@ -825,7 +826,7 @@ export default function NewEvent({ user, formtype = "add", event = {} }) {
                             </div>
                           </div>
                         )
-                      )}
+                      )} */}
                     <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>

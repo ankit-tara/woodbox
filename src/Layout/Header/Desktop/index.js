@@ -142,7 +142,7 @@ function Header({ modalOpen }) {
     if (accessToken) {
       router.push("/post/event");
     } else {
-      router.push.replace("/?signup=open");   
+      router.push("/?signup=open");   
     }
   };
 
@@ -171,11 +171,11 @@ function Header({ modalOpen }) {
                   classes.logo,
                   isScrolled && classes.logoScrolled
                 )}
-                src="/static/images/logo.png"
+                src="/static/images/logo.svg"
               />
             </Link>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <ul className={classes.Menu}>
               <li className={router.pathname == "/" ? "active" : ""}>
                 <Link href="/">
@@ -266,9 +266,9 @@ function Header({ modalOpen }) {
               </li>
             </ul>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <ul className={classes.MenuRight}>
-              <li>
+              {/* <li>
                 <div className={classes.search}>
                   <div className={classes.searchIcon}>
                     <SearchIcon />
@@ -283,7 +283,7 @@ function Header({ modalOpen }) {
                     onChange={handleSearch}
                   />
                 </div>
-              </li>
+              </li> */}
               <li>
                 <ChatIcon />
               </li>

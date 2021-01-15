@@ -63,7 +63,9 @@ export const mobileStyles = {
 }
 
 export const TabStyles = {
-
+  Main: {
+    paddingTop: '7.5rem'
+  },
 }
 
 export const desktopStyles = {

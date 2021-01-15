@@ -30,49 +30,40 @@ const Banner = ({ data }) => {
     return (
     <div className={classes.carousel}>
       <Swiper {...params}>
-        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/headerbg.jpg)' }} >
+        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/collegeplus.jpg)' }} >
             <Container maxWidth="xl">
               <Box className={classes.slideContent}>
-                <Typography variant="h1">Buy, Sell, Rent</Typography>
+                {/* <Typography variant="h1">Buy, Sell, Rent</Typography>
                 <Typography variant="h3">and check events in your college</Typography>
                 <Button variant="contained" component={Link} to="/" className={classes.Button}>
                   Learn More
-                </Button>
+                </Button> */}
               </Box>
             </Container>
         </div>
-        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/headerbg.jpg)' }} >
-          <Container maxWidth="xl">
-            <Box className={classes.slideContent}>
-              <Typography variant="h1">Buy, Sell, Rent</Typography>
-              <Typography variant="h3">and check events in your college</Typography>
-              <Button variant="contained" component={Link} to="/" className={classes.Button}>
-                Learn More
-              </Button>
-            </Box>
-          </Container>
+        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/buy.jpg)' }} >
+            <Container maxWidth="xl">
+              <Box className={classes.slideContent}>
+              </Box>
+            </Container>
         </div>
-        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/headerbg.jpg)' }} >
-          <Container maxWidth="xl">
-            <Box className={classes.slideContent}>
-              <Typography variant="h1">Buy, Sell, Rent</Typography>
-              <Typography variant="h3">and check events in your college</Typography>
-              <Button variant="contained" component={Link} to="/" className={classes.Button}>
-                Learn More
-              </Button>
-            </Box>
-          </Container>
+        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/sell.jpg)' }} >
+            <Container maxWidth="xl">
+              <Box className={classes.slideContent}>
+              </Box>
+            </Container>
         </div>
-        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/headerbg.jpg)' }} >
-          <Container maxWidth="xl">
-            <Box className={classes.slideContent}>
-              <Typography variant="h1">Buy, Sell, Rent</Typography>
-              <Typography variant="h3">and check events in your college</Typography>
-              <Button variant="contained" component={Link} to="/" className={classes.Button}>
-                Learn More
-              </Button>
-            </Box>
-          </Container>
+        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/request.jpg)' }} >
+            <Container maxWidth="xl">
+              <Box className={classes.slideContent}>
+              </Box>
+            </Container>
+        </div>
+        <div className={classes.BannerSlide} style={{ backgroundImage:'url(/static/images/events.jpg)' }} >
+            <Container maxWidth="xl">
+              <Box className={classes.slideContent}>
+              </Box>
+            </Container>
         </div>
       </Swiper>
     </div>

@@ -4,11 +4,16 @@ import { Box, Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     Ad:{
-      margin:'1rem 0',
+      margin:'0',
+      '& a':{
+        display: 'block',
+        lineHeight: 0
+      },
       '& img':{
         width: '100%',
         height: 'auto',
-        maxHeight: '325px'
+        maxHeight: '325px',
+        objectFit: 'cover'
       }
     }
 }))
@@ -19,9 +24,11 @@ export default function Advertisement(props) {
 
   return (
     <div className={classes.Ad}>
-      <Container maxWidth="xl">
-        <img src="/static/images/ads.jpg" />
-      </Container>
+      {/* <Container maxWidth="xl"> */}
+      <a href={props.adlink} target="_blank">
+          <img src={props.adImg} />
+        </a>
+      {/* </Container> */}
     </div>
   )
 };

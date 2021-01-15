@@ -239,7 +239,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
         <>
           <div className={classes.root}>
             <Typography variant="h6" className={classes.heading}>
-              Filter
+              FILTER
             </Typography>
             {type != "events" && type != "requests" && (
               <Accordion

@@ -12,7 +12,12 @@ import { useRouter } from "next/router";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import AccountBox from "@material-ui/icons/AccountBox";
 import { unauthenticated } from "../../redux/actions/auth";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +76,15 @@ const useStyles = makeStyles((theme) => ({
     height: "25px",
     backgroundColor: "transparent",
   },
+  desktopMenu:{
+    '& .MuiPopover-paper':{
+      minWidth: '200px',
+      textAlign: 'right'
+    },
+    '& li':{
+      justifyContent: 'space-between'
+    }
+  }
 }));
 
 const Login_Register = ({ isMobile = false, modalOpen = false }) => {
@@ -78,6 +92,11 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openAMenu, setOpenAMenu] = useState(false);
+  const [openBMenu, setOpenBMenu] = useState(false);
+  const [openCMenu, setOpenCMenu] = useState(false);
+  const [openDMenu, setOpenDMenu] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -151,6 +170,19 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
     dispatch(unauthenticated());
   };
 
+  const toggleASubmenu = () => {
+    setOpenAMenu(!openAMenu);
+  };
+  const toggleBSubmenu = () => {
+    setOpenBMenu(!openBMenu);
+  };
+  const toggleCSubmenu = () => {
+    setOpenCMenu(!openCMenu);
+  };
+  const toggleDSubmenu = () => {
+    setOpenDMenu(!openDMenu);
+  };
+
   const classes = useStyles();
 
   return (
@@ -169,18 +201,46 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        // open={!!menuPosition}
+        // onClose={() => setMenuPosition({}) || handleClose}
+        // anchorReference="anchorPosition"
+        // anchorPosition={menuPosition}
+        className={classes.desktopMenu}
       >
-        <MenuItem onClick={gotoProfile}>View Profile</MenuItem>
-        <MenuItem onClick={gotoProfileEdit}>Edit Profile</MenuItem>
-        <MenuItem onClick={gotoResetPassword}>Reset Password</MenuItem>
-        <MenuItem onClick={gotoProfile}>Published Ads</MenuItem>
-        <MenuItem onClick={gotoEvents}>Published Events</MenuItem>
-        <MenuItem onClick={gotoRequeste}>Published Requests</MenuItem>
-        <MenuItem onClick={gotoFavEvents}>Favourite Events</MenuItem>
-        <MenuItem onClick={gotoFavProducts}>Favourite Products</MenuItem>
-        <MenuItem onClick={gotoAddRequest}>Add Product Request</MenuItem>
-        
-        <MenuItem onClick={logout}>Logout</MenuItem>
+        {/* <List> */}
+          <MenuItem button onClick={toggleASubmenu}>
+            Profile
+            {openAMenu ? <ExpandLess /> : <ExpandMore />}
+          </MenuItem>
+          <Collapse in={openAMenu} timeout="auto" unmountOnExit>
+            <MenuItem onClick={gotoProfile}>View Profile</MenuItem>
+            <MenuItem onClick={gotoResetPassword}>Reset Password</MenuItem>
+          </Collapse>
+          <MenuItem button onClick={toggleBSubmenu}>
+            Ads
+            {openBMenu ? <ExpandLess /> : <ExpandMore />}
+          </MenuItem>
+          <Collapse in={openBMenu} timeout="auto" unmountOnExit>
+            <MenuItem onClick={gotoProfile}>Published Ads</MenuItem>
+            <MenuItem onClick={gotoFavProducts}>Favourite Products</MenuItem>
+          </Collapse>
+          <MenuItem button onClick={toggleCSubmenu}>
+            Events
+            {openCMenu ? <ExpandLess /> : <ExpandMore />}
+          </MenuItem>
+          <Collapse in={openCMenu} timeout="auto" unmountOnExit>
+            <MenuItem onClick={gotoEvents}>Published Events</MenuItem>
+            <MenuItem onClick={gotoFavEvents}>Favourite Events</MenuItem>
+          </Collapse>
+          <MenuItem button onClick={toggleDSubmenu}>
+            Requests
+            {openDMenu ? <ExpandLess /> : <ExpandMore />}
+          </MenuItem>
+          <Collapse in={openDMenu} timeout="auto" unmountOnExit>
+            <MenuItem onClick={gotoRequeste}>Published Requests</MenuItem>
+            <MenuItem onClick={gotoAddRequest}>Add Product Request</MenuItem> 
+          </Collapse>
+          <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
 
       <Dialog

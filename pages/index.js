@@ -7,7 +7,7 @@ import EventIconCard from "../src/components/EventIconCard";
 import ProductCard from "../src/components/ProductCard";
 import EventCard from "../src/components/EventCard";
 import Banner from "../src/components/Banner";
-import CardHorizontal from "../src/components/CardHorizontal";
+// import CardHorizontal from "../src/components/CardHorizontal";
 import Testimonial from "../src/components/Testimonial";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -18,6 +18,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Swiper from "react-id-swiper";
 import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
+import Advertisement from "../src/components/Advertisement"
 import {
   IconCardsData,
   EventIconCardsData,
@@ -32,7 +33,7 @@ import {
   mobileStyles,
   TabStyles,
 } from "../src/styles";
-import { getProducts } from "../src/apis/global-api";
+import { getProducts, getAds } from "../src/apis/global-api";
 
 const fetch = require("node-fetch");
 
@@ -58,17 +59,22 @@ Index.getInitialProps=async()=> {
   let feedback = await fetch(API_URL + "/all-feedback");
   const reviews = await feedback.json();
 
+  let adsres = await fetch(API_URL + "/adverts");
+  const ads = await adsres.json();
+
   console.log("testhomedata", {
     bproducts,
     sproducts,
     events,
     reviews,
+    ads
   });
   return {
     bproducts,
     sproducts,
     events,
     reviews,
+    ads
   };
 }
 // export async function getInitialProps() {
@@ -100,7 +106,7 @@ Index.getInitialProps=async()=> {
 //   };
 // }
 
-export default function Index({ bproducts, sproducts, events, reviews }) {
+export default function Index({ bproducts, sproducts, events, reviews, ads }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [opensell, setOpensell] = React.useState(false);
@@ -108,6 +114,7 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
   const anchorRefSell = React.useRef(null);
   const [buyType, setbuyType] = useState("");
   const [sellType, setsellType] = useState("");
+  const [adslist, setadslist] = useState(ads);
   const [list_bproducts, setlist_bproducts] = useState(bproducts);
   const [list_sproducts, setlist_sproducts] = useState(sproducts);
   const [list_reviews, setlist_reviews] = useState(reviews);
@@ -219,7 +226,7 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
     <Layout>
       {/* Banner Section */}
       <Banner />
-
+      {adslist && adslist.homepage1 && <Advertisement adImg={adslist.homepage1.link} adlink={adslist.homepage1.openlink} />}
       {/* Buy/Rent Products in your College  Section */}
       <section className={classes.section}>
         <Container maxWidth="xl">
@@ -228,8 +235,7 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
               Buy / Rent Products in your College
             </Typography>
             <Typography>
-              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
-              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
+              Troubling for vital items in college? Don't be upset! Now, buy or sell A to Z products within your college.
             </Typography>
           </Box>
           <Box className={classes.IconCardWrapper}>
@@ -246,8 +252,7 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">Events</Typography>
             <Typography>
-              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
-              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
+              Events are so indispensable to miss yet we often missed them due to lack of knowledge. Get the list of events held in college with all the necessary information.
             </Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
@@ -257,8 +262,8 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
           </Box>
         </Container>
       </section>
-
       {/* Products Section */}
+      {adslist && adslist.homepage2 && <Advertisement adImg={adslist.homepage2.link} adlink={adslist.homepage2.openlink} />}
       <section className={classes.section}>
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
@@ -425,7 +430,7 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
       </section>
 
       {/* Our concept Section */}
-      <section className={classes.section} style={{ background: "#F3F3F3" }}>
+      {/* <section className={classes.section} style={{ background: "#F3F3F3" }}>
         <Container maxWidth="lg">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2"> OUR CONCEPT</Typography>
@@ -440,7 +445,8 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
             ))}
           </Box>
         </Container>
-      </section>
+      </section> */}
+    {adslist && adslist.homepage3 && <Advertisement adImg={adslist.homepage3.link} adlink={adslist.homepage3.openlink} />}
 
       {/* Review Section */}
       <section className={classes.section} style={{ background: "var(--theme-light)" }}>
@@ -448,13 +454,15 @@ export default function Index({ bproducts, sproducts, events, reviews }) {
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">FEEDBACK</Typography>
             <Typography>
-              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
-              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
+              {/* Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
+              Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit */}
             </Typography>
           </Box>
           <Testimonial data={list_reviews} />
         </Container>
       </section>
+    {adslist && adslist.homepage4 && <Advertisement adImg={adslist.homepage4.link} adlink={adslist.homepage4.openlink} />}
+
     </Layout>
   );
 }

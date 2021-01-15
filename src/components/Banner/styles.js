@@ -4,6 +4,7 @@
 
 export const commonStyles = {
   carousel: {
+    // marginBottom: '1rem',
     '& .swiper-button-prev': {
       color: '#000',
       left: '4%',

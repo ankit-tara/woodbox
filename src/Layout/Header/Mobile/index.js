@@ -166,7 +166,7 @@ export default function SearchAppBar() {
   return (
     <div className={classes.root}>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <AppBar position="fixed">
+        <AppBar position="fixed" class={classes.AppbarBg}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -449,7 +449,7 @@ export default function SearchAppBar() {
               </List>
             </Drawer>
             <Link href="/">
-              <img className={classes.logo} src="/static/images/logo.png" />
+              <img className={classes.logo} src="/static/images/logo.svg" />
             </Link>
             <div className={classes.menuIcons}>
               {/* <IconButton aria-label="show 4 new mails" color="inherit">
@@ -466,15 +466,15 @@ export default function SearchAppBar() {
                   <NotificationsIcon />
                 </Badge>
               </IconButton> */}
-              <IconButton
+              {/* <IconButton
                 aria-label="search"
                 color="inherit"
                 onClick={handleSearchOpen}
               >
                 <SearchIcon />
-              </IconButton>
+              </IconButton> */}
 
-              {opensearch && (
+              {/* {opensearch && (
                 <div className={classes.searchBar}>
                   <IconButton
                     type="submit"
@@ -504,7 +504,7 @@ export default function SearchAppBar() {
                     <CloseIcon />
                   </IconButton>
                 </div>
-              )}
+              )} */}
               {/* {opensearch && <SearchAppBarIcon />} */}
             </div>
           </Toolbar>

@@ -5,7 +5,7 @@ import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import EventCard from "../components/EventCard";
 import Sidebar from "../components/Sidebar";
 import Advertisement from "../components/Advertisement";
-import CardHorizontal from "../components/CardHorizontal";
+// import CardHorizontal from "../components/CardHorizontal";
 import Testimonial from "../components/Testimonial";
 import TuneIcon from "@material-ui/icons/Tune";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -197,7 +197,7 @@ function Events({ data, url, showState = false, query }) {
         </Container>
       </section>
 
-      <section className={classes.section} style={{ background: "#F3F3F3" }}>
+      {/* <section className={classes.section} style={{ background: "#F3F3F3" }}>
         <Container maxWidth="lg">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2"> OUR CONCEPT</Typography>
@@ -212,7 +212,7 @@ function Events({ data, url, showState = false, query }) {
             ))}
           </Box>
         </Container>
-      </section>
+      </section> */}
 
       <section
         className={classes.section}
@@ -221,10 +221,10 @@ function Events({ data, url, showState = false, query }) {
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">REVIEW</Typography>
-            <Typography>
+            {/* <Typography>
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
-            </Typography>
+            </Typography> */}
           </Box>
           {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
         </Container>

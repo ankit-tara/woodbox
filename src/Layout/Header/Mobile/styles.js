@@ -2,6 +2,10 @@ export const commonStyles = {
   root: {
     flexGrow: 1,
   },
+  AppbarBg:{
+    background: '#fff',
+    color: '#333'
+  },
   menuButton: {
     marginRight: "2rem",
   },

@@ -323,7 +323,7 @@ const EventDetail = ({ data }) => {
                         &#8377;{data.price}
                       </Typography>
                     </Box>
-                    <Box className={`${classes.box} social-links`}>
+                    {/* <Box className={`${classes.box} social-links`}>
                       {data.social_profiles.length && 
                       <Typography className={classes.heading}>
                         Social Links
@@ -376,7 +376,7 @@ const EventDetail = ({ data }) => {
                             ),
                         ])}
                       </Typography>
-                    </Box>
+                    </Box> */}
                   </div>
                 </div>
                 <div className={classes.cardAction}>
