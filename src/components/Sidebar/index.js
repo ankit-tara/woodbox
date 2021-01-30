@@ -18,6 +18,7 @@ import {
   searchEventCategories,
   getCities,
   getCategories,
+  getEventCategories
 } from "../../apis/global-api";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import { useRouter } from "next/router";
@@ -57,6 +58,18 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
         : [...producttype, x]
     );
   };
+
+  useEffect(() => {
+    if (type == "events") {
+      getEventCategories().then((response) => {
+        setcategories(response.categories.data);
+      });
+    } else {
+      getCategories().then((response) => {
+        setcategories(response.categories.data);
+      });
+    }
+  }, [])
 
   useEffect(() => {
     console.log("query", query);
@@ -300,6 +313,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
                       {categories &&
                         categories.map((cat) => (
                           <FormControlLabel
+                            key={cat.id}
                             control={
                               <Checkbox
                                 onChange={(e) =>
@@ -319,7 +333,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
                     </FormGroup>
                   </FormControl>
 
-                  {categories.length < 1 && selectedCategories.length > 0 && (
+                  {categories && categories.length < 1 && selectedCategories.length > 0 && (
                     <FormControl
                       component="fieldset"
                       className={classes.formControl}
@@ -328,6 +342,7 @@ function Sidebar({ type = "", showFilterBtn = false, m_uni, query }) {
                         {selectedCategories &&
                           selectedCategories.map((cat) => (
                             <FormControlLabel
+                              key={cat.id}
                               control={
                                 <Checkbox
                                   onChange={(e) =>

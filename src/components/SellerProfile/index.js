@@ -13,15 +13,21 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import PersonIcon from "@material-ui/icons/Person";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import SchoolIcon from "@material-ui/icons/School";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import EditIcon from '@material-ui/icons/Edit';
 import ProductCard from "../ProductCard";
 import EventCard from "../EventCard";
 import ResetPassword from "../ResetPassword";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import { getProducts, getEvents } from "../../apis/global-api";
 import { GetUserFavourite, GetUserRequests } from "../../apis/auth-api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Accordian from "../Accordian";
+import { useRouter } from "next/router";
+import { unauthenticated } from "../../redux/actions/auth";
+
+// import Link from "@material-ui/core/Link";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,12 +44,19 @@ const sellerProfile = ({ user, events, favevents, favproducts, resetPwd, request
   const [favproductsdata, setfavproductsdata] = useState();
   const [requestsdata, setrequestsdata] = useState();
   const auth_user = useSelector((state) => state.auth_user.user);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
     fetchData();
   }, [user]);
 
+  const logout = () => {
+    // setAnchorEl(null);
+    router.push("/");
+    dispatch(unauthenticated());
+  };
 
   const fetchData = () => {
     getProducts(`?seller_id=${user.id}`).then((data) => setdata(data));
@@ -55,6 +68,9 @@ const sellerProfile = ({ user, events, favevents, favproducts, resetPwd, request
   const classes = useStyles();
 
   const isAuthUser = auth_user.id && user.id == auth_user.id;
+
+  console.log('faveventsdata', faveventsdata)
+  console.log('favproductsdata', favproductsdata)
 
   return (
     <section className={classes.section}>
@@ -92,6 +108,18 @@ const sellerProfile = ({ user, events, favevents, favproducts, resetPwd, request
                 <Typography variant="h6">
                   <SchoolIcon />
                   {user.university ? user.university.name : ""}
+                </Typography>
+                <Typography variant="h6">
+                  <EditIcon />
+                  <Link variant="contained" className={classes.Button} href="/profile/edit">
+                    Edit Profile
+                  </Link>
+                </Typography>
+                <Typography variant="h6">
+                  <ExitToAppIcon />
+                  <span style={{cursor: 'pointer'}} onClick={logout}>
+                    Logout
+                  </span>
                 </Typography>
               </div>
             </Box>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AttachmentIcon from '@material-ui/icons/Attachment';
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -24,8 +25,17 @@ const ShareIcon = ({ url, title }) => {
     }, [url, title])
     const [anchorEl, setAnchorEl] = useState(null);
     const [shareUrl, setshareUrl] = useState(null);
+    const [copySuccess, setCopySuccess] = useState('');
     const [sharetitle, setsharetitle] = useState(null);
+    const textAreaRef = useRef(null);
 
+
+    function copyToClipboard(e) {
+        textAreaRef.current.select();
+        document.execCommand('copy');
+        e.target.focus();
+        setCopySuccess('Copied!');
+    };
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -93,7 +103,17 @@ const ShareIcon = ({ url, title }) => {
                         <EmailIcon size={32} round />
                     </EmailShareButton>
                 </MenuItem>
-
+                <MenuItem>
+                    {
+                        document.queryCommandSupported('copy') &&
+                            <AttachmentIcon onClick={copyToClipboard}></AttachmentIcon>
+                    }
+                    <textarea
+                        style={{width:'0',maxHeight: '2px',opacity: 0}}
+                        ref={textAreaRef}
+                        value={shareUrl}
+                    />
+                </MenuItem>
             </Menu>
         </div>
     );

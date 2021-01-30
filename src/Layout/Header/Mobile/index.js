@@ -147,7 +147,7 @@ export default function SearchAppBar() {
     if (accessToken) {
       router.push("/post");
     } else {
-      window.location.replace("/?signup=open");
+      router.push("/?signup=open");   
 
       // setauthModal(true);
     }
@@ -159,14 +159,14 @@ export default function SearchAppBar() {
     if (user.id) {
       router.push("/post/event");
     } else {
-      window.location.replace("/?signup=open");
+      router.push("/?signup=open");   
     }
   };
 
   return (
     <div className={classes.root}>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <AppBar position="fixed" class={classes.AppbarBg}>
+        <AppBar position="fixed" className={classes.AppbarBg}>
           <Toolbar>
             <IconButton
               edge="start"

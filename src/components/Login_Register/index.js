@@ -88,24 +88,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login_Register = ({ isMobile = false, modalOpen = false }) => {
-  const [open, setopen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [openAMenu, setOpenAMenu] = useState(false);
-  const [openBMenu, setOpenBMenu] = useState(false);
-  const [openCMenu, setOpenCMenu] = useState(false);
-  const [openDMenu, setOpenDMenu] = useState(false);
+  const [openAMenu, setopenAMenu] = useState(false);
+  const [openBMenu, setopenBMenu] = useState(false);
+  const [openCMenu, setopenCMenu] = useState(false);
+  const [openDMenu, setopenDMenu] = useState(false);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const toggleModal = () => {
     if (location.search.indexOf("signup=open") != -1) {
-      setopen(true);
+      setOpen(true);
     } else if (modalOpen != open) {
-      setopen(modalOpen);
+      setOpen(modalOpen);
     }
+  }
+
+  useEffect(() => {
+    toggleModal()
   }, [modalOpen]);
+
+
+
+  router.events.on('routeChangeComplete', toggleModal)
 
   const accessToken = useSelector((state) => state.auth_user.accessToken);
   const user = useSelector((state) => state.auth_user.user);
@@ -120,7 +128,7 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   };
   const openModal = (event) => {
     if (!accessToken) {
-      setopen(true);
+      setOpen(true);
     } else {
       if (isMobile) {
         gotoProfile();
@@ -135,7 +143,7 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   };
 
   const closeModal = () => {
-    setopen(false);
+    setOpen(false);
   };
 
   const gotoProfile = () => {
@@ -171,16 +179,16 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
   };
 
   const toggleASubmenu = () => {
-    setOpenAMenu(!openAMenu);
+    setopenAMenu(!openAMenu);
   };
   const toggleBSubmenu = () => {
-    setOpenBMenu(!openBMenu);
+    setopenBMenu(!openBMenu);
   };
   const toggleCSubmenu = () => {
-    setOpenCMenu(!openCMenu);
+    setopenCMenu(!openCMenu);
   };
   const toggleDSubmenu = () => {
-    setOpenDMenu(!openDMenu);
+    setopenDMenu(!openDMenu);
   };
 
   const classes = useStyles();
@@ -263,7 +271,7 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
           <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
             <div className={classes.Login}>
               <div className={classes.Img}>
-                <img src="/static/images/logo.png" />
+                <img src="/static/images/logo.svg" width="100" />
               </div>
               <AuthForm type="login" />
             </div>

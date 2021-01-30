@@ -96,6 +96,18 @@ export async function getCategories() {
     })
     .catch((error) => console.warn(error));
 }
+export async function getEventCategories() {
+  let url = API_URL + "/event-categories";
+
+  console.log(url);
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((responseData) => {
+      return responseData;
+    })
+    .catch((error) => console.warn(error));
+}
 
 export async function getCities() {
   let url = API_URL + "/cities";

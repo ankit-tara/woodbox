@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
     width: "50%",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
+      marginBottom: "1rem",
     },
   },
   formInputFullWidth: {

@@ -189,6 +189,7 @@ function Header({ modalOpen }) {
               >
                 <Link href="/products?type=buy">Buy</Link>
               </li>
+
               <li
                 className={
                   router.asPath == "/products?type=rental" ? "active" : ""

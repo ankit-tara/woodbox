@@ -111,7 +111,7 @@ const Modal = ({ openStatus }) => {
         <Card className={classes.card}>
           <CardContent className={classes.cardBody}>
             <CloseIcon onClick={closeModal} className={classes.closeIcon} />
-            <img src="/static/images/logo.png" alt="" className={classes.image} />
+            <img src="/static/images/logo.svg" alt="" className={classes.image} />
             <Typography variant="h5" className={classes.title}>Fill Important Details</Typography>
             <Typography >To make Your Search Easy Kindly Please Select Your College Name or Location</Typography>
             <form className={classes.container}>
