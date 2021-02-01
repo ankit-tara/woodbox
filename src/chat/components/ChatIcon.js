@@ -13,9 +13,11 @@ import { chatUnauthenticated } from "../../redux/actions/chatUser";
 import { chatReset } from "../../redux/actions/chatConnected";
 import chatService from "../../redux/services/chat-service";
 import { unSelectedDialog } from "../../redux/actions/selectedDialog";
+import Router from 'next/router';
 
 const ChatMessageIcon = () => {
     const authUser = useSelector((state) => state.auth_user.user);
+     const accessToken = useSelector((state) => state.auth_user.accessToken);
     const chatUnreadCount = useSelector((state) => state.chatUnreadCount);
 
     const [count, setcount] = useState();
@@ -98,17 +100,25 @@ const ChatMessageIcon = () => {
     function onMessage(userId, message) {
         console.log('[ConnectyCube.chat.onMessageListener] callback:', userId, message)
     }
+
+    const handleChatClick=()=>{
+        if (!accessToken) {
+          window.location.replace('/?signup=open');
+        }else{
+            Router.push('/chat');
+        }
+    }
     return (
-        <div>
-            <IconButton color="inherit">
-                {/* <IconButton aria-label="you haves" color="inherit"> */}
-                <Badge badgeContent={chatUnreadCount} color="secondary">
-                    <Link href="/chat">
-                        <ChatIcon />
-                    </Link>
-                </Badge>
-            </IconButton>
-        </div>
+      <div>
+        <IconButton color="inherit" onClick={handleChatClick}>
+          {/* <IconButton aria-label="you haves" color="inherit"> */}
+          <Badge badgeContent={chatUnreadCount} color="secondary">
+            {/* <Link href={accessToken ? '/chat' : '/?signup=open'}> */}
+              <ChatIcon />
+            {/* </Link> */}
+          </Badge>
+        </IconButton>
+      </div>
     );
 };
 

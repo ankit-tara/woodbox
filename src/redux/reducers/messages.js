@@ -33,7 +33,6 @@ export default (messages = initial_state, action) => {
 
     case PUSH_MESSAGE: {
       let msg = action.msg
-
       if (msg && msg.dialog_id == messages.dialog.connecty_dialog_id) {
         if (msg.notif) {
           const params = {

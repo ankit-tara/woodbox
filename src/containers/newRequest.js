@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         border: 'none',
         borderBottom: 'solid 1px #ccc',
-        height: '50px'
+        height: '100px'
       },
       '& textarea:focus':{
         outline: 'none',
@@ -280,7 +280,7 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
           setbackdrop(false);
           setformerrs(response.msg);
         } else {
-          router.push("/profile");
+          router.push('/profile/requests');
         }
       });
     } else {
@@ -289,7 +289,7 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
           setbackdrop(false);
           setformerrs(response.msg);
         } else {
-          router.push("/profile");
+          router.push('/profile/requests');
         }
       });
     }

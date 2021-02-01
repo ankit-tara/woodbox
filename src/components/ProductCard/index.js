@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductCard({ data, isAuthUser = false }) {
-  console.log('datatest',data)
   const dispatch = useDispatch();
   const [isSaved, setisSaved] = React.useState(data.saved);
   const [productStar, setproductStar] = React.useState(isSaved ? 1 : 0);
@@ -164,7 +163,7 @@ function ProductCard({ data, isAuthUser = false }) {
 
   return (
     <Card
-      id={"card_" + data.id}
+      id={'card_' + data.id}
       className={
         isSaved ? `${classes.card} ${classes.Orangecard} ` : `${classes.card}`
       }
@@ -183,7 +182,7 @@ function ProductCard({ data, isAuthUser = false }) {
           <Typography variant="h6" className={classes.title}>
             {data.title.length >= 25 && (
               <Link href={`/products/item/${data.id}`}>
-                {data.title.substring(0, 25) + "..."}{" "}
+                {data.title.substring(0, 25) + '...'}{' '}
               </Link>
             )}
             {data.title.length < 25 && (
@@ -211,13 +210,13 @@ function ProductCard({ data, isAuthUser = false }) {
           )}
           {!isAuthUser && isSaved ? (
             <FavoriteIcon
-              style={{ color: "var(--theme)" }}
+              style={{ color: 'var(--theme)' }}
               onClick={changeRating}
               id={data.id}
             />
           ) : (
             <FavoriteBorderIcon
-              style={{ color: "var(--theme)" }}
+              style={{ color: 'var(--theme)' }}
               onClick={changeRating}
               id={data.id}
             />
@@ -227,7 +226,7 @@ function ProductCard({ data, isAuthUser = false }) {
           {data.images.length > 0 && (
             <Link href={`/products/item/${data.id}`}>
               <img
-                src={`${API_HOST}/generate-thumb/145/300/${data.images[0].thumbnail_link}`}
+                src={`${API_HOST}/generate-thumb/145/300/${data.images[0].absolute_path}`}
                 alt=""
                 className={classes.image}
               />
@@ -237,11 +236,11 @@ function ProductCard({ data, isAuthUser = false }) {
         <div className={classes.cardFooter}>
           <div className={classes.left}>
             <Typography className={classes.excerpt}>
-              {data.description.substring(0, 35) + "..."}{" "}
+              {data.description.substring(0, 35) + '...'}{' '}
             </Typography>
             {data.university.name.length >= 25 && (
               <Typography className={classes.college}>
-                {data.university.name.substring(0, 25) + "..."}{" "}
+                {data.university.name.substring(0, 25) + '...'}{' '}
               </Typography>
             )}
             {data.university.name.length < 25 && (
@@ -261,7 +260,7 @@ function ProductCard({ data, isAuthUser = false }) {
               &#8377;{data.price}
             </Typography>
             <Typography className={classes.date}>
-              {moment(data.created_at).format("MMMM D ")}
+              {moment(data.created_at).format('MMMM D ')}
             </Typography>
           </div>
         </div>

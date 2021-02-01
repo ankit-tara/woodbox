@@ -6,6 +6,7 @@ import Message from './Message';
 const Messages = ({ auth }) => {
     const msgs = useSelector((state) => state.messages);
     const [msgsTest, setmsgsTest] = useState([])
+    console.log(msgs)
     useEffect(() => {
        
         setmsgsTest(msgs.messages)

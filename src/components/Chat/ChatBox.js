@@ -149,6 +149,7 @@ const ChatBox = ({
           dispatch(setMessages(newMsgs, selectedDialogVal));
           setpage(count);
         } else {
+           dispatch(setMessages([], selectedDialogVal));
           if (count == 1) {
             setuserMsg(
               selectedDialogVal.related == "product"

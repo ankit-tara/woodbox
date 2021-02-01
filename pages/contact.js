@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
                 width: "100%",
                 border: "none",
                 borderBottom: "solid 1px #ccc",
-                height: "50px",
+                height: "100px",
             },
             "& textarea:focus": {
                 outline: "none",

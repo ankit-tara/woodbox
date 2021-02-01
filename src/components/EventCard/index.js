@@ -148,7 +148,7 @@ function EventCard({ data, isAuthUser = false, showState=false }) {
       {data.images.length > 0 && (
         <Link href={`/events/item/${data.id}`}>
           <img
-            src={`${API_HOST}/generate-thumb/220/300/${data.images[0].thumbnail_link}`}
+            src={`${API_HOST}/generate-thumb/220/300/${data.images[0].absolute_path}`}
             alt=""
             className={classes.image}
           />
