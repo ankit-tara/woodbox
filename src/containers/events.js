@@ -37,7 +37,18 @@ function Events({ data, url, showState = false, query }) {
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
   const [list_reviews, setlist_reviews] = useState([]);
+  const [adslist, setadslist] = useState([]);
   const user = useSelector((state) => state.auth_user.user);
+
+  useEffect(()=>{
+   const API_URL = process.env.api_url;
+   async function fetchAds(){
+     let adsres = await fetch(API_URL + "/adverts");
+     const ads = await adsres.json();
+     setadslist(ads)
+    }
+   fetchAds()
+ },[]);
 
   useEffect(() => {
     console.log("url", url);
@@ -110,7 +121,7 @@ function Events({ data, url, showState = false, query }) {
 
   return (
     <Layout>
-      <Advertisement />
+      {adslist && adslist.eventHeader && <Advertisement adImg={adslist.eventHeader.link} adlink={adslist.eventHeader.openlink} />}
 
       {/* events Section */}
       <section className={classes.section}>
@@ -149,10 +160,11 @@ function Events({ data, url, showState = false, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {events.data &&
                   events.data.length > 0 &&
-                  events.data.slice(0, 6).map((data) => (
-                    <div key={data.id}>
-                      <EventCard data={data} showState={showState} />
-                    </div>
+                  events.data.slice(0, 8).map((data,index) => (
+                    <React.Fragment key={data.id}>
+                      <EventCard data={data} />
+                      {index == 2 && adslist && adslist.event1 && <Advertisement adImg={adslist.event1.link} adlink={adslist.event1.openlink} />}
+                    </React.Fragment>
                   ))}
               </Box>
 
@@ -166,10 +178,11 @@ function Events({ data, url, showState = false, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {events.data &&
                   events.data.length > 0 &&
-                  events.data.slice(6, events.data.length).map((data) => (
-                    <div key={data.id}>
+                  events.data.slice(8, events.data.length).map((data,index) => (
+                    <React.Fragment key={data.id}>
                       <EventCard data={data} />
-                    </div>
+                      {index == 2 && adslist && adslist.event2 && <Advertisement adImg={adslist.event2.link} adlink={adslist.event2.openlink} />}
+                    </React.Fragment>
                   ))}
               </Box>
 

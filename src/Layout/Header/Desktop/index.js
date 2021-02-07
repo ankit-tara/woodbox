@@ -164,7 +164,7 @@ function Header({ modalOpen }) {
     >
       <Container maxWidth="xl">
         <Grid container>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <Link href="/">
               <img
                 className={classNames(
@@ -267,7 +267,7 @@ function Header({ modalOpen }) {
               </li>
             </ul>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             <ul className={classes.MenuRight}>
               {/* <li>
                 <div className={classes.search}>

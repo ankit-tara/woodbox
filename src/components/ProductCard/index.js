@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductCard({ data, isAuthUser = false }) {
-  console.log('datatest',data)
   const dispatch = useDispatch();
   const [isSaved, setisSaved] = React.useState(data.saved);
   const [productStar, setproductStar] = React.useState(isSaved ? 1 : 0);

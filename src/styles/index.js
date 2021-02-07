@@ -129,7 +129,7 @@ export const commonStyles = {
   },
   ProductsGridWrapper: {
     display: "grid",
-    gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
+    gridTemplateColumns: "repeat( auto-fit, 300px )",
     gridGap:'1rem',
     "&:nth-of-type(1)": {
       paddingTop: "2rem",
