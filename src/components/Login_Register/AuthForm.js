@@ -1,53 +1,53 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { searchUniversities } from "../../apis/global-api";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Backdrop from "@material-ui/core/Backdrop";
-import Typography from "@material-ui/core/Typography";
-import { simpleSignup, login, googleSignup } from "../../apis/auth-api";
-import { useDispatch } from "react-redux";
-import { authenticated } from "../../redux/actions/auth";
-import { useRouter } from "next/router";
-import { GoogleLogin } from "react-google-login";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { searchUniversities } from '../../apis/global-api';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+import Typography from '@material-ui/core/Typography';
+import { simpleSignup, login, googleSignup } from '../../apis/auth-api';
+import { useDispatch } from 'react-redux';
+import { authenticated } from '../../redux/actions/auth';
+import { useRouter } from 'next/router';
+import { GoogleLogin } from 'react-google-login';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 const useStyles = makeStyles((theme) => ({
   form: {
-    padding: "1.5rem 2.0rem",
-    [theme.breakpoints.up("sm")]: {
-      margin: "2.5rem",
+    padding: '1.5rem 2.0rem',
+    [theme.breakpoints.up('sm')]: {
+      margin: '2.5rem',
     },
   },
   modal: {
-    padding: "0.5rem",
+    padding: '0.5rem',
   },
   button: {
-    "&:focus": {
-      background: "rgb(177, 90, 16)",
+    '&:focus': {
+      background: 'rgb(177, 90, 16)',
     },
-    "& .MuiCircularProgress-colorPrimary": {
-      marginLeft: "10px",
-      color: "#fff",
+    '& .MuiCircularProgress-colorPrimary': {
+      marginLeft: '10px',
+      color: '#fff',
     },
   },
 }));
 
 export const AuthForm = ({ type }) => {
-  const [firstname, setfirstname] = useState("");
-  const [lastname, setlastname] = useState("");
-  const [email, setemail] = useState("");
-  const [university, setuniversity] = useState({ name: "" });
-  const [password, setpassword] = useState("");
+  const [firstname, setfirstname] = useState('');
+  const [lastname, setlastname] = useState('');
+  const [email, setemail] = useState('');
+  const [university, setuniversity] = useState({ name: '' });
+  const [password, setpassword] = useState('');
   const [showpassword, setshowpassword] = useState(false);
-  const [confirm_password, setconfirm_password] = useState("");
+  const [confirm_password, setconfirm_password] = useState('');
   const [showconfirm_password, setshowconfirm_password] = useState(false);
-  const [phone_no, setphone_no] = useState("");
+  const [phone_no, setphone_no] = useState('');
   const [errs, seterrs] = useState({});
   const [universities, setuniversities] = useState([]);
-  const [branch, setbranch] = useState("");
+  const [branch, setbranch] = useState('');
   const [loading, setloading] = useState(false);
   const [btnloading, setbtnloading] = useState(false);
   const [backdrop, setbackdrop] = useState(true);
@@ -120,7 +120,11 @@ export const AuthForm = ({ type }) => {
   const setLogin = (user, accessToken, favEvents, favProducts) => {
     console.log(user, accessToken);
     dispatch(authenticated(user, accessToken, favEvents, favProducts));
-    router.push("/profile/edit");
+    if (user.is_complete) {
+      router.push('/');
+    } else {
+      router.push('/profile/edit');
+    }
   };
   const responseGoogleSuccess = (response) => {
     let data = {
@@ -155,16 +159,16 @@ export const AuthForm = ({ type }) => {
 
   const validateform = (e) => {
     e.preventDefault();
-    if (type == "login") {
+    if (type == 'login') {
       submitLogin();
       return;
     }
     let err = {};
     if (password != confirm_password) {
-      err.no_same = "true";
+      err.no_same = 'true';
     }
     if (password.length < 8) {
-      err.pwd_length = "true";
+      err.pwd_length = 'true';
     }
     // if (!university.name) {
     //   err.university = "true";
@@ -178,7 +182,7 @@ export const AuthForm = ({ type }) => {
 
   const updateformData = (e, type) => {
     e.preventDefault();
-    eval("set" + type + "('" + e.target.value + "')");
+    eval('set' + type + "('" + e.target.value + "')");
   };
 
   const handleUniSearch = (e) => {
@@ -192,26 +196,26 @@ export const AuthForm = ({ type }) => {
   };
 
   const gotoForgotPassword = () => {
-    router.push("/forgot-password");
+    router.push('/forgot-password');
   };
   return (
     <div className={classes.form}>
-      <div style={{ textAlign: "center" }} className="googleBtn">
+      <div style={{ textAlign: 'center' }} className="googleBtn">
         <GoogleLogin
           clientId={process.env.GOOGLE_CLIENT_ID}
           buttonText={
-            type == "login" ? "Login with Google" : "SignUp with Google"
+            type == 'login' ? 'Login with Google' : 'SignUp with Google'
           }
           onSuccess={responseGoogleSuccess}
           onFailure={responseGoogleFailure}
-          cookiePolicy={"single_host_origin"}
+          cookiePolicy={'single_host_origin'}
         />
       </div>
       <br />
-      <div style={{ textAlign: "center" }}>or</div>
+      <div style={{ textAlign: 'center' }}>or</div>
       <br />
       <form className={classes.container} onSubmit={validateform}>
-        {type == "signup" && (
+        {type == 'signup' && (
           <>
             {/* <TextField
               required
@@ -242,10 +246,10 @@ export const AuthForm = ({ type }) => {
           type="email"
           fullWidth
           value={email}
-          onChange={(e) => updateformData(e, "email")}
+          onChange={(e) => updateformData(e, 'email')}
           name="email"
         />
-        {type == "signup" && (
+        {type == 'signup' && (
           <>
             {/* <TextField
               required
@@ -287,7 +291,7 @@ export const AuthForm = ({ type }) => {
                 />
               )}
             /> */}
-            {errs["university"] && (
+            {errs['university'] && (
               <Typography color="error">Please select a university.</Typography>
             )}
             {/* <TextField
@@ -305,58 +309,58 @@ export const AuthForm = ({ type }) => {
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <TextField
             required
             margin="dense"
             label="Password"
-            type={showpassword ? "text" : "password"}
+            type={showpassword ? 'text' : 'password'}
             fullWidth
             value={password}
-            onChange={(e) => updateformData(e, "password")}
+            onChange={(e) => updateformData(e, 'password')}
             name="password"
           />
           <span onClick={() => setshowpassword(!showpassword)}>
-            {" "}
+            {' '}
             {showpassword ? <Visibility /> : <VisibilityOff />}
           </span>
         </div>
-        {type == "signup" && (
+        {type == 'signup' && (
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <TextField
               required
               margin="dense"
               label="Confirm Password"
-              type={showconfirm_password ? "text" : "password"}
+              type={showconfirm_password ? 'text' : 'password'}
               fullWidth
               value={confirm_password}
-              onChange={(e) => updateformData(e, "confirm_password")}
+              onChange={(e) => updateformData(e, 'confirm_password')}
               name="confirm_password"
             />
             <span
               onClick={() => setshowconfirm_password(!showconfirm_password)}
             >
-              {" "}
+              {' '}
               {showconfirm_password ? <Visibility /> : <VisibilityOff />}
             </span>
           </div>
         )}
-        {errs["no_same"] && (
+        {errs['no_same'] && (
           <Typography color="error">
             Password must match with confirm password
           </Typography>
         )}
-        {errs["pwd_length"] && (
+        {errs['pwd_length'] && (
           <Typography color="error">Password must have 8 characters</Typography>
         )}
         <div>
@@ -373,18 +377,18 @@ export const AuthForm = ({ type }) => {
           variant="contained"
           color="primary"
         >
-          {type == "login" ? "Login" : "SignUp"}
+          {type == 'login' ? 'Login' : 'SignUp'}
 
           {btnloading ? <CircularProgress color="primary" size={20} /> : null}
         </Button>
       </form>
 
-      <p style={{ cursor: "pointer" }} onClick={gotoForgotPassword}>
+      <p style={{ cursor: 'pointer' }} onClick={gotoForgotPassword}>
         Forgot password ? click <span>here</span>
       </p>
       {showRedirect && (
         <Typography color="primary">
-          Redirecting to profile page!!{" "}
+          Redirecting to profile page!!{' '}
           <CircularProgress color="primary" size={20} />
         </Typography>
       )}

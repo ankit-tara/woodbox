@@ -170,14 +170,14 @@ export default function Accordian({ data, isAuthUser }) {
         <Typography className={classes.collegeName}>
           {data.university.name}
         </Typography>
-        <Typography className={classes.collegeName}>
+        {/* <Typography className={classes.collegeName}>
           Category - {data.category.name}
         </Typography>
         {data.type == 'Rental' && (
           <Typography className={classes.collegeName}>
             Rental / per - {data.time_period}
           </Typography>
-        )}
+        )} */}
       </AccordionDetails>
     </Accordion>
   );

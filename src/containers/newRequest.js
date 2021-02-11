@@ -239,9 +239,10 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
     if (
       !title ||
       !description ||
-      !university.name ||
-      !category.name ||
-      !type
+      !university.name 
+      // ||
+      // !category.name ||
+      // !type
     ) {
       setformerrs(["All fields are required"]);
       return false;
@@ -262,17 +263,17 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
     let university_id = universities.find(
       (item) => item.name == university.name
     );
-    let category_id = categories.find((item) => item.name == category.name);
+    // let category_id = categories.find((item) => item.name == category.name);
     let data = {
       title: title,
       description: description,
       university_id: university_id.id,
-      category_id: category_id.id,
+      category_id: 0,
       user_id: user.id,
-      type: type,
+      type: 0,
       files: files,
       active: true,
-      time_period: time_period
+      // time_period: time_period
     };
     if (formtype == "edit" && product.id) {
       UpdateProductRequest(data, product.id).then((response) => {
@@ -352,7 +353,7 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
                       </Grid>
                     </div>
                   
-                    <div className={classes.formInput}>
+                    {/* <div className={classes.formInput}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
                           <CategoryIcon />
@@ -402,7 +403,7 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
                           )}
                         </Grid>
                       </Grid>
-                    </div>
+                    </div> */}
                     <div className={classes.formInput}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
@@ -454,7 +455,7 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-                    <div className={`${classes.formInput}`}>
+                    {/* <div className={`${classes.formInput}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
                           <DetailsIcon />
@@ -476,8 +477,8 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
                           </FormControl>
                         </Grid>
                       </Grid>
-                    </div>
-                    {type == 'Rental' && 
+                    </div> */}
+                    {/* {type == 'Rental' && 
                     <div className={`${classes.formInput}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
@@ -503,7 +504,7 @@ export default function NewRequest({ user, formtype = "add" ,product = {} }) {
                         </Grid>
                       </Grid>
                     </div>
-}
+} */}
                   <div className={`${classes.formInput} ${classes.formInputFullWidth}`}>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
