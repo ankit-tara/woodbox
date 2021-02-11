@@ -37,8 +37,19 @@ function Products({ data, url, m_uni, query }) {
   const [lastPage, setlastPage] = useState(false);
   const [page, setpage] = useState(0);
   const [list_reviews, setlist_reviews] = useState([]);
+  const [adslist, setadslist] = useState([]);
   const user = useSelector((state) => state.auth_user.user);
 
+ useEffect(()=>{
+   const API_URL = process.env.api_url;
+   async function fetchAds(){
+     let adsres = await fetch(API_URL + "/adverts");
+     const ads = await adsres.json();
+     setadslist(ads)
+    }
+   fetchAds()
+ },[]);
+  
   useEffect(() => {
     if (url) fetchTypeProducts(url, 0, []);
     getAllFeedback().then((data) => {
@@ -108,7 +119,7 @@ function Products({ data, url, m_uni, query }) {
 
   return (
     <Layout>
-      <Advertisement />
+      {adslist && adslist.productHeader && <Advertisement adImg={adslist.productHeader.link} adlink={adslist.productHeader.openlink} />}
 
       {/* Products Section */}
       <section className={classes.section}>
@@ -141,10 +152,11 @@ function Products({ data, url, m_uni, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {products.data &&
                   products.data.length > 0 &&
-                  products.data.slice(0, 6).map((data) => (
-                    <div key={data.id}>
-                      <ProductCard data={data} />
-                    </div>
+                  products.data.slice(0, 8).map((data, index) => (
+                      <React.Fragment key={data.id}>
+                        <ProductCard data={data} />
+                        {index == 2 && adslist && adslist.product1 && <Advertisement adImg={adslist.product1.link} adlink={adslist.product1.openlink} />}
+                      </React.Fragment>
                   ))}
               </Box>
 
@@ -172,10 +184,11 @@ function Products({ data, url, m_uni, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {products.data &&
                   products.data.length > 0 &&
-                  products.data.slice(6, products.data.length).map((data) => (
-                    <div key={data.id}>
+                  products.data.slice(8, products.data.length).map((data, index) => (
+                    <React.Fragment key={data.id}>
                       <ProductCard data={data} />
-                    </div>
+                      {index == 2 && adslist && adslist.product2 && <Advertisement adImg={adslist.product2.link} adlink={adslist.product2.openlink} />}
+                    </React.Fragment>
                   ))}
               </Box>
 

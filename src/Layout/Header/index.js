@@ -40,7 +40,7 @@ function Header() {
     setOpen(false);
   };
 
-  const matches = useMediaQuery(theme => theme.breakpoints.up('lg'))
+  const matches = useMediaQuery(theme => theme.breakpoints.up('md'))
 
   const HeaderComponent = matches ? <DesktopNavbar modalOpen={handleClickOpen} /> : <MobileNavbar modalOpen={handleClickOpen} />
 

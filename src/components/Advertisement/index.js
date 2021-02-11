@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
       '& img':{
         width: '100%',
         height: 'auto',
-        maxHeight: '325px',
+        maxHeight: '380px',
         objectFit: 'cover'
       }
     }

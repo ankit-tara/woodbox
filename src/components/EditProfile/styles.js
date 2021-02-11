@@ -45,14 +45,14 @@ export const commonStyles = {
     cursor: 'pointer'
   },
   Button:{
-    width: '80%',
+    // width: '85%',
     height:'50px',
     marginTop: '2.5rem',
     backgroundColor: 'var(--theme)',
     color: '#fff',
     fontSize: '1rem',
     boxShadow: 'none',
-    maxWidth: '200px'
+    maxWidth: '250px'
     },
   vHide:{
     visibility: 'hidden'
