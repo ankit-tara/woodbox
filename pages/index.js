@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Layout from "../src/Layout";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
-import IconCard from "../src/components/IconCard";
-import EventIconCard from "../src/components/EventIconCard";
-import ProductCard from "../src/components/ProductCard";
-import EventCard from "../src/components/EventCard";
-import Banner from "../src/components/Banner";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Layout from '../src/Layout';
+import { Box, Container, Grid, Typography } from '@material-ui/core';
+import IconCard from '../src/components/IconCard';
+import EventIconCard from '../src/components/EventIconCard';
+import ProductCard from '../src/components/ProductCard';
+import EventCard from '../src/components/EventCard';
+import Banner from '../src/components/Banner';
 // import CardHorizontal from "../src/components/CardHorizontal";
-import Testimonial from "../src/components/Testimonial";
-import Button from "@material-ui/core/Button";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import Swiper from "react-id-swiper";
-import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
-import Advertisement from "../src/components/Advertisement"
+import Testimonial from '../src/components/Testimonial';
+import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Swiper from 'react-id-swiper';
+import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
+import Advertisement from '../src/components/Advertisement';
 import {
   IconCardsData,
   EventIconCardsData,
@@ -26,57 +26,57 @@ import {
   EventCardsData,
   OurConceptData,
   TestimonialData,
-} from "../src/utils";
+} from '../src/utils';
 import {
   commonStyles,
   desktopStyles,
   mobileStyles,
   TabStyles,
-} from "../src/styles";
-import { getProducts, getAds } from "../src/apis/global-api";
+} from '../src/styles';
+import { getProducts, getAds } from '../src/apis/global-api';
 
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
-  [theme.breakpoints.up("md")]: desktopStyles,
-  [theme.breakpoints.between("sm", "md")]: TabStyles,
-  [theme.breakpoints.down("sm")]: mobileStyles,
+  [theme.breakpoints.up('md')]: desktopStyles,
+  [theme.breakpoints.between('sm', 'md')]: TabStyles,
+  [theme.breakpoints.down('sm')]: mobileStyles,
 }));
 
-Index.getInitialProps=async()=> {
+Index.getInitialProps = async () => {
   const API_URL = process.env.api_url;
 
-  let res = await fetch(API_URL + "/products?type=buy&paginate=10");
+  let res = await fetch(API_URL + '/products?type=buy&paginate=10');
   const bproducts = await res.json();
 
-  res = await fetch(API_URL + "/products?type=rental&paginate=10");
+  res = await fetch(API_URL + '/products?type=rental&paginate=10');
   const sproducts = await res.json();
 
-  res = await fetch(API_URL + "/events?paginate=10");
+  res = await fetch(API_URL + '/events?paginate=10');
   const events = await res.json();
 
-  let feedback = await fetch(API_URL + "/all-feedback");
+  let feedback = await fetch(API_URL + '/all-feedback');
   const reviews = await feedback.json();
 
-  let adsres = await fetch(API_URL + "/adverts");
+  let adsres = await fetch(API_URL + '/adverts');
   const ads = await adsres.json();
 
-  console.log("testhomedata", {
+  console.log('testhomedata', {
     bproducts,
     sproducts,
     events,
     reviews,
-    ads
+    ads,
   });
   return {
     bproducts,
     sproducts,
     events,
     reviews,
-    ads
+    ads,
   };
-}
+};
 // export async function getInitialProps() {
 //   const API_URL = process.env.api_url;
 
@@ -112,8 +112,8 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
   const [opensell, setOpensell] = React.useState(false);
   const anchorRef = React.useRef(null);
   const anchorRefSell = React.useRef(null);
-  const [buyType, setbuyType] = useState("");
-  const [sellType, setsellType] = useState("");
+  const [buyType, setbuyType] = useState('');
+  const [sellType, setsellType] = useState('');
   const [adslist, setadslist] = useState(ads);
   const [list_bproducts, setlist_bproducts] = useState(bproducts);
   const [list_sproducts, setlist_sproducts] = useState(sproducts);
@@ -136,7 +136,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     if (data && data.title) {
       const API_URL = process.env.api_url;
       let res = await fetch(
-        API_URL + "/products?type=buy&paginate=10&cat_title=" + data.title
+        API_URL + '/products?type=buy&paginate=10&cat_title=' + data.title
       );
       let result = await res.json();
       setlist_bproducts(result);
@@ -153,7 +153,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     if (data && data.title) {
       const API_URL = process.env.api_url;
       let res = await fetch(
-        API_URL + "/products?type=rental&paginate=10&cat_title=" + data.title
+        API_URL + '/products?type=rental&paginate=10&cat_title=' + data.title
       );
       let result = await res.json();
       setlist_sproducts(result);
@@ -162,7 +162,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
     }
@@ -187,11 +187,11 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
   const params = {
     loop: false,
     watchOverflow: false,
-    slidesPerView: "4",
+    slidesPerView: '4',
     spaceBetween: 20,
     navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
     },
     scrollbar: {
       // el: ".swiper-scrollbar",
@@ -199,25 +199,25 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     },
     pagination: {
       el: '.swiper-pagination',
-      clickable: true
+      clickable: true,
     },
     breakpoints: {
       0: {
-        slidesPerView: "1.25",
+        slidesPerView: '1.25',
         spaceBetween: 10,
-        centeredSlides: true
+        centeredSlides: true,
       },
       480: {
-        slidesPerView: "2",
+        slidesPerView: '2',
       },
       768: {
-        slidesPerView: "2",
+        slidesPerView: '2',
       },
       1100: {
-        slidesPerView: "3",
+        slidesPerView: '3',
       },
       1400: {
-        slidesPerView: "4",
+        slidesPerView: '4',
       },
     },
   };
@@ -226,7 +226,12 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     <Layout>
       {/* Banner Section */}
       <Banner />
-      {adslist && adslist.homepage1 && <Advertisement adImg={adslist.homepage1.link} adlink={adslist.homepage1.openlink} />}
+      {adslist && adslist.homepage1 && (
+        <Advertisement
+          adImg={adslist.homepage1.link}
+          adlink={adslist.homepage1.openlink}
+        />
+      )}
       {/* Buy/Rent Products in your College  Section */}
       <section className={classes.section}>
         <Container maxWidth="xl">
@@ -235,7 +240,8 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
               Buy / Rent Products in your College
             </Typography>
             <Typography>
-              Troubling for vital items in college? Don't be upset! Now, buy or sell A to Z products within your college.
+              Troubling for vital items in college? Don't be upset! Now, buy or
+              sell A to Z products within your college.
             </Typography>
           </Box>
           <Box className={classes.IconCardWrapper}>
@@ -247,12 +253,14 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
       </section>
 
       {/* Events Section */}
-      <section className={classes.section} style={{ background: "#F3F3F3" }}>
+      <section className={classes.section} style={{ background: '#F3F3F3' }}>
         <Container maxWidth="lg">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">Events</Typography>
             <Typography>
-              Events are so indispensable to miss yet we often missed them due to lack of knowledge. Get the list of events held in college with all the necessary information.
+              Events are so indispensable to miss yet we often missed them due
+              to lack of knowledge. Get the list of events held in college with
+              all the necessary information.
             </Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
@@ -263,7 +271,12 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
         </Container>
       </section>
       {/* Products Section */}
-      {adslist && adslist.homepage2 && <Advertisement adImg={adslist.homepage2.link} adlink={adslist.homepage2.openlink} />}
+      {adslist && adslist.homepage2 && (
+        <Advertisement
+          adImg={adslist.homepage2.link}
+          adlink={adslist.homepage2.openlink}
+        />
+      )}
       <section className={classes.section}>
         <Container maxWidth="xl">
           <Box className={classes.productsHeader}>
@@ -274,12 +287,12 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
             <div>
               <Button
                 ref={anchorRef}
-                aria-controls={open ? "menu-list-grow" : undefined}
+                aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 className={classes.catBtn}
               >
-                {buyType ? buyType : "Category"} <ExpandMoreRoundedIcon />
+                {buyType ? buyType : 'Category'} <ExpandMoreRoundedIcon />
               </Button>
               <Popper
                 open={open}
@@ -293,7 +306,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
                     {...TransitionProps}
                     style={{
                       transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
+                        placement === 'bottom' ? 'center top' : 'center bottom',
                     }}
                   >
                     <Paper>
@@ -317,7 +330,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
             </div>
           </Box>
 
-          {list_bproducts && list_bproducts.data.length && (
+          {list_bproducts && list_bproducts.data.length > 0 && (
             <Box className={classes.EventIconCardWrapper}>
               <Swiper {...params}>
                 {list_bproducts.data.map((data) => (
@@ -339,12 +352,12 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
             <div>
               <Button
                 ref={anchorRefSell}
-                aria-controls={opensell ? "menu-list-grow" : undefined}
+                aria-controls={opensell ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggleSell}
                 className={classes.catBtn}
               >
-                {sellType ? sellType : "Category"} <ExpandMoreRoundedIcon />
+                {sellType ? sellType : 'Category'} <ExpandMoreRoundedIcon />
               </Button>
               <Popper
                 open={opensell}
@@ -358,7 +371,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
                     {...TransitionProps}
                     style={{
                       transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
+                        placement === 'bottom' ? 'center top' : 'center bottom',
                     }}
                   >
                     <Paper>
@@ -446,10 +459,18 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
           </Box>
         </Container>
       </section> */}
-    {adslist && adslist.homepage3 && <Advertisement adImg={adslist.homepage3.link} adlink={adslist.homepage3.openlink} />}
+      {adslist && adslist.homepage3 && (
+        <Advertisement
+          adImg={adslist.homepage3.link}
+          adlink={adslist.homepage3.openlink}
+        />
+      )}
 
       {/* Review Section */}
-      <section className={classes.section} style={{ background: "var(--theme-light)" }}>
+      <section
+        className={classes.section}
+        style={{ background: 'var(--theme-light)' }}
+      >
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">FEEDBACK</Typography>
@@ -461,8 +482,12 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
           <Testimonial data={list_reviews} />
         </Container>
       </section>
-    {adslist && adslist.homepage4 && <Advertisement adImg={adslist.homepage4.link} adlink={adslist.homepage4.openlink} />}
-
+      {adslist && adslist.homepage4 && (
+        <Advertisement
+          adImg={adslist.homepage4.link}
+          adlink={adslist.homepage4.openlink}
+        />
+      )}
     </Layout>
   );
 }

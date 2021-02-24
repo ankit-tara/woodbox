@@ -121,7 +121,12 @@ function Events({ data, url, showState = false, query }) {
 
   return (
     <Layout>
-      {adslist && adslist.eventHeader && <Advertisement adImg={adslist.eventHeader.link} adlink={adslist.eventHeader.openlink} />}
+      {adslist && adslist.eventHeader && (
+        <Advertisement
+          adImg={adslist.eventHeader.link}
+          adlink={adslist.eventHeader.openlink}
+        />
+      )}
 
       {/* events Section */}
       <section className={classes.section}>
@@ -160,10 +165,15 @@ function Events({ data, url, showState = false, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {events.data &&
                   events.data.length > 0 &&
-                  events.data.slice(0, 8).map((data,index) => (
+                  events.data.slice(0, 8).map((data, index) => (
                     <React.Fragment key={data.id}>
                       <EventCard data={data} />
-                      {index == 2 && adslist && adslist.event1 && <Advertisement adImg={adslist.event1.link} adlink={adslist.event1.openlink} />}
+                      {index == 2 && adslist && adslist.event1 && (
+                        <Advertisement
+                          adImg={adslist.event1.link}
+                          adlink={adslist.event1.openlink}
+                        />
+                      )}
                     </React.Fragment>
                   ))}
               </Box>
@@ -178,12 +188,19 @@ function Events({ data, url, showState = false, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {events.data &&
                   events.data.length > 0 &&
-                  events.data.slice(8, events.data.length).map((data,index) => (
-                    <React.Fragment key={data.id}>
-                      <EventCard data={data} />
-                      {index == 2 && adslist && adslist.event2 && <Advertisement adImg={adslist.event2.link} adlink={adslist.event2.openlink} />}
-                    </React.Fragment>
-                  ))}
+                  events.data
+                    .slice(8, events.data.length)
+                    .map((data, index) => (
+                      <React.Fragment key={data.id}>
+                        <EventCard data={data} />
+                        {index == 2 && adslist && adslist.event2 && (
+                          <Advertisement
+                            adImg={adslist.event2.link}
+                            adlink={adslist.event2.openlink}
+                          />
+                        )}
+                      </React.Fragment>
+                    ))}
               </Box>
 
               {events.data && events.data.length > 0 && !lastPage && (
@@ -229,7 +246,7 @@ function Events({ data, url, showState = false, query }) {
 
       <section
         className={classes.section}
-        style={{ background: "var(--theme-light)" }}
+        style={{ background: 'var(--theme-light)' }}
       >
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
@@ -239,7 +256,9 @@ function Events({ data, url, showState = false, query }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography> */}
           </Box>
-          {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
+          {list_reviews && list_reviews.length > 0 && (
+            <Testimonial data={list_reviews} />
+          )}
         </Container>
       </section>
     </Layout>

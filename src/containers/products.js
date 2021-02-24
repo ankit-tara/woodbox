@@ -76,7 +76,7 @@ function Products({ data, url, m_uni, query }) {
       if (products && products.data) {
         data.data = products.data.concat(data.data);
       }
-      if (data.current_page == data.last_page) {
+      if (data && data.current_page == data.last_page) {
         setlastPage(true);
       }
       // console.log(page, url, data);
@@ -119,7 +119,12 @@ function Products({ data, url, m_uni, query }) {
 
   return (
     <Layout>
-      {adslist && adslist.productHeader && <Advertisement adImg={adslist.productHeader.link} adlink={adslist.productHeader.openlink} />}
+      {adslist && adslist.productHeader && (
+        <Advertisement
+          adImg={adslist.productHeader.link}
+          adlink={adslist.productHeader.openlink}
+        />
+      )}
 
       {/* Products Section */}
       <section className={classes.section}>
@@ -153,10 +158,15 @@ function Products({ data, url, m_uni, query }) {
                 {products.data &&
                   products.data.length > 0 &&
                   products.data.slice(0, 8).map((data, index) => (
-                      <React.Fragment key={data.id}>
-                        <ProductCard data={data} />
-                        {index == 2 && adslist && adslist.product1 && <Advertisement adImg={adslist.product1.link} adlink={adslist.product1.openlink} />}
-                      </React.Fragment>
+                    <React.Fragment key={data.id}>
+                      <ProductCard data={data} />
+                      {index == 2 && adslist && adslist.product1 && (
+                        <Advertisement
+                          adImg={adslist.product1.link}
+                          adlink={adslist.product1.openlink}
+                        />
+                      )}
+                    </React.Fragment>
                   ))}
               </Box>
 
@@ -168,14 +178,15 @@ function Products({ data, url, m_uni, query }) {
               )}
 
               <Box
-                style={{ backgroundImage: "url(/static/images/boxbg.png)" }}
+                style={{ backgroundImage: 'url(/static/images/boxbg.png)' }}
                 className={classes.productContentSection}
               >
                 <Typography variant="h4">
                   Want to see Your Stuffs Here ?
                 </Typography>
                 <Typography>
-                  Upload the products you want to sell, and get a buyer within your college.
+                  Upload the products you want to sell, and get a buyer within
+                  your college.
                 </Typography>
                 <a onClick={handleAddProduct} className="selProd">
                   Selling Product
@@ -184,12 +195,19 @@ function Products({ data, url, m_uni, query }) {
               <Box className={classes.ProductsGridWrapper}>
                 {products.data &&
                   products.data.length > 0 &&
-                  products.data.slice(8, products.data.length).map((data, index) => (
-                    <React.Fragment key={data.id}>
-                      <ProductCard data={data} />
-                      {index == 2 && adslist && adslist.product2 && <Advertisement adImg={adslist.product2.link} adlink={adslist.product2.openlink} />}
-                    </React.Fragment>
-                  ))}
+                  products.data
+                    .slice(8, products.data.length)
+                    .map((data, index) => (
+                      <React.Fragment key={data.id}>
+                        <ProductCard data={data} />
+                        {index == 2 && adslist && adslist.product2 && (
+                          <Advertisement
+                            adImg={adslist.product2.link}
+                            adlink={adslist.product2.openlink}
+                          />
+                        )}
+                      </React.Fragment>
+                    ))}
               </Box>
 
               {products.data && products.data.length > 0 && !lastPage && (
@@ -235,7 +253,7 @@ function Products({ data, url, m_uni, query }) {
 
       <section
         className={classes.section}
-        style={{ background: "var(--theme-light)" }}
+        style={{ background: 'var(--theme-light)' }}
       >
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
@@ -245,7 +263,9 @@ function Products({ data, url, m_uni, query }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography> */}
           </Box>
-          {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
+          {list_reviews && list_reviews.length > 0 && (
+            <Testimonial data={list_reviews} />
+          )}
         </Container>
       </section>
     </Layout>

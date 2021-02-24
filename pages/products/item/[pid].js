@@ -106,7 +106,7 @@ export default function singlePage({ query }) {
         <Backdrop
           className={classes.backdrop}
           open={loading}
-        // onClick={handleClose}
+          // onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
@@ -115,7 +115,10 @@ export default function singlePage({ query }) {
       {!loading && <ProductDetail data={data} />}
 
       {/* Review Section */}
-      <section className={classes.section} style={{ background: "var(--theme-light)" }}>
+      <section
+        className={classes.section}
+        style={{ background: 'var(--theme-light)' }}
+      >
         <Container maxWidth="xl">
           <Box className={classes.sectionHeader}>
             <Typography variant="h2">REVIEW</Typography>
@@ -124,7 +127,9 @@ export default function singlePage({ query }) {
               Lorem ipsum dolor sit amet, aretent consectetuer adipiscing elit
             </Typography>
           </Box>
-          {list_reviews.length > 0 && <Testimonial data={list_reviews} />}
+          {list_reviews && list_reviews.length > 0 && (
+            <Testimonial data={list_reviews} />
+          )}
         </Container>
       </section>
     </Layout>

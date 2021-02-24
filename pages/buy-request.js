@@ -166,6 +166,12 @@ export default function BuyRequest({ query }) {
                   
                   <Accordian /> */}
                 </div>
+
+                { requests.data &&  requests.data.length <= 0 && (
+                  <Typography variant="h4">
+                    No product request for now
+                  </Typography>
+                )}
               </Box>
 
               {requests.data && requests.data.length > 0 && !lastPage && (

@@ -58,9 +58,9 @@ export default function Feedback() {
           <Button
             variant="contained"
             color="primary"
-            style={{ textAlign: "center", marginBottom: "1rem" }}
+            style={{ textAlign: 'center', marginBottom: '1rem' }}
             onClick={() => {
-              Router.push("/post/feedback");
+              Router.push('/post/feedback');
             }}
           >
             Add Your Feedback
@@ -92,6 +92,10 @@ export default function Feedback() {
                 </Card>
               </div>
             ))}
+
+          {list_reviews && list_reviews.length <= 0 && (
+            <Typography variant="h4" style={{textAlign:'center',margin:20}}>No feedbacks for now</Typography>
+          )}
         </Container>
       </section>
     </Layout>
