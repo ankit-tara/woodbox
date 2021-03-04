@@ -5,6 +5,7 @@ import BottomNavigation from "./Footer/BottomNavigation";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { commonStyles, desktopStyles, mobileStyles, TabStyles } from "./styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   ...commonStyles,
@@ -20,13 +21,16 @@ export default function Layout(props) {
 
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const BottomNav = matches ? <BottomNavigation /> : null;
+  const router = useRouter();
+
+  const path = router.pathname
 
   return (
     <div className={classes.Wrapper}>
       <Header />
       <div className={classes.Main}>{props.children}</div>
       {props.nofooter == true ? "" : <Footer />}
-      {BottomNav}
+      {path.includes("chat") ? null : BottomNav}
       {isLoaded && (
         <div className={classes.loader}>
           <CircularProgress />

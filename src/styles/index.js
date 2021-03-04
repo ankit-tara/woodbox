@@ -228,6 +228,11 @@ export const mobileStyles = {
     margin: "0.5rem 0",
   },
   productsHeader: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    "&> div:nth-child(2)": {
+      alignSelf: "flex-end" 
+    },
     "& h5":{
       marginBottom:0
     }

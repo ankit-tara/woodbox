@@ -7,6 +7,7 @@ import EventIconCard from '../src/components/EventIconCard';
 import ProductCard from '../src/components/ProductCard';
 import EventCard from '../src/components/EventCard';
 import Banner from '../src/components/Banner';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 // import CardHorizontal from "../src/components/CardHorizontal";
 import Testimonial from '../src/components/Testimonial';
 import Button from '@material-ui/core/Button';
@@ -61,6 +62,7 @@ Index.getInitialProps = async () => {
 
   let adsres = await fetch(API_URL + '/adverts');
   const ads = await adsres.json();
+
 
   console.log('testhomedata', {
     bproducts,
@@ -118,6 +120,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
   const [list_bproducts, setlist_bproducts] = useState(bproducts);
   const [list_sproducts, setlist_sproducts] = useState(sproducts);
   const [list_reviews, setlist_reviews] = useState(reviews);
+  const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -203,7 +206,7 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     },
     breakpoints: {
       0: {
-        slidesPerView: '1.25',
+        slidesPerView: '1',
         spaceBetween: 10,
         centeredSlides: true,
       },
@@ -332,13 +335,42 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
 
           {list_bproducts && list_bproducts.data.length > 0 && (
             <Box className={classes.EventIconCardWrapper}>
-              <Swiper {...params}>
+              { !matches && list_bproducts.data.length > 4 && <Swiper {...params}>
                 {list_bproducts.data.map((data) => (
                   <div key={data.id}>
                     <ProductCard data={data} />
                   </div>
                 ))}
               </Swiper>
+              }
+
+              {
+                !matches && list_bproducts.data.length < 4 && 
+                  list_bproducts.data.map((data) => (
+                    <div key={data.id}>
+                      <ProductCard data={data} />
+                    </div>
+                  ))
+              }
+
+              { matches && list_bproducts.data.length > 2 && <Swiper {...params}>
+                {list_bproducts.data.map((data) => (
+                  <div key={data.id}>
+                    <ProductCard data={data} />
+                  </div>
+                ))}
+              </Swiper>
+              }
+
+              {
+                matches && list_bproducts.data.length < 2 && 
+                  list_bproducts.data.map((data) => (
+                    <div key={data.id}>
+                      <ProductCard data={data} />
+                    </div>
+                  ))
+              }
+
             </Box>
           )}
         </Container>
@@ -395,22 +427,41 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
             </div>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {list_sproducts && list_sproducts.data.length > 4 && (
-              <Swiper {...params}>
-                {list_sproducts.data.map((data) => (
-                  <div key={data.id}>
-                    <ProductCard data={data} />
-                  </div>
-                ))}
-              </Swiper>
-            )}
-            {list_sproducts &&
-              list_sproducts.data.length <= 4 &&
-              list_sproducts.data.map((data) => (
+            {!matches && list_sproducts.data.length > 4 && <Swiper {...params}>
+              {list_sproducts.data.map((data) => (
                 <div key={data.id}>
                   <ProductCard data={data} />
                 </div>
               ))}
+            </Swiper>
+            }
+
+            {
+              !matches && list_sproducts.data.length < 4 &&
+              list_sproducts.data.map((data) => (
+                <div key={data.id}>
+                  <ProductCard data={data} />
+                </div>
+              ))
+            }
+
+            {matches && list_sproducts.data.length > 2 && <Swiper {...params}>
+              {list_sproducts.data.map((data) => (
+                <div key={data.id}>
+                  <ProductCard data={data} />
+                </div>
+              ))}
+            </Swiper>
+            }
+
+            {
+              matches && list_sproducts.data.length < 2 &&
+              list_sproducts.data.map((data) => (
+                <div key={data.id}>
+                  <ProductCard data={data} />
+                </div>
+              ))
+            }
           </Box>
         </Container>
       </section>
@@ -422,7 +473,8 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
             <Typography variant="h5">Newly Added Events</Typography>
           </Box>
           <Box className={classes.EventIconCardWrapper}>
-            {events && events.data.length > 4 && (
+            
+            {!matches && events && events.data.length > 4 && (
               <Swiper {...params}>
                 {events.data.map((data) => (
                   <div key={data.id}>
@@ -431,8 +483,25 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
                 ))}
               </Swiper>
             )}
-            {events &&
+            {events && !matches &&
               events.data.length <= 4 &&
+              events.data.map((data) => (
+                <div key={data.id}>
+                  <EventCard data={data} />
+                </div>
+              ))}
+
+            {events && matches && events.data.length > 2 && (
+              <Swiper {...params}>
+                {events.data.map((data) => (
+                  <div key={data.id}>
+                    <EventCard data={data} />
+                  </div>
+                ))}
+              </Swiper>
+            )}
+            {events && matches &&
+              events.data.length <= 2 &&
               events.data.map((data) => (
                 <div key={data.id}>
                   <EventCard data={data} />
