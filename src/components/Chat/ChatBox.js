@@ -148,13 +148,13 @@ const ChatBox = ({
           }, 200);
           dispatch(setMessages(newMsgs, selectedDialogVal));
           setpage(count);
-        } else {
-           dispatch(setMessages([], selectedDialogVal));
+        } else if (!msgs.messages.length) {
+          dispatch(setMessages([], selectedDialogVal));
           if (count == 1) {
             setuserMsg(
-              selectedDialogVal.related == "product"
-                ? "Do you still have this product?"
-                : "Do you still have this request"
+              selectedDialogVal.related == 'product'
+                ? 'Do you still have this product?'
+                : 'Do you still have this request'
             );
           }
           setpage(-1);
