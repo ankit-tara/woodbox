@@ -47,6 +47,7 @@ const fetch = require("node-fetch");
 
 export default function singlePage({ query }) {
   const router = useRouter();
+  console.log('queryhjhj', query);
   const { pid } = query;
   const [data, setData] = useState({});
   const [loading, setloading] = useState(true);
@@ -61,17 +62,17 @@ export default function singlePage({ query }) {
 
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(pid);
+  }, [pid]);
 
-  const fetchData = async () => {
+  const fetchData = async (pid) => {
     getProduct(pid).then((product) => {
-      setData(product)
-      setloading(false)
+      setData(product);
+      setloading(false);
     });
 
     getAllFeedback().then((data) => {
-      setlist_reviews(data)
+      setlist_reviews(data);
     });
   };
 
@@ -112,7 +113,7 @@ export default function singlePage({ query }) {
         </Backdrop>
       )}
 
-      {!loading && <ProductDetail data={data} />}
+      {!loading && data && <ProductDetail data={data} />}
 
       {/* Review Section */}
       <section
