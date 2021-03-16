@@ -5,7 +5,7 @@ export function searchUniversities(q) {
   let url = API_URL + "/universities/global/search/" + q;
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -18,7 +18,7 @@ export function searchCategories(q) {
   let url = API_URL + `/product-categories-search/${q}`;
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -31,7 +31,7 @@ export function searchCities(q) {
   let url = API_URL + `/cities/search/${q}`;
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -47,7 +47,7 @@ export async function getProducts(q) {
   }
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -61,7 +61,7 @@ export async function getProduct(id) {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -75,7 +75,7 @@ export async function getSeller(id) {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -89,7 +89,7 @@ export async function getCategories() {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       return responseData;
@@ -101,7 +101,7 @@ export async function getEventCategories() {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       return responseData;
@@ -114,7 +114,7 @@ export async function getCities() {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log("responseData", responseData);
@@ -133,7 +133,7 @@ export async function getEvents(q, showall = false) {
   }
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -147,7 +147,7 @@ export async function getEvent(id) {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -160,7 +160,7 @@ export async function getRequest(id) {
 
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -173,7 +173,7 @@ export function searchEventCategories(q) {
   let url = API_URL + `/event-categories-search/${q}`;
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -205,7 +205,7 @@ export async function getAllFeedback(q) {
   }
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -220,7 +220,7 @@ export async function getAllBuyRequests(q) {
   }
   console.log(url);
 
-  return fetch(url)
+  return fetch(url,{mode: 'no-cors'})
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -264,6 +264,7 @@ export function sendFeedbackMessage(data) {
 
 function generalPostRequest(url, data) {
   return fetch(url, {
+    mode: "no-cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
