@@ -48,19 +48,23 @@ const useStyles = makeStyles((theme) => ({
 Index.getInitialProps = async () => {
   const API_URL = process.env.api_url;
 
-  let res = await fetch(API_URL + '/products?type=buy&paginate=10');
+  let res = await fetch(API_URL + "/products?type=buy&paginate=10", {
+    mode: "no-cors",
+  });
   const bproducts = await res.json();
 
-  res = await fetch(API_URL + '/products?type=rental&paginate=10');
+  res = await fetch(API_URL + "/products?type=rental&paginate=10", {
+    mode: "no-cors",
+  });
   const sproducts = await res.json();
 
-  res = await fetch(API_URL + '/events?paginate=10');
+  res = await fetch(API_URL + "/events?paginate=10", { mode: "no-cors" });
   const events = await res.json();
 
-  let feedback = await fetch(API_URL + '/all-feedback');
+  let feedback = await fetch(API_URL + "/all-feedback", { mode: "no-cors" });
   const reviews = await feedback.json();
 
-  let adsres = await fetch(API_URL + '/adverts');
+  let adsres = await fetch(API_URL + "/adverts", { mode: "no-cors" });
   const ads = await adsres.json();
 
 
@@ -79,34 +83,7 @@ Index.getInitialProps = async () => {
     ads,
   };
 };
-// export async function getInitialProps() {
-//   const API_URL = process.env.api_url;
 
-//   let res = await fetch(API_URL + "/products?type=buy&paginate=10");
-//   const bproducts = await res.json();
-
-//   res = await fetch(API_URL + "/products?type=rental&paginate=10");
-//   const sproducts = await res.json();
-
-//   res = await fetch(API_URL + "/events?paginate=10");
-//   const events = await res.json();
-
-//   let feedback = await fetch(API_URL + "/all-feedback");
-//   const reviews = await feedback.json();
-
-//   console.log("testhomedata", {
-//     bproducts,
-//     sproducts,
-//     events,
-//     reviews,
-//   });
-//   return {
-//     bproducts,
-//     sproducts,
-//     events,
-//     reviews,
-//   };
-// }
 
 export default function Index({ bproducts, sproducts, events, reviews, ads }) {
   const classes = useStyles();
@@ -139,7 +116,8 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     if (data && data.title) {
       const API_URL = process.env.api_url;
       let res = await fetch(
-        API_URL + '/products?type=buy&paginate=10&cat_title=' + data.title
+        API_URL + "/products?type=buy&paginate=10&cat_title=" + data.title,
+        { mode: "no-cors" }
       );
       let result = await res.json();
       setlist_bproducts(result);
@@ -156,7 +134,10 @@ export default function Index({ bproducts, sproducts, events, reviews, ads }) {
     if (data && data.title) {
       const API_URL = process.env.api_url;
       let res = await fetch(
-        API_URL + '/products?type=rental&paginate=10&cat_title=' + data.title
+        API_URL + "/products?type=rental&paginate=10&cat_title=" + data.title,
+        {
+          mode: "no-cors",
+        }
       );
       let result = await res.json();
       setlist_sproducts(result);

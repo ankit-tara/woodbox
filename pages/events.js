@@ -20,19 +20,6 @@ function EventsPage({ query }) {
   return <Events url={url} query={query} />;
 }
 
-// export async function getStaticProps(context) {
-//   const API_URL = process.env.api_url;
-
-//   let res = await fetch(API_URL + "/events");
-//   const events = await res.json();
-
-//   return {
-//     props: {
-//       events,
-//     },
-//   };
-// }
-
 EventsPage.getInitialProps = ({ query }) => {
   return { query };
 };

@@ -70,18 +70,7 @@ function ProductsPage({ query }) {
   );
 }
 
-// export async function getStaticProps(context) {
-//   const API_URL = process.env.api_url;
 
-//   let res = await fetch(API_URL + "/products");
-//   const products = await res.json();
-
-//   return {
-//     props: {
-//       products,
-//     },
-//   };
-// }
 
 ProductsPage.getInitialProps = ({ query }) => {
   return { query };

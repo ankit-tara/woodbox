@@ -43,7 +43,7 @@ function Events({ data, url, showState = false, query }) {
   useEffect(()=>{
    const API_URL = process.env.api_url;
    async function fetchAds(){
-     let adsres = await fetch(API_URL + "/adverts");
+     let adsres = await fetch(API_URL + "/adverts", { mode: "no-cors" });
      const ads = await adsres.json();
      setadslist(ads)
     }
@@ -265,18 +265,6 @@ function Events({ data, url, showState = false, query }) {
   );
 }
 
-// export async function getStaticProps(context) {
-//   console.log("context", context);
-//   const API_URL = process.env.api_url;
 
-//   let res = await fetch(API_URL + "/events");
-//   const events = await res.json();
-//   console.log('events',events.data.length);
-//   return {
-//     props: {
-//       events,
-//     },
-//   };
-// }
 
 export default Events;
