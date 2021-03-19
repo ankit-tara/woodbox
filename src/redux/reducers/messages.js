@@ -60,10 +60,10 @@ export default (messages = initial_state, action) => {
 
             ]
           };
-          fetch('https://onesignal.com/api/v1/notifications', {
+          fetch("https://onesignal.com/api/v1/notifications", {
             headers: {
               "Content-Type": "application/json; charset=utf-8",
-              "Authorization": "Basic " + process.env.ONESIGNAL_REST_KEY
+              Authorization: "Basic " + process.env.ONESIGNAL_REST_KEY,
             },
             method: "post",
             body: JSON.stringify(message),
@@ -77,10 +77,10 @@ export default (messages = initial_state, action) => {
               }
             })
             .then((responseData) => {
-              console.log('responseDatasadsad', responseData);
+              console.log("responseDatasadsad", responseData);
               return responseData;
             })
-            .catch((error) => console.log('responseDatasadsad', error));
+            .catch((error) => console.log("responseDatasadsad", error));
         }
 
 

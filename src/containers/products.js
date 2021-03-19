@@ -43,7 +43,7 @@ function Products({ data, url, m_uni, query }) {
  useEffect(()=>{
    const API_URL = process.env.api_url;
    async function fetchAds(){
-     let adsres = await fetch(API_URL + "/adverts");
+     let adsres = await fetch(API_URL + "/adverts", );
      const ads = await adsres.json();
      setadslist(ads)
     }
@@ -272,18 +272,6 @@ function Products({ data, url, m_uni, query }) {
   );
 }
 
-// export async function getStaticProps(context) {
-//   console.log("context", context);
-//   const API_URL = process.env.api_url;
 
-//   let res = await fetch(API_URL + "/products");
-//   const products = await res.json();
-//   console.log('products',products.data.length);
-//   return {
-//     props: {
-//       products,
-//     },
-//   };
-// }
 
 export default Products;

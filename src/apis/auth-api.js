@@ -85,7 +85,7 @@ export function Favourite(data) {
 export function GetUserFavourite(user_id, type) {
   let url = API_URL + "/user-favourite/" + user_id + "/" + type;
 
-  return fetch(url)
+  return fetch(url, )
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -96,7 +96,7 @@ export function GetUserFavourite(user_id, type) {
 export function GetUserRequests(user_id) {
   let url = API_URL + "/product-request/user/" + user_id;
 
-  return fetch(url)
+  return fetch(url, )
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -145,7 +145,7 @@ function generalPostRequest(url, data) {
 export function updateDeviceToken(user_id, token) {
   let url = API_URL + "/device-token/" + user_id + "/" + token;
 
-  return fetch(url)
+  return fetch(url, )
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
@@ -156,7 +156,7 @@ export function updateDeviceToken(user_id, token) {
 export function verifyEmail(token) {
   let url = API_URL + "/verify-email-token/" + token;
 
-  return fetch(url)
+  return fetch(url, )
     .then((response) => response.json())
     .then((responseData) => {
       console.log(responseData);
