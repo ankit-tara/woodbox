@@ -43,7 +43,7 @@ function Products({ data, url, m_uni, query }) {
  useEffect(()=>{
    const API_URL = process.env.api_url;
    async function fetchAds(){
-     let adsres = await fetch(API_URL + "/adverts", { mode: "no-cors" });
+     let adsres = await fetch(API_URL + "/adverts", );
      const ads = await adsres.json();
      setadslist(ads)
     }

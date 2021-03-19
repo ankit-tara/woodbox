@@ -293,7 +293,6 @@ const ChatBox = ({
               "Content-Type": "application/json; charset=utf-8",
               Authorization: "Basic " + process.env.ONESIGNAL_REST_KEY,
             },
-            mode: "no-cors",
             method: "post",
             body: JSON.stringify(message),
             // body: JSON.stringify(data),

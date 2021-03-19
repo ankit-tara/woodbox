@@ -6,7 +6,6 @@ export function generalPostRequest(url, data) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      mode: "no-cors",
       method: "post",
       body: JSON.stringify(data),
     })
@@ -25,7 +24,7 @@ export function generalPostRequest(url, data) {
 }
 
 export function generalGetRequest(url) {
-    return fetch(url, { mode: "no-cors" })
+    return fetch(url, )
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData);
