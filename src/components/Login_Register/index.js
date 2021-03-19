@@ -271,7 +271,7 @@ const Login_Register = ({ isMobile = false, modalOpen = false }) => {
           <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
             <div className={classes.Login}>
               <div className={classes.Img}>
-                <img src="/static/images/logo.svg" width="100" />
+                <img src="/static/images/logo.png" width="100" />
               </div>
               <AuthForm type="login" />
             </div>

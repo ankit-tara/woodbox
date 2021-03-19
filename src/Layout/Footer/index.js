@@ -65,15 +65,15 @@ function Footer() {
             <Link href="/">
                 <img
                   className={classes.logo}
-                  src="/static/images/logo.svg"
+                  src="/static/images/logoft.png"
                 />
               </Link>
               <div className={classes.SocialMenu}>
-                <p className={classes.compInfo}>Collegeplus is a platform with such an innovative idea to sell/ purchase or request a wide range of items within the college campus. Besides, you could get information of various events held in colleges throughout India.</p>
+                <p className={classes.compInfo}>Friendzproducts is a platform with such an innovative idea to sell/ purchase or request a wide range of items within the college campus. Besides, you could get information of various events held in colleges throughout India.</p>
                 <ul>
                   <li><p>FOLLOW US </p></li>
-                  <li><Link href="/"><FacebookIcon color="#fff" /></Link></li>
-                  <li><Link href="/"><InstagramIcon color="#fff" /></Link></li>
+                  <li><Link href="https://www.facebook.com/FriendzProduct-114628167338547"><FacebookIcon color="#fff" /></Link></li>
+                  <li><Link href="https://instagram.com/friendz_product?igshid=ubmjpuoqvsm5"><InstagramIcon color="#fff" /></Link></li>
                   <li><Link href="/"><TwitterIcon color="#fff" /></Link></li>
                   <li><Link href="/"><YouTubeIcon color="#fff" /></Link></li>
                   <li><Link href="/"><LinkedInIcon color="#fff" /></Link></li>
@@ -91,17 +91,17 @@ function Footer() {
                 </ul>
                 <ul>
                   <li><p>Useful Links</p></li>
-                  <li><Link href="/">About</Link></li>
+                  <li><Link href="/about">About</Link></li>
                   {/* <li><Link href="/">Careers</Link></li> */}
-                  <li><Link href="/">Privacy Policy</Link></li>
-                  <li><Link href="/">Terms and Conditions</Link></li>
+                  <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                  <li><Link href="/terms-and-conditions">Terms and Conditions</Link></li>
                 </ul>
                 <ul className={classes.contactDetails}>
                   <li><p>Contact</p></li>
                   <li><span><HomeIcon color="#fff" />Jalandhar, Punjab</span></li>
-                  <li><a href="mailto:collegeplus@gmail.com"><MailIcon color="#fff" />collegeplus@gmail.com</a></li>
-                  <li><a href="tel:+917351586148"><PhoneIcon color="#fff" />+ 91 735 158 6148</a></li>
-                  <li><a href="tel:+917351586148"><PhoneIcon color="#fff" />+ 91 735 158 6148</a></li>
+                  <li><a href="mailto:info@friendzproducts.com"><MailIcon color="#fff" />info@friendzproducts.com</a></li>
+                  <li><a href="tel:+9170033511"><PhoneIcon color="#fff" />+ 9170033511</a></li>
+                  <li><a href="tel:+9170033511"><PhoneIcon color="#fff" />+ 9170033511</a></li>
                 </ul>
               </div>
             </Grid>

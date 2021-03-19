@@ -45,6 +45,9 @@ export const commonStyles = {
     "& li:hover a": {
       color: "var(--theme)",
     },
+    "& li:hover .MuiList-root a": {
+      color: "#000",
+    },
     "& li.active a": {
       color: "var(--theme)",
     },
@@ -54,7 +57,7 @@ export const commonStyles = {
       fontWeight: "500",
       textTransform: "capitalize",
     },
-    "& button:hover": {
+    "& button:hover .MuiButton-label": {
       background: "none",
       color: "var(--theme)"
     },

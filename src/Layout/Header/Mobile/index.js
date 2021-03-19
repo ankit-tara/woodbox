@@ -296,7 +296,7 @@ export default function SearchAppBar() {
                 </ListItem>
                 <Collapse in={openMenu} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <Link href="/coming-soon">
+                    <Link href="/about">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
@@ -304,7 +304,7 @@ export default function SearchAppBar() {
                         <ListItemText primary="About" />
                       </ListItem>
                     </Link>
-                    <Link href="/coming-soon">
+                    <Link href="/privacy-policy">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
@@ -312,7 +312,7 @@ export default function SearchAppBar() {
                         <ListItemText primary="Privacy Policy" />
                       </ListItem>
                     </Link>
-                    <Link href="/coming-soon">
+                    <Link href="/terms-and-conditions">
                       <ListItem button>
                         <ListItemIcon>
                           <FeedbackIcon />
@@ -449,7 +449,7 @@ export default function SearchAppBar() {
               </List>
             </Drawer>
             <Link href="/">
-              <img className={classes.logo} src="/static/images/logo.svg" />
+              <img className={classes.logo} src="/static/images/logo.png" />
             </Link>
             <div className={classes.menuIcons}>
               {/* <IconButton aria-label="show 4 new mails" color="inherit">

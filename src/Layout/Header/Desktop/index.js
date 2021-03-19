@@ -171,7 +171,7 @@ function Header({ modalOpen }) {
                   classes.logo,
                   isScrolled && classes.logoScrolled
                 )}
-                src="/static/images/logo.svg"
+                src="/static/images/logo.png"
               />
             </Link>
           </Grid>
@@ -249,14 +249,14 @@ function Header({ modalOpen }) {
                             id="menu-list-grow"
                             onKeyDown={handleListKeyDown}
                           >
-                            <MenuItem onClick={goto_commingSoon}>
-                              About
+                            <MenuItem>
+                              <Link href="/about">About</Link>
                             </MenuItem>
-                            <MenuItem onClick={goto_commingSoon}>
-                              Privacy Policy
+                            <MenuItem>
+                              <Link href="/privacy-policy">Privacy Policy</Link>
                             </MenuItem>
-                            <MenuItem onClick={goto_commingSoon}>
-                              Terms &amp; Conditions
+                            <MenuItem>
+                              <Link href="/terms-and-policy">Terms &amp; Conditions</Link>
                             </MenuItem>
                           </MenuList>
                         </ClickAwayListener>

@@ -460,6 +460,7 @@ const ProductDetail = ({ data }) => {
                   <Button
                     className={classes.primaryBtn}
                     onClick={handleChatBtn}
+                    disabled={data.seller.id == user}
                   >
                     Chat With Seller
                   </Button>
