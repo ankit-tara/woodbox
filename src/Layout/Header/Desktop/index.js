@@ -256,7 +256,7 @@ function Header({ modalOpen }) {
                               <Link href="/privacy-policy">Privacy Policy</Link>
                             </MenuItem>
                             <MenuItem>
-                              <Link href="/terms-and-policy">Terms &amp; Conditions</Link>
+                              <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
                             </MenuItem>
                           </MenuList>
                         </ClickAwayListener>
